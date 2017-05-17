@@ -53,7 +53,7 @@ class App extends Component {
                 </form>
               </div>
               <div className="col-md-5">
-                <textarea rows="20" name="inputJson" className="form-control" defaultValue={JSON.stringify(this.state.fields, null, 4)}
+                <textarea rows="20" name="inputJson" className="form-control" value={JSON.stringify(this.state.fields, null, 4)}
                           onChange={this.handleJsonChange} />
               </div>
             </div>
