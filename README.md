@@ -1,4 +1,4 @@
-# ReactDPSComponent 
+# beanexplorer-react-dps 
 React DynamicPropertySet component for [BeanExplorer](https://github.com/DevelopmentOnTheEdge/beanexplorer)
 
 ### Run
