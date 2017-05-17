@@ -47,7 +47,7 @@ class DynamicPropertySet extends Component {
 
   _createGroup(curGroup, curGroupId, curGroupName) {
     return (
-      <div className='formGroup' key={curGroupId} ref={curGroupId}>
+      <div className='dynamic-property-group' key={curGroupId} ref={curGroupId}>
         <h3>{curGroupName}</h3>
         {curGroup}
       </div>
