@@ -1,16 +1,13 @@
 {
   "values": {
-    "name": "testName",
     "number": "123abc",
     "agree": false,
     "comboBox": "foo",
     "description": "",
+    "login": "",
     "pass": ""
   },
   "meta": {
-    "name": {
-      "displayName": "Name"
-    },
     "number": {
       "displayName": "Number",
       "type": "Long",
@@ -30,17 +27,23 @@
       "type": "textArea",
       "placeholder": "field for text"
     },
+    "login": {
+      "displayName": "Name",
+      "groupId":5,
+      "groupName": "Security"
+    },
     "pass": {
       "displayName": "Password",
-      "type": "passwordInput"
+      "type": "passwordInput",
+      "groupId":5
     }
   },
   "order": [
-    "/name",
     "/number",
     "/agree",
     "/comboBox",
     "/description",
+    "/login",
     "/pass"
   ]
 }

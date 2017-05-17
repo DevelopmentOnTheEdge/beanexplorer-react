@@ -25,9 +25,8 @@ class DynamicPropertySet extends Component {
       var itemMeta = JsonPointer.get(this.props.fields, "/meta" + item);
       var itemValue = JsonPointer.get(this.props.fields, "/values" + item);
 
-      const newGroup = itemMeta.group;
-      const newGroupName = newGroup ? newGroup.name : null;
-      const newGroupId = newGroup ? newGroup.id : null;
+      const newGroupId = itemMeta.groupId || null;
+      const newGroupName = itemMeta.groupName || null;
       if(newGroupId !== curGroupId) {
         finishGroup();
         curGroupName = newGroupName;
@@ -42,6 +41,15 @@ class DynamicPropertySet extends Component {
     return (
       <div className="dynamic-property-set">
         {fields}
+      </div>
+    );
+  }
+
+  _createGroup(curGroup, curGroupId, curGroupName) {
+    return (
+      <div className='formGroup' key={curGroupId} ref={curGroupId}>
+        <h3>{curGroupName}</h3>
+        {curGroup}
       </div>
     );
   }
