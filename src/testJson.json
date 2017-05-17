@@ -1,0 +1,11 @@
+{
+  "values":{
+    "name":"testName",
+    "number":1
+  },
+  "meta":{
+    "name":{"displayName":"Name"},
+    "number":{"displayName":"Number","type":"Long"}
+  },
+  "order":["/name","/number"]
+}
