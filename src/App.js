@@ -29,6 +29,7 @@ class App extends Component {
   }
 
   handleFieldChange(path, value) {
+    console.log("call handleFieldChange: ", path, value);
     JsonPointer.set(this.state.fields, "/values" + path, value);
     this.forceUpdate();
   }
@@ -53,8 +54,10 @@ class App extends Component {
                 </form>
               </div>
               <div className="col-md-5">
-                <textarea rows="20" name="inputJson" className="form-control" value={JSON.stringify(this.state.fields, null, 4)}
+                <textarea rows="20" name="inputJson" className="form-control" defaultValue={JSON.stringify(this.state.fields, null, 4)}
                           onChange={this.handleJsonChange} />
+                <br/>
+                <div className="alert alert-info" role="alert">onChange calls displayed in the console [Chrome <b>F12</b>]</div>
               </div>
             </div>
           </div>

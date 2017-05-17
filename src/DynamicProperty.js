@@ -31,12 +31,12 @@ class DynamicProperty extends Component {
 
     const controls = {
       checkBox: {
-        normal: function() {
-          return ( React.DOM.input({id: id, key: id, type: "checkbox", checked: value, onChange: handleChange}));
-        },
-        readOnly: function() {
-          return ( React.DOM.input({id: id, key: id, type: "checkbox", disabled: true, checked: value}) );
-        }
+        normal: () => (
+          <input type="checkbox" id={id} key={id} value={value} checked={value} onChange={handleChange} className={this.props.controlClassName}/>
+        ),
+        readOnly: () => (
+          <input type="checkbox" id={id} key={id} value={value} checked={value} disabled="true" className={this.props.controlClassName}/>
+        )
       },
       comboBox: {
         normal: () => {
@@ -47,7 +47,8 @@ class DynamicProperty extends Component {
             options.unshift(  ( React.DOM.option({key: "", value: ""}, "") ) );
           }
           return (
-            React.DOM.select({id: id, ref: 'editableComboBox', key: id, defaultValue: value, onChange: handleChange, className: this.props.controlClassName},
+            React.DOM.select({id: id, ref: 'editableComboBox', key: id, defaultValue: value,
+                              onChange: handleChange, className: this.props.controlClassName || "form-control"},
               options
             )
           );
@@ -60,30 +61,35 @@ class DynamicProperty extends Component {
       },
       textArea: {
         normal: () => (
-          <textarea placeholder={meta.placeholder} id={id}  rows={meta.rows} cols={meta.columns} value={value} onChange={handleChange} className={this.props.controlClassName}/>
+          <textarea placeholder={meta.placeholder} id={id}  rows={meta.rows || 3} cols={meta.columns} value={value}
+                    onChange={handleChange} className={this.props.controlClassName || "form-control"}/>
         ),
         readOnly: () => this.createStatic(value)
       },
       textInput: {
-        normal: <input type="text" className="form-control" placeholder={meta.placeholder} id={id} key={id} value={value}
-                       onChange={handleChange} />,
+        normal: () => (
+          <input type="text" placeholder={meta.placeholder} id={id} key={id} value={value}
+                       onChange={handleChange} className={this.props.controlClassName || "form-control"}/>
+        ),
         readOnly: this.createStatic(value)
       },
       passwordInput: {
-        normal: <input type="password" placeholder={meta.placeholder} id={id} key={id} value={value}
-                       onChange={handleChange} className={this.props.controlClassName}/>,
+        normal: () => (
+          <input type="password" placeholder={meta.placeholder} id={id} key={id} value={value}
+                       onChange={handleChange} className={this.props.controlClassName || "form-control"}/>
+        ),
         readOnly: this.createStatic('******')
       }
     };
 
     const renderer = controls[meta.type] || controls['textInput'];
-    const valueControl = renderer[meta.readOnly ? 'readOnly' : 'normal'];
+    const valueControl = renderer[meta.readOnly ? 'readOnly' : 'normal']();
     const label = <label htmlFor={id} className={this.props.labelClassName}>{meta.displayName}</label>;
-    const helpTextElement = meta.helpText ? <span className={this.props.helpTextClassName!=null?this.props.helpTextClassName:"help-block"}>{meta.helpText}</span> : undefined;
+    const helpTextElement = meta.helpText ? <span className={this.props.helpTextClassName!=null || "help-block"}>{meta.helpText}</span> : undefined;
     const hasDanger = !meta.error && value === '' ? 'error' : '';
 
     return (
-      <div className={(this.props.className!=null?this.props.className:'form-group dynamic-property') + ' ' + hasDanger}>
+      <div className={(this.props.className!=null || 'form-group dynamic-property') + ' ' + hasDanger}>
         {label}
         <div className="controls">
           {valueControl}
