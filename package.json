@@ -2,6 +2,7 @@
   "name": "dps-field-box",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://github.com/DevelopmentOnTheEdge/beanexplorer-react-dps",
   "dependencies": {
     "json-pointer": "^0.6.0",
     "react": "^15.5.4",
