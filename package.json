@@ -1,8 +1,8 @@
 {
-  "name": "beanexplorer-react-dps",
+  "name": "beanexplorer-react",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://github.com/DevelopmentOnTheEdge/beanexplorer-react-dps",
+  "homepage": "https://github.com/DevelopmentOnTheEdge/beanexplorer-react",
   "dependencies": {
     "json-pointer": "^0.6.0",
     "react": "^15.5.4",

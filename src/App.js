@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import DynamicPropertySet from './DynamicPropertySet';
+import PropertySet from './PropertySet';
 import logo from './logo.svg';
 import './App.css';
 import JsonPointer from 'json-pointer';
@@ -41,14 +41,14 @@ class App extends Component {
       <div className="App">
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h2>React component for DynamicPropertySet</h2>
+          <h2>React component for BeanExplorer</h2>
         </div>
         <div className="App-intro">
           <div className="container">
             <div className="row">
               <div className="col-md-7">
                 <form onSubmit={this.handleSubmit} className="bs-example">
-                  <DynamicPropertySet fields={this.state.fields} onChange={this.handleFieldChange}/>
+                  <PropertySet fields={this.state.fields} onChange={this.handleFieldChange}/>
                   <div className="text-center">
                     <button type="submit" className="btn btn-primary btn-primary-spacing">Submit</button>
                     <button type="button" className="btn btn-default btn-primary-spacing">Cancel</button>
@@ -80,7 +80,7 @@ class App extends Component {
       <div>
         <h2>All with readOnly</h2>
         <form onSubmit={this.handleSubmit} className="bs-example">
-          <DynamicPropertySet fields={fields} onChange={this.handleFieldChange}/>
+          <PropertySet fields={fields} onChange={this.handleFieldChange}/>
           <div className="text-center">
             <button type="submit" className="btn btn-primary btn-primary-spacing">Submit</button>
             <button type="button" className="btn btn-default btn-primary-spacing">Cancel</button>

@@ -50,11 +50,11 @@
   content: "Example";
 }
 
-.dynamic-property-error .help-block{
+.property-error .help-block{
   color: #920000;
 }
 
-.dynamic-property-group {
+.property-group {
   border-top: 1px solid rgba(0, 0, 0, 0.125);
   border-bottom: 1px solid rgba(0, 0, 0, 0.125);
   padding: 1.4em 15px 1.1em;
@@ -62,11 +62,11 @@
   position: relative;
 }
 
-.dynamic-property-group:first-child{
+.property-group:first-child{
   border-top: none;
 }
 
-.dynamic-property-group h3 {
+.property-group h3 {
   top: -0.8em;
   position: absolute;
   background-color: white;

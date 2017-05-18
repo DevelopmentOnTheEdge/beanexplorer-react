@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import DynamicProperty from './DynamicProperty';
+import Property from './Property';
 import JsonPointer from 'json-pointer';
 
-class DynamicPropertySet extends Component {
+class PropertySet extends Component {
 
   render() {
     let curGroup = [];
@@ -32,14 +32,14 @@ class DynamicPropertySet extends Component {
         curGroupName = newGroupName;
         curGroupId = newGroupId;
       }
-      const field = (<DynamicProperty meta={itemMeta} name={itemName} value={itemValue} path={item}
-                                      key={itemName} ref={itemName} onChange={this.props.onChange}/>);
+      const field = (<Property meta={itemMeta} name={itemName} value={itemValue} path={item}
+                               key={itemName} ref={itemName} onChange={this.props.onChange}/>);
       curGroup.push(field);
     }
     finishGroup();
 
     return (
-      <div className="dynamic-property-set">
+      <div className="property-set">
         {fields}
       </div>
     );
@@ -47,7 +47,7 @@ class DynamicPropertySet extends Component {
 
   _createGroup(curGroup, curGroupId, curGroupName) {
     return (
-      <div className='dynamic-property-group' key={curGroupId} ref={curGroupId}>
+      <div className='property-group' key={curGroupId} ref={curGroupId}>
         <h3>{curGroupName}</h3>
         {curGroup}
       </div>
@@ -56,4 +56,4 @@ class DynamicPropertySet extends Component {
 
 }
 
-export default DynamicPropertySet;
+export default PropertySet;

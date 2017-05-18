@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class DynamicProperty extends Component {
+class Property extends Component {
 
 
   constructor(props) {
@@ -86,10 +86,10 @@ class DynamicProperty extends Component {
     const valueControl = renderer[meta.readOnly ? 'readOnly' : 'normal']();
     const label = <label htmlFor={id} className={this.props.labelClassName}>{meta.displayName}</label>;
     const helpTextElement = meta.helpText ? <span className={this.props.helpTextClassName || "help-block"}>{meta.helpText}</span> : undefined;
-    const hasDanger = meta.error ? 'dynamic-property-error' : '';
+    const hasDanger = meta.error ? 'property-error' : '';
 
     return (
-      <div className={(this.props.className!=null || 'form-group dynamic-property') + ' ' + hasDanger}>
+      <div className={(this.props.className!=null || 'form-group property') + ' ' + hasDanger}>
         {label}
         <div className="controls">
           {valueControl}
@@ -105,4 +105,4 @@ class DynamicProperty extends Component {
 
 }
 
-export default DynamicProperty;
+export default Property;
