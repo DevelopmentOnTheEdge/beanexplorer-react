@@ -11,7 +11,8 @@
     "/number": {
       "displayName": "Number",
       "type": "Long",
-      "helpText": "number is required here"
+      "helpText": "number is required here",
+      "error": true
     },
     "/agree": {
       "displayName": "Agree",

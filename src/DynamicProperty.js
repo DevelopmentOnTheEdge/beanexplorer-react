@@ -85,8 +85,8 @@ class DynamicProperty extends Component {
     const renderer = controls[meta.type] || controls['textInput'];
     const valueControl = renderer[meta.readOnly ? 'readOnly' : 'normal']();
     const label = <label htmlFor={id} className={this.props.labelClassName}>{meta.displayName}</label>;
-    const helpTextElement = meta.helpText ? <span className={this.props.helpTextClassName!=null || "help-block"}>{meta.helpText}</span> : undefined;
-    const hasDanger = !meta.error && value === '' ? 'error' : '';
+    const helpTextElement = meta.helpText ? <span className={this.props.helpTextClassName || "help-block"}>{meta.helpText}</span> : undefined;
+    const hasDanger = meta.error ? 'dynamic-property-error' : '';
 
     return (
       <div className={(this.props.className!=null || 'form-group dynamic-property') + ' ' + hasDanger}>
