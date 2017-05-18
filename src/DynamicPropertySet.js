@@ -22,7 +22,7 @@ class DynamicPropertySet extends Component {
 
     for(const item of this.props.fields.order) {
       var itemName = item.substring(item.lastIndexOf("/")+1);
-      var itemMeta = JsonPointer.get(this.props.fields, "/meta" + item);
+      var itemMeta = this.props.fields.meta[item];
       var itemValue = JsonPointer.get(this.props.fields, "/values" + item);
 
       const newGroupId = itemMeta.groupId || null;

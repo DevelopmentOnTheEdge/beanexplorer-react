@@ -8,31 +8,31 @@
     "pass": ""
   },
   "meta": {
-    "number": {
+    "/number": {
       "displayName": "Number",
       "type": "Long",
       "helpText": "number is required here"
     },
-    "agree": {
+    "/agree": {
       "displayName": "Agree",
       "type": "checkBox"
     },
-    "comboBox": {
+    "/comboBox": {
       "displayName": "Combo Box",
       "type": "comboBox",
       "options": [{"value":"bar","text":"foo"}, {"value":"bar2","text":"foo 2"}]
     },
-    "description": {
+    "/description": {
       "displayName": "Name",
       "type": "textArea",
       "placeholder": "field for text"
     },
-    "login": {
+    "/login": {
       "displayName": "Name",
       "groupId":5,
       "groupName": "Security"
     },
-    "pass": {
+    "/pass": {
       "displayName": "Password",
       "type": "passwordInput",
       "groupId":5
