@@ -35,6 +35,8 @@ class App extends Component {
   }
 
   render() {
+    const readOnlyForm = this.readOnlyForm();
+
     return (
       <div className="App">
         <div className="App-header">
@@ -52,6 +54,7 @@ class App extends Component {
                     <button type="button" className="btn btn-default btn-primary-spacing">Cancel</button>
                   </div>
                 </form>
+                {readOnlyForm}
               </div>
               <div className="col-md-5">
                 <textarea rows="20" name="inputJson" className="form-control" defaultValue={JSON.stringify(this.state.fields, null, 4)}
@@ -64,6 +67,27 @@ class App extends Component {
         </div>
       </div>
     );
+  }
+
+  readOnlyForm(){
+    let fieldsJson = JSON.stringify(this.state.fields);
+    let fields = JSON.parse(fieldsJson);
+
+    for(var item in fields.meta) {
+      fields.meta[item]['readOnly'] = true;
+    }
+    return (
+      <div>
+        <h2>All with readOnly</h2>
+        <form onSubmit={this.handleSubmit} className="bs-example">
+          <DynamicPropertySet fields={fields} onChange={this.handleFieldChange}/>
+          <div className="text-center">
+            <button type="submit" className="btn btn-primary btn-primary-spacing">Submit</button>
+            <button type="button" className="btn btn-default btn-primary-spacing">Cancel</button>
+          </div>
+        </form>
+      </div>
+      );
   }
 
 }

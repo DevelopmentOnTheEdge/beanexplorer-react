@@ -54,8 +54,8 @@ class DynamicProperty extends Component {
           );
         },
         readOnly: () => {
-          const selectedOption = meta.options.filter(option => option.value === meta.value);
-          const text = selectedOption.length ? selectedOption[0].text : meta.value;
+          const selectedOption = meta.options.filter(option => option.value === value);
+          const text = selectedOption.length ? selectedOption[0].text : value;
           return this.createStatic(text);
         }
       },
@@ -71,14 +71,14 @@ class DynamicProperty extends Component {
           <input type="text" placeholder={meta.placeholder} id={id} key={id} value={value}
                        onChange={handleChange} className={this.props.controlClassName || "form-control"}/>
         ),
-        readOnly: this.createStatic(value)
+        readOnly: () => this.createStatic(value)
       },
       passwordInput: {
         normal: () => (
           <input type="password" placeholder={meta.placeholder} id={id} key={id} value={value}
                        onChange={handleChange} className={this.props.controlClassName || "form-control"}/>
         ),
-        readOnly: this.createStatic('******')
+        readOnly: () => this.createStatic('******')
       }
     };
 

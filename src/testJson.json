@@ -2,7 +2,7 @@
   "values": {
     "number": "123abc",
     "agree": false,
-    "comboBox": "foo",
+    "comboBox": "bar",
     "description": "",
     "login": "",
     "pass": ""
