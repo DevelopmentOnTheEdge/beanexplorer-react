@@ -8,7 +8,7 @@ class App extends Component {
 
   constructor(props) {
     super(props);
-    var testJson = require('./testJson.json');
+    let testJson = require('./testJson.json');
 
     this.state = {
       fields: testJson
@@ -73,7 +73,7 @@ class App extends Component {
     let fieldsJson = JSON.stringify(this.state.fields);
     let fields = JSON.parse(fieldsJson);
 
-    for(var item in fields.meta) {
+    for(let item in fields.meta) {
       fields.meta[item]['readOnly'] = true;
     }
     return (

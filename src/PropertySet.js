@@ -12,7 +12,7 @@ class PropertySet extends Component {
     const finishGroup = () => {
       if(curGroup.length > 0) {
         if(curGroupId) {
-          fields.push(this._createGroup(curGroup, curGroupId, curGroupName));
+          fields.push(PropertySet._createGroup(curGroup, curGroupId, curGroupName));
         } else {
           Array.prototype.push.apply(fields, curGroup);
         }
@@ -21,9 +21,9 @@ class PropertySet extends Component {
     };
 
     for(const item of this.props.fields.order) {
-      var itemName = item.substring(item.lastIndexOf("/")+1);
-      var itemMeta = this.props.fields.meta[item];
-      var itemValue = JsonPointer.get(this.props.fields, "/values" + item);
+      let itemName = item.substring(item.lastIndexOf("/")+1);
+      let itemMeta = this.props.fields.meta[item];
+      let itemValue = JsonPointer.get(this.props.fields, "/values" + item);
 
       const newGroupId = itemMeta.groupId || null;
       const newGroupName = itemMeta.groupName || null;
@@ -45,7 +45,7 @@ class PropertySet extends Component {
     );
   }
 
-  _createGroup(curGroup, curGroupId, curGroupName) {
+  static _createGroup(curGroup, curGroupId, curGroupName) {
     return (
       <div className='property-group' key={curGroupId} ref={curGroupId}>
         <h3>{curGroupName}</h3>
