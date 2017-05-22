@@ -6,6 +6,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var ManifestPlugin = require('webpack-manifest-plugin');
 var InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
+var path = require('path');
 var paths = require('./paths');
 var getClientEnvironment = require('./env');
 
@@ -26,9 +27,9 @@ var env = getClientEnvironment(publicUrl);
 
 // Assert this just to be safe.
 // Development builds of React are slow and not intended for production.
-if (env.stringified['process.env'].NODE_ENV !== '"production"') {
-  throw new Error('Production builds must have NODE_ENV=production.');
-}
+// if (env.stringified['process.env'].NODE_ENV !== '"production"') {
+//   throw new Error('Production builds must have NODE_ENV=production.');
+// }
 
 // Note: defined here because it will be used more than once.
 const cssFilename = 'static/css/[name].[contenthash:8].css';
@@ -85,7 +86,10 @@ module.exports = {
       'react-native': 'react-native-web'
     }
   },
-  
+  externals: {
+    react: 'React',
+    'react-dom': 'ReactDOM'
+  },
   module: {
     // First, run the linter.
     // It's important to do this before Babel processes the JS.
@@ -188,7 +192,7 @@ module.exports = {
     // Generates an `index.html` file with the <script> injected.
     new HtmlWebpackPlugin({
       inject: true,
-      template: paths.appHtml,
+      template: paths.appHtmlExample,
       minify: {
         removeComments: true,
         collapseWhitespace: true,

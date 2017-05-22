@@ -2,7 +2,7 @@
   "name": "beanexplorer-react",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://github.com/DevelopmentOnTheEdge/beanexplorer-react",
+  "homepage": "./",
   "dependencies": {
     "json-pointer": "^0.6.0",
     "react": "^15.5.4",
@@ -50,9 +50,8 @@
     "whatwg-fetch": "2.0.2"
   },
   "scripts": {
-    "start": "node scripts/start.js",
-    "build": "node scripts/build.js",
-    "prod": "webpack --config webpack.production.config.js --env build",
+    "start": "node scripts/start.js --display-modules",
+    "build": "node scripts/build.js --display-modules",
     "test": "node scripts/test.js --env=jsdom",
     "coverage": "npm test -- --coverage",
     "coveralls": "npm run-script coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
