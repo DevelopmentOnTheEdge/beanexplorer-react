@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`empty property set 1`] = `
+<div
+  className="property-set"
+/>
+`;
+
+exports[`simple property set 1`] = `
+<div
+  className="property-set"
+>
+  <div
+    className="form-group property "
+  >
+    <label
+      className={undefined}
+      htmlFor="numberField"
+    />
+    <div
+      className="controls"
+    >
+      <input
+        className="form-control"
+        id="numberField"
+        onChange={[Function]}
+        placeholder={undefined}
+        type="text"
+        value=""
+      />
+    </div>
+  </div>
+</div>
+`;
