@@ -20,3 +20,9 @@ Build example or minified library:
 npm run example
 npm run build
 ```
+
+### Test
+Launches the test
+```bash
+npm test
+```
