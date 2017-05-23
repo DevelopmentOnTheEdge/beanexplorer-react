@@ -6,6 +6,7 @@
     "example": "webpack --config webpack.production.config.js --display-modules",
     "build": "webpack --config webpack.production.config.js --env build --display-modules",
     "test": "jest",
+    "watch": "npm run test -- --watch",
     "coverage": "npm test -- --coverage",
     "coveralls": "npm run-script coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
@@ -26,6 +27,7 @@
     "babel-jest": "^20.0.3",
     "babel-loader": "^7.0.0",
     "babel-plugin-add-module-exports": "0.2.1",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.24.1",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
@@ -43,6 +45,7 @@
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-hot-loader": "^3.0.0-beta.6",
+    "react-test-renderer": "^15.5.4",
     "regenerator-runtime": "^0.10.5",
     "style-loader": "^0.18.0",
     "webpack": "2.4.1",

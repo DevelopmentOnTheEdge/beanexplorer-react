@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`simple property 1`] = `
+<div
+  className="form-group property "
+>
+  <label
+    className={undefined}
+    htmlFor="testNameField"
+  >
+    Combo Box
+  </label>
+  <div
+    className="controls"
+  >
+    <select
+      className="form-control"
+      defaultValue="testValue"
+      id="testNameField"
+      onChange={[Function]}
+    >
+      <option
+        value=""
+      >
+        
+      </option>
+      <option
+        value="bar"
+      >
+        foo
+      </option>
+      <option
+        value="bar2"
+      >
+        foo 2
+      </option>
+    </select>
+  </div>
+</div>
+`;
