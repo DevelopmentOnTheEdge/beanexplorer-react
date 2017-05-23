@@ -8,6 +8,7 @@ cache:
 script:
   - npm test
   - npm run build
+  - npm run example
 after_success:
   - npm run-script coveralls
 notifications:

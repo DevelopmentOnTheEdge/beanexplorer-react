@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 class Property extends Component {
 
+
   constructor(props) {
     super(props);
     
@@ -9,10 +10,10 @@ class Property extends Component {
   }
   
   handleChange(event) {
-    this.props.onChange(this.props.path, Property._getValueFromEvent(event));
+    this.props.onChange(this.props.path, this._getValueFromEvent(event));
   }
 
-  static _getValueFromEvent(event) {
+  _getValueFromEvent(event) {
     if(!event)
       return '';
     if(!event.target)
@@ -39,7 +40,7 @@ class Property extends Component {
       },
       comboBox: {
         normal: () => {
-          let options = meta.options.map(function(option) {
+          var options = meta.options.map(function(option) {
             return ( React.DOM.option({key: option.value, value: option.value}, option.text) );
           });
           if(meta.canBeNull){
@@ -55,7 +56,7 @@ class Property extends Component {
         readOnly: () => {
           const selectedOption = meta.options.filter(option => option.value === value);
           const text = selectedOption.length ? selectedOption[0].text : value;
-          return Property.createStatic(text);
+          return this.createStatic(text);
         }
       },
       textArea: {
@@ -63,21 +64,21 @@ class Property extends Component {
           <textarea placeholder={meta.placeholder} id={id}  rows={meta.rows || 3} cols={meta.columns} value={value}
                     onChange={handleChange} className={this.props.controlClassName || "form-control"}/>
         ),
-        readOnly: () => Property.createStatic(value)
+        readOnly: () => this.createStatic(value)
       },
       textInput: {
         normal: () => (
           <input type="text" placeholder={meta.placeholder} id={id} key={id} value={value}
                        onChange={handleChange} className={this.props.controlClassName || "form-control"}/>
         ),
-        readOnly: () => Property.createStatic(value)
+        readOnly: () => this.createStatic(value)
       },
       passwordInput: {
         normal: () => (
           <input type="password" placeholder={meta.placeholder} id={id} key={id} value={value}
                        onChange={handleChange} className={this.props.controlClassName || "form-control"}/>
         ),
-        readOnly: () => Property.createStatic('******')
+        readOnly: () => this.createStatic('******')
       }
     };
 
@@ -88,7 +89,7 @@ class Property extends Component {
     const hasDanger = meta.error ? 'property-error' : '';
 
     return (
-      <div className={(this.props.className || 'form-group property') + ' ' + hasDanger}>
+      <div className={(this.props.className!=null || 'form-group property') + ' ' + hasDanger}>
         {label}
         <div className="controls">
           {valueControl}
@@ -98,8 +99,8 @@ class Property extends Component {
     );
   }
 
-  static createStatic(value) {
-    return <p className="form-control-static" dangerouslySetInnerHTML={{__html: value}}/>;
+  createStatic(value) {
+    return <p className="form-control-static" dangerouslySetInnerHTML={{__html: value}}></p>;
   }
 
 }

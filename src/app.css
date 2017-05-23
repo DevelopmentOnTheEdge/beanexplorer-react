@@ -1,0 +1,65 @@
+.app-header {
+  padding: 20px 28px;
+  background-color: #3f51b5;
+}
+.app-header h3{
+  margin: 0;
+  color: #fff;
+}
+
+.app-intro {
+  padding-top: 40px;
+  background: #eee;
+}
+
+.bs-example{
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-width: 1px;
+  border-radius: 4px;
+  padding: 45px 15px 15px;
+  margin: 0 0px 15px;
+  position: relative;
+}
+
+.btn-primary-spacing{
+  margin-right: 5px;
+  margin-bottom: 5px !important;
+}
+
+.bs-example:after {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #959595;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  content: "Example";
+}
+
+.property-error .help-block{
+  color: #920000;
+}
+
+.property-group {
+  border-top: 1px solid rgba(0, 0, 0, 0.125);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+  padding: 1.4em 15px 1.1em;
+  margin: 1.8em -15px 1.2em;
+  position: relative;
+}
+
+.property-group:first-child{
+  border-top: none;
+}
+
+.property-group h3 {
+  top: -0.8em;
+  position: absolute;
+  background-color: white;
+  padding: 3pt;
+  font-size: 1.6em;
+  margin: 0 0 0 -3px;
+}
