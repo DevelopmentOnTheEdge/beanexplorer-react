@@ -1,6 +1,6 @@
 {
   "name": "beanexplorer-react",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "scripts": {
     "start": "webpack-dev-server --progress --profile --colors",
     "example": "webpack --config webpack.production.config.js --display-modules",
