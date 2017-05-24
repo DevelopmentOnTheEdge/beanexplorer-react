@@ -1,14 +1,13 @@
 import React from 'react';
 import PropertySet from '../src/components/PropertySet';
 import renderer from 'react-test-renderer';
-import {shallow} from 'enzyme';
+import {shallow, mount, render} from 'enzyme';
 
 it('renders without crashing', () => {
 	const testJson = require('../src/testJson.json');
 	const handle = jest.fn();
 
-
-	shallow(<PropertySet fields={testJson} onChange={handle}/>);
+	mount(<PropertySet fields={testJson} onChange={handle}/>);
 });
 
 it('renders without crashing readOnly', () => {
@@ -19,7 +18,7 @@ it('renders without crashing readOnly', () => {
 
 	const handle = jest.fn();
 
-	shallow(<PropertySet fields={fields} onChange={handle}/>);
+	mount(<PropertySet fields={fields} onChange={handle}/>);
 });
 
 it('simple property set', () => {
