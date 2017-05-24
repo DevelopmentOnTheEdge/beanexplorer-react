@@ -5,10 +5,10 @@ class Property extends Component {
 
   constructor(props) {
     super(props);
-    
-    this.handleChange = this.handleChange.bind(this);    
+
+    this.handleChange = this.handleChange.bind(this);
   }
-  
+
   handleChange(event) {
     this.props.onChange(this.props.path, this._getValueFromEvent(event));
   }
@@ -40,7 +40,7 @@ class Property extends Component {
       },
       comboBox: {
         normal: () => {
-          var options = meta.options.map(function(option) {
+          const options = meta.options.map(function(option) {
             return ( React.DOM.option({key: option.value, value: option.value}, option.text) );
           });
           if(meta.canBeNull){
@@ -89,7 +89,7 @@ class Property extends Component {
     const hasDanger = meta.error ? 'property-error' : '';
 
     return (
-      <div className={(this.props.className!=null || 'form-group property') + ' ' + hasDanger}>
+      <div className={(this.props.className || 'form-group property') + ' ' + hasDanger}>
         {label}
         <div className="controls">
           {valueControl}
@@ -100,7 +100,7 @@ class Property extends Component {
   }
 
   createStatic(value) {
-    return <p className="form-control-static" dangerouslySetInnerHTML={{__html: value}}></p>;
+    return <p className="form-control-static" dangerouslySetInnerHTML={{__html: value}} />;
   }
 
 }
