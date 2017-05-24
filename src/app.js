@@ -72,7 +72,7 @@ class App extends Component {
     let fieldsJson = JSON.stringify(this.state.fields);
     let fields = JSON.parse(fieldsJson);
 
-    for(var item in fields.meta) {
+    for(let item in fields.meta) {
       fields.meta[item]['readOnly'] = true;
     }
     return (

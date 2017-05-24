@@ -1,10 +1,29 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import PropertySet from '../src/components/PropertySet';
 import renderer from 'react-test-renderer';
+import {shallow} from 'enzyme';
+
+it('renders without crashing', () => {
+	const testJson = require('../src/testJson.json');
+	const handle = jest.fn();
+
+
+	shallow(<PropertySet fields={testJson} onChange={handle}/>);
+});
+
+it('renders without crashing readOnly', () => {
+	const fields = require('../src/testJson.json');
+	for(let item in fields.meta) {
+		fields.meta[item]['readOnly'] = true;
+	}
+
+	const handle = jest.fn();
+
+	shallow(<PropertySet fields={fields} onChange={handle}/>);
+});
 
 it('simple property set', () => {
-	var fields = {
+	const fields = {
 		 "values": {
 			 "number": "",
 		 },
@@ -24,7 +43,7 @@ it('simple property set', () => {
 });
 
 it('empty property set', () => {
-	var fields = {
+	const fields = {
 		 "values": {},
 		 "meta": {},
 		 "order": []
