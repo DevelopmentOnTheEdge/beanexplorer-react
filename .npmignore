@@ -1,0 +1,10 @@
+coverage
+docs
+src
+test
+.babelrc
+.eslintrc
+.travis.yml
+webpack.config.js
+webpack.loaders.js
+webpack.production.config.js
