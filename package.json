@@ -16,8 +16,8 @@
   },
   "author": "",
   "dependencies": {
-    "react": "15.4.2",
-    "react-dom": "15.4.2",
+    "react": "15.5.4",
+    "react-dom": "15.5.4",
     "json-pointer": "^0.6.0"
   },
   "devDependencies": {
