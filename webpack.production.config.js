@@ -6,7 +6,7 @@ const path = require('path');
 const env  = require('yargs').argv.env; // use --env with webpack 2
 let HtmlWebpackPlugin = require('html-webpack-plugin');
 
-let libraryName = 'testLib';
+let libraryName = 'beanexplorer-react';
 let outputFile = libraryName + '.min.js';
 
 let entry = '/src/index.js';
