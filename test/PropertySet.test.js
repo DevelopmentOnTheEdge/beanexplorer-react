@@ -38,7 +38,7 @@ it('simple property set', () => {
     <PropertySet fields={fields} />
   );
   let tree = component.toJSON();
-	expect(tree).toMatchSnapshot();
+  expect(tree).toMatchSnapshot();
 });
 
 it('empty property set', () => {

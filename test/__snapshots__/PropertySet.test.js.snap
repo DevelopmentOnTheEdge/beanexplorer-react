@@ -16,7 +16,9 @@ exports[`simple property set 1`] = `
     <label
       className={undefined}
       htmlFor="numberField"
-    />
+    >
+      numberField
+    </label>
     <div
       className="controls"
     >
