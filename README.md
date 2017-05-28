@@ -10,10 +10,10 @@ $ npm install --save git+https://git@github.com/DevelopmentOnTheEdge/beanexplore
 
 ### Usage
 ```js
-
+import PropertySet from './components/PropertySet';
 ```
 ```js
-
+<PropertySet fields={this.state.fields} onChange={this.handleFieldChange}/>
 ```
 
 ### Demo
