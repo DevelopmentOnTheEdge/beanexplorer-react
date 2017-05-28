@@ -7,11 +7,17 @@ const env  = require('yargs').argv.env; // use --env with webpack 2
 let HtmlWebpackPlugin = require('html-webpack-plugin');
 
 let libraryName = 'beanexplorer-react';
-let outputFile = libraryName + '.min.js';
+let outputFile;
+
+if (env.min) {
+    outputFile = libraryName + '.min.js';
+}else{
+    outputFile = libraryName + '.js';
+}
 
 let entry = '/src/index.js';
 let outputPath = '/docs';
-if (env === 'build') {
+if (env.build) {
 	outputPath = '/build';
 	entry = '/src/components/PropertySet.js';
 }
@@ -54,18 +60,21 @@ let config = {
 		extensions: ['.json', '.js', '.jsx']
 	},
 	plugins: [
-		new UglifyJsPlugin({ minimize: true }),
-	  new ExtractTextPlugin("styles.css")
+		new ExtractTextPlugin("styles.css")
 	]
 };
 
-if (env !== 'build') {
+if (!env.build) {
 	config.plugins.push(new HtmlWebpackPlugin({
 		template: './src/build.html',
 		files: {
 			js: ['bundle.js'],
 		}
 	}));
+}
+
+if (env.min) {
+    config.plugins.push(new UglifyJsPlugin({ minimize: true }));
 }
 
 module.exports = config;
