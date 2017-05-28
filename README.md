@@ -26,6 +26,9 @@ const fields = {
 };
 ```
 ```js
+handleFieldChange(path, value) {}
+```
+```js
 <PropertySet fields={fields} onChange={this.handleFieldChange}/>
 ```
 
