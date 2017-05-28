@@ -4,7 +4,7 @@
   "main": "build/beanexplorer-react.min.js",
   "scripts": {
     "start": "webpack-dev-server --progress --profile --colors",
-    "example": "webpack --config webpack.production.config.js --display-modules",
+    "example": "webpack --config webpack.production.config.js --env.min --display-modules",
     "build": "webpack --config webpack.production.config.js --env.build --display-modules",
     "build-min": "webpack --config webpack.production.config.js --env.build --env.min --display-modules",
     "test": "jest",

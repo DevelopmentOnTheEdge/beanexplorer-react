@@ -205,7 +205,7 @@ var Property = function (_Component) {
       var label = _react2.default.createElement(
         'label',
         { htmlFor: id, className: this.props.labelClassName },
-        meta.displayName
+        meta.displayName || id
       );
       var helpTextElement = meta.helpText ? _react2.default.createElement(
         'span',
