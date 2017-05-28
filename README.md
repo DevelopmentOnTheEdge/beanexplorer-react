@@ -10,10 +10,23 @@ $ npm install --save git+https://git@github.com/DevelopmentOnTheEdge/beanexplore
 
 ### Usage
 ```js
-import PropertySet from './components/PropertySet';
+import PropertySet from 'beanexplorer-react';
 ```
 ```js
-<PropertySet fields={this.state.fields} onChange={this.handleFieldChange}/>
+const fields = {
+    "values": {
+        "name": "",
+    },
+    "meta": {
+        "/name": {"displayName": "Name"},
+    },
+    "order": [
+        "/name",
+    ]
+};
+```
+```js
+<PropertySet fields={fields} onChange={this.handleFieldChange}/>
 ```
 
 ### Demo
