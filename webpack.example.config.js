@@ -7,26 +7,13 @@ const env  = require('yargs').argv.env; // use --env with webpack 2
 let HtmlWebpackPlugin = require('html-webpack-plugin');
 
 let libraryName = 'beanexplorer-react';
-let outputFile;
+let outputFile = libraryName + '.min.js';;
 
-if (env.min) {
-    outputFile = libraryName + '.min.js';
-}else{
-    outputFile = libraryName + '.js';
-}
-
-let entry = '/src/index.js';
-let outputPath = '/docs';
-if (env.build) {
-	outputPath = '/build';
-	entry = '/src/components/PropertySet.js';
-}
-
-let config = {
-	entry: __dirname + entry,
+module.exports = {
+	entry: __dirname + '/src/index.js',
 	devtool: 'source-map',
 	output: {
-		path: __dirname + outputPath,
+		path: __dirname + '/docs',
 		filename: outputFile,
 		library: libraryName,
 		libraryTarget: 'umd',
@@ -51,30 +38,18 @@ let config = {
 			}
 		]
 	},
-	externals: {
-    'react': 'react',
-		'react-dom': 'react-dom'
-	},
 	resolve: {
 		modules: [path.resolve('./src'), "node_modules"],
 		extensions: ['.json', '.js', '.jsx']
 	},
 	plugins: [
-		new ExtractTextPlugin("styles.css")
+		new ExtractTextPlugin("styles.css"),
+    new HtmlWebpackPlugin({
+      template: './src/example.html',
+      files: {
+        js: ['bundle.js'],
+      }
+    })
+    //,new UglifyJsPlugin({ minimize: true })
 	]
 };
-
-if (!env.build) {
-	config.plugins.push(new HtmlWebpackPlugin({
-		template: './src/build.html',
-		files: {
-			js: ['bundle.js'],
-		}
-	}));
-}
-
-if (env.min) {
-    config.plugins.push(new UglifyJsPlugin({ minimize: true }));
-}
-
-module.exports = config;

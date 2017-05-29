@@ -1,12 +1,12 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("React"));
+		module.exports = factory(require("react"));
 	else if(typeof define === 'function' && define.amd)
-		define("beanexplorer-react", ["React"], factory);
+		define("beanexplorer-react", ["react"], factory);
 	else if(typeof exports === 'object')
-		exports["beanexplorer-react"] = factory(require("React"));
+		exports["beanexplorer-react"] = factory(require("react"));
 	else
-		root["beanexplorer-react"] = factory(root["React"]);
+		root["beanexplorer-react"] = factory(root["react"]);
 })(this, function(__WEBPACK_EXTERNAL_MODULE_0__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -245,9 +245,9 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(Property, 'Property', 'C:/java/dote/github/beanexplorer-react/src/components/Property.js');
+  __REACT_HOT_LOADER__.register(Property, 'Property', '/home/uuinnk/workspace/github/beanexplorer-react/src/components/Property.js');
 
-  __REACT_HOT_LOADER__.register(_default, 'default', 'C:/java/dote/github/beanexplorer-react/src/components/Property.js');
+  __REACT_HOT_LOADER__.register(_default, 'default', '/home/uuinnk/workspace/github/beanexplorer-react/src/components/Property.js');
 }();
 
 ;
@@ -618,9 +618,9 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(PropertySet, 'PropertySet', 'C:/java/dote/github/beanexplorer-react/src/components/PropertySet.js');
+  __REACT_HOT_LOADER__.register(PropertySet, 'PropertySet', '/home/uuinnk/workspace/github/beanexplorer-react/src/components/PropertySet.js');
 
-  __REACT_HOT_LOADER__.register(_default, 'default', 'C:/java/dote/github/beanexplorer-react/src/components/PropertySet.js');
+  __REACT_HOT_LOADER__.register(_default, 'default', '/home/uuinnk/workspace/github/beanexplorer-react/src/components/PropertySet.js');
 }();
 
 ;
