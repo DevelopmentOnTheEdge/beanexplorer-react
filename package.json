@@ -1,6 +1,6 @@
 {
   "name": "beanexplorer-react",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "main": "build/beanexplorer-react.min.js",
   "scripts": {
     "start": "webpack-dev-server --progress --profile --colors",
