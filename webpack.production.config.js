@@ -1,10 +1,9 @@
 /* global __dirname, require, module*/
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const webpack = require('webpack');
-const UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 const path = require('path');
 const env  = require('yargs').argv.env; // use --env with webpack 2
-let HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 let libraryName = 'beanexplorer-react';
 let outputFile;
@@ -74,7 +73,7 @@ if (!env.build) {
 }
 
 if (env.min) {
-    config.plugins.push(new UglifyJsPlugin({ minimize: true }));
+    config.plugins.push(new webpack.optimize.UglifyJsPlugin());
 }
 
 module.exports = config;
