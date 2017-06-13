@@ -13,27 +13,23 @@ exports[`simple property set 1`] = `
   <div
     className="form-group property "
   >
-    <div
-      className="input"
+    <label
+      className={undefined}
+      htmlFor="numberField"
     >
-      <label
-        className={undefined}
-        htmlFor="numberField"
-      >
-        numberField
-      </label>
-      <div
-        className="controls"
-      >
-        <input
-          className="form-control"
-          id="numberField"
-          onChange={[Function]}
-          placeholder={undefined}
-          type="text"
-          value=""
-        />
-      </div>
+      numberField
+    </label>
+    <div
+      className="controls"
+    >
+      <input
+        className="form-control"
+        id="numberField"
+        onChange={[Function]}
+        placeholder={undefined}
+        type="text"
+        value=""
+      />
     </div>
   </div>
 </div>

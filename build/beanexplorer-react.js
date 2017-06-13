@@ -146,10 +146,12 @@ var Property = function (_Component) {
       var controls = {
         checkBox: {
           normal: function normal() {
-            return _react2.default.createElement('input', { type: 'checkbox', id: id, key: id, value: value, checked: value, onChange: handleChange, className: _this3.props.controlClassName });
+            return _react2.default.createElement('input', { type: 'checkbox', id: id, key: id, value: value, checked: value, onChange: handleChange,
+              className: _this3.props.controlClassName || 'form-check-input' });
           },
           readOnly: function readOnly() {
-            return _react2.default.createElement('input', { type: 'checkbox', id: id, key: id, value: value, checked: value, disabled: 'true', className: _this3.props.controlClassName });
+            return _react2.default.createElement('input', { type: 'checkbox', id: id, key: id, value: value, checked: value, disabled: 'true',
+              className: _this3.props.controlClassName || 'form-check-input' });
           }
         },
         comboBox: {
@@ -206,28 +208,28 @@ var Property = function (_Component) {
       );
       var messageElement = meta.message ? _react2.default.createElement(
         'span',
-        { className: this.props.messageClassName || "help-block" },
+        { className: this.props.messageClassName || "form-control-feedback" },
         meta.message
       ) : undefined;
-      var hasStatus = meta.status ? 'has-' + meta.status : '';
 
-      var property = void 0;
+      var hasStatus = void 0;
+      if (meta.status === 'error') hasStatus = 'has-danger';else hasStatus = meta.status ? 'has-' + meta.status : '';
+
       if (meta.type === "checkBox") {
-        property = _react2.default.createElement(
+        return _react2.default.createElement(
           'div',
-          { className: 'checkbox' },
+          { className: (this.props.classNameFormCheck || 'form-check property') + ' ' + hasStatus },
           _react2.default.createElement(
             'label',
-            null,
+            { className: 'form-check-label' },
             valueControl,
-            meta.displayName || id,
-            messageElement
+            ' ' + meta.displayName || id
           )
         );
       } else {
-        property = _react2.default.createElement(
+        return _react2.default.createElement(
           'div',
-          { className: 'input' },
+          { className: (this.props.classNameFormFroup || 'form-group property') + ' ' + hasStatus },
           label,
           _react2.default.createElement(
             'div',
@@ -237,12 +239,6 @@ var Property = function (_Component) {
           )
         );
       }
-
-      return _react2.default.createElement(
-        'div',
-        { className: (this.props.className || 'form-group property') + ' ' + hasStatus },
-        property
-      );
     }
   }, {
     key: 'createStatic',
