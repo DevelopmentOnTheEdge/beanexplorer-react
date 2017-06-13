@@ -32,10 +32,12 @@ class Property extends Component {
     const controls = {
       checkBox: {
         normal: () => (
-          <input type="checkbox" id={id} key={id} value={value} checked={value} onChange={handleChange} className={this.props.controlClassName}/>
+          <input type="checkbox" id={id} key={id} value={value} checked={value} onChange={handleChange}
+                 className={this.props.controlClassName || 'form-check-input'}/>
         ),
         readOnly: () => (
-          <input type="checkbox" id={id} key={id} value={value} checked={value} disabled="true" className={this.props.controlClassName}/>
+          <input type="checkbox" id={id} key={id} value={value} checked={value} disabled="true"
+                 className={this.props.controlClassName || 'form-check-input'}/>
         )
       },
       comboBox: {
@@ -82,38 +84,33 @@ class Property extends Component {
     const renderer = controls[meta.type] || controls['textInput'];
     const valueControl = renderer[meta.readOnly ? 'readOnly' : 'normal']();
     const label = <label htmlFor={id} className={this.props.labelClassName}>{meta.displayName || id}</label>;
-    const messageElement = meta.message ? <span className={this.props.messageClassName || "help-block"}>{meta.message}</span> : undefined;
-    const hasStatus = meta.status ? 'has-'+meta.status : '';
+    const messageElement = meta.message ? <span className={this.props.messageClassName || "form-control-feedback"}>{meta.message}</span> : undefined;
 
-    let property;
+    let hasStatus;
+    if(meta.status === 'error') hasStatus = 'has-danger';
+    else hasStatus = meta.status ? 'has-'+meta.status : '';
+
     if(meta.type === "checkBox")
     {
-      property =
-        <div className="checkbox">
-          <label>
+      return (
+        <div className={(this.props.classNameFormCheck || 'form-check property') + ' ' + hasStatus}>
+          <label className="form-check-label">
             {valueControl}
-            {meta.displayName || id}
-            {messageElement}
+            {' ' + meta.displayName || id}
           </label>
-        </div>;
-    }
-    else
-    {
-      property =
-        <div className="input">
+        </div>
+      );
+    }else{
+      return (
+        <div className={(this.props.classNameFormFroup || 'form-group property') + ' ' + hasStatus}>
           {label}
           <div className="controls">
             {valueControl}
             {messageElement}
           </div>
-        </div>;
+        </div>
+      );
     }
-
-    return (
-      <div className={(this.props.className || 'form-group property') + ' ' + hasStatus}>
-        {property}
-      </div>
-    );
   }
 
   createStatic(value) {
