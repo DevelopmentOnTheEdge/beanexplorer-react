@@ -4,37 +4,36 @@ exports[`simple property 1`] = `
 <div
   className="form-group property "
 >
-  <label
-    className={undefined}
-    htmlFor="testNameField"
-  >
-    Combo Box
-  </label>
   <div
-    className="controls"
+    className="input"
   >
-    <select
-      className="form-control"
-      defaultValue="testValue"
-      id="testNameField"
-      onChange={[Function]}
+    <label
+      className={undefined}
+      htmlFor="testNameField"
     >
-      <option
-        value=""
+      Combo Box
+    </label>
+    <div
+      className="controls"
+    >
+      <select
+        className="form-control"
+        defaultValue="testValue"
+        id="testNameField"
+        onChange={[Function]}
       >
-        
-      </option>
-      <option
-        value="bar"
-      >
-        foo
-      </option>
-      <option
-        value="bar2"
-      >
-        foo 2
-      </option>
-    </select>
+        <option
+          value="bar"
+        >
+          foo
+        </option>
+        <option
+          value="bar2"
+        >
+          foo 2
+        </option>
+      </select>
+    </div>
   </div>
 </div>
 `;

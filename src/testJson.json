@@ -1,27 +1,29 @@
 {
   "values": {
     "number": "123abc",
-    "agree": false,
+    "agree": true,
     "comboBox": "bar",
     "description": "",
     "login": "",
-    "pass": ""
+    "pass": "password"
   },
   "meta": {
     "/number": {
       "displayName": "Number",
       "type": "Long",
-      "helpText": "number is required here",
-      "error": true
+      "message": "number is required here",
+      "status": "error"
     },
     "/agree": {
       "displayName": "Agree",
-      "type": "checkBox"
+      "type": "checkBox",
+      "status": "success"
     },
     "/comboBox": {
       "displayName": "Combo Box",
       "type": "comboBox",
-      "options": [{"value":"bar","text":"foo"}, {"value":"bar2","text":"foo 2"}]
+      "options": [{"value":"bar","text":"foo"}, {"value":"bar2","text":"foo 2"}],
+      "message": "select value"
     },
     "/description": {
       "displayName": "Name",
@@ -36,7 +38,8 @@
     "/pass": {
       "displayName": "Password",
       "type": "passwordInput",
-      "groupId":5
+      "groupId":5,
+      "status": "success"
     }
   },
   "order": [

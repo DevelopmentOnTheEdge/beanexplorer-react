@@ -157,9 +157,6 @@ var Property = function (_Component) {
             var options = meta.options.map(function (option) {
               return _react2.default.DOM.option({ key: option.value, value: option.value }, option.text);
             });
-            if (meta.canBeNull) {
-              options.unshift(_react2.default.DOM.option({ key: "", value: "" }, ""));
-            }
             return _react2.default.DOM.select({ id: id, ref: 'editableComboBox', key: id, defaultValue: value,
               onChange: handleChange, className: _this3.props.controlClassName || "form-control" }, options);
           },
@@ -207,23 +204,44 @@ var Property = function (_Component) {
         { htmlFor: id, className: this.props.labelClassName },
         meta.displayName || id
       );
-      var helpTextElement = meta.helpText ? _react2.default.createElement(
+      var messageElement = meta.message ? _react2.default.createElement(
         'span',
-        { className: this.props.helpTextClassName || "help-block" },
-        meta.helpText
+        { className: this.props.messageClassName || "help-block" },
+        meta.message
       ) : undefined;
-      var hasDanger = meta.error ? 'property-error' : '';
+      var hasStatus = meta.status ? 'has-' + meta.status : '';
+
+      var property = void 0;
+      if (meta.type === "checkBox") {
+        property = _react2.default.createElement(
+          'div',
+          { className: 'checkbox' },
+          _react2.default.createElement(
+            'label',
+            null,
+            valueControl,
+            meta.displayName || id,
+            messageElement
+          )
+        );
+      } else {
+        property = _react2.default.createElement(
+          'div',
+          { className: 'input' },
+          label,
+          _react2.default.createElement(
+            'div',
+            { className: 'controls' },
+            valueControl,
+            messageElement
+          )
+        );
+      }
 
       return _react2.default.createElement(
         'div',
-        { className: (this.props.className || 'form-group property') + ' ' + hasDanger },
-        label,
-        _react2.default.createElement(
-          'div',
-          { className: 'controls' },
-          valueControl,
-          helpTextElement
-        )
+        { className: (this.props.className || 'form-group property') + ' ' + hasStatus },
+        property
       );
     }
   }, {

@@ -43,9 +43,6 @@ class Property extends Component {
           const options = meta.options.map(function(option) {
             return ( React.DOM.option({key: option.value, value: option.value}, option.text) );
           });
-          if(meta.canBeNull){
-            options.unshift(  ( React.DOM.option({key: "", value: ""}, "") ) );
-          }
           return (
             React.DOM.select({id: id, ref: 'editableComboBox', key: id, defaultValue: value,
                               onChange: handleChange, className: this.props.controlClassName || "form-control"},
@@ -85,16 +82,36 @@ class Property extends Component {
     const renderer = controls[meta.type] || controls['textInput'];
     const valueControl = renderer[meta.readOnly ? 'readOnly' : 'normal']();
     const label = <label htmlFor={id} className={this.props.labelClassName}>{meta.displayName || id}</label>;
-    const helpTextElement = meta.helpText ? <span className={this.props.helpTextClassName || "help-block"}>{meta.helpText}</span> : undefined;
-    const hasDanger = meta.error ? 'property-error' : '';
+    const messageElement = meta.message ? <span className={this.props.messageClassName || "help-block"}>{meta.message}</span> : undefined;
+    const hasStatus = meta.status ? 'has-'+meta.status : '';
+
+    let property;
+    if(meta.type === "checkBox")
+    {
+      property =
+        <div className="checkbox">
+          <label>
+            {valueControl}
+            {meta.displayName || id}
+            {messageElement}
+          </label>
+        </div>;
+    }
+    else
+    {
+      property =
+        <div className="input">
+          {label}
+          <div className="controls">
+            {valueControl}
+            {messageElement}
+          </div>
+        </div>;
+    }
 
     return (
-      <div className={(this.props.className || 'form-group property') + ' ' + hasDanger}>
-        {label}
-        <div className="controls">
-          {valueControl}
-          {helpTextElement}
-        </div>
+      <div className={(this.props.className || 'form-group property') + ' ' + hasStatus}>
+        {property}
       </div>
     );
   }
