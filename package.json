@@ -18,9 +18,11 @@
   },
   "author": "",
   "dependencies": {
+    "json-pointer": "^0.6.0",
+    "moment": "^2.18.1",
     "react": "15.5.4",
-    "react-dom": "15.5.4",
-    "json-pointer": "^0.6.0"
+    "react-datetime": "^2.8.10",
+    "react-dom": "15.5.4"
   },
   "devDependencies": {
     "babel-cli": "6.24.1",
@@ -51,6 +53,7 @@
     "regenerator-runtime": "^0.10.5",
     "style-loader": "^0.18.0",
     "webpack": "2.4.1",
+    "webpack-bundle-analyzer": "^2.8.3",
     "webpack-dashboard": "^0.3.0",
     "webpack-dev-server": "^2.4.1",
     "yargs": "7.1.0"

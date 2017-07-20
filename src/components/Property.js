@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import Datetime from 'react-datetime';
+
+import 'react-datetime/css/react-datetime.css';
 
 class Property extends Component {
-
 
   constructor(props) {
     super(props);
@@ -57,6 +59,18 @@ class Property extends Component {
           const text = selectedOption.length ? selectedOption[0].text : value;
           return this.createStatic(text);
         }
+      },
+      date: {
+        normal: () => {
+          return <Datetime/>;
+        },
+        readOnly: () => this.createStatic(value)
+      },
+      dateTime: {
+        normal: () => {
+          return ( React.createElement(Datetime, {id: id, key: id, value: value, parent: _this, onChange: handleChange, time: true, className: this.props.controlClassName}) );
+        },
+        readOnly: () => this.createStatic(value)
       },
       textArea: {
         normal: () => (
