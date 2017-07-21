@@ -1,5 +1,6 @@
 {
   "values": {
+    "date": "2017-07-20",
     "number": "123abc",
     "agree": true,
     "comboBox": "bar",
@@ -8,6 +9,10 @@
     "pass": "password"
   },
   "meta": {
+    "/date": {
+      "displayName": "Date",
+      "type": "date"
+    },
     "/number": {
       "displayName": "Number",
       "type": "Long",
@@ -22,7 +27,16 @@
     "/comboBox": {
       "displayName": "Combo Box",
       "type": "comboBox",
-      "options": [{"value":"bar","text":"foo"}, {"value":"bar2","text":"foo 2"}],
+      "options": [
+        {
+          "value": "bar",
+          "text": "foo"
+        },
+        {
+          "value": "bar2",
+          "text": "foo 2"
+        }
+      ],
       "message": "select value"
     },
     "/description": {
@@ -32,17 +46,18 @@
     },
     "/login": {
       "displayName": "Name",
-      "groupId":5,
+      "groupId": 5,
       "groupName": "Security"
     },
     "/pass": {
       "displayName": "Password",
       "type": "passwordInput",
-      "groupId":5,
+      "groupId": 5,
       "status": "success"
     }
   },
   "order": [
+    "/date",
     "/number",
     "/agree",
     "/comboBox",

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Datetime from 'react-datetime';
 
 import 'react-datetime/css/react-datetime.css';
+import moment from 'moment';
 
 class Property extends Component {
 
@@ -15,9 +16,23 @@ class Property extends Component {
     this.props.onChange(this.props.path, this._getValueFromEvent(event));
   }
 
+  //ISO 8601 format
+  formatDate(date) {
+    var day = date.getDate();
+    var month = date.getMonth();
+    var year = date.getFullYear();
+    return year + '-' + this.formatNumber2digit(month) + '-' + this.formatNumber2digit(day);
+  }
+
+  formatNumber2digit(number){
+    return ("0" + number).slice(-2);
+  }
+
   _getValueFromEvent(event) {
     if(!event)
       return '';
+    if(event._d)
+      return this.formatDate(event._d);
     if(!event.target)
       return event.value;
     const element = event.target;
@@ -62,16 +77,17 @@ class Property extends Component {
       },
       date: {
         normal: () => {
-          return <Datetime/>;
+          return <Datetime dateFormat="DD.MM.YYYY" value={moment(value)} onChange={handleChange} id={id} key={id}
+                           timeFormat={false} closeOnSelect={true} closeOnTab={true} locale="ru"/>;
         },
         readOnly: () => this.createStatic(value)
       },
-      dateTime: {
-        normal: () => {
-          return ( React.createElement(Datetime, {id: id, key: id, value: value, parent: _this, onChange: handleChange, time: true, className: this.props.controlClassName}) );
-        },
-        readOnly: () => this.createStatic(value)
-      },
+//      dateTime: {
+//        normal: () => {
+//          return ( React.createElement(Datetime, {id: id, key: id, value: value, parent: _this, onChange: handleChange, time: true, className: this.props.controlClassName}) );
+//        },
+//        readOnly: () => this.createStatic(value)
+//      },
       textArea: {
         normal: () => (
           <textarea placeholder={meta.placeholder} id={id}  rows={meta.rows || 3} cols={meta.columns} value={value}
