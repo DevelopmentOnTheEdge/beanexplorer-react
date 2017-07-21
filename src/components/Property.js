@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import Datetime from 'react-datetime';
+import Select from 'react-select';
+import moment from 'moment';
 
 import 'react-datetime/css/react-datetime.css';
-import moment from 'moment';
+import 'react-select/dist/react-select.css';
 
 class Property extends Component {
 
@@ -74,6 +76,29 @@ class Property extends Component {
           const text = selectedOption.length ? selectedOption[0].text : value;
           return this.createStatic(text);
         }
+      },
+      Select: {
+        normal: () => {
+          var selectOptions = [];
+          for(var i =0 ;i< meta.tagList.length; i++){
+            selectOptions.push({ value: meta.tagList[i][1], label: meta.tagList[i][0] });
+          }
+
+          return <Select name="form-field-name" value={value} options={selectOptions} onChange={handleChange} />;
+        },
+        readOnly: () => this.createStatic(value)
+      },
+      MultiSelect: {
+        normal: () => {
+          var selectOptions = [];
+          for(var i =0 ;i< meta.tagList.length; i++){
+            selectOptions.push({ value: meta.tagList[i][1], label: meta.tagList[i][0] });
+          }
+
+          return <Select name="form-field-name" value={value} options={selectOptions} //multi={true}
+                         onChange={handleChange} />;
+        },
+        readOnly: () => this.createStatic(value)
       },
       Date: {
         normal: () => {

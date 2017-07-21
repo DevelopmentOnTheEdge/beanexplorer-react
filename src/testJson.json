@@ -27,41 +27,15 @@
     },
     "/comboBox": {
       "displayName": "Combo Box",
-      "type": "comboBox",
-      "options": [
-        {
-          "value": "bar",
-          "text": "foo"
-        },
-        {
-          "value": "bar2",
-          "text": "foo 2"
-        }
-      ],
+      "type": "Select",
+      "tagList": [["key1","value1"],["key2","value2"],["A","a"],["C","c"],["D","d"]],
       "message": "select value"
     },
     "/multiComboBox": {
       "displayName": "Combo Box",
-      "type": "comboBox",
+      "type": "MultiSelect",
       "multipleSelectionList": true,
-      "options": [
-        {
-          "value": "bar",
-          "text": "foo"
-        },
-        {
-          "value": "bar2",
-          "text": "foo 2"
-        },
-        {
-          "value": "bar3",
-          "text": "foo 3"
-        },
-        {
-          "value": "bar4",
-          "text": "foo 4"
-        }
-      ],
+      "tagList": [["key1","value1"],["key2","value2"],["A","a"],["C","c"],["D","d"]],
       "message": "select value"
     },
     "/description": {
