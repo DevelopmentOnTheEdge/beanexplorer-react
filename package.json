@@ -1,6 +1,6 @@
 {
   "name": "beanexplorer-react",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "main": "build/beanexplorer-react.min.js",
   "scripts": {
     "start": "webpack-dev-server --progress --profile --colors",
@@ -55,6 +55,7 @@
     "style-loader": "^0.18.0",
     "webpack": "2.4.1",
     "webpack-bundle-analyzer": "^2.8.3",
+    "webpack-cleanup-plugin": "^0.5.1",
     "webpack-dashboard": "^0.3.0",
     "webpack-dev-server": "^2.4.1",
     "yargs": "7.1.0"

@@ -2,9 +2,9 @@
   "values": {
     "date": "2017-07-20",
     "number": "123abc",
-    "multiComboBox": "",
     "agree": true,
-    "comboBox": "bar",
+    "select": "vanilla",
+    "multiSelect": "",
     "description": "",
     "login": "",
     "pass": "password"
@@ -22,21 +22,17 @@
     },
     "/agree": {
       "displayName": "Agree",
-      "type": "checkBox",
+      "type": "Boolean",
       "status": "success"
     },
-    "/comboBox": {
-      "displayName": "Combo Box",
-      "type": "Select",
-      "tagList": [["key1","value1"],["key2","value2"],["A","a"],["C","c"],["D","d"]],
-      "message": "select value"
+    "/select": {
+      "displayName": "Select",
+      "tagList": [["Vanilla","vanilla"],["Chocolate","chocolate"],["Strawberry","strawberry"],["Cookies and Cream","cookiescream"],["Caramel","caramel"],["Peppermint","peppermint"]]
     },
-    "/multiComboBox": {
-      "displayName": "Combo Box",
-      "type": "MultiSelect",
+    "/multiSelect": {
+      "displayName": "Multi Select",
       "multipleSelectionList": true,
-      "tagList": [["key1","value1"],["key2","value2"],["A","a"],["C","c"],["D","d"]],
-      "message": "select value"
+      "tagList": [["Vanilla","vanilla"],["Chocolate","chocolate"],["Strawberry","strawberry"],["Cookies and Cream","cookiescream"],["Caramel","caramel"],["Peppermint","peppermint"]]
     },
     "/description": {
       "displayName": "Name",
@@ -59,8 +55,8 @@
     "/date",
     "/number",
     "/agree",
-    "/comboBox",
-    "/multiComboBox",
+    "/select",
+    "/multiSelect",
     "/description",
     "/login",
     "/pass"

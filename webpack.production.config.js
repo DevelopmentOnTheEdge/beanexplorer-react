@@ -4,6 +4,7 @@ const path = require('path');
 const env  = require('yargs').argv.env; // use --env with webpack 2
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const WebpackCleanupPlugin = require('webpack-cleanup-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 let libraryName = 'beanexplorer-react';
@@ -61,12 +62,13 @@ let config = {
 	},
 	plugins: [
 		new ExtractTextPlugin("styles.css"),
-		//new BundleAnalyzerPlugin(),
+		new BundleAnalyzerPlugin(),
 		new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en|ru/)
 	]
 };
 
 if (!env.build) {
+  config.plugins.push(new WebpackCleanupPlugin());
 	config.plugins.push(new HtmlWebpackPlugin({
 		template: './src/build.html',
 		files: {

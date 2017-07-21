@@ -11,6 +11,10 @@ $ npm install --save git+https://git@github.com/DevelopmentOnTheEdge/beanexplore
 ### Usage
 ```js
 import PropertySet from 'beanexplorer-react';
+
+import 'react-datetime/css/react-datetime.css';
+import 'react-select/dist/react-select.css';
+
 ```
 ```js
 const fields = {
