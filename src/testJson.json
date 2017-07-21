@@ -2,6 +2,7 @@
   "values": {
     "date": "2017-07-20",
     "number": "123abc",
+    "multiComboBox": "",
     "agree": true,
     "comboBox": "bar",
     "description": "",
@@ -11,7 +12,7 @@
   "meta": {
     "/date": {
       "displayName": "Date",
-      "type": "date"
+      "type": "Date"
     },
     "/number": {
       "displayName": "Number",
@@ -39,6 +40,30 @@
       ],
       "message": "select value"
     },
+    "/multiComboBox": {
+      "displayName": "Combo Box",
+      "type": "comboBox",
+      "multipleSelectionList": true,
+      "options": [
+        {
+          "value": "bar",
+          "text": "foo"
+        },
+        {
+          "value": "bar2",
+          "text": "foo 2"
+        },
+        {
+          "value": "bar3",
+          "text": "foo 3"
+        },
+        {
+          "value": "bar4",
+          "text": "foo 4"
+        }
+      ],
+      "message": "select value"
+    },
     "/description": {
       "displayName": "Name",
       "type": "textArea",
@@ -61,6 +86,7 @@
     "/number",
     "/agree",
     "/comboBox",
+    "/multiComboBox",
     "/description",
     "/login",
     "/pass"

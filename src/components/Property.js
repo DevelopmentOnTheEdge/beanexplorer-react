@@ -75,7 +75,7 @@ class Property extends Component {
           return this.createStatic(text);
         }
       },
-      date: {
+      Date: {
         normal: () => {
           return <Datetime dateFormat="DD.MM.YYYY" value={moment(value)} onChange={handleChange} id={id} key={id}
                            timeFormat={false} closeOnSelect={true} closeOnTab={true} locale="ru"/>;
