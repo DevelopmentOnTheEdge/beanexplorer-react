@@ -19,7 +19,7 @@ if (env.min) {
 let entry = '/src/index.js';
 let outputPath = '/docs';
 if (env.build) {
-	outputPath = '/build';
+	outputPath = '/dist';
 	entry = '/src/components/PropertySet.js';
 }
 
@@ -62,7 +62,7 @@ let config = {
 	},
 	plugins: [
 		new ExtractTextPlugin("styles.css"),
-		new BundleAnalyzerPlugin(),
+		//new BundleAnalyzerPlugin(),
 		new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en|ru/)
 	]
 };
@@ -70,7 +70,7 @@ let config = {
 if (!env.build) {
   config.plugins.push(new WebpackCleanupPlugin());
 	config.plugins.push(new HtmlWebpackPlugin({
-		template: './src/build.html',
+		template: './src/template.html',
 		files: {
 			js: ['bundle.js'],
 		}

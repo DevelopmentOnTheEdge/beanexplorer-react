@@ -8,28 +8,19 @@ exports[`simple property 1`] = `
     className={undefined}
     htmlFor="testNameField"
   >
-    Combo Box
+    Simple property
   </label>
   <div
     className="controls"
   >
-    <select
+    <input
       className="form-control"
-      defaultValue="testValue"
       id="testNameField"
       onChange={[Function]}
-    >
-      <option
-        value="bar"
-      >
-        foo
-      </option>
-      <option
-        value="bar2"
-      >
-        foo 2
-      </option>
-    </select>
+      placeholder={undefined}
+      type="text"
+      value="testValue"
+    />
   </div>
 </div>
 `;
