@@ -29,7 +29,9 @@ class Property extends Component {
     if(!event)
       return '';
     if(event._d)
+    {
       return this.formatDate(event._d);
+    }
     if(!event.target)
       return event.value;
     const element = event.target;
@@ -142,7 +144,7 @@ class Property extends Component {
   //ISO 8601 format
   formatDate(date) {
     const day = date.getDate();
-    const month = date.getMonth();
+    const month = date.getMonth() + 1;
     const year = date.getFullYear();
     return year + '-' + this.format2digit(month) + '-' + this.format2digit(day);
   }
