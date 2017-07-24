@@ -7430,7 +7430,9 @@ var Property = function (_Component) {
     key: '_getValueFromEvent',
     value: function _getValueFromEvent(event) {
       if (!event) return '';
-      if (event._d) return this.formatDate(event._d);
+      if (event._d) {
+        return this.formatDate(event._d);
+      }
       if (!event.target) return event.value;
       var element = event.target;
       return element.type === 'checkbox' ? element.checked : element.value;
@@ -7552,7 +7554,7 @@ var Property = function (_Component) {
     value: function optionsToArray(options) {
       var optionObject = [];
       for (var i = 0; i < options.length; i++) {
-        optionObject.push({ value: options[i][1], label: options[i][0] });
+        optionObject.push({ value: options[i][0], label: options[i][1] });
       }
       return optionObject;
     }
@@ -7568,7 +7570,7 @@ var Property = function (_Component) {
     key: 'formatDate',
     value: function formatDate(date) {
       var day = date.getDate();
-      var month = date.getMonth();
+      var month = date.getMonth() + 1;
       var year = date.getFullYear();
       return year + '-' + this.format2digit(month) + '-' + this.format2digit(day);
     }
@@ -7591,9 +7593,9 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(Property, 'Property', 'C:/java/dote/github/beanexplorer-react/src/components/Property.js');
+  __REACT_HOT_LOADER__.register(Property, 'Property', '/home/uuinnk/workspace/github/beanexplorer-react/src/components/Property.js');
 
-  __REACT_HOT_LOADER__.register(_default, 'default', 'C:/java/dote/github/beanexplorer-react/src/components/Property.js');
+  __REACT_HOT_LOADER__.register(_default, 'default', '/home/uuinnk/workspace/github/beanexplorer-react/src/components/Property.js');
 }();
 
 ;
@@ -7964,9 +7966,9 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(PropertySet, 'PropertySet', 'C:/java/dote/github/beanexplorer-react/src/components/PropertySet.js');
+  __REACT_HOT_LOADER__.register(PropertySet, 'PropertySet', '/home/uuinnk/workspace/github/beanexplorer-react/src/components/PropertySet.js');
 
-  __REACT_HOT_LOADER__.register(_default, 'default', 'C:/java/dote/github/beanexplorer-react/src/components/PropertySet.js');
+  __REACT_HOT_LOADER__.register(_default, 'default', '/home/uuinnk/workspace/github/beanexplorer-react/src/components/PropertySet.js');
 }();
 
 ;
