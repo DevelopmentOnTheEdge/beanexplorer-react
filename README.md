@@ -1,5 +1,5 @@
 # beanexplorer-react 
-React component for [BeanExplorer](https://github.com/DevelopmentOnTheEdge/beanexplorer)
+React component for [BeanExplorer](https://github.com/DevelopmentOnTheEdge/beanexplorer) beans
 
 [![Build Status](https://travis-ci.org/DevelopmentOnTheEdge/beanexplorer-react.svg?branch=master)](https://travis-ci.org/DevelopmentOnTheEdge/beanexplorer-react) [![Coverage Status](https://coveralls.io/repos/github/DevelopmentOnTheEdge/beanexplorer-react/badge.svg?branch=master)](https://coveralls.io/github/DevelopmentOnTheEdge/beanexplorer-react?branch=master)
 

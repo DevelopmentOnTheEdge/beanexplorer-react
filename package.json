@@ -1,6 +1,7 @@
 {
   "name": "beanexplorer-react",
   "version": "0.1.9",
+  "description": "React component for BeanExplorer beans",
   "main": "dist/beanexplorer-react.js",
   "scripts": {
     "start": "webpack-dev-server --progress --profile --colors",
