@@ -130,7 +130,7 @@ class Property extends Component {
   optionsToArray(options){
     let optionObject = [];
     for(let i =0 ;i < options.length; i++){
-      optionObject.push({ value: options[i][1], label: options[i][0] });
+      optionObject.push({ value: options[i][0], label: options[i][1] });
     }
     return optionObject;
   }
