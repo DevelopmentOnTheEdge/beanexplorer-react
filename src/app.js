@@ -5,6 +5,7 @@ import JsonPointer from 'json-pointer';
 import 'react-datetime/css/react-datetime.css';
 import 'react-select/dist/react-select.css';
 import "./app.css";
+import "./propertySet.css";
 
 class App extends Component {
 
@@ -47,17 +48,13 @@ class App extends Component {
 					<div className="app-intro">
 						<div className="container">
 							<div className="row">
-								<div className="col-lg-7">
+								<div className="col-lg-12">
 									<form onSubmit={this.handleSubmit} className="bs-example">
 										<PropertySet fields={this.state.fields} onChange={this.handleFieldChange}/>
-										<div className="text-center">
-											<button type="submit" className="btn btn-primary btn-primary-spacing">Submit</button>
-											<button type="button" className="btn btn-default btn-primary-spacing">Cancel</button>
-										</div>
 									</form>
 									{readOnlyForm}
 								</div>
-								<div className="col-lg-5">
+								<div className="col-lg-12">
 									<textarea rows="20" name="inputJson" className="inputJson form-control" defaultValue={JSON.stringify(this.state.fields, null, 4)}
 														onChange={this.handleJsonChange} />
 									<br/>

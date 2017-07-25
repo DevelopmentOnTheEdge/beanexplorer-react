@@ -12,53 +12,61 @@
   "meta": {
     "/date": {
       "displayName": "Date",
-      "type": "Date"
+      "type": "Date",
+      "inputSize": "col-md-6"
     },
     "/number": {
       "displayName": "Number",
       "type": "Long",
       "message": "number is required here",
-      "status": "error"
-    },
-    "/agree": {
-      "displayName": "Agree",
-      "type": "Boolean",
-      "status": "success"
+      "status": "error",
+      "inputSize": "col-md-6"
     },
     "/select": {
       "displayName": "Select",
-      "tagList": [["vanilla","Vanilla"],["chocolate","Chocolate"],["strawberry","Strawberry"],["cookiescream","Cookies and Cream"],["caramel","Caramel"],["peppermint","Peppermint"]]
+      "tagList": [["vanilla","Vanilla"],["chocolate","Chocolate"],["strawberry","Strawberry"],["cookiescream","Cookies and Cream"],["caramel","Caramel"],["peppermint","Peppermint"]],
+      "inputSize": "col-md-6"
     },
     "/multiSelect": {
       "displayName": "Multi Select",
       "multipleSelectionList": true,
-      "tagList": [["vanilla","Vanilla"],["chocolate","Chocolate"],["strawberry","Strawberry"],["cookiescream","Cookies and Cream"],["caramel","Caramel"],["peppermint","Peppermint"]]
+      "tagList": [["vanilla","Vanilla"],["chocolate","Chocolate"],["strawberry","Strawberry"],["cookiescream","Cookies and Cream"],["caramel","Caramel"],["peppermint","Peppermint"]],
+      "inputSize": "col-md-6"
     },
     "/description": {
       "displayName": "Name",
       "type": "textArea",
-      "placeholder": "field for text"
+      "placeholder": "field for text",
+      "inputSize": "col-md-12"
     },
     "/login": {
       "displayName": "Name",
       "groupId": 5,
-      "groupName": "Security"
+      "groupName": "Security",
+      "inputSize": "col-md-12"
     },
     "/pass": {
       "displayName": "Password",
       "type": "passwordInput",
       "groupId": 5,
-      "status": "success"
+      "status": "success",
+      "inputSize": "col-md-12"
+    },
+    "/agree": {
+      "displayName": "Agree",
+      "type": "Boolean",
+      "status": "success",
+      "inputSize": "col-md-6"
     }
   },
   "order": [
     "/date",
     "/number",
-    "/agree",
     "/select",
     "/multiSelect",
     "/description",
     "/login",
-    "/pass"
+    "/pass",
+    "/agree"
   ]
 }

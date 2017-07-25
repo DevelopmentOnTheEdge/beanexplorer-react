@@ -38,28 +38,3 @@
   letter-spacing: 1px;
   content: "Example";
 }
-
-.property-error .help-block{
-  color: #920000;
-}
-
-.property-group {
-  border-top: 1px solid rgba(0, 0, 0, 0.125);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
-  padding: 1.4em 15px 1.1em;
-  margin: 1.8em -15px 1.2em;
-  position: relative;
-}
-
-.property-group:first-child{
-  border-top: none;
-}
-
-.property-group h3 {
-  top: -0.8em;
-  position: absolute;
-  background-color: white;
-  padding: 3pt;
-  font-size: 1.6em;
-  margin: 0 0 0 -3px;
-}

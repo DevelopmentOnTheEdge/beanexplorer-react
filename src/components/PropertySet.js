@@ -39,7 +39,7 @@ class PropertySet extends Component {
     finishGroup();
 
     return (
-      <div className="property-set">
+      <div className="property-set row">
         {fields}
       </div>
     );
@@ -47,9 +47,11 @@ class PropertySet extends Component {
 
   _createGroup(curGroup, curGroupId, curGroupName) {
     return (
-      <div className='property-group' key={curGroupId} ref={curGroupId}>
+      <div className='property-group col-xs-12' key={curGroupId} ref={curGroupId}>
         <h3>{curGroupName}</h3>
-        {curGroup}
+        <div className="row">
+          {curGroup}
+        </div>
       </div>
     );
   }
