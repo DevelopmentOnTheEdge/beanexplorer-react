@@ -2,7 +2,7 @@
 
 exports[`simple property 1`] = `
 <div
-  className="form-group property "
+  className="form-group property col-xs-12 "
 >
   <label
     className={undefined}

@@ -626,7 +626,6 @@ td.rdtYear:hover {
   letter-spacing: 1px;
   content: "Example";
 }
-
 .property-error .help-block{
   color: #920000;
 }
@@ -635,7 +634,8 @@ td.rdtYear:hover {
   border-top: 1px solid rgba(0, 0, 0, 0.125);
   border-bottom: 1px solid rgba(0, 0, 0, 0.125);
   padding: 1.4em 15px 1.1em;
-  margin: 1.8em -15px 1.2em;
+  margin-top: 1.8em;
+  margin-bottom: 1.2em;
   position: relative;
 }
 

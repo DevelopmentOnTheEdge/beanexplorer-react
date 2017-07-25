@@ -2,16 +2,16 @@
 
 exports[`empty property set 1`] = `
 <div
-  className="property-set"
+  className="property-set row"
 />
 `;
 
 exports[`simple property set 1`] = `
 <div
-  className="property-set"
+  className="property-set row"
 >
   <div
-    className="form-group property "
+    className="form-group property col-xs-12 "
   >
     <label
       className={undefined}

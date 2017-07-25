@@ -1,6 +1,6 @@
 {
   "name": "beanexplorer-react",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "React component for BeanExplorer beans",
   "main": "dist/beanexplorer-react.js",
   "scripts": {

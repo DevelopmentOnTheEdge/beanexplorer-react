@@ -7527,7 +7527,7 @@ var Property = function (_Component) {
       if (meta.type === "Boolean") {
         return _react2.default.createElement(
           'div',
-          { className: (this.props.classNameFormCheck || 'form-check property') + ' ' + hasStatus },
+          { className: (this.props.classNameFormCheck || 'form-check property') + ' ' + (meta.inputSize || 'col-xs-12') + ' ' + hasStatus },
           _react2.default.createElement(
             'label',
             { className: 'form-check-label' },
@@ -7538,7 +7538,7 @@ var Property = function (_Component) {
       } else {
         return _react2.default.createElement(
           'div',
-          { className: (this.props.classNameFormFroup || 'form-group property') + ' ' + hasStatus },
+          { className: (this.props.classNameFormFroup || 'form-group property') + ' ' + (meta.inputSize || 'col-xs-12') + ' ' + hasStatus },
           label,
           _react2.default.createElement(
             'div',
@@ -7934,7 +7934,7 @@ var PropertySet = function (_Component) {
 
       return _react2.default.createElement(
         'div',
-        { className: 'property-set' },
+        { className: 'property-set row' },
         fields
       );
     }
@@ -7943,13 +7943,17 @@ var PropertySet = function (_Component) {
     value: function _createGroup(curGroup, curGroupId, curGroupName) {
       return _react2.default.createElement(
         'div',
-        { className: 'property-group', key: curGroupId, ref: curGroupId },
+        { className: 'property-group col-xs-12', key: curGroupId, ref: curGroupId },
         _react2.default.createElement(
           'h3',
           null,
           curGroupName
         ),
-        curGroup
+        _react2.default.createElement(
+          'div',
+          { className: 'row' },
+          curGroup
+        )
       );
     }
   }]);
