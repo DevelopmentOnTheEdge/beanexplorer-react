@@ -7,7 +7,7 @@
 		exports["beanexplorer-react"] = factory(require("react"), require("react-dom"));
 	else
 		root["beanexplorer-react"] = factory(root["react"], root["react-dom"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_0__, __WEBPACK_EXTERNAL_MODULE_22__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_0__, __WEBPACK_EXTERNAL_MODULE_24__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -73,7 +73,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 25);
+/******/ 	return __webpack_require__(__webpack_require__.s = 27);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -100,7 +100,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_0__;
 
 
 var React = __webpack_require__(0);
-var factory = __webpack_require__(26);
+var factory = __webpack_require__(28);
 
 if (typeof React === 'undefined') {
   throw Error(
@@ -121,6 +121,233 @@ module.exports = factory(
 
 /***/ }),
 /* 2 */
+/***/ (function(module, exports) {
+
+// shim for using process in browser
+var process = module.exports = {};
+
+// cached from whatever global is present so that test runners that stub it
+// don't break things.  But we need to wrap it in a try catch in case it is
+// wrapped in strict mode code which doesn't define any globals.  It's inside a
+// function because try/catches deoptimize in certain engines.
+
+var cachedSetTimeout;
+var cachedClearTimeout;
+
+function defaultSetTimout() {
+    throw new Error('setTimeout has not been defined');
+}
+function defaultClearTimeout () {
+    throw new Error('clearTimeout has not been defined');
+}
+(function () {
+    try {
+        if (typeof setTimeout === 'function') {
+            cachedSetTimeout = setTimeout;
+        } else {
+            cachedSetTimeout = defaultSetTimout;
+        }
+    } catch (e) {
+        cachedSetTimeout = defaultSetTimout;
+    }
+    try {
+        if (typeof clearTimeout === 'function') {
+            cachedClearTimeout = clearTimeout;
+        } else {
+            cachedClearTimeout = defaultClearTimeout;
+        }
+    } catch (e) {
+        cachedClearTimeout = defaultClearTimeout;
+    }
+} ())
+function runTimeout(fun) {
+    if (cachedSetTimeout === setTimeout) {
+        //normal enviroments in sane situations
+        return setTimeout(fun, 0);
+    }
+    // if setTimeout wasn't available but was latter defined
+    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+        cachedSetTimeout = setTimeout;
+        return setTimeout(fun, 0);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedSetTimeout(fun, 0);
+    } catch(e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
+            return cachedSetTimeout.call(null, fun, 0);
+        } catch(e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+            return cachedSetTimeout.call(this, fun, 0);
+        }
+    }
+
+
+}
+function runClearTimeout(marker) {
+    if (cachedClearTimeout === clearTimeout) {
+        //normal enviroments in sane situations
+        return clearTimeout(marker);
+    }
+    // if clearTimeout wasn't available but was latter defined
+    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
+        cachedClearTimeout = clearTimeout;
+        return clearTimeout(marker);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedClearTimeout(marker);
+    } catch (e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
+            return cachedClearTimeout.call(null, marker);
+        } catch (e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+            return cachedClearTimeout.call(this, marker);
+        }
+    }
+
+
+
+}
+var queue = [];
+var draining = false;
+var currentQueue;
+var queueIndex = -1;
+
+function cleanUpNextTick() {
+    if (!draining || !currentQueue) {
+        return;
+    }
+    draining = false;
+    if (currentQueue.length) {
+        queue = currentQueue.concat(queue);
+    } else {
+        queueIndex = -1;
+    }
+    if (queue.length) {
+        drainQueue();
+    }
+}
+
+function drainQueue() {
+    if (draining) {
+        return;
+    }
+    var timeout = runTimeout(cleanUpNextTick);
+    draining = true;
+
+    var len = queue.length;
+    while(len) {
+        currentQueue = queue;
+        queue = [];
+        while (++queueIndex < len) {
+            if (currentQueue) {
+                currentQueue[queueIndex].run();
+            }
+        }
+        queueIndex = -1;
+        len = queue.length;
+    }
+    currentQueue = null;
+    draining = false;
+    runClearTimeout(timeout);
+}
+
+process.nextTick = function (fun) {
+    var args = new Array(arguments.length - 1);
+    if (arguments.length > 1) {
+        for (var i = 1; i < arguments.length; i++) {
+            args[i - 1] = arguments[i];
+        }
+    }
+    queue.push(new Item(fun, args));
+    if (queue.length === 1 && !draining) {
+        runTimeout(drainQueue);
+    }
+};
+
+// v8 likes predictible objects
+function Item(fun, array) {
+    this.fun = fun;
+    this.array = array;
+}
+Item.prototype.run = function () {
+    this.fun.apply(null, this.array);
+};
+process.title = 'browser';
+process.browser = true;
+process.env = {};
+process.argv = [];
+process.version = ''; // empty string to avoid regexp issues
+process.versions = {};
+
+function noop() {}
+
+process.on = noop;
+process.addListener = noop;
+process.once = noop;
+process.off = noop;
+process.removeListener = noop;
+process.removeAllListeners = noop;
+process.emit = noop;
+process.prependListener = noop;
+process.prependOnceListener = noop;
+
+process.listeners = function (name) { return [] }
+
+process.binding = function (name) {
+    throw new Error('process.binding is not supported');
+};
+
+process.cwd = function () { return '/' };
+process.chdir = function (dir) {
+    throw new Error('process.chdir is not supported');
+};
+process.umask = function() { return 0; };
+
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(process) {/**
+ * Copyright 2013-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ */
+
+if (process.env.NODE_ENV !== 'production') {
+  var REACT_ELEMENT_TYPE = (typeof Symbol === 'function' &&
+    Symbol.for &&
+    Symbol.for('react.element')) ||
+    0xeac7;
+
+  var isValidElement = function(object) {
+    return typeof object === 'object' &&
+      object !== null &&
+      object.$$typeof === REACT_ELEMENT_TYPE;
+  };
+
+  // By explicitly using `prop-types` you are opting into new development behavior.
+  // http://fb.me/prop-types-in-prod
+  var throwOnDirectAccess = true;
+  module.exports = __webpack_require__(37)(isValidElement, throwOnDirectAccess);
+} else {
+  // By explicitly using `prop-types` you are opting into new production behavior.
+  // http://fb.me/prop-types-in-prod
+  module.exports = __webpack_require__(36)();
+}
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+
+/***/ }),
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {//! moment.js
@@ -1952,7 +2179,7 @@ function loadLocale(name) {
             module && module.exports) {
         try {
             oldLocale = globalLocale._abbr;
-            __webpack_require__(29)("./" + name);
+            __webpack_require__(33)("./" + name);
             // because defineLocale currently also sets the global locale, we
             // want to undo that for lazy loaded locales
             getSetGlobalLocale(oldLocale);
@@ -4587,234 +4814,7 @@ return hooks;
 
 })));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(48)(module)))
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports) {
-
-// shim for using process in browser
-var process = module.exports = {};
-
-// cached from whatever global is present so that test runners that stub it
-// don't break things.  But we need to wrap it in a try catch in case it is
-// wrapped in strict mode code which doesn't define any globals.  It's inside a
-// function because try/catches deoptimize in certain engines.
-
-var cachedSetTimeout;
-var cachedClearTimeout;
-
-function defaultSetTimout() {
-    throw new Error('setTimeout has not been defined');
-}
-function defaultClearTimeout () {
-    throw new Error('clearTimeout has not been defined');
-}
-(function () {
-    try {
-        if (typeof setTimeout === 'function') {
-            cachedSetTimeout = setTimeout;
-        } else {
-            cachedSetTimeout = defaultSetTimout;
-        }
-    } catch (e) {
-        cachedSetTimeout = defaultSetTimout;
-    }
-    try {
-        if (typeof clearTimeout === 'function') {
-            cachedClearTimeout = clearTimeout;
-        } else {
-            cachedClearTimeout = defaultClearTimeout;
-        }
-    } catch (e) {
-        cachedClearTimeout = defaultClearTimeout;
-    }
-} ())
-function runTimeout(fun) {
-    if (cachedSetTimeout === setTimeout) {
-        //normal enviroments in sane situations
-        return setTimeout(fun, 0);
-    }
-    // if setTimeout wasn't available but was latter defined
-    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
-        cachedSetTimeout = setTimeout;
-        return setTimeout(fun, 0);
-    }
-    try {
-        // when when somebody has screwed with setTimeout but no I.E. maddness
-        return cachedSetTimeout(fun, 0);
-    } catch(e){
-        try {
-            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
-            return cachedSetTimeout.call(null, fun, 0);
-        } catch(e){
-            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
-            return cachedSetTimeout.call(this, fun, 0);
-        }
-    }
-
-
-}
-function runClearTimeout(marker) {
-    if (cachedClearTimeout === clearTimeout) {
-        //normal enviroments in sane situations
-        return clearTimeout(marker);
-    }
-    // if clearTimeout wasn't available but was latter defined
-    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
-        cachedClearTimeout = clearTimeout;
-        return clearTimeout(marker);
-    }
-    try {
-        // when when somebody has screwed with setTimeout but no I.E. maddness
-        return cachedClearTimeout(marker);
-    } catch (e){
-        try {
-            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
-            return cachedClearTimeout.call(null, marker);
-        } catch (e){
-            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
-            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
-            return cachedClearTimeout.call(this, marker);
-        }
-    }
-
-
-
-}
-var queue = [];
-var draining = false;
-var currentQueue;
-var queueIndex = -1;
-
-function cleanUpNextTick() {
-    if (!draining || !currentQueue) {
-        return;
-    }
-    draining = false;
-    if (currentQueue.length) {
-        queue = currentQueue.concat(queue);
-    } else {
-        queueIndex = -1;
-    }
-    if (queue.length) {
-        drainQueue();
-    }
-}
-
-function drainQueue() {
-    if (draining) {
-        return;
-    }
-    var timeout = runTimeout(cleanUpNextTick);
-    draining = true;
-
-    var len = queue.length;
-    while(len) {
-        currentQueue = queue;
-        queue = [];
-        while (++queueIndex < len) {
-            if (currentQueue) {
-                currentQueue[queueIndex].run();
-            }
-        }
-        queueIndex = -1;
-        len = queue.length;
-    }
-    currentQueue = null;
-    draining = false;
-    runClearTimeout(timeout);
-}
-
-process.nextTick = function (fun) {
-    var args = new Array(arguments.length - 1);
-    if (arguments.length > 1) {
-        for (var i = 1; i < arguments.length; i++) {
-            args[i - 1] = arguments[i];
-        }
-    }
-    queue.push(new Item(fun, args));
-    if (queue.length === 1 && !draining) {
-        runTimeout(drainQueue);
-    }
-};
-
-// v8 likes predictible objects
-function Item(fun, array) {
-    this.fun = fun;
-    this.array = array;
-}
-Item.prototype.run = function () {
-    this.fun.apply(null, this.array);
-};
-process.title = 'browser';
-process.browser = true;
-process.env = {};
-process.argv = [];
-process.version = ''; // empty string to avoid regexp issues
-process.versions = {};
-
-function noop() {}
-
-process.on = noop;
-process.addListener = noop;
-process.once = noop;
-process.off = noop;
-process.removeListener = noop;
-process.removeAllListeners = noop;
-process.emit = noop;
-process.prependListener = noop;
-process.prependOnceListener = noop;
-
-process.listeners = function (name) { return [] }
-
-process.binding = function (name) {
-    throw new Error('process.binding is not supported');
-};
-
-process.cwd = function () { return '/' };
-process.chdir = function (dir) {
-    throw new Error('process.chdir is not supported');
-};
-process.umask = function() { return 0; };
-
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- */
-
-if (process.env.NODE_ENV !== 'production') {
-  var REACT_ELEMENT_TYPE = (typeof Symbol === 'function' &&
-    Symbol.for &&
-    Symbol.for('react.element')) ||
-    0xeac7;
-
-  var isValidElement = function(object) {
-    return typeof object === 'object' &&
-      object !== null &&
-      object.$$typeof === REACT_ELEMENT_TYPE;
-  };
-
-  // By explicitly using `prop-types` you are opting into new development behavior.
-  // http://fb.me/prop-types-in-prod
-  var throwOnDirectAccess = true;
-  module.exports = __webpack_require__(33)(isValidElement, throwOnDirectAccess);
-} else {
-  // By explicitly using `prop-types` you are opting into new production behavior.
-  // http://fb.me/prop-types-in-prod
-  module.exports = __webpack_require__(32)();
-}
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(68)(module)))
 
 /***/ }),
 /* 5 */
@@ -4876,384 +4876,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- */
-
-
-
-/**
- * Use invariant() to assert state which your program assumes to be true.
- *
- * Provide sprintf-style format (only %s is supported) and arguments
- * to provide information about what broke and what you were
- * expecting.
- *
- * The invariant message will be stripped in production, but the invariant
- * will remain to ensure logic does not differ in production.
- */
-
-var validateFormat = function validateFormat(format) {};
-
-if (process.env.NODE_ENV !== 'production') {
-  validateFormat = function validateFormat(format) {
-    if (format === undefined) {
-      throw new Error('invariant requires an error message argument');
-    }
-  };
-}
-
-function invariant(condition, format, a, b, c, d, e, f) {
-  validateFormat(format);
-
-  if (!condition) {
-    var error;
-    if (format === undefined) {
-      error = new Error('Minified exception occurred; use the non-minified dev environment ' + 'for the full error message and additional helpful warnings.');
-    } else {
-      var args = [a, b, c, d, e, f];
-      var argIndex = 0;
-      error = new Error(format.replace(/%s/g, function () {
-        return args[argIndex++];
-      }));
-      error.name = 'Invariant Violation';
-    }
-
-    error.framesToPop = 1; // we don't care about invariant's own frame
-    throw error;
-  }
-}
-
-module.exports = invariant;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
- * A higher-order-component for handling onClickOutside for React components.
- */
-(function(root) {
-
-  // administrative
-  var registeredComponents = [];
-  var handlers = [];
-  var IGNORE_CLASS = 'ignore-react-onclickoutside';
-  var DEFAULT_EVENTS = ['mousedown', 'touchstart'];
-
-  /**
-   * Check whether some DOM node is our Component's node.
-   */
-  var isNodeFound = function(current, componentNode, ignoreClass) {
-    if (current === componentNode) {
-      return true;
-    }
-    // SVG <use/> elements do not technically reside in the rendered DOM, so
-    // they do not have classList directly, but they offer a link to their
-    // corresponding element, which can have classList. This extra check is for
-    // that case.
-    // See: http://www.w3.org/TR/SVG11/struct.html#InterfaceSVGUseElement
-    // Discussion: https://github.com/Pomax/react-onclickoutside/pull/17
-    if (current.correspondingElement) {
-      return current.correspondingElement.classList.contains(ignoreClass);
-    }
-    return current.classList.contains(ignoreClass);
-  };
-
-  /**
-   * Try to find our node in a hierarchy of nodes, returning the document
-   * node as highest noode if our node is not found in the path up.
-   */
-  var findHighest = function(current, componentNode, ignoreClass) {
-    if (current === componentNode) {
-      return true;
-    }
-
-    // If source=local then this event came from 'somewhere'
-    // inside and should be ignored. We could handle this with
-    // a layered approach, too, but that requires going back to
-    // thinking in terms of Dom node nesting, running counter
-    // to React's 'you shouldn't care about the DOM' philosophy.
-    while(current.parentNode) {
-      if (isNodeFound(current, componentNode, ignoreClass)) {
-        return true;
-      }
-      current = current.parentNode;
-    }
-    return current;
-  };
-
-  /**
-   * Check if the browser scrollbar was clicked
-   */
-  var clickedScrollbar = function(evt) {
-    return document.documentElement.clientWidth <= evt.clientX || document.documentElement.clientHeight <= evt.clientY;
-  };
-
-  /**
-   * Generate the event handler that checks whether a clicked DOM node
-   * is inside of, or lives outside of, our Component's node tree.
-   */
-  var generateOutsideCheck = function(componentNode, componentInstance, eventHandler, ignoreClass, excludeScrollbar, preventDefault, stopPropagation) {
-    return function(evt) {
-      if (preventDefault) {
-        evt.preventDefault();
-      }
-      if (stopPropagation) {
-        evt.stopPropagation();
-      }
-      var current = evt.target;
-      if((excludeScrollbar && clickedScrollbar(evt)) || (findHighest(current, componentNode, ignoreClass) !== document)) {
-        return;
-      }
-      eventHandler(evt);
-    };
-  };
-
-  /**
-   * This function generates the HOC function that you'll use
-   * in order to impart onOutsideClick listening to an
-   * arbitrary component. It gets called at the end of the
-   * bootstrapping code to yield an instance of the
-   * onClickOutsideHOC function defined inside setupHOC().
-   */
-  function setupHOC(root, React, ReactDOM, createReactClass) {
-
-    // The actual Component-wrapping HOC:
-    return function onClickOutsideHOC(Component, config) {
-      var wrapComponentWithOnClickOutsideHandling = createReactClass({
-        statics: {
-          /**
-           * Access the wrapped Component's class.
-           */
-          getClass: function() {
-            if (Component.getClass) {
-              return Component.getClass();
-            }
-            return Component;
-          }
-        },
-
-        /**
-         * Access the wrapped Component's instance.
-         */
-        getInstance: function() {
-          return Component.prototype.isReactComponent ? this.refs.instance : this;
-        },
-
-        // this is given meaning in componentDidMount
-        __outsideClickHandler: function() {},
-
-        getDefaultProps: function() {
-          return {
-            excludeScrollbar: config && config.excludeScrollbar
-          };
-        },
-
-        /**
-         * Add click listeners to the current document,
-         * linked to this component's state.
-         */
-        componentDidMount: function() {
-          // If we are in an environment without a DOM such
-          // as shallow rendering or snapshots then we exit
-          // early to prevent any unhandled errors being thrown.
-          if (typeof document === 'undefined' || !document.createElement){
-            return;
-          }
-
-          var instance = this.getInstance();
-          var clickOutsideHandler;
-
-          if(config && typeof config.handleClickOutside === 'function') {
-            clickOutsideHandler = config.handleClickOutside(instance);
-            if(typeof clickOutsideHandler !== 'function') {
-              throw new Error('Component lacks a function for processing outside click events specified by the handleClickOutside config option.');
-            }
-          } else if(typeof instance.handleClickOutside === 'function') {
-            if (React.Component.prototype.isPrototypeOf(instance)) {
-              clickOutsideHandler = instance.handleClickOutside.bind(instance);
-            } else {
-              clickOutsideHandler = instance.handleClickOutside;
-            }
-          } else if(typeof instance.props.handleClickOutside === 'function') {
-            clickOutsideHandler = instance.props.handleClickOutside;
-          } else {
-            throw new Error('Component lacks a handleClickOutside(event) function for processing outside click events.');
-          }
-
-          var componentNode = ReactDOM.findDOMNode(instance);
-          if (componentNode === null) {
-            console.warn('Antipattern warning: there was no DOM node associated with the component that is being wrapped by outsideClick.');
-            console.warn([
-              'This is typically caused by having a component that starts life with a render function that',
-              'returns `null` (due to a state or props value), so that the component \'exist\' in the React',
-              'chain of components, but not in the DOM.\n\nInstead, you need to refactor your code so that the',
-              'decision of whether or not to show your component is handled by the parent, in their render()',
-              'function.\n\nIn code, rather than:\n\n  A{render(){return check? <.../> : null;}\n  B{render(){<A check=... />}\n\nmake sure that you',
-              'use:\n\n  A{render(){return <.../>}\n  B{render(){return <...>{ check ? <A/> : null }<...>}}\n\nThat is:',
-              'the parent is always responsible for deciding whether or not to render any of its children.',
-              'It is not the child\'s responsibility to decide whether a render instruction from above should',
-              'get ignored or not by returning `null`.\n\nWhen any component gets its render() function called,',
-              'that is the signal that it should be rendering its part of the UI. It may in turn decide not to',
-              'render all of *its* children, but it should never return `null` for itself. It is not responsible',
-              'for that decision.'
-            ].join(' '));
-          }
-
-          var fn = this.__outsideClickHandler = generateOutsideCheck(
-            componentNode,
-            instance,
-            clickOutsideHandler,
-            this.props.outsideClickIgnoreClass || IGNORE_CLASS,
-            this.props.excludeScrollbar, // fallback not needed, prop always exists because of getDefaultProps
-            this.props.preventDefault || false,
-            this.props.stopPropagation || false
-          );
-
-          var pos = registeredComponents.length;
-          registeredComponents.push(this);
-          handlers[pos] = fn;
-
-          // If there is a truthy disableOnClickOutside property for this
-          // component, don't immediately start listening for outside events.
-          if (!this.props.disableOnClickOutside) {
-            this.enableOnClickOutside();
-          }
-        },
-
-        /**
-        * Track for disableOnClickOutside props changes and enable/disable click outside
-        */
-        componentWillReceiveProps: function(nextProps) {
-          if (this.props.disableOnClickOutside && !nextProps.disableOnClickOutside) {
-            this.enableOnClickOutside();
-          } else if (!this.props.disableOnClickOutside && nextProps.disableOnClickOutside) {
-            this.disableOnClickOutside();
-          }
-        },
-
-        /**
-         * Remove the document's event listeners
-         */
-        componentWillUnmount: function() {
-          this.disableOnClickOutside();
-          this.__outsideClickHandler = false;
-          var pos = registeredComponents.indexOf(this);
-          if( pos>-1) {
-            // clean up so we don't leak memory
-            if (handlers[pos]) { handlers.splice(pos, 1); }
-            registeredComponents.splice(pos, 1);
-          }
-        },
-
-        /**
-         * Can be called to explicitly enable event listening
-         * for clicks and touches outside of this element.
-         */
-        enableOnClickOutside: function() {
-          var fn = this.__outsideClickHandler;
-          if (typeof document !== 'undefined') {
-            var events = this.props.eventTypes || DEFAULT_EVENTS;
-            if (!events.forEach) {
-              events = [events];
-            }
-            events.forEach(function (eventName) {
-              document.addEventListener(eventName, fn);
-            });
-          }
-        },
-
-        /**
-         * Can be called to explicitly disable event listening
-         * for clicks and touches outside of this element.
-         */
-        disableOnClickOutside: function() {
-          var fn = this.__outsideClickHandler;
-          if (typeof document !== 'undefined') {
-            var events = this.props.eventTypes || DEFAULT_EVENTS;
-            if (!events.forEach) {
-              events = [events];
-            }
-            events.forEach(function (eventName) {
-              document.removeEventListener(eventName, fn);
-            });
-          }
-        },
-
-        /**
-         * Pass-through render
-         */
-        render: function() {
-          var passedProps = this.props;
-          var props = {};
-          Object.keys(this.props).forEach(function(key) {
-            if (key !== 'excludeScrollbar') {
-              props[key] = passedProps[key];
-            }
-          });
-          if (Component.prototype.isReactComponent) {
-            props.ref = 'instance';
-          }
-          props.disableOnClickOutside = this.disableOnClickOutside;
-          props.enableOnClickOutside = this.enableOnClickOutside;
-          return React.createElement(Component, props);
-        }
-      });
-
-      // Add display name for React devtools
-      (function bindWrappedComponentName(c, wrapper) {
-        var componentName = c.displayName || c.name || 'Component';
-        wrapper.displayName = 'OnClickOutside(' + componentName + ')';
-      }(Component, wrapComponentWithOnClickOutsideHandling));
-
-      return wrapComponentWithOnClickOutsideHandling;
-    };
-  }
-
-  /**
-   * This function sets up the library in ways that
-   * work with the various modulde loading solutions
-   * used in JavaScript land today.
-   */
-  function setupBinding(root, factory) {
-    if (true) {
-      // AMD. Register as an anonymous module.
-      !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0),__webpack_require__(22),__webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = function(React, ReactDom, createReactClass) {
-        if (!createReactClass) createReactClass = React.createClass;
-        return factory(root, React, ReactDom, createReactClass);
-      }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-    } else if (typeof exports === 'object') {
-      // Node. Note that this does not work with strict
-      // CommonJS, but only CommonJS-like environments
-      // that support module.exports
-      module.exports = factory(root, require('react'), require('react-dom'), require('create-react-class'));
-    } else {
-      // Browser globals (root is window)
-      var createReactClass = React.createClass ? React.createClass : window.createReactClass;
-      root.onClickOutside = factory(root, React, ReactDOM, createReactClass);
-    }
-  }
-
-  // Make it all happen
-  setupBinding(root, setupHOC);
-
-}(this));
-
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
 /*!
   Copyright (c) 2016 Jed Watson.
   Licensed under the MIT License (MIT), see
@@ -5282,15 +4904,15 @@ var _createReactClass = __webpack_require__(1);
 
 var _createReactClass2 = _interopRequireDefault(_createReactClass);
 
-var _propTypes = __webpack_require__(4);
+var _propTypes = __webpack_require__(3);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _reactDom = __webpack_require__(22);
+var _reactDom = __webpack_require__(24);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _reactInputAutosize = __webpack_require__(40);
+var _reactInputAutosize = __webpack_require__(44);
 
 var _reactInputAutosize2 = _interopRequireDefault(_reactInputAutosize);
 
@@ -5298,7 +4920,7 @@ var _classnames = __webpack_require__(5);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
-var _utilsDefaultArrowRenderer = __webpack_require__(46);
+var _utilsDefaultArrowRenderer = __webpack_require__(50);
 
 var _utilsDefaultArrowRenderer2 = _interopRequireDefault(_utilsDefaultArrowRenderer);
 
@@ -5310,27 +4932,27 @@ var _utilsDefaultMenuRenderer = __webpack_require__(20);
 
 var _utilsDefaultMenuRenderer2 = _interopRequireDefault(_utilsDefaultMenuRenderer);
 
-var _utilsDefaultClearRenderer = __webpack_require__(47);
+var _utilsDefaultClearRenderer = __webpack_require__(51);
 
 var _utilsDefaultClearRenderer2 = _interopRequireDefault(_utilsDefaultClearRenderer);
 
-var _Async = __webpack_require__(41);
+var _Async = __webpack_require__(45);
 
 var _Async2 = _interopRequireDefault(_Async);
 
-var _AsyncCreatable = __webpack_require__(42);
+var _AsyncCreatable = __webpack_require__(46);
 
 var _AsyncCreatable2 = _interopRequireDefault(_AsyncCreatable);
 
-var _Creatable = __webpack_require__(43);
+var _Creatable = __webpack_require__(47);
 
 var _Creatable2 = _interopRequireDefault(_Creatable);
 
-var _Option = __webpack_require__(44);
+var _Option = __webpack_require__(48);
 
 var _Option2 = _interopRequireDefault(_Option);
 
-var _Value = __webpack_require__(45);
+var _Value = __webpack_require__(49);
 
 var _Value2 = _interopRequireDefault(_Value);
 
@@ -6498,6 +6120,384 @@ exports['default'] = Select;
 module.exports = exports['default'];
 
 /***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ */
+
+
+
+/**
+ * Use invariant() to assert state which your program assumes to be true.
+ *
+ * Provide sprintf-style format (only %s is supported) and arguments
+ * to provide information about what broke and what you were
+ * expecting.
+ *
+ * The invariant message will be stripped in production, but the invariant
+ * will remain to ensure logic does not differ in production.
+ */
+
+var validateFormat = function validateFormat(format) {};
+
+if (process.env.NODE_ENV !== 'production') {
+  validateFormat = function validateFormat(format) {
+    if (format === undefined) {
+      throw new Error('invariant requires an error message argument');
+    }
+  };
+}
+
+function invariant(condition, format, a, b, c, d, e, f) {
+  validateFormat(format);
+
+  if (!condition) {
+    var error;
+    if (format === undefined) {
+      error = new Error('Minified exception occurred; use the non-minified dev environment ' + 'for the full error message and additional helpful warnings.');
+    } else {
+      var args = [a, b, c, d, e, f];
+      var argIndex = 0;
+      error = new Error(format.replace(/%s/g, function () {
+        return args[argIndex++];
+      }));
+      error.name = 'Invariant Violation';
+    }
+
+    error.framesToPop = 1; // we don't care about invariant's own frame
+    throw error;
+  }
+}
+
+module.exports = invariant;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
+ * A higher-order-component for handling onClickOutside for React components.
+ */
+(function(root) {
+
+  // administrative
+  var registeredComponents = [];
+  var handlers = [];
+  var IGNORE_CLASS = 'ignore-react-onclickoutside';
+  var DEFAULT_EVENTS = ['mousedown', 'touchstart'];
+
+  /**
+   * Check whether some DOM node is our Component's node.
+   */
+  var isNodeFound = function(current, componentNode, ignoreClass) {
+    if (current === componentNode) {
+      return true;
+    }
+    // SVG <use/> elements do not technically reside in the rendered DOM, so
+    // they do not have classList directly, but they offer a link to their
+    // corresponding element, which can have classList. This extra check is for
+    // that case.
+    // See: http://www.w3.org/TR/SVG11/struct.html#InterfaceSVGUseElement
+    // Discussion: https://github.com/Pomax/react-onclickoutside/pull/17
+    if (current.correspondingElement) {
+      return current.correspondingElement.classList.contains(ignoreClass);
+    }
+    return current.classList.contains(ignoreClass);
+  };
+
+  /**
+   * Try to find our node in a hierarchy of nodes, returning the document
+   * node as highest noode if our node is not found in the path up.
+   */
+  var findHighest = function(current, componentNode, ignoreClass) {
+    if (current === componentNode) {
+      return true;
+    }
+
+    // If source=local then this event came from 'somewhere'
+    // inside and should be ignored. We could handle this with
+    // a layered approach, too, but that requires going back to
+    // thinking in terms of Dom node nesting, running counter
+    // to React's 'you shouldn't care about the DOM' philosophy.
+    while(current.parentNode) {
+      if (isNodeFound(current, componentNode, ignoreClass)) {
+        return true;
+      }
+      current = current.parentNode;
+    }
+    return current;
+  };
+
+  /**
+   * Check if the browser scrollbar was clicked
+   */
+  var clickedScrollbar = function(evt) {
+    return document.documentElement.clientWidth <= evt.clientX || document.documentElement.clientHeight <= evt.clientY;
+  };
+
+  /**
+   * Generate the event handler that checks whether a clicked DOM node
+   * is inside of, or lives outside of, our Component's node tree.
+   */
+  var generateOutsideCheck = function(componentNode, componentInstance, eventHandler, ignoreClass, excludeScrollbar, preventDefault, stopPropagation) {
+    return function(evt) {
+      if (preventDefault) {
+        evt.preventDefault();
+      }
+      if (stopPropagation) {
+        evt.stopPropagation();
+      }
+      var current = evt.target;
+      if((excludeScrollbar && clickedScrollbar(evt)) || (findHighest(current, componentNode, ignoreClass) !== document)) {
+        return;
+      }
+      eventHandler(evt);
+    };
+  };
+
+  /**
+   * This function generates the HOC function that you'll use
+   * in order to impart onOutsideClick listening to an
+   * arbitrary component. It gets called at the end of the
+   * bootstrapping code to yield an instance of the
+   * onClickOutsideHOC function defined inside setupHOC().
+   */
+  function setupHOC(root, React, ReactDOM, createReactClass) {
+
+    // The actual Component-wrapping HOC:
+    return function onClickOutsideHOC(Component, config) {
+      var wrapComponentWithOnClickOutsideHandling = createReactClass({
+        statics: {
+          /**
+           * Access the wrapped Component's class.
+           */
+          getClass: function() {
+            if (Component.getClass) {
+              return Component.getClass();
+            }
+            return Component;
+          }
+        },
+
+        /**
+         * Access the wrapped Component's instance.
+         */
+        getInstance: function() {
+          return Component.prototype.isReactComponent ? this.refs.instance : this;
+        },
+
+        // this is given meaning in componentDidMount
+        __outsideClickHandler: function() {},
+
+        getDefaultProps: function() {
+          return {
+            excludeScrollbar: config && config.excludeScrollbar
+          };
+        },
+
+        /**
+         * Add click listeners to the current document,
+         * linked to this component's state.
+         */
+        componentDidMount: function() {
+          // If we are in an environment without a DOM such
+          // as shallow rendering or snapshots then we exit
+          // early to prevent any unhandled errors being thrown.
+          if (typeof document === 'undefined' || !document.createElement){
+            return;
+          }
+
+          var instance = this.getInstance();
+          var clickOutsideHandler;
+
+          if(config && typeof config.handleClickOutside === 'function') {
+            clickOutsideHandler = config.handleClickOutside(instance);
+            if(typeof clickOutsideHandler !== 'function') {
+              throw new Error('Component lacks a function for processing outside click events specified by the handleClickOutside config option.');
+            }
+          } else if(typeof instance.handleClickOutside === 'function') {
+            if (React.Component.prototype.isPrototypeOf(instance)) {
+              clickOutsideHandler = instance.handleClickOutside.bind(instance);
+            } else {
+              clickOutsideHandler = instance.handleClickOutside;
+            }
+          } else if(typeof instance.props.handleClickOutside === 'function') {
+            clickOutsideHandler = instance.props.handleClickOutside;
+          } else {
+            throw new Error('Component lacks a handleClickOutside(event) function for processing outside click events.');
+          }
+
+          var componentNode = ReactDOM.findDOMNode(instance);
+          if (componentNode === null) {
+            console.warn('Antipattern warning: there was no DOM node associated with the component that is being wrapped by outsideClick.');
+            console.warn([
+              'This is typically caused by having a component that starts life with a render function that',
+              'returns `null` (due to a state or props value), so that the component \'exist\' in the React',
+              'chain of components, but not in the DOM.\n\nInstead, you need to refactor your code so that the',
+              'decision of whether or not to show your component is handled by the parent, in their render()',
+              'function.\n\nIn code, rather than:\n\n  A{render(){return check? <.../> : null;}\n  B{render(){<A check=... />}\n\nmake sure that you',
+              'use:\n\n  A{render(){return <.../>}\n  B{render(){return <...>{ check ? <A/> : null }<...>}}\n\nThat is:',
+              'the parent is always responsible for deciding whether or not to render any of its children.',
+              'It is not the child\'s responsibility to decide whether a render instruction from above should',
+              'get ignored or not by returning `null`.\n\nWhen any component gets its render() function called,',
+              'that is the signal that it should be rendering its part of the UI. It may in turn decide not to',
+              'render all of *its* children, but it should never return `null` for itself. It is not responsible',
+              'for that decision.'
+            ].join(' '));
+          }
+
+          var fn = this.__outsideClickHandler = generateOutsideCheck(
+            componentNode,
+            instance,
+            clickOutsideHandler,
+            this.props.outsideClickIgnoreClass || IGNORE_CLASS,
+            this.props.excludeScrollbar, // fallback not needed, prop always exists because of getDefaultProps
+            this.props.preventDefault || false,
+            this.props.stopPropagation || false
+          );
+
+          var pos = registeredComponents.length;
+          registeredComponents.push(this);
+          handlers[pos] = fn;
+
+          // If there is a truthy disableOnClickOutside property for this
+          // component, don't immediately start listening for outside events.
+          if (!this.props.disableOnClickOutside) {
+            this.enableOnClickOutside();
+          }
+        },
+
+        /**
+        * Track for disableOnClickOutside props changes and enable/disable click outside
+        */
+        componentWillReceiveProps: function(nextProps) {
+          if (this.props.disableOnClickOutside && !nextProps.disableOnClickOutside) {
+            this.enableOnClickOutside();
+          } else if (!this.props.disableOnClickOutside && nextProps.disableOnClickOutside) {
+            this.disableOnClickOutside();
+          }
+        },
+
+        /**
+         * Remove the document's event listeners
+         */
+        componentWillUnmount: function() {
+          this.disableOnClickOutside();
+          this.__outsideClickHandler = false;
+          var pos = registeredComponents.indexOf(this);
+          if( pos>-1) {
+            // clean up so we don't leak memory
+            if (handlers[pos]) { handlers.splice(pos, 1); }
+            registeredComponents.splice(pos, 1);
+          }
+        },
+
+        /**
+         * Can be called to explicitly enable event listening
+         * for clicks and touches outside of this element.
+         */
+        enableOnClickOutside: function() {
+          var fn = this.__outsideClickHandler;
+          if (typeof document !== 'undefined') {
+            var events = this.props.eventTypes || DEFAULT_EVENTS;
+            if (!events.forEach) {
+              events = [events];
+            }
+            events.forEach(function (eventName) {
+              document.addEventListener(eventName, fn);
+            });
+          }
+        },
+
+        /**
+         * Can be called to explicitly disable event listening
+         * for clicks and touches outside of this element.
+         */
+        disableOnClickOutside: function() {
+          var fn = this.__outsideClickHandler;
+          if (typeof document !== 'undefined') {
+            var events = this.props.eventTypes || DEFAULT_EVENTS;
+            if (!events.forEach) {
+              events = [events];
+            }
+            events.forEach(function (eventName) {
+              document.removeEventListener(eventName, fn);
+            });
+          }
+        },
+
+        /**
+         * Pass-through render
+         */
+        render: function() {
+          var passedProps = this.props;
+          var props = {};
+          Object.keys(this.props).forEach(function(key) {
+            if (key !== 'excludeScrollbar') {
+              props[key] = passedProps[key];
+            }
+          });
+          if (Component.prototype.isReactComponent) {
+            props.ref = 'instance';
+          }
+          props.disableOnClickOutside = this.disableOnClickOutside;
+          props.enableOnClickOutside = this.enableOnClickOutside;
+          return React.createElement(Component, props);
+        }
+      });
+
+      // Add display name for React devtools
+      (function bindWrappedComponentName(c, wrapper) {
+        var componentName = c.displayName || c.name || 'Component';
+        wrapper.displayName = 'OnClickOutside(' + componentName + ')';
+      }(Component, wrapComponentWithOnClickOutsideHandling));
+
+      return wrapComponentWithOnClickOutsideHandling;
+    };
+  }
+
+  /**
+   * This function sets up the library in ways that
+   * work with the various modulde loading solutions
+   * used in JavaScript land today.
+   */
+  function setupBinding(root, factory) {
+    if (true) {
+      // AMD. Register as an anonymous module.
+      !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0),__webpack_require__(24),__webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = function(React, ReactDom, createReactClass) {
+        if (!createReactClass) createReactClass = React.createClass;
+        return factory(root, React, ReactDom, createReactClass);
+      }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+    } else if (typeof exports === 'object') {
+      // Node. Note that this does not work with strict
+      // CommonJS, but only CommonJS-like environments
+      // that support module.exports
+      module.exports = factory(root, require('react'), require('react-dom'), require('create-react-class'));
+    } else {
+      // Browser globals (root is window)
+      var createReactClass = React.createClass ? React.createClass : window.createReactClass;
+      root.onClickOutside = factory(root, React, ReactDOM, createReactClass);
+    }
+  }
+
+  // Make it all happen
+  setupBinding(root, setupHOC);
+
+}(this));
+
+
+/***/ }),
 /* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -6612,7 +6612,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 module.exports = warning;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
 /* 11 */
@@ -6644,7 +6644,7 @@ module.exports = ReactPropTypesSecret;
 //! author : Jared Morse : https://github.com/jarcoal
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(2)) :
+    true ? factory(__webpack_require__(4)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -6716,7 +6716,7 @@ return enAu;
 //! author : Jonathan Abourbih : https://github.com/jonbca
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(2)) :
+    true ? factory(__webpack_require__(4)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -6784,7 +6784,7 @@ return enCa;
 //! author : Chris Gedrim : https://github.com/chrisgedrim
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(2)) :
+    true ? factory(__webpack_require__(4)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -6856,7 +6856,7 @@ return enGb;
 //! author : Chris Cartlidge : https://github.com/chriscartlidge
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(2)) :
+    true ? factory(__webpack_require__(4)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -6928,7 +6928,7 @@ return enIe;
 //! author : Luke McGregor : https://github.com/lukemcgregor
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(2)) :
+    true ? factory(__webpack_require__(4)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -7002,7 +7002,7 @@ return enNz;
 //! author : Коренберг Марк : https://github.com/socketpair
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(2)) :
+    true ? factory(__webpack_require__(4)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -7358,12 +7358,221 @@ module.exports = function stripDiacritics(str) {
 
 /***/ }),
 /* 22 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __WEBPACK_EXTERNAL_MODULE_22__;
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = defaultCellRangeRenderer;
+
+/**
+ * Default implementation of cellRangeRenderer used by Grid.
+ * This renderer supports cell-caching while the user is scrolling.
+ */
+function defaultCellRangeRenderer(_ref) {
+  var cellCache = _ref.cellCache,
+      cellRenderer = _ref.cellRenderer,
+      columnSizeAndPositionManager = _ref.columnSizeAndPositionManager,
+      columnStartIndex = _ref.columnStartIndex,
+      columnStopIndex = _ref.columnStopIndex,
+      deferredMeasurementCache = _ref.deferredMeasurementCache,
+      horizontalOffsetAdjustment = _ref.horizontalOffsetAdjustment,
+      isScrolling = _ref.isScrolling,
+      parent = _ref.parent,
+      rowSizeAndPositionManager = _ref.rowSizeAndPositionManager,
+      rowStartIndex = _ref.rowStartIndex,
+      rowStopIndex = _ref.rowStopIndex,
+      scrollLeft = _ref.scrollLeft,
+      scrollTop = _ref.scrollTop,
+      styleCache = _ref.styleCache,
+      verticalOffsetAdjustment = _ref.verticalOffsetAdjustment,
+      visibleColumnIndices = _ref.visibleColumnIndices,
+      visibleRowIndices = _ref.visibleRowIndices;
+
+  var deferredMode = typeof deferredMeasurementCache !== 'undefined';
+
+  var renderedCells = [];
+
+  // Browsers have native size limits for elements (eg Chrome 33M pixels, IE 1.5M pixes).
+  // User cannot scroll beyond these size limitations.
+  // In order to work around this, ScalingCellSizeAndPositionManager compresses offsets.
+  // We should never cache styles for compressed offsets though as this can lead to bugs.
+  // See issue #576 for more.
+  var areOffsetsAdjusted = columnSizeAndPositionManager.areOffsetsAdjusted() || rowSizeAndPositionManager.areOffsetsAdjusted();
+
+  var canCacheStyle = !isScrolling && !areOffsetsAdjusted;
+
+  for (var rowIndex = rowStartIndex; rowIndex <= rowStopIndex; rowIndex++) {
+    var rowDatum = rowSizeAndPositionManager.getSizeAndPositionOfCell(rowIndex);
+
+    for (var columnIndex = columnStartIndex; columnIndex <= columnStopIndex; columnIndex++) {
+      var columnDatum = columnSizeAndPositionManager.getSizeAndPositionOfCell(columnIndex);
+      var isVisible = columnIndex >= visibleColumnIndices.start && columnIndex <= visibleColumnIndices.stop && rowIndex >= visibleRowIndices.start && rowIndex <= visibleRowIndices.stop;
+      var key = rowIndex + '-' + columnIndex;
+      var style = void 0;
+
+      // Cache style objects so shallow-compare doesn't re-render unnecessarily.
+      if (canCacheStyle && styleCache[key]) {
+        style = styleCache[key];
+      } else {
+        // In deferred mode, cells will be initially rendered before we know their size.
+        // Don't interfere with CellMeasurer's measurements by setting an invalid size.
+        if (deferredMode && !deferredMeasurementCache.has(rowIndex, columnIndex)) {
+          // Position not-yet-measured cells at top/left 0,0,
+          // And give them width/height of 'auto' so they can grow larger than the parent Grid if necessary.
+          // Positioning them further to the right/bottom influences their measured size.
+          style = {
+            height: 'auto',
+            left: 0,
+            position: 'absolute',
+            top: 0,
+            width: 'auto'
+          };
+        } else {
+          style = {
+            height: rowDatum.size,
+            left: columnDatum.offset + horizontalOffsetAdjustment,
+            position: 'absolute',
+            top: rowDatum.offset + verticalOffsetAdjustment,
+            width: columnDatum.size
+          };
+
+          styleCache[key] = style;
+        }
+      }
+
+      var cellRendererParams = {
+        columnIndex: columnIndex,
+        isScrolling: isScrolling,
+        isVisible: isVisible,
+        key: key,
+        parent: parent,
+        rowIndex: rowIndex,
+        style: style
+      };
+
+      var renderedCell = void 0;
+
+      // Avoid re-creating cells while scrolling.
+      // This can lead to the same cell being created many times and can cause performance issues for "heavy" cells.
+      // If a scroll is in progress- cache and reuse cells.
+      // This cache will be thrown away once scrolling completes.
+      // However if we are scaling scroll positions and sizes, we should also avoid caching.
+      // This is because the offset changes slightly as scroll position changes and caching leads to stale values.
+      // For more info refer to issue #395
+      if (isScrolling && !horizontalOffsetAdjustment && !verticalOffsetAdjustment) {
+        if (!cellCache[key]) {
+          cellCache[key] = cellRenderer(cellRendererParams);
+        }
+
+        renderedCell = cellCache[key];
+
+        // If the user is no longer scrolling, don't cache cells.
+        // This makes dynamic cell content difficult for users and would also lead to a heavier memory footprint.
+      } else {
+        renderedCell = cellRenderer(cellRendererParams);
+      }
+
+      if (renderedCell == null || renderedCell === false) {
+        continue;
+      }
+
+      if (process.env.NODE_ENV !== 'production') {
+        warnAboutMissingStyle(parent, renderedCell);
+      }
+
+      renderedCells.push(renderedCell);
+    }
+  }
+
+  return renderedCells;
+}
+
+function warnAboutMissingStyle(parent, renderedCell) {
+  if (process.env.NODE_ENV !== 'production') {
+    if (renderedCell) {
+      // If the direct child is a CellMeasurer, then we should check its child
+      // See issue #611
+      if (renderedCell.type && renderedCell.type.__internalCellMeasurerFlag) {
+        renderedCell = renderedCell.props.children;
+      }
+
+      if (renderedCell && renderedCell.props && renderedCell.props.style === undefined && parent.__warnedAboutMissingStyle !== true) {
+        parent.__warnedAboutMissingStyle = true;
+
+        console.warn('Rendered cell should include style property for positioning.');
+      }
+    }
+  }
+}
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
 /* 23 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = defaultOverscanIndicesGetter;
+var SCROLL_DIRECTION_BACKWARD = exports.SCROLL_DIRECTION_BACKWARD = -1;
+var SCROLL_DIRECTION_FORWARD = exports.SCROLL_DIRECTION_FORWARD = 1;
+
+var SCROLL_DIRECTION_HORIZONTAL = exports.SCROLL_DIRECTION_HORIZONTAL = 'horizontal';
+var SCROLL_DIRECTION_VERTICAL = exports.SCROLL_DIRECTION_VERTICAL = 'vertical';
+/**
+ * Calculates the number of cells to overscan before and after a specified range.
+ * This function ensures that overscanning doesn't exceed the available cells.
+ *
+ * @param direction One of SCROLL_DIRECTION_HORIZONTAL or SCROLL_DIRECTION_VERTICAL
+ * @param cellCount Number of rows or columns in the current axis
+ * @param scrollDirection One of SCROLL_DIRECTION_BACKWARD or SCROLL_DIRECTION_FORWARD
+ * @param overscanCellsCount Maximum number of cells to over-render in either direction
+ * @param startIndex Begin of range of visible cells
+ * @param stopIndex End of range of visible cells
+ */
+function defaultOverscanIndicesGetter(_ref) {
+  var direction = _ref.direction,
+      cellCount = _ref.cellCount,
+      overscanCellsCount = _ref.overscanCellsCount,
+      scrollDirection = _ref.scrollDirection,
+      startIndex = _ref.startIndex,
+      stopIndex = _ref.stopIndex;
+
+  var overscanStartIndex = void 0;
+  var overscanStopIndex = void 0;
+
+  switch (scrollDirection) {
+    case SCROLL_DIRECTION_FORWARD:
+      overscanStartIndex = startIndex;
+      overscanStopIndex = stopIndex + overscanCellsCount;
+      break;
+    case SCROLL_DIRECTION_BACKWARD:
+      overscanStartIndex = startIndex - overscanCellsCount;
+      overscanStopIndex = stopIndex;
+      break;
+  }
+
+  return {
+    overscanStartIndex: Math.max(0, overscanStartIndex),
+    overscanStopIndex: Math.min(cellCount - 1, overscanStopIndex)
+  };
+}
+
+/***/ }),
+/* 24 */
+/***/ (function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE_24__;
+
+/***/ }),
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7379,15 +7588,19 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDatetime = __webpack_require__(34);
+var _reactDatetime = __webpack_require__(38);
 
 var _reactDatetime2 = _interopRequireDefault(_reactDatetime);
 
-var _reactSelect = __webpack_require__(8);
+var _reactSelect = __webpack_require__(6);
 
 var _reactSelect2 = _interopRequireDefault(_reactSelect);
 
-var _moment = __webpack_require__(2);
+var _reactVirtualizedSelect = __webpack_require__(54);
+
+var _reactVirtualizedSelect2 = _interopRequireDefault(_reactVirtualizedSelect);
+
+var _moment = __webpack_require__(4);
 
 var _moment2 = _interopRequireDefault(_moment);
 
@@ -7429,7 +7642,7 @@ var Property = function (_Component) {
   }, {
     key: '_getValueFromEvent',
     value: function _getValueFromEvent(event) {
-      if (!event) return '';
+      if (!event || event === undefined) return '';
       if (event._d) {
         return this.formatDate(event._d);
       }
@@ -7453,9 +7666,22 @@ var Property = function (_Component) {
             className: _this2.props.controlClassName || 'form-check-input', disabled: meta.readOnly });
         },
         select: function select() {
-          return _react2.default.createElement(_reactSelect2.default, { name: 'form-field-name', value: value, options: _this2.optionsToArray(meta.tagList),
-            placeholder: meta.placeholder, multi: meta.multipleSelectionList,
-            disabled: meta.readOnly, onChange: handle });
+          var options = _this2.optionsToArray(meta.tagList);
+          if (options.length > 100) {
+            return _react2.default.createElement(_reactVirtualizedSelect2.default, { ref: id, name: id, value: value, options: options,
+              disabled: meta.readOnly, onChange: handle, placeholder: meta.placeholder,
+              multi: meta.multipleSelectionList, matchPos: 'start',
+              clearable: true,
+              searchable: true,
+              labelKey: 'label',
+              valueKey: 'value'
+            });
+          } else {
+            return _react2.default.createElement(_reactSelect2.default, { ref: id, name: id, value: value, options: options,
+              disabled: meta.readOnly, onChange: handle, placeholder: meta.placeholder,
+              multi: meta.multipleSelectionList, matchPos: 'start'
+            });
+          }
         },
         Date: {
           normal: function normal() {
@@ -7593,21 +7819,21 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(Property, 'Property', '/home/uuinnk/workspace/github/beanexplorer-react/src/components/Property.js');
+  __REACT_HOT_LOADER__.register(Property, 'Property', 'C:/java/dote/github/beanexplorer-react/src/components/Property.js');
 
-  __REACT_HOT_LOADER__.register(_default, 'default', '/home/uuinnk/workspace/github/beanexplorer-react/src/components/Property.js');
+  __REACT_HOT_LOADER__.register(_default, 'default', 'C:/java/dote/github/beanexplorer-react/src/components/Property.js');
 }();
 
 ;
 
 /***/ }),
-/* 24 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var each = __webpack_require__(28);
+var each = __webpack_require__(32);
 module.exports = api;
 
 
@@ -7830,7 +8056,7 @@ api.compile = function compile (refTokens) {
 
 
 /***/ }),
-/* 25 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7846,11 +8072,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Property = __webpack_require__(23);
+var _Property = __webpack_require__(25);
 
 var _Property2 = _interopRequireDefault(_Property);
 
-var _jsonPointer = __webpack_require__(24);
+var _jsonPointer = __webpack_require__(26);
 
 var _jsonPointer2 = _interopRequireDefault(_jsonPointer);
 
@@ -7912,7 +8138,7 @@ var PropertySet = function (_Component) {
             curGroupId = newGroupId;
           }
           var field = _react2.default.createElement(_Property2.default, { meta: itemMeta, name: itemName, value: itemValue, path: item,
-            key: itemName, ref: itemName, onChange: this.props.onChange });
+            key: itemName + "Property", ref: itemName + "Property", onChange: this.props.onChange });
           curGroup.push(field);
         }
       } catch (err) {
@@ -7970,15 +8196,15 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(PropertySet, 'PropertySet', '/home/uuinnk/workspace/github/beanexplorer-react/src/components/PropertySet.js');
+  __REACT_HOT_LOADER__.register(PropertySet, 'PropertySet', 'C:/java/dote/github/beanexplorer-react/src/components/PropertySet.js');
 
-  __REACT_HOT_LOADER__.register(_default, 'default', '/home/uuinnk/workspace/github/beanexplorer-react/src/components/PropertySet.js');
+  __REACT_HOT_LOADER__.register(_default, 'default', 'C:/java/dote/github/beanexplorer-react/src/components/PropertySet.js');
 }();
 
 ;
 
 /***/ }),
-/* 26 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7994,10 +8220,10 @@ var _temp = function () {
 
 
 
-var _assign = __webpack_require__(30);
+var _assign = __webpack_require__(34);
 
-var emptyObject = __webpack_require__(27);
-var _invariant = __webpack_require__(6);
+var emptyObject = __webpack_require__(31);
+var _invariant = __webpack_require__(7);
 
 if (process.env.NODE_ENV !== 'production') {
   var warning = __webpack_require__(10);
@@ -8855,10 +9081,64 @@ function factory(ReactComponent, isValidElement, ReactNoopUpdateQueue) {
 
 module.exports = factory;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 27 */
+/* 29 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = !!(typeof window !== 'undefined' && window.document && window.document.createElement);
+module.exports = exports['default'];
+
+/***/ }),
+/* 30 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (recalc) {
+  if (!size || recalc) {
+    if (_inDOM2.default) {
+      var scrollDiv = document.createElement('div');
+
+      scrollDiv.style.position = 'absolute';
+      scrollDiv.style.top = '-9999px';
+      scrollDiv.style.width = '50px';
+      scrollDiv.style.height = '50px';
+      scrollDiv.style.overflow = 'scroll';
+
+      document.body.appendChild(scrollDiv);
+      size = scrollDiv.offsetWidth - scrollDiv.clientWidth;
+      document.body.removeChild(scrollDiv);
+    }
+  }
+
+  return size;
+};
+
+var _inDOM = __webpack_require__(29);
+
+var _inDOM2 = _interopRequireDefault(_inDOM);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var size = void 0;
+
+module.exports = exports['default'];
+
+/***/ }),
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8881,10 +9161,10 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 module.exports = emptyObject;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 28 */
+/* 32 */
 /***/ (function(module, exports) {
 
 
@@ -8912,7 +9192,7 @@ module.exports = function forEach (obj, fn, ctx) {
 
 
 /***/ }),
-/* 29 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
@@ -8943,10 +9223,10 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 29;
+webpackContext.id = 33;
 
 /***/ }),
-/* 30 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9043,7 +9323,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 
 /***/ }),
-/* 31 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9059,7 +9339,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 
 if (process.env.NODE_ENV !== 'production') {
-  var invariant = __webpack_require__(6);
+  var invariant = __webpack_require__(7);
   var warning = __webpack_require__(10);
   var ReactPropTypesSecret = __webpack_require__(11);
   var loggedTypeFailures = {};
@@ -9109,10 +9389,10 @@ function checkPropTypes(typeSpecs, values, location, componentName, getStack) {
 
 module.exports = checkPropTypes;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 32 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9128,7 +9408,7 @@ module.exports = checkPropTypes;
 
 
 var emptyFunction = __webpack_require__(9);
-var invariant = __webpack_require__(6);
+var invariant = __webpack_require__(7);
 var ReactPropTypesSecret = __webpack_require__(11);
 
 module.exports = function() {
@@ -9178,7 +9458,7 @@ module.exports = function() {
 
 
 /***/ }),
-/* 33 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9194,11 +9474,11 @@ module.exports = function() {
 
 
 var emptyFunction = __webpack_require__(9);
-var invariant = __webpack_require__(6);
+var invariant = __webpack_require__(7);
 var warning = __webpack_require__(10);
 
 var ReactPropTypesSecret = __webpack_require__(11);
-var checkPropTypes = __webpack_require__(31);
+var checkPropTypes = __webpack_require__(35);
 
 module.exports = function(isValidElement, throwOnDirectAccess) {
   /* global Symbol */
@@ -9695,21 +9975,21 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
   return ReactPropTypes;
 };
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 34 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var assign = __webpack_require__(18),
-        PropTypes = __webpack_require__(4),
+        PropTypes = __webpack_require__(3),
         createClass = __webpack_require__(1),
-	moment = __webpack_require__(2),
+	moment = __webpack_require__(4),
 	React = __webpack_require__(0),
-	CalendarContainer = __webpack_require__(35)
+	CalendarContainer = __webpack_require__(39)
 ;
 
 var TYPES = PropTypes;
@@ -10145,15 +10425,15 @@ module.exports = Datetime;
 
 
 /***/ }),
-/* 35 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var React = __webpack_require__(0),
   createClass = __webpack_require__(1),
-  DaysView = __webpack_require__(36),
-  MonthsView = __webpack_require__(37),
-  YearsView = __webpack_require__(39),
-  TimeView = __webpack_require__(38)
+  DaysView = __webpack_require__(40),
+  MonthsView = __webpack_require__(41),
+  YearsView = __webpack_require__(43),
+  TimeView = __webpack_require__(42)
 ;
 
 var CalendarContainer = createClass({
@@ -10173,7 +10453,7 @@ module.exports = CalendarContainer;
 
 
 /***/ }),
-/* 36 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10181,8 +10461,8 @@ module.exports = CalendarContainer;
 
 var React = __webpack_require__(0),
     createClass = __webpack_require__(1),
-	moment = __webpack_require__(2),
-  onClickOutside = __webpack_require__(7)
+	moment = __webpack_require__(4),
+  onClickOutside = __webpack_require__(8)
 ;
 
 var DOM = React.DOM;
@@ -10325,7 +10605,7 @@ module.exports = DateTimePickerDays;
 
 
 /***/ }),
-/* 37 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10333,7 +10613,7 @@ module.exports = DateTimePickerDays;
 
 var React = __webpack_require__(0),
     createClass = __webpack_require__(1),
-	onClickOutside = __webpack_require__(7)
+	onClickOutside = __webpack_require__(8)
 ;
 
 var DOM = React.DOM;
@@ -10440,7 +10720,7 @@ module.exports = DateTimePickerMonths;
 
 
 /***/ }),
-/* 38 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10449,7 +10729,7 @@ module.exports = DateTimePickerMonths;
 var React = __webpack_require__(0),
     createClass = __webpack_require__(1),
 	assign = __webpack_require__(18),
-  onClickOutside = __webpack_require__(7)
+  onClickOutside = __webpack_require__(8)
 ;
 
 var DOM = React.DOM;
@@ -10676,7 +10956,7 @@ module.exports = DateTimePickerTime;
 
 
 /***/ }),
-/* 39 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10684,7 +10964,7 @@ module.exports = DateTimePickerTime;
 
 var React = __webpack_require__(0),
     createClass = __webpack_require__(1),
-	onClickOutside = __webpack_require__(7)
+	onClickOutside = __webpack_require__(8)
 ;
 
 var DOM = React.DOM;
@@ -10789,7 +11069,7 @@ module.exports = DateTimePickerYears;
 
 
 /***/ }),
-/* 40 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10798,7 +11078,7 @@ module.exports = DateTimePickerYears;
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var React = __webpack_require__(0);
-var PropTypes = __webpack_require__(4);
+var PropTypes = __webpack_require__(3);
 var createClass = __webpack_require__(1);
 
 var sizerStyle = {
@@ -10960,7 +11240,7 @@ var AutosizeInput = createClass({
 module.exports = AutosizeInput;
 
 /***/ }),
-/* 41 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10988,11 +11268,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(4);
+var _propTypes = __webpack_require__(3);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _Select = __webpack_require__(8);
+var _Select = __webpack_require__(6);
 
 var _Select2 = _interopRequireDefault(_Select);
 
@@ -11236,7 +11516,7 @@ function defaultChildren(props) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 42 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11254,7 +11534,7 @@ var _createReactClass = __webpack_require__(1);
 
 var _createReactClass2 = _interopRequireDefault(_createReactClass);
 
-var _Select = __webpack_require__(8);
+var _Select = __webpack_require__(6);
 
 var _Select2 = _interopRequireDefault(_Select);
 
@@ -11307,7 +11587,7 @@ var AsyncCreatable = (0, _createReactClass2['default'])({
 module.exports = AsyncCreatable;
 
 /***/ }),
-/* 43 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11327,11 +11607,11 @@ var _createReactClass = __webpack_require__(1);
 
 var _createReactClass2 = _interopRequireDefault(_createReactClass);
 
-var _propTypes = __webpack_require__(4);
+var _propTypes = __webpack_require__(3);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _Select = __webpack_require__(8);
+var _Select = __webpack_require__(6);
 
 var _Select2 = _interopRequireDefault(_Select);
 
@@ -11641,7 +11921,7 @@ function shouldKeyDownEventCreateNewOption(_ref6) {
 module.exports = Creatable;
 
 /***/ }),
-/* 44 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11657,7 +11937,7 @@ var _createReactClass = __webpack_require__(1);
 
 var _createReactClass2 = _interopRequireDefault(_createReactClass);
 
-var _propTypes = __webpack_require__(4);
+var _propTypes = __webpack_require__(3);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -11764,7 +12044,7 @@ var Option = (0, _createReactClass2['default'])({
 module.exports = Option;
 
 /***/ }),
-/* 45 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11780,7 +12060,7 @@ var _createReactClass = __webpack_require__(1);
 
 var _createReactClass2 = _interopRequireDefault(_createReactClass);
 
-var _propTypes = __webpack_require__(4);
+var _propTypes = __webpack_require__(3);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -11884,7 +12164,7 @@ var Value = (0, _createReactClass2['default'])({
 module.exports = Value;
 
 /***/ }),
-/* 46 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11914,7 +12194,7 @@ function arrowRenderer(_ref) {
 module.exports = exports["default"];
 
 /***/ }),
-/* 47 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11942,7 +12222,3304 @@ function clearRenderer() {
 module.exports = exports['default'];
 
 /***/ }),
-/* 48 */
+/* 52 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _propTypes = __webpack_require__(3);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactSelect = __webpack_require__(6);
+
+var _reactSelect2 = _interopRequireDefault(_reactSelect);
+
+var _AutoSizer = __webpack_require__(56);
+
+var _AutoSizer2 = _interopRequireDefault(_AutoSizer);
+
+var _List = __webpack_require__(65);
+
+var _List2 = _interopRequireDefault(_List);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+// Import directly to avoid Webpack bundling the parts of react-virtualized that we are not using
+
+
+var VirtualizedSelect = function (_Component) {
+  _inherits(VirtualizedSelect, _Component);
+
+  function VirtualizedSelect(props, context) {
+    _classCallCheck(this, VirtualizedSelect);
+
+    var _this = _possibleConstructorReturn(this, (VirtualizedSelect.__proto__ || Object.getPrototypeOf(VirtualizedSelect)).call(this, props, context));
+
+    _this._renderMenu = _this._renderMenu.bind(_this);
+    _this._optionRenderer = _this._optionRenderer.bind(_this);
+    _this._setListRef = _this._setListRef.bind(_this);
+    _this._setSelectRef = _this._setSelectRef.bind(_this);
+    return _this;
+  }
+
+  /** See List#recomputeRowHeights */
+
+
+  _createClass(VirtualizedSelect, [{
+    key: 'recomputeOptionHeights',
+    value: function recomputeOptionHeights() {
+      var index = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+
+      if (this._listRef) {
+        this._listRef.recomputeRowHeights(index);
+      }
+    }
+
+    /** See Select#focus (in react-select) */
+
+  }, {
+    key: 'focus',
+    value: function focus() {
+      if (this._selectRef) {
+        return this._selectRef.focus();
+      }
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var SelectComponent = this._getSelectComponent();
+
+      return _react2.default.createElement(SelectComponent, _extends({}, this.props, {
+        ref: this._setSelectRef,
+        menuRenderer: this._renderMenu,
+        menuStyle: { overflow: 'hidden' }
+      }));
+    }
+
+    // See https://github.com/JedWatson/react-select/#effeciently-rendering-large-lists-with-windowing
+
+  }, {
+    key: '_renderMenu',
+    value: function _renderMenu(_ref) {
+      var _this2 = this;
+
+      var focusedOption = _ref.focusedOption,
+          focusOption = _ref.focusOption,
+          labelKey = _ref.labelKey,
+          onSelect = _ref.onSelect,
+          options = _ref.options,
+          selectValue = _ref.selectValue,
+          valueArray = _ref.valueArray;
+      var _props = this.props,
+          listProps = _props.listProps,
+          optionRenderer = _props.optionRenderer;
+
+      var focusedOptionIndex = options.indexOf(focusedOption);
+      var height = this._calculateListHeight({ options: options });
+      var innerRowRenderer = optionRenderer || this._optionRenderer;
+
+      // react-select 1.0.0-rc2 passes duplicate `onSelect` and `selectValue` props to `menuRenderer`
+      // The `Creatable` HOC only overrides `onSelect` which breaks an edge-case
+      // In order to support creating items via clicking on the placeholder option,
+      // We need to ensure that the specified `onSelect` handle is the one we use.
+      // See issue #33
+
+      function wrappedRowRenderer(_ref2) {
+        var index = _ref2.index,
+            key = _ref2.key,
+            style = _ref2.style;
+
+        var option = options[index];
+
+        return innerRowRenderer({
+          focusedOption: focusedOption,
+          focusedOptionIndex: focusedOptionIndex,
+          focusOption: focusOption,
+          key: key,
+          labelKey: labelKey,
+          onSelect: onSelect,
+          option: option,
+          optionIndex: index,
+          options: options,
+          selectValue: onSelect,
+          style: style,
+          valueArray: valueArray
+        });
+      }
+
+      return _react2.default.createElement(
+        _AutoSizer2.default,
+        { disableHeight: true },
+        function (_ref3) {
+          var width = _ref3.width;
+          return _react2.default.createElement(_List2.default, _extends({
+            className: 'VirtualSelectGrid',
+            height: height,
+            ref: _this2._setListRef,
+            rowCount: options.length,
+            rowHeight: function rowHeight(_ref4) {
+              var index = _ref4.index;
+              return _this2._getOptionHeight({
+                option: options[index]
+              });
+            },
+            rowRenderer: wrappedRowRenderer,
+            scrollToIndex: focusedOptionIndex,
+            width: width
+          }, listProps));
+        }
+      );
+    }
+  }, {
+    key: '_calculateListHeight',
+    value: function _calculateListHeight(_ref5) {
+      var options = _ref5.options;
+      var maxHeight = this.props.maxHeight;
+
+
+      var height = 0;
+
+      for (var optionIndex = 0; optionIndex < options.length; optionIndex++) {
+        var option = options[optionIndex];
+
+        height += this._getOptionHeight({ option: option });
+
+        if (height > maxHeight) {
+          return maxHeight;
+        }
+      }
+
+      return height;
+    }
+  }, {
+    key: '_getOptionHeight',
+    value: function _getOptionHeight(_ref6) {
+      var option = _ref6.option;
+      var optionHeight = this.props.optionHeight;
+
+
+      return optionHeight instanceof Function ? optionHeight({ option: option }) : optionHeight;
+    }
+  }, {
+    key: '_getSelectComponent',
+    value: function _getSelectComponent() {
+      var _props2 = this.props,
+          async = _props2.async,
+          selectComponent = _props2.selectComponent;
+
+
+      if (selectComponent) {
+        return selectComponent;
+      } else if (async) {
+        return _reactSelect2.default.Async;
+      } else {
+        return _reactSelect2.default;
+      }
+    }
+  }, {
+    key: '_optionRenderer',
+    value: function _optionRenderer(_ref7) {
+      var focusedOption = _ref7.focusedOption,
+          focusOption = _ref7.focusOption,
+          key = _ref7.key,
+          labelKey = _ref7.labelKey,
+          option = _ref7.option,
+          selectValue = _ref7.selectValue,
+          style = _ref7.style,
+          valueArray = _ref7.valueArray;
+
+      var className = ['VirtualizedSelectOption'];
+
+      if (option === focusedOption) {
+        className.push('VirtualizedSelectFocusedOption');
+      }
+
+      if (option.disabled) {
+        className.push('VirtualizedSelectDisabledOption');
+      }
+
+      if (valueArray && valueArray.indexOf(option) >= 0) {
+        className.push('VirtualizedSelectSelectedOption');
+      }
+
+      if (option.className) {
+        className.push(option.className);
+      }
+
+      var events = option.disabled ? {} : {
+        onClick: function onClick() {
+          return selectValue(option);
+        },
+        onMouseOver: function onMouseOver() {
+          return focusOption(option);
+        }
+      };
+
+      return _react2.default.createElement(
+        'div',
+        _extends({
+          className: className.join(' '),
+          key: key,
+          style: style,
+          title: option.title
+        }, events),
+        option[labelKey]
+      );
+    }
+  }, {
+    key: '_setListRef',
+    value: function _setListRef(ref) {
+      this._listRef = ref;
+    }
+  }, {
+    key: '_setSelectRef',
+    value: function _setSelectRef(ref) {
+      this._selectRef = ref;
+    }
+  }]);
+
+  return VirtualizedSelect;
+}(_react.Component);
+
+VirtualizedSelect.propTypes = {
+  async: _propTypes2.default.bool,
+  listProps: _propTypes2.default.object,
+  maxHeight: _propTypes2.default.number.isRequired,
+  optionHeight: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]).isRequired,
+  optionRenderer: _propTypes2.default.func,
+  selectComponent: _propTypes2.default.func
+};
+VirtualizedSelect.defaultProps = {
+  async: false,
+  maxHeight: 200,
+  optionHeight: 35
+};
+exports.default = VirtualizedSelect;
+
+/***/ }),
+/* 53 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = undefined;
+
+var _VirtualizedSelect = __webpack_require__(52);
+
+var _VirtualizedSelect2 = _interopRequireDefault(_VirtualizedSelect);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = _VirtualizedSelect2.default;
+
+/***/ }),
+/* 54 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = undefined;
+
+var _VirtualizedSelect = __webpack_require__(53);
+
+var _VirtualizedSelect2 = _interopRequireDefault(_VirtualizedSelect);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = _VirtualizedSelect2.default;
+
+/***/ }),
+/* 55 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _propTypes = __webpack_require__(3);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _detectElementResize = __webpack_require__(67);
+
+var _detectElementResize2 = _interopRequireDefault(_detectElementResize);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+/**
+ * Decorator component that automatically adjusts the width and height of a single child.
+ * Child component should not be declared as a child but should rather be specified by a `ChildComponent` property.
+ * All other properties will be passed through to the child component.
+ */
+var AutoSizer = function (_PureComponent) {
+  _inherits(AutoSizer, _PureComponent);
+
+  function AutoSizer(props) {
+    _classCallCheck(this, AutoSizer);
+
+    var _this = _possibleConstructorReturn(this, (AutoSizer.__proto__ || Object.getPrototypeOf(AutoSizer)).call(this, props));
+
+    _this.state = {
+      height: 0,
+      width: 0
+    };
+
+    _this._onResize = _this._onResize.bind(_this);
+    _this._setRef = _this._setRef.bind(_this);
+    return _this;
+  }
+
+  _createClass(AutoSizer, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var nonce = this.props.nonce;
+
+      // Delay access of parentNode until mount.
+      // This handles edge-cases where the component has already been unmounted before its ref has been set,
+      // As well as libraries like react-lite which have a slightly different lifecycle.
+
+      this._parentNode = this._autoSizer.parentNode;
+
+      // Defer requiring resize handler in order to support server-side rendering.
+      // See issue #41
+      this._detectElementResize = (0, _detectElementResize2.default)(nonce);
+      this._detectElementResize.addResizeListener(this._parentNode, this._onResize);
+
+      this._onResize();
+    }
+  }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      if (this._detectElementResize) {
+        this._detectElementResize.removeResizeListener(this._parentNode, this._onResize);
+      }
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          children = _props.children,
+          disableHeight = _props.disableHeight,
+          disableWidth = _props.disableWidth;
+      var _state = this.state,
+          height = _state.height,
+          width = _state.width;
+
+      // Outer div should not force width/height since that may prevent containers from shrinking.
+      // Inner component should overflow and use calculated width/height.
+      // See issue #68 for more information.
+
+      var outerStyle = { overflow: 'visible' };
+
+      if (!disableHeight) {
+        outerStyle.height = 0;
+      }
+
+      if (!disableWidth) {
+        outerStyle.width = 0;
+      }
+
+      /**
+       * TODO: Avoid rendering children before the initial measurements have been collected.
+       * At best this would just be wasting cycles.
+       * Add this check into version 10 though as it could break too many ref callbacks in version 9.
+      if (
+        height !== 0 &&
+        width !== 0
+      ) {
+        child = children({ height, width })
+      }
+      */
+
+      return _react2.default.createElement(
+        'div',
+        {
+          ref: this._setRef,
+          style: outerStyle
+        },
+        children({ height: height, width: width })
+      );
+    }
+  }, {
+    key: '_onResize',
+    value: function _onResize() {
+      var _props2 = this.props,
+          disableHeight = _props2.disableHeight,
+          disableWidth = _props2.disableWidth,
+          onResize = _props2.onResize;
+
+      // Guard against AutoSizer component being removed from the DOM immediately after being added.
+      // This can result in invalid style values which can result in NaN values if we don't handle them.
+      // See issue #150 for more context.
+
+      var height = this._parentNode.offsetHeight || 0;
+      var width = this._parentNode.offsetWidth || 0;
+
+      var style = window.getComputedStyle(this._parentNode) || {};
+      var paddingLeft = parseInt(style.paddingLeft, 10) || 0;
+      var paddingRight = parseInt(style.paddingRight, 10) || 0;
+      var paddingTop = parseInt(style.paddingTop, 10) || 0;
+      var paddingBottom = parseInt(style.paddingBottom, 10) || 0;
+
+      var newHeight = height - paddingTop - paddingBottom;
+      var newWidth = width - paddingLeft - paddingRight;
+
+      if (!disableHeight && this.state.height !== newHeight || !disableWidth && this.state.width !== newWidth) {
+        this.setState({
+          height: height - paddingTop - paddingBottom,
+          width: width - paddingLeft - paddingRight
+        });
+
+        onResize({ height: height, width: width });
+      }
+    }
+  }, {
+    key: '_setRef',
+    value: function _setRef(autoSizer) {
+      this._autoSizer = autoSizer;
+    }
+  }]);
+
+  return AutoSizer;
+}(_react.PureComponent);
+
+AutoSizer.defaultProps = {
+  onResize: function onResize() {}
+};
+exports.default = AutoSizer;
+process.env.NODE_ENV !== "production" ? AutoSizer.propTypes = {
+  /**
+  * Function responsible for rendering children.
+  * This function should implement the following signature:
+  * ({ height, width }) => PropTypes.element
+  */
+  children: _propTypes2.default.func.isRequired,
+
+  /** Disable dynamic :height property */
+  disableHeight: _propTypes2.default.bool,
+
+  /** Disable dynamic :width property */
+  disableWidth: _propTypes2.default.bool,
+
+  /** Nonce of the inlined stylesheet for Content Security Policy */
+  nonce: _propTypes2.default.string,
+
+  /** Callback to be invoked on-resize: ({ height, width }) */
+  onResize: _propTypes2.default.func.isRequired
+} : void 0;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+
+/***/ }),
+/* 56 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.AutoSizer = exports.default = undefined;
+
+var _AutoSizer2 = __webpack_require__(55);
+
+var _AutoSizer3 = _interopRequireDefault(_AutoSizer2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = _AutoSizer3.default;
+exports.AutoSizer = _AutoSizer3.default;
+
+/***/ }),
+/* 57 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.DEFAULT_SCROLLING_RESET_TIME_INTERVAL = undefined;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(3);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _classnames = __webpack_require__(5);
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _calculateSizeAndPositionDataAndUpdateScrollOffset = __webpack_require__(62);
+
+var _calculateSizeAndPositionDataAndUpdateScrollOffset2 = _interopRequireDefault(_calculateSizeAndPositionDataAndUpdateScrollOffset);
+
+var _ScalingCellSizeAndPositionManager = __webpack_require__(61);
+
+var _ScalingCellSizeAndPositionManager2 = _interopRequireDefault(_ScalingCellSizeAndPositionManager);
+
+var _createCallbackMemoizer = __webpack_require__(66);
+
+var _createCallbackMemoizer2 = _interopRequireDefault(_createCallbackMemoizer);
+
+var _defaultOverscanIndicesGetter = __webpack_require__(23);
+
+var _defaultOverscanIndicesGetter2 = _interopRequireDefault(_defaultOverscanIndicesGetter);
+
+var _updateScrollIndexHelper = __webpack_require__(63);
+
+var _updateScrollIndexHelper2 = _interopRequireDefault(_updateScrollIndexHelper);
+
+var _defaultCellRangeRenderer = __webpack_require__(22);
+
+var _defaultCellRangeRenderer2 = _interopRequireDefault(_defaultCellRangeRenderer);
+
+var _scrollbarSize = __webpack_require__(30);
+
+var _scrollbarSize2 = _interopRequireDefault(_scrollbarSize);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+/**
+ * Specifies the number of milliseconds during which to disable pointer events while a scroll is in progress.
+ * This improves performance and makes scrolling smoother.
+ */
+var DEFAULT_SCROLLING_RESET_TIME_INTERVAL = exports.DEFAULT_SCROLLING_RESET_TIME_INTERVAL = 150;
+
+/**
+ * Controls whether the Grid updates the DOM element's scrollLeft/scrollTop based on the current state or just observes it.
+ * This prevents Grid from interrupting mouse-wheel animations (see issue #2).
+ */
+var SCROLL_POSITION_CHANGE_REASONS = {
+  OBSERVED: 'observed',
+  REQUESTED: 'requested'
+};
+
+/**
+ * Renders tabular data with virtualization along the vertical and horizontal axes.
+ * Row heights and column widths must be known ahead of time and specified as properties.
+ */
+
+var Grid = function (_PureComponent) {
+  _inherits(Grid, _PureComponent);
+
+  function Grid(props, context) {
+    _classCallCheck(this, Grid);
+
+    var _this = _possibleConstructorReturn(this, (Grid.__proto__ || Object.getPrototypeOf(Grid)).call(this, props, context));
+
+    _this.state = {
+      isScrolling: false,
+      scrollDirectionHorizontal: _defaultOverscanIndicesGetter.SCROLL_DIRECTION_FORWARD,
+      scrollDirectionVertical: _defaultOverscanIndicesGetter.SCROLL_DIRECTION_FORWARD,
+      scrollLeft: 0,
+      scrollTop: 0
+    };
+
+    // Invokes onSectionRendered callback only when start/stop row or column indices change
+    _this._onGridRenderedMemoizer = (0, _createCallbackMemoizer2.default)();
+    _this._onScrollMemoizer = (0, _createCallbackMemoizer2.default)(false);
+
+    // Bind functions to instance so they don't lose context when passed around
+    _this._debounceScrollEndedCallback = _this._debounceScrollEndedCallback.bind(_this);
+    _this._invokeOnGridRenderedHelper = _this._invokeOnGridRenderedHelper.bind(_this);
+    _this._onScroll = _this._onScroll.bind(_this);
+    _this._setScrollingContainerRef = _this._setScrollingContainerRef.bind(_this);
+
+    _this._columnWidthGetter = _this._wrapSizeGetter(props.columnWidth);
+    _this._rowHeightGetter = _this._wrapSizeGetter(props.rowHeight);
+
+    _this._deferredInvalidateColumnIndex = null;
+    _this._deferredInvalidateRowIndex = null;
+    _this._recomputeScrollLeftFlag = false;
+    _this._recomputeScrollTopFlag = false;
+
+    _this._horizontalScrollBarSize = 0;
+    _this._verticalScrollBarSize = 0;
+    _this._scrollbarPresenceChanged = false;
+
+    var deferredMeasurementCache = props.deferredMeasurementCache;
+    var deferredMode = typeof deferredMeasurementCache !== 'undefined';
+
+    _this._columnSizeAndPositionManager = new _ScalingCellSizeAndPositionManager2.default({
+      batchAllCells: deferredMode && !deferredMeasurementCache.hasFixedHeight(),
+      cellCount: props.columnCount,
+      cellSizeGetter: function cellSizeGetter(params) {
+        return _this._columnWidthGetter(params);
+      },
+      estimatedCellSize: _this._getEstimatedColumnSize(props)
+    });
+    _this._rowSizeAndPositionManager = new _ScalingCellSizeAndPositionManager2.default({
+      batchAllCells: deferredMode && !deferredMeasurementCache.hasFixedWidth(),
+      cellCount: props.rowCount,
+      cellSizeGetter: function cellSizeGetter(params) {
+        return _this._rowHeightGetter(params);
+      },
+      estimatedCellSize: _this._getEstimatedRowSize(props)
+    });
+
+    // See defaultCellRangeRenderer() for more information on the usage of these caches
+    _this._cellCache = {};
+    _this._styleCache = {};
+    return _this;
+  }
+
+  /**
+   * Gets offsets for a given cell and alignment.
+   */
+
+
+  _createClass(Grid, [{
+    key: 'getOffsetForCell',
+    value: function getOffsetForCell() {
+      var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+          _ref$alignment = _ref.alignment,
+          alignment = _ref$alignment === undefined ? this.props.scrollToAlignment : _ref$alignment,
+          _ref$columnIndex = _ref.columnIndex,
+          columnIndex = _ref$columnIndex === undefined ? this.props.scrollToColumn : _ref$columnIndex,
+          _ref$rowIndex = _ref.rowIndex,
+          rowIndex = _ref$rowIndex === undefined ? this.props.scrollToRow : _ref$rowIndex;
+
+      var offsetProps = _extends({}, this.props, {
+        scrollToAlignment: alignment,
+        scrollToColumn: columnIndex,
+        scrollToRow: rowIndex
+      });
+
+      return {
+        scrollLeft: this._getCalculatedScrollLeft(offsetProps),
+        scrollTop: this._getCalculatedScrollTop(offsetProps)
+      };
+    }
+
+    /**
+     * This method handles a scroll event originating from an external scroll control.
+     * It's an advanced method and should probably not be used unless you're implementing a custom scroll-bar solution.
+     */
+
+  }, {
+    key: 'handleScrollEvent',
+    value: function handleScrollEvent(_ref2) {
+      var _ref2$scrollLeft = _ref2.scrollLeft,
+          scrollLeftParam = _ref2$scrollLeft === undefined ? 0 : _ref2$scrollLeft,
+          _ref2$scrollTop = _ref2.scrollTop,
+          scrollTopParam = _ref2$scrollTop === undefined ? 0 : _ref2$scrollTop;
+
+      // On iOS, we can arrive at negative offsets by swiping past the start.
+      // To prevent flicker here, we make playing in the negative offset zone cause nothing to happen.
+      if (scrollTopParam < 0) {
+        return;
+      }
+
+      // Prevent pointer events from interrupting a smooth scroll
+      this._debounceScrollEnded();
+
+      var _props = this.props,
+          autoHeight = _props.autoHeight,
+          autoWidth = _props.autoWidth,
+          height = _props.height,
+          width = _props.width;
+
+      // When this component is shrunk drastically, React dispatches a series of back-to-back scroll events,
+      // Gradually converging on a scrollTop that is within the bounds of the new, smaller height.
+      // This causes a series of rapid renders that is slow for long lists.
+      // We can avoid that by doing some simple bounds checking to ensure that scroll offsets never exceed their bounds.
+
+      var scrollbarSize = this._scrollbarSize;
+      var totalRowsHeight = this._rowSizeAndPositionManager.getTotalSize();
+      var totalColumnsWidth = this._columnSizeAndPositionManager.getTotalSize();
+      var scrollLeft = Math.min(Math.max(0, totalColumnsWidth - width + scrollbarSize), scrollLeftParam);
+      var scrollTop = Math.min(Math.max(0, totalRowsHeight - height + scrollbarSize), scrollTopParam);
+
+      // Certain devices (like Apple touchpad) rapid-fire duplicate events.
+      // Don't force a re-render if this is the case.
+      // The mouse may move faster then the animation frame does.
+      // Use requestAnimationFrame to avoid over-updating.
+      if (this.state.scrollLeft !== scrollLeft || this.state.scrollTop !== scrollTop) {
+        // Track scrolling direction so we can more efficiently overscan rows to reduce empty space around the edges while scrolling.
+        // Don't change direction for an axis unless scroll offset has changed.
+        var scrollDirectionHorizontal = scrollLeft !== this.state.scrollLeft ? scrollLeft > this.state.scrollLeft ? _defaultOverscanIndicesGetter.SCROLL_DIRECTION_FORWARD : _defaultOverscanIndicesGetter.SCROLL_DIRECTION_BACKWARD : this.state.scrollDirectionHorizontal;
+        var scrollDirectionVertical = scrollTop !== this.state.scrollTop ? scrollTop > this.state.scrollTop ? _defaultOverscanIndicesGetter.SCROLL_DIRECTION_FORWARD : _defaultOverscanIndicesGetter.SCROLL_DIRECTION_BACKWARD : this.state.scrollDirectionVertical;
+
+        var newState = {
+          isScrolling: true,
+          scrollDirectionHorizontal: scrollDirectionHorizontal,
+          scrollDirectionVertical: scrollDirectionVertical,
+          scrollPositionChangeReason: SCROLL_POSITION_CHANGE_REASONS.OBSERVED
+        };
+
+        if (!autoHeight) {
+          newState.scrollTop = scrollTop;
+        }
+
+        if (!autoWidth) {
+          newState.scrollLeft = scrollLeft;
+        }
+
+        this.setState(newState);
+      }
+
+      this._invokeOnScrollMemoizer({ scrollLeft: scrollLeft, scrollTop: scrollTop, totalColumnsWidth: totalColumnsWidth, totalRowsHeight: totalRowsHeight });
+    }
+
+    /**
+     * Invalidate Grid size and recompute visible cells.
+     * This is a deferred wrapper for recomputeGridSize().
+     * It sets a flag to be evaluated on cDM/cDU to avoid unnecessary renders.
+     * This method is intended for advanced use-cases like CellMeasurer.
+     */
+    // @TODO (bvaughn) Add automated test coverage for this.
+
+  }, {
+    key: 'invalidateCellSizeAfterRender',
+    value: function invalidateCellSizeAfterRender(_ref3) {
+      var columnIndex = _ref3.columnIndex,
+          rowIndex = _ref3.rowIndex;
+
+      this._deferredInvalidateColumnIndex = typeof this._deferredInvalidateColumnIndex === 'number' ? Math.min(this._deferredInvalidateColumnIndex, columnIndex) : columnIndex;
+      this._deferredInvalidateRowIndex = typeof this._deferredInvalidateRowIndex === 'number' ? Math.min(this._deferredInvalidateRowIndex, rowIndex) : rowIndex;
+    }
+
+    /**
+     * Pre-measure all columns and rows in a Grid.
+     * Typically cells are only measured as needed and estimated sizes are used for cells that have not yet been measured.
+     * This method ensures that the next call to getTotalSize() returns an exact size (as opposed to just an estimated one).
+     */
+
+  }, {
+    key: 'measureAllCells',
+    value: function measureAllCells() {
+      var _props2 = this.props,
+          columnCount = _props2.columnCount,
+          rowCount = _props2.rowCount;
+
+
+      this._columnSizeAndPositionManager.getSizeAndPositionOfCell(columnCount - 1);
+      this._rowSizeAndPositionManager.getSizeAndPositionOfCell(rowCount - 1);
+    }
+
+    /**
+     * Forced recompute of row heights and column widths.
+     * This function should be called if dynamic column or row sizes have changed but nothing else has.
+     * Since Grid only receives :columnCount and :rowCount it has no way of detecting when the underlying data changes.
+     */
+
+  }, {
+    key: 'recomputeGridSize',
+    value: function recomputeGridSize() {
+      var _ref4 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+          _ref4$columnIndex = _ref4.columnIndex,
+          columnIndex = _ref4$columnIndex === undefined ? 0 : _ref4$columnIndex,
+          _ref4$rowIndex = _ref4.rowIndex,
+          rowIndex = _ref4$rowIndex === undefined ? 0 : _ref4$rowIndex;
+
+      var _props3 = this.props,
+          scrollToColumn = _props3.scrollToColumn,
+          scrollToRow = _props3.scrollToRow;
+
+
+      this._columnSizeAndPositionManager.resetCell(columnIndex);
+      this._rowSizeAndPositionManager.resetCell(rowIndex);
+
+      // Cell sizes may be determined by a function property.
+      // In this case the cDU handler can't know if they changed.
+      // Store this flag to let the next cDU pass know it needs to recompute the scroll offset.
+      this._recomputeScrollLeftFlag = scrollToColumn >= 0 && columnIndex <= scrollToColumn;
+      this._recomputeScrollTopFlag = scrollToRow >= 0 && rowIndex <= scrollToRow;
+
+      // Clear cell cache in case we are scrolling;
+      // Invalid row heights likely mean invalid cached content as well.
+      this._cellCache = {};
+      this._styleCache = {};
+
+      this.forceUpdate();
+    }
+
+    /**
+     * Ensure column and row are visible.
+     */
+
+  }, {
+    key: 'scrollToCell',
+    value: function scrollToCell(_ref5) {
+      var columnIndex = _ref5.columnIndex,
+          rowIndex = _ref5.rowIndex;
+      var columnCount = this.props.columnCount;
+
+
+      var props = this.props;
+
+      // Don't adjust scroll offset for single-column grids (eg List, Table).
+      // This can cause a funky scroll offset because of the vertical scrollbar width.
+      if (columnCount > 1) {
+        this._updateScrollLeftForScrollToColumn(_extends({}, props, {
+          scrollToColumn: columnIndex
+        }));
+      }
+
+      this._updateScrollTopForScrollToRow(_extends({}, props, {
+        scrollToRow: rowIndex
+      }));
+    }
+
+    /**
+     * Scroll to the specified offset(s).
+     * Useful for animating position changes.
+     */
+
+  }, {
+    key: 'scrollToPosition',
+    value: function scrollToPosition() {
+      var _ref6 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+          scrollLeft = _ref6.scrollLeft,
+          scrollTop = _ref6.scrollTop;
+
+      this._setScrollPosition({ scrollLeft: scrollLeft, scrollTop: scrollTop });
+    }
+  }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var _props4 = this.props,
+          getScrollbarSize = _props4.getScrollbarSize,
+          height = _props4.height,
+          scrollLeft = _props4.scrollLeft,
+          scrollToColumn = _props4.scrollToColumn,
+          scrollTop = _props4.scrollTop,
+          scrollToRow = _props4.scrollToRow,
+          width = _props4.width;
+
+      // If cell sizes have been invalidated (eg we are using CellMeasurer) then reset cached positions.
+      // We must do this at the start of the method as we may calculate and update scroll position below.
+
+      this._handleInvalidatedGridSize();
+
+      // If this component was first rendered server-side, scrollbar size will be undefined.
+      // In that event we need to remeasure.
+      if (!this._scrollbarSizeMeasured) {
+        this._scrollbarSize = getScrollbarSize();
+        this._scrollbarSizeMeasured = true;
+        this.setState({});
+      }
+
+      if (scrollLeft >= 0 || scrollTop >= 0) {
+        this._setScrollPosition({ scrollLeft: scrollLeft, scrollTop: scrollTop });
+      }
+
+      // Don't update scroll offset if the size is 0; we don't render any cells in this case.
+      // Setting a state may cause us to later thing we've updated the offce when we haven't.
+      var sizeIsBiggerThanZero = height > 0 && width > 0;
+      if (scrollToColumn >= 0 && sizeIsBiggerThanZero) {
+        this._updateScrollLeftForScrollToColumn();
+      }
+      if (scrollToRow >= 0 && sizeIsBiggerThanZero) {
+        this._updateScrollTopForScrollToRow();
+      }
+
+      // Update onRowsRendered callback
+      this._invokeOnGridRenderedHelper();
+
+      // Initialize onScroll callback
+      this._invokeOnScrollMemoizer({
+        scrollLeft: scrollLeft || 0,
+        scrollTop: scrollTop || 0,
+        totalColumnsWidth: this._columnSizeAndPositionManager.getTotalSize(),
+        totalRowsHeight: this._rowSizeAndPositionManager.getTotalSize()
+      });
+
+      this._maybeCallOnScrollbarPresenceChange();
+    }
+
+    /**
+     * @private
+     * This method updates scrollLeft/scrollTop in state for the following conditions:
+     * 1) New scroll-to-cell props have been set
+     */
+
+  }, {
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate(prevProps, prevState) {
+      var _this2 = this;
+
+      var _props5 = this.props,
+          autoHeight = _props5.autoHeight,
+          autoWidth = _props5.autoWidth,
+          columnCount = _props5.columnCount,
+          height = _props5.height,
+          rowCount = _props5.rowCount,
+          scrollToAlignment = _props5.scrollToAlignment,
+          scrollToColumn = _props5.scrollToColumn,
+          scrollToRow = _props5.scrollToRow,
+          width = _props5.width;
+      var _state = this.state,
+          scrollLeft = _state.scrollLeft,
+          scrollPositionChangeReason = _state.scrollPositionChangeReason,
+          scrollTop = _state.scrollTop;
+
+      // If cell sizes have been invalidated (eg we are using CellMeasurer) then reset cached positions.
+      // We must do this at the start of the method as we may calculate and update scroll position below.
+
+      this._handleInvalidatedGridSize();
+
+      // Handle edge case where column or row count has only just increased over 0.
+      // In this case we may have to restore a previously-specified scroll offset.
+      // For more info see bvaughn/react-virtualized/issues/218
+      var columnOrRowCountJustIncreasedFromZero = columnCount > 0 && prevProps.columnCount === 0 || rowCount > 0 && prevProps.rowCount === 0;
+
+      // Make sure requested changes to :scrollLeft or :scrollTop get applied.
+      // Assigning to scrollLeft/scrollTop tells the browser to interrupt any running scroll animations,
+      // And to discard any pending async changes to the scroll position that may have happened in the meantime (e.g. on a separate scrolling thread).
+      // So we only set these when we require an adjustment of the scroll position.
+      // See issue #2 for more information.
+      if (scrollPositionChangeReason === SCROLL_POSITION_CHANGE_REASONS.REQUESTED) {
+        // @TRICKY :autoHeight and :autoWidth properties instructs Grid to leave :scrollTop and :scrollLeft management to an external HOC (eg WindowScroller).
+        // In this case we should avoid checking scrollingContainer.scrollTop and scrollingContainer.scrollLeft since it forces layout/flow.
+        if (!autoWidth && scrollLeft >= 0 && (scrollLeft !== prevState.scrollLeft && scrollLeft !== this._scrollingContainer.scrollLeft || columnOrRowCountJustIncreasedFromZero)) {
+          this._scrollingContainer.scrollLeft = scrollLeft;
+        }
+        if (!autoHeight && scrollTop >= 0 && (scrollTop !== prevState.scrollTop && scrollTop !== this._scrollingContainer.scrollTop || columnOrRowCountJustIncreasedFromZero)) {
+          this._scrollingContainer.scrollTop = scrollTop;
+        }
+      }
+
+      // Special case where the previous size was 0:
+      // In this case we don't show any windowed cells at all.
+      // So we should always recalculate offset afterwards.
+      var sizeJustIncreasedFromZero = (prevProps.width === 0 || prevProps.height === 0) && height > 0 && width > 0;
+
+      // Update scroll offsets if the current :scrollToColumn or :scrollToRow values requires it
+      // @TODO Do we also need this check or can the one in componentWillUpdate() suffice?
+      if (this._recomputeScrollLeftFlag) {
+        this._recomputeScrollLeftFlag = false;
+        this._updateScrollLeftForScrollToColumn(this.props);
+      } else {
+        (0, _updateScrollIndexHelper2.default)({
+          cellSizeAndPositionManager: this._columnSizeAndPositionManager,
+          previousCellsCount: prevProps.columnCount,
+          previousCellSize: prevProps.columnWidth,
+          previousScrollToAlignment: prevProps.scrollToAlignment,
+          previousScrollToIndex: prevProps.scrollToColumn,
+          previousSize: prevProps.width,
+          scrollOffset: scrollLeft,
+          scrollToAlignment: scrollToAlignment,
+          scrollToIndex: scrollToColumn,
+          size: width,
+          sizeJustIncreasedFromZero: sizeJustIncreasedFromZero,
+          updateScrollIndexCallback: function updateScrollIndexCallback(scrollToColumn) {
+            return _this2._updateScrollLeftForScrollToColumn(_this2.props);
+          }
+        });
+      }
+
+      if (this._recomputeScrollTopFlag) {
+        this._recomputeScrollTopFlag = false;
+        this._updateScrollTopForScrollToRow(this.props);
+      } else {
+        (0, _updateScrollIndexHelper2.default)({
+          cellSizeAndPositionManager: this._rowSizeAndPositionManager,
+          previousCellsCount: prevProps.rowCount,
+          previousCellSize: prevProps.rowHeight,
+          previousScrollToAlignment: prevProps.scrollToAlignment,
+          previousScrollToIndex: prevProps.scrollToRow,
+          previousSize: prevProps.height,
+          scrollOffset: scrollTop,
+          scrollToAlignment: scrollToAlignment,
+          scrollToIndex: scrollToRow,
+          size: height,
+          sizeJustIncreasedFromZero: sizeJustIncreasedFromZero,
+          updateScrollIndexCallback: function updateScrollIndexCallback(scrollToRow) {
+            return _this2._updateScrollTopForScrollToRow(_this2.props);
+          }
+        });
+      }
+
+      // Update onRowsRendered callback if start/stop indices have changed
+      this._invokeOnGridRenderedHelper();
+
+      // Changes to :scrollLeft or :scrollTop should also notify :onScroll listeners
+      if (scrollLeft !== prevState.scrollLeft || scrollTop !== prevState.scrollTop) {
+        var totalRowsHeight = this._rowSizeAndPositionManager.getTotalSize();
+        var totalColumnsWidth = this._columnSizeAndPositionManager.getTotalSize();
+
+        this._invokeOnScrollMemoizer({ scrollLeft: scrollLeft, scrollTop: scrollTop, totalColumnsWidth: totalColumnsWidth, totalRowsHeight: totalRowsHeight });
+      }
+
+      this._maybeCallOnScrollbarPresenceChange();
+    }
+  }, {
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      var getScrollbarSize = this.props.getScrollbarSize;
+
+      // If this component is being rendered server-side, getScrollbarSize() will return undefined.
+      // We handle this case in componentDidMount()
+
+      this._scrollbarSize = getScrollbarSize();
+      if (this._scrollbarSize === undefined) {
+        this._scrollbarSizeMeasured = false;
+        this._scrollbarSize = 0;
+      } else {
+        this._scrollbarSizeMeasured = true;
+      }
+
+      this._calculateChildrenToRender();
+    }
+  }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      if (this._disablePointerEventsTimeoutId) {
+        clearTimeout(this._disablePointerEventsTimeoutId);
+      }
+    }
+
+    /**
+     * @private
+     * This method updates scrollLeft/scrollTop in state for the following conditions:
+     * 1) Empty content (0 rows or columns)
+     * 2) New scroll props overriding the current state
+     * 3) Cells-count or cells-size has changed, making previous scroll offsets invalid
+     */
+
+  }, {
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      var _this3 = this;
+
+      var _state2 = this.state,
+          scrollLeft = _state2.scrollLeft,
+          scrollTop = _state2.scrollTop;
+
+
+      if (nextProps.columnCount === 0 && scrollLeft !== 0 || nextProps.rowCount === 0 && scrollTop !== 0) {
+        this._setScrollPosition({
+          scrollLeft: 0,
+          scrollTop: 0
+        });
+      } else if (nextProps.scrollLeft !== this.props.scrollLeft || nextProps.scrollTop !== this.props.scrollTop) {
+        var newState = {};
+
+        if (nextProps.scrollLeft != null) {
+          newState.scrollLeft = nextProps.scrollLeft;
+        }
+        if (nextProps.scrollTop != null) {
+          newState.scrollTop = nextProps.scrollTop;
+        }
+
+        this._setScrollPosition(newState);
+      }
+
+      if (nextProps.columnWidth !== this.props.columnWidth || nextProps.rowHeight !== this.props.rowHeight) {
+        this._styleCache = {};
+      }
+
+      this._columnWidthGetter = this._wrapSizeGetter(nextProps.columnWidth);
+      this._rowHeightGetter = this._wrapSizeGetter(nextProps.rowHeight);
+
+      this._columnSizeAndPositionManager.configure({
+        cellCount: nextProps.columnCount,
+        estimatedCellSize: this._getEstimatedColumnSize(nextProps)
+      });
+      this._rowSizeAndPositionManager.configure({
+        cellCount: nextProps.rowCount,
+        estimatedCellSize: this._getEstimatedRowSize(nextProps)
+      });
+
+      var _props6 = this.props,
+          columnCount = _props6.columnCount,
+          rowCount = _props6.rowCount;
+
+      // Special case when either cols or rows were 0
+      // This would prevent any cells from rendering
+      // So we need to reset row scroll if cols changed from 0 (and vice versa)
+
+      if (columnCount === 0 || rowCount === 0) {
+        columnCount = 0;
+        rowCount = 0;
+      }
+
+      // If scrolling is controlled outside this component, clear cache when scrolling stops
+      if (nextProps.autoHeight && nextProps.isScrolling === false && this.props.isScrolling === true) {
+        this._resetStyleCache();
+      }
+
+      // Update scroll offsets if the size or number of cells have changed, invalidating the previous value
+      (0, _calculateSizeAndPositionDataAndUpdateScrollOffset2.default)({
+        cellCount: columnCount,
+        cellSize: this.props.columnWidth,
+        computeMetadataCallback: function computeMetadataCallback() {
+          return _this3._columnSizeAndPositionManager.resetCell(0);
+        },
+        computeMetadataCallbackProps: nextProps,
+        nextCellsCount: nextProps.columnCount,
+        nextCellSize: nextProps.columnWidth,
+        nextScrollToIndex: nextProps.scrollToColumn,
+        scrollToIndex: this.props.scrollToColumn,
+        updateScrollOffsetForScrollToIndex: function updateScrollOffsetForScrollToIndex() {
+          return _this3._updateScrollLeftForScrollToColumn(nextProps, _this3.state);
+        }
+      });
+      (0, _calculateSizeAndPositionDataAndUpdateScrollOffset2.default)({
+        cellCount: rowCount,
+        cellSize: this.props.rowHeight,
+        computeMetadataCallback: function computeMetadataCallback() {
+          return _this3._rowSizeAndPositionManager.resetCell(0);
+        },
+        computeMetadataCallbackProps: nextProps,
+        nextCellsCount: nextProps.rowCount,
+        nextCellSize: nextProps.rowHeight,
+        nextScrollToIndex: nextProps.scrollToRow,
+        scrollToIndex: this.props.scrollToRow,
+        updateScrollOffsetForScrollToIndex: function updateScrollOffsetForScrollToIndex() {
+          return _this3._updateScrollTopForScrollToRow(nextProps, _this3.state);
+        }
+      });
+    }
+  }, {
+    key: 'componentWillUpdate',
+    value: function componentWillUpdate(nextProps, nextState) {
+      this._calculateChildrenToRender(nextProps, nextState);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _props7 = this.props,
+          autoContainerWidth = _props7.autoContainerWidth,
+          autoHeight = _props7.autoHeight,
+          autoWidth = _props7.autoWidth,
+          className = _props7.className,
+          containerStyle = _props7.containerStyle,
+          height = _props7.height,
+          id = _props7.id,
+          noContentRenderer = _props7.noContentRenderer,
+          role = _props7.role,
+          style = _props7.style,
+          tabIndex = _props7.tabIndex,
+          width = _props7.width;
+
+
+      var isScrolling = this._isScrolling();
+
+      var gridStyle = {
+        boxSizing: 'border-box',
+        direction: 'ltr',
+        height: autoHeight ? 'auto' : height,
+        position: 'relative',
+        width: autoWidth ? 'auto' : width,
+        WebkitOverflowScrolling: 'touch',
+        willChange: 'transform'
+      };
+
+      var totalColumnsWidth = this._columnSizeAndPositionManager.getTotalSize();
+      var totalRowsHeight = this._rowSizeAndPositionManager.getTotalSize();
+
+      // Force browser to hide scrollbars when we know they aren't necessary.
+      // Otherwise once scrollbars appear they may not disappear again.
+      // For more info see issue #116
+      var verticalScrollBarSize = totalRowsHeight > height ? this._scrollbarSize : 0;
+      var horizontalScrollBarSize = totalColumnsWidth > width ? this._scrollbarSize : 0;
+
+      if (horizontalScrollBarSize !== this._horizontalScrollBarSize || verticalScrollBarSize !== this._verticalScrollBarSize) {
+        this._horizontalScrollBarSize = horizontalScrollBarSize;
+        this._verticalScrollBarSize = verticalScrollBarSize;
+        this._scrollbarPresenceChanged = true;
+      }
+
+      // Also explicitly init styles to 'auto' if scrollbars are required.
+      // This works around an obscure edge case where external CSS styles have not yet been loaded,
+      // But an initial scroll index of offset is set as an external prop.
+      // Without this style, Grid would render the correct range of cells but would NOT update its internal offset.
+      // This was originally reported via clauderic/react-infinite-calendar/issues/23
+      gridStyle.overflowX = totalColumnsWidth + verticalScrollBarSize <= width ? 'hidden' : 'auto';
+      gridStyle.overflowY = totalRowsHeight + horizontalScrollBarSize <= height ? 'hidden' : 'auto';
+
+      var childrenToDisplay = this._childrenToDisplay;
+
+      var showNoContentRenderer = childrenToDisplay.length === 0 && height > 0 && width > 0;
+
+      return _react2.default.createElement(
+        'div',
+        {
+          ref: this._setScrollingContainerRef,
+          'aria-label': this.props['aria-label'],
+          className: (0, _classnames2.default)('ReactVirtualized__Grid', className),
+          id: id,
+          onScroll: this._onScroll,
+          role: role,
+          style: _extends({}, gridStyle, style),
+          tabIndex: tabIndex
+        },
+        childrenToDisplay.length > 0 && _react2.default.createElement(
+          'div',
+          {
+            className: 'ReactVirtualized__Grid__innerScrollContainer',
+            style: _extends({
+              width: autoContainerWidth ? 'auto' : totalColumnsWidth,
+              height: totalRowsHeight,
+              maxWidth: totalColumnsWidth,
+              maxHeight: totalRowsHeight,
+              overflow: 'hidden',
+              pointerEvents: isScrolling ? 'none' : '',
+              position: 'relative'
+            }, containerStyle)
+          },
+          childrenToDisplay
+        ),
+        showNoContentRenderer && noContentRenderer()
+      );
+    }
+
+    /* ---------------------------- Helper methods ---------------------------- */
+
+  }, {
+    key: '_calculateChildrenToRender',
+    value: function _calculateChildrenToRender() {
+      var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.props;
+      var state = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.state;
+      var cellRenderer = props.cellRenderer,
+          cellRangeRenderer = props.cellRangeRenderer,
+          columnCount = props.columnCount,
+          deferredMeasurementCache = props.deferredMeasurementCache,
+          height = props.height,
+          overscanColumnCount = props.overscanColumnCount,
+          overscanIndicesGetter = props.overscanIndicesGetter,
+          overscanRowCount = props.overscanRowCount,
+          rowCount = props.rowCount,
+          width = props.width;
+      var scrollDirectionHorizontal = state.scrollDirectionHorizontal,
+          scrollDirectionVertical = state.scrollDirectionVertical,
+          scrollLeft = state.scrollLeft,
+          scrollTop = state.scrollTop;
+
+
+      var isScrolling = this._isScrolling(props, state);
+
+      this._childrenToDisplay = [];
+
+      // Render only enough columns and rows to cover the visible area of the grid.
+      if (height > 0 && width > 0) {
+        var visibleColumnIndices = this._columnSizeAndPositionManager.getVisibleCellRange({
+          containerSize: width,
+          offset: scrollLeft
+        });
+        var visibleRowIndices = this._rowSizeAndPositionManager.getVisibleCellRange({
+          containerSize: height,
+          offset: scrollTop
+        });
+
+        var horizontalOffsetAdjustment = this._columnSizeAndPositionManager.getOffsetAdjustment({
+          containerSize: width,
+          offset: scrollLeft
+        });
+        var verticalOffsetAdjustment = this._rowSizeAndPositionManager.getOffsetAdjustment({
+          containerSize: height,
+          offset: scrollTop
+        });
+
+        // Store for _invokeOnGridRenderedHelper()
+        this._renderedColumnStartIndex = visibleColumnIndices.start;
+        this._renderedColumnStopIndex = visibleColumnIndices.stop;
+        this._renderedRowStartIndex = visibleRowIndices.start;
+        this._renderedRowStopIndex = visibleRowIndices.stop;
+
+        var overscanColumnIndices = overscanIndicesGetter({
+          direction: 'horizontal',
+          cellCount: columnCount,
+          overscanCellsCount: overscanColumnCount,
+          scrollDirection: scrollDirectionHorizontal,
+          startIndex: this._renderedColumnStartIndex,
+          stopIndex: this._renderedColumnStopIndex
+        });
+
+        var overscanRowIndices = overscanIndicesGetter({
+          direction: 'vertical',
+          cellCount: rowCount,
+          overscanCellsCount: overscanRowCount,
+          scrollDirection: scrollDirectionVertical,
+          startIndex: this._renderedRowStartIndex,
+          stopIndex: this._renderedRowStopIndex
+        });
+
+        // Store for _invokeOnGridRenderedHelper()
+        this._columnStartIndex = overscanColumnIndices.overscanStartIndex;
+        this._columnStopIndex = overscanColumnIndices.overscanStopIndex;
+        this._rowStartIndex = overscanRowIndices.overscanStartIndex;
+        this._rowStopIndex = overscanRowIndices.overscanStopIndex;
+
+        this._childrenToDisplay = cellRangeRenderer({
+          cellCache: this._cellCache,
+          cellRenderer: cellRenderer,
+          columnSizeAndPositionManager: this._columnSizeAndPositionManager,
+          columnStartIndex: this._columnStartIndex,
+          columnStopIndex: this._columnStopIndex,
+          deferredMeasurementCache: deferredMeasurementCache,
+          horizontalOffsetAdjustment: horizontalOffsetAdjustment,
+          isScrolling: isScrolling,
+          parent: this,
+          rowSizeAndPositionManager: this._rowSizeAndPositionManager,
+          rowStartIndex: this._rowStartIndex,
+          rowStopIndex: this._rowStopIndex,
+          scrollLeft: scrollLeft,
+          scrollTop: scrollTop,
+          styleCache: this._styleCache,
+          verticalOffsetAdjustment: verticalOffsetAdjustment,
+          visibleColumnIndices: visibleColumnIndices,
+          visibleRowIndices: visibleRowIndices
+        });
+      }
+    }
+
+    /**
+     * Sets an :isScrolling flag for a small window of time.
+     * This flag is used to disable pointer events on the scrollable portion of the Grid.
+     * This prevents jerky/stuttery mouse-wheel scrolling.
+     */
+
+  }, {
+    key: '_debounceScrollEnded',
+    value: function _debounceScrollEnded() {
+      var scrollingResetTimeInterval = this.props.scrollingResetTimeInterval;
+
+
+      if (this._disablePointerEventsTimeoutId) {
+        clearTimeout(this._disablePointerEventsTimeoutId);
+      }
+
+      this._disablePointerEventsTimeoutId = setTimeout(this._debounceScrollEndedCallback, scrollingResetTimeInterval);
+    }
+  }, {
+    key: '_debounceScrollEndedCallback',
+    value: function _debounceScrollEndedCallback() {
+      this._disablePointerEventsTimeoutId = null;
+      this._resetStyleCache();
+    }
+  }, {
+    key: '_getEstimatedColumnSize',
+    value: function _getEstimatedColumnSize(props) {
+      return typeof props.columnWidth === 'number' ? props.columnWidth : props.estimatedColumnSize;
+    }
+  }, {
+    key: '_getEstimatedRowSize',
+    value: function _getEstimatedRowSize(props) {
+      return typeof props.rowHeight === 'number' ? props.rowHeight : props.estimatedRowSize;
+    }
+
+    /**
+     * Check for batched CellMeasurer size invalidations.
+     * This will occur the first time one or more previously unmeasured cells are rendered.
+     */
+
+  }, {
+    key: '_handleInvalidatedGridSize',
+    value: function _handleInvalidatedGridSize() {
+      if (typeof this._deferredInvalidateColumnIndex === 'number') {
+        var columnIndex = this._deferredInvalidateColumnIndex;
+        var rowIndex = this._deferredInvalidateRowIndex;
+
+        this._deferredInvalidateColumnIndex = null;
+        this._deferredInvalidateRowIndex = null;
+
+        this.recomputeGridSize({ columnIndex: columnIndex, rowIndex: rowIndex });
+      }
+    }
+  }, {
+    key: '_invokeOnGridRenderedHelper',
+    value: function _invokeOnGridRenderedHelper() {
+      var onSectionRendered = this.props.onSectionRendered;
+
+
+      this._onGridRenderedMemoizer({
+        callback: onSectionRendered,
+        indices: {
+          columnOverscanStartIndex: this._columnStartIndex,
+          columnOverscanStopIndex: this._columnStopIndex,
+          columnStartIndex: this._renderedColumnStartIndex,
+          columnStopIndex: this._renderedColumnStopIndex,
+          rowOverscanStartIndex: this._rowStartIndex,
+          rowOverscanStopIndex: this._rowStopIndex,
+          rowStartIndex: this._renderedRowStartIndex,
+          rowStopIndex: this._renderedRowStopIndex
+        }
+      });
+    }
+  }, {
+    key: '_invokeOnScrollMemoizer',
+    value: function _invokeOnScrollMemoizer(_ref7) {
+      var _this4 = this;
+
+      var scrollLeft = _ref7.scrollLeft,
+          scrollTop = _ref7.scrollTop,
+          totalColumnsWidth = _ref7.totalColumnsWidth,
+          totalRowsHeight = _ref7.totalRowsHeight;
+
+      this._onScrollMemoizer({
+        callback: function callback(_ref8) {
+          var scrollLeft = _ref8.scrollLeft,
+              scrollTop = _ref8.scrollTop;
+          var _props8 = _this4.props,
+              height = _props8.height,
+              onScroll = _props8.onScroll,
+              width = _props8.width;
+
+
+          onScroll({
+            clientHeight: height,
+            clientWidth: width,
+            scrollHeight: totalRowsHeight,
+            scrollLeft: scrollLeft,
+            scrollTop: scrollTop,
+            scrollWidth: totalColumnsWidth
+          });
+        },
+        indices: {
+          scrollLeft: scrollLeft,
+          scrollTop: scrollTop
+        }
+      });
+    }
+  }, {
+    key: '_isScrolling',
+    value: function _isScrolling() {
+      var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.props;
+      var state = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.state;
+
+      // If isScrolling is defined in props, use it to override the value in state
+      // This is a performance optimization for WindowScroller + Grid
+      return Object.hasOwnProperty.call(props, 'isScrolling') ? props.isScrolling : state.isScrolling;
+    }
+  }, {
+    key: '_maybeCallOnScrollbarPresenceChange',
+    value: function _maybeCallOnScrollbarPresenceChange() {
+      if (this._scrollbarPresenceChanged) {
+        var onScrollbarPresenceChange = this.props.onScrollbarPresenceChange;
+
+
+        this._scrollbarPresenceChanged = false;
+
+        onScrollbarPresenceChange({
+          horizontal: this._horizontalScrollBarSize > 0,
+          size: this._scrollbarSize,
+          vertical: this._verticalScrollBarSize > 0
+        });
+      }
+    }
+  }, {
+    key: '_setScrollingContainerRef',
+    value: function _setScrollingContainerRef(ref) {
+      this._scrollingContainer = ref;
+    }
+  }, {
+    key: '_setScrollPosition',
+    value: function _setScrollPosition(_ref9) {
+      var scrollLeft = _ref9.scrollLeft,
+          scrollTop = _ref9.scrollTop;
+
+      var newState = {
+        scrollPositionChangeReason: SCROLL_POSITION_CHANGE_REASONS.REQUESTED
+      };
+
+      if (scrollLeft >= 0) {
+        newState.scrollDirectionHorizontal = scrollLeft > this.state.scrollLeft ? _defaultOverscanIndicesGetter.SCROLL_DIRECTION_FORWARD : _defaultOverscanIndicesGetter.SCROLL_DIRECTION_BACKWARD;
+        newState.scrollLeft = scrollLeft;
+      }
+
+      if (scrollTop >= 0) {
+        newState.scrollDirectionVertical = scrollTop > this.state.scrollTop ? _defaultOverscanIndicesGetter.SCROLL_DIRECTION_FORWARD : _defaultOverscanIndicesGetter.SCROLL_DIRECTION_BACKWARD;
+        newState.scrollTop = scrollTop;
+      }
+
+      if (scrollLeft >= 0 && scrollLeft !== this.state.scrollLeft || scrollTop >= 0 && scrollTop !== this.state.scrollTop) {
+        this.setState(newState);
+      }
+    }
+  }, {
+    key: '_wrapPropertyGetter',
+    value: function _wrapPropertyGetter(value) {
+      return typeof value === 'function' ? value : function () {
+        return value;
+      };
+    }
+  }, {
+    key: '_wrapSizeGetter',
+    value: function _wrapSizeGetter(size) {
+      return this._wrapPropertyGetter(size);
+    }
+  }, {
+    key: '_getCalculatedScrollLeft',
+    value: function _getCalculatedScrollLeft() {
+      var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.props;
+      var state = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.state;
+      var columnCount = props.columnCount,
+          height = props.height,
+          scrollToAlignment = props.scrollToAlignment,
+          scrollToColumn = props.scrollToColumn,
+          width = props.width;
+      var scrollLeft = state.scrollLeft;
+
+
+      if (scrollToColumn >= 0 && columnCount > 0) {
+        var targetIndex = Math.max(0, Math.min(columnCount - 1, scrollToColumn));
+        var totalRowsHeight = this._rowSizeAndPositionManager.getTotalSize();
+        var scrollBarSize = totalRowsHeight > height ? this._scrollbarSize : 0;
+
+        return this._columnSizeAndPositionManager.getUpdatedOffsetForIndex({
+          align: scrollToAlignment,
+          containerSize: width - scrollBarSize,
+          currentOffset: scrollLeft,
+          targetIndex: targetIndex
+        });
+      }
+    }
+  }, {
+    key: '_updateScrollLeftForScrollToColumn',
+    value: function _updateScrollLeftForScrollToColumn() {
+      var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.props;
+      var state = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.state;
+      var scrollLeft = state.scrollLeft;
+
+      var calculatedScrollLeft = this._getCalculatedScrollLeft(props, state);
+
+      if (calculatedScrollLeft >= 0 && scrollLeft !== calculatedScrollLeft) {
+        this._setScrollPosition({
+          scrollLeft: calculatedScrollLeft
+        });
+      }
+    }
+  }, {
+    key: '_getCalculatedScrollTop',
+    value: function _getCalculatedScrollTop() {
+      var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.props;
+      var state = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.state;
+      var height = props.height,
+          rowCount = props.rowCount,
+          scrollToAlignment = props.scrollToAlignment,
+          scrollToRow = props.scrollToRow,
+          width = props.width;
+      var scrollTop = state.scrollTop;
+
+
+      if (scrollToRow >= 0 && rowCount > 0) {
+        var targetIndex = Math.max(0, Math.min(rowCount - 1, scrollToRow));
+        var totalColumnsWidth = this._columnSizeAndPositionManager.getTotalSize();
+        var scrollBarSize = totalColumnsWidth > width ? this._scrollbarSize : 0;
+
+        return this._rowSizeAndPositionManager.getUpdatedOffsetForIndex({
+          align: scrollToAlignment,
+          containerSize: height - scrollBarSize,
+          currentOffset: scrollTop,
+          targetIndex: targetIndex
+        });
+      }
+    }
+  }, {
+    key: '_resetStyleCache',
+    value: function _resetStyleCache() {
+      var styleCache = this._styleCache;
+
+      // Reset cell and style caches once scrolling stops.
+      // This makes Grid simpler to use (since cells commonly change).
+      // And it keeps the caches from growing too large.
+      // Performance is most sensitive when a user is scrolling.
+      this._cellCache = {};
+      this._styleCache = {};
+
+      // Copy over the visible cell styles so avoid unnecessary re-render.
+      for (var rowIndex = this._rowStartIndex; rowIndex <= this._rowStopIndex; rowIndex++) {
+        for (var columnIndex = this._columnStartIndex; columnIndex <= this._columnStopIndex; columnIndex++) {
+          var key = rowIndex + '-' + columnIndex;
+          this._styleCache[key] = styleCache[key];
+        }
+      }
+
+      this.setState({
+        isScrolling: false
+      });
+    }
+  }, {
+    key: '_updateScrollTopForScrollToRow',
+    value: function _updateScrollTopForScrollToRow() {
+      var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.props;
+      var state = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.state;
+      var scrollTop = state.scrollTop;
+
+      var calculatedScrollTop = this._getCalculatedScrollTop(props, state);
+
+      if (calculatedScrollTop >= 0 && scrollTop !== calculatedScrollTop) {
+        this._setScrollPosition({
+          scrollTop: calculatedScrollTop
+        });
+      }
+    }
+  }, {
+    key: '_onScroll',
+    value: function _onScroll(event) {
+      // In certain edge-cases React dispatches an onScroll event with an invalid target.scrollLeft / target.scrollTop.
+      // This invalid event can be detected by comparing event.target to this component's scrollable DOM element.
+      // See issue #404 for more information.
+      if (event.target !== this._scrollingContainer) {
+        return;
+      }
+
+      this.handleScrollEvent(event.target);
+    }
+  }]);
+
+  return Grid;
+}(_react.PureComponent);
+
+Grid.defaultProps = {
+  'aria-label': 'grid',
+  cellRangeRenderer: _defaultCellRangeRenderer2.default,
+  estimatedColumnSize: 100,
+  estimatedRowSize: 30,
+  getScrollbarSize: _scrollbarSize2.default,
+  noContentRenderer: function noContentRenderer() {
+    return null;
+  },
+  onScroll: function onScroll() {
+    return null;
+  },
+  onScrollbarPresenceChange: function onScrollbarPresenceChange() {
+    return null;
+  },
+  onSectionRendered: function onSectionRendered() {
+    return null;
+  },
+  overscanColumnCount: 0,
+  overscanIndicesGetter: _defaultOverscanIndicesGetter2.default,
+  overscanRowCount: 10,
+  role: 'grid',
+  scrollingResetTimeInterval: DEFAULT_SCROLLING_RESET_TIME_INTERVAL,
+  scrollToAlignment: 'auto',
+  scrollToColumn: -1,
+  scrollToRow: -1,
+  style: {},
+  tabIndex: 0
+};
+exports.default = Grid;
+process.env.NODE_ENV !== "production" ? Grid.propTypes = {
+  'aria-label': _propTypes2.default.string,
+
+  /**
+   * Set the width of the inner scrollable container to 'auto'.
+   * This is useful for single-column Grids to ensure that the column doesn't extend below a vertical scrollbar.
+   */
+  autoContainerWidth: _propTypes2.default.bool,
+
+  /**
+   * Removes fixed height from the scrollingContainer so that the total height of rows can stretch the window.
+   * Intended for use with WindowScroller
+   */
+  autoHeight: _propTypes2.default.bool,
+
+  /**
+   * Removes fixed width from the scrollingContainer so that the total width of rows can stretch the window.
+   * Intended for use with WindowScroller
+   */
+  autoWidth: _propTypes2.default.bool,
+
+  /**
+   * Responsible for rendering a cell given an row and column index.
+   * Should implement the following interface: ({ columnIndex: number, rowIndex: number }): PropTypes.node
+   */
+  cellRenderer: _propTypes2.default.func.isRequired,
+
+  /**
+   * Responsible for rendering a group of cells given their index ranges.
+   * Should implement the following interface: ({
+   *   cellCache: Map,
+   *   cellRenderer: Function,
+   *   columnSizeAndPositionManager: CellSizeAndPositionManager,
+   *   columnStartIndex: number,
+   *   columnStopIndex: number,
+   *   isScrolling: boolean,
+   *   rowSizeAndPositionManager: CellSizeAndPositionManager,
+   *   rowStartIndex: number,
+   *   rowStopIndex: number,
+   *   scrollLeft: number,
+   *   scrollTop: number
+   * }): Array<PropTypes.node>
+   */
+  cellRangeRenderer: _propTypes2.default.func.isRequired,
+
+  /**
+   * Optional custom CSS class name to attach to root Grid element.
+   */
+  className: _propTypes2.default.string,
+
+  /**
+   * Number of columns in grid.
+   */
+  columnCount: _propTypes2.default.number.isRequired,
+
+  /**
+   * Either a fixed column width (number) or a function that returns the width of a column given its index.
+   * Should implement the following interface: (index: number): number
+   */
+  columnWidth: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]).isRequired,
+
+  /** Optional inline style applied to inner cell-container */
+  containerStyle: _propTypes2.default.object,
+
+  /**
+   * If CellMeasurer is used to measure this Grid's children, this should be a pointer to its CellMeasurerCache.
+   * A shared CellMeasurerCache reference enables Grid and CellMeasurer to share measurement data.
+   */
+  deferredMeasurementCache: _propTypes2.default.object,
+
+  /**
+   * Used to estimate the total width of a Grid before all of its columns have actually been measured.
+   * The estimated total width is adjusted as columns are rendered.
+   */
+  estimatedColumnSize: _propTypes2.default.number.isRequired,
+
+  /**
+   * Used to estimate the total height of a Grid before all of its rows have actually been measured.
+   * The estimated total height is adjusted as rows are rendered.
+   */
+  estimatedRowSize: _propTypes2.default.number.isRequired,
+
+  /**
+   * Exposed for testing purposes only.
+   */
+  getScrollbarSize: _propTypes2.default.func.isRequired,
+
+  /**
+   * Height of Grid; this property determines the number of visible (vs virtualized) rows.
+   */
+  height: _propTypes2.default.number.isRequired,
+
+  /**
+   * Optional custom id to attach to root Grid element.
+   */
+  id: _propTypes2.default.string,
+
+  /**
+   * Override internal is-scrolling state tracking.
+   * This property is primarily intended for use with the WindowScroller component.
+   */
+  isScrolling: _propTypes2.default.bool,
+
+  /**
+   * Optional renderer to be used in place of rows when either :rowCount or :columnCount is 0.
+   */
+  noContentRenderer: _propTypes2.default.func.isRequired,
+
+  /**
+   * Callback invoked whenever the scroll offset changes within the inner scrollable region.
+   * This callback can be used to sync scrolling between lists, tables, or grids.
+   * ({ clientHeight, clientWidth, scrollHeight, scrollLeft, scrollTop, scrollWidth }): void
+   */
+  onScroll: _propTypes2.default.func.isRequired,
+
+  /**
+   * Called whenever a horizontal or vertical scrollbar is added or removed.
+   * This prop is not intended for end-user use;
+   * It is used by MultiGrid to support fixed-row/fixed-column scroll syncing.
+   */
+  onScrollbarPresenceChange: _propTypes2.default.func.isRequired,
+
+  /**
+   * Callback invoked with information about the section of the Grid that was just rendered.
+   * ({ columnStartIndex, columnStopIndex, rowStartIndex, rowStopIndex }): void
+   */
+  onSectionRendered: _propTypes2.default.func.isRequired,
+
+  /**
+   * Number of columns to render before/after the visible section of the grid.
+   * These columns can help for smoother scrolling on touch devices or browsers that send scroll events infrequently.
+   */
+  overscanColumnCount: _propTypes2.default.number.isRequired,
+
+  /**
+   * Calculates the number of cells to overscan before and after a specified range.
+   * This function ensures that overscanning doesn't exceed the available cells.
+   * Should implement the following interface: ({
+   *   cellCount: number,
+   *   overscanCellsCount: number,
+   *   scrollDirection: number,
+   *   startIndex: number,
+   *   stopIndex: number
+   * }): {overscanStartIndex: number, overscanStopIndex: number}
+   */
+  overscanIndicesGetter: _propTypes2.default.func.isRequired,
+
+  /**
+   * Number of rows to render above/below the visible section of the grid.
+   * These rows can help for smoother scrolling on touch devices or browsers that send scroll events infrequently.
+   */
+  overscanRowCount: _propTypes2.default.number.isRequired,
+
+  /**
+   * ARIA role for the grid element.
+   */
+  role: _propTypes2.default.string,
+
+  /**
+   * Either a fixed row height (number) or a function that returns the height of a row given its index.
+   * Should implement the following interface: ({ index: number }): number
+   */
+  rowHeight: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]).isRequired,
+
+  /**
+   * Number of rows in grid.
+   */
+  rowCount: _propTypes2.default.number.isRequired,
+
+  /** Wait this amount of time after the last scroll event before resetting Grid `pointer-events`. */
+  scrollingResetTimeInterval: _propTypes2.default.number,
+
+  /** Horizontal offset. */
+  scrollLeft: _propTypes2.default.number,
+
+  /**
+   * Controls scroll-to-cell behavior of the Grid.
+   * The default ("auto") scrolls the least amount possible to ensure that the specified cell is fully visible.
+   * Use "start" to align cells to the top/left of the Grid and "end" to align bottom/right.
+   */
+  scrollToAlignment: _propTypes2.default.oneOf(['auto', 'end', 'start', 'center']).isRequired,
+
+  /**
+   * Column index to ensure visible (by forcefully scrolling if necessary)
+   */
+  scrollToColumn: _propTypes2.default.number.isRequired,
+
+  /** Vertical offset. */
+  scrollTop: _propTypes2.default.number,
+
+  /**
+   * Row index to ensure visible (by forcefully scrolling if necessary)
+   */
+  scrollToRow: _propTypes2.default.number.isRequired,
+
+  /** Optional inline style */
+  style: _propTypes2.default.object,
+
+  /** Tab index for focus */
+  tabIndex: _propTypes2.default.number,
+
+  /**
+   * Width of Grid; this property determines the number of visible (vs virtualized) columns.
+   */
+  width: _propTypes2.default.number.isRequired
+} : void 0;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+
+/***/ }),
+/* 58 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = defaultOverscanIndicesGetter;
+var SCROLL_DIRECTION_BACKWARD = exports.SCROLL_DIRECTION_BACKWARD = -1;
+var SCROLL_DIRECTION_FORWARD = exports.SCROLL_DIRECTION_FORWARD = 1;
+
+var SCROLL_DIRECTION_HORIZONTAL = exports.SCROLL_DIRECTION_HORIZONTAL = 'horizontal';
+var SCROLL_DIRECTION_VERTICAL = exports.SCROLL_DIRECTION_VERTICAL = 'vertical';
+/**
+ * Calculates the number of cells to overscan before and after a specified range.
+ * This function ensures that overscanning doesn't exceed the available cells.
+ *
+ * @param direction One of SCROLL_DIRECTION_HORIZONTAL or SCROLL_DIRECTION_VERTICAL
+ * @param cellCount Number of rows or columns in the current axis
+ * @param scrollDirection One of SCROLL_DIRECTION_BACKWARD or SCROLL_DIRECTION_FORWARD
+ * @param overscanCellsCount Maximum number of cells to over-render in either direction
+ * @param startIndex Begin of range of visible cells
+ * @param stopIndex End of range of visible cells
+ */
+function defaultOverscanIndicesGetter(_ref) {
+  var direction = _ref.direction,
+      cellCount = _ref.cellCount,
+      overscanCellsCount = _ref.overscanCellsCount,
+      scrollDirection = _ref.scrollDirection,
+      startIndex = _ref.startIndex,
+      stopIndex = _ref.stopIndex;
+
+  var overscanStartIndex = void 0;
+  var overscanStopIndex = void 0;
+
+  // Make sure we render at least 1 cell extra before and after (except near boundaries)
+  // This is necessary in order to support keyboard navigation (TAB/SHIFT+TAB) in some cases
+  // For more info see issues #625
+  overscanCellsCount = Math.max(1, overscanCellsCount);
+
+  switch (scrollDirection) {
+    case SCROLL_DIRECTION_FORWARD:
+      overscanStartIndex = startIndex - 1;
+      overscanStopIndex = stopIndex + overscanCellsCount;
+      break;
+    case SCROLL_DIRECTION_BACKWARD:
+      overscanStartIndex = startIndex - overscanCellsCount;
+      overscanStopIndex = stopIndex + 1;
+      break;
+  }
+
+  return {
+    overscanStartIndex: Math.max(0, overscanStartIndex),
+    overscanStopIndex: Math.min(cellCount - 1, overscanStopIndex)
+  };
+}
+
+/***/ }),
+/* 59 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.defaultOverscanIndicesGetter = exports.defaultCellRangeRenderer = exports.accessibilityOverscanIndicesGetter = exports.Grid = exports.default = undefined;
+
+var _Grid2 = __webpack_require__(57);
+
+var _Grid3 = _interopRequireDefault(_Grid2);
+
+var _accessibilityOverscanIndicesGetter2 = __webpack_require__(58);
+
+var _accessibilityOverscanIndicesGetter3 = _interopRequireDefault(_accessibilityOverscanIndicesGetter2);
+
+var _defaultCellRangeRenderer2 = __webpack_require__(22);
+
+var _defaultCellRangeRenderer3 = _interopRequireDefault(_defaultCellRangeRenderer2);
+
+var _defaultOverscanIndicesGetter2 = __webpack_require__(23);
+
+var _defaultOverscanIndicesGetter3 = _interopRequireDefault(_defaultOverscanIndicesGetter2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = _Grid3.default;
+exports.Grid = _Grid3.default;
+exports.accessibilityOverscanIndicesGetter = _accessibilityOverscanIndicesGetter3.default;
+exports.defaultCellRangeRenderer = _defaultCellRangeRenderer3.default;
+exports.defaultOverscanIndicesGetter = _defaultOverscanIndicesGetter3.default;
+
+/***/ }),
+/* 60 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * Just-in-time calculates and caches size and position information for a collection of cells.
+ */
+var CellSizeAndPositionManager = function () {
+  function CellSizeAndPositionManager(_ref) {
+    var _ref$batchAllCells = _ref.batchAllCells,
+        batchAllCells = _ref$batchAllCells === undefined ? false : _ref$batchAllCells,
+        cellCount = _ref.cellCount,
+        cellSizeGetter = _ref.cellSizeGetter,
+        estimatedCellSize = _ref.estimatedCellSize;
+
+    _classCallCheck(this, CellSizeAndPositionManager);
+
+    this._batchAllCells = batchAllCells;
+    this._cellSizeGetter = cellSizeGetter;
+    this._cellCount = cellCount;
+    this._estimatedCellSize = estimatedCellSize;
+
+    // Cache of size and position data for cells, mapped by cell index.
+    // Note that invalid values may exist in this map so only rely on cells up to this._lastMeasuredIndex
+    this._cellSizeAndPositionData = {};
+
+    // Measurements for cells up to this index can be trusted; cells afterward should be estimated.
+    this._lastMeasuredIndex = -1;
+
+    // Used in deferred mode to track which cells have been queued for measurement.
+    this._lastBatchedIndex = -1;
+  }
+
+  _createClass(CellSizeAndPositionManager, [{
+    key: 'areOffsetsAdjusted',
+    value: function areOffsetsAdjusted() {
+      return false;
+    }
+  }, {
+    key: 'configure',
+    value: function configure(_ref2) {
+      var cellCount = _ref2.cellCount,
+          estimatedCellSize = _ref2.estimatedCellSize;
+
+      this._cellCount = cellCount;
+      this._estimatedCellSize = estimatedCellSize;
+    }
+  }, {
+    key: 'getCellCount',
+    value: function getCellCount() {
+      return this._cellCount;
+    }
+  }, {
+    key: 'getEstimatedCellSize',
+    value: function getEstimatedCellSize() {
+      return this._estimatedCellSize;
+    }
+  }, {
+    key: 'getLastMeasuredIndex',
+    value: function getLastMeasuredIndex() {
+      return this._lastMeasuredIndex;
+    }
+  }, {
+    key: 'getOffsetAdjustment',
+    value: function getOffsetAdjustment(_ref3) {
+      var containerSize = _ref3.containerSize,
+          offset = _ref3.offset;
+
+      return 0;
+    }
+
+    /**
+     * This method returns the size and position for the cell at the specified index.
+     * It just-in-time calculates (or used cached values) for cells leading up to the index.
+     */
+
+  }, {
+    key: 'getSizeAndPositionOfCell',
+    value: function getSizeAndPositionOfCell(index) {
+      if (index < 0 || index >= this._cellCount) {
+        throw Error('Requested index ' + index + ' is outside of range 0..' + this._cellCount);
+      }
+
+      if (index > this._lastMeasuredIndex) {
+        var lastMeasuredCellSizeAndPosition = this.getSizeAndPositionOfLastMeasuredCell();
+        var _offset = lastMeasuredCellSizeAndPosition.offset + lastMeasuredCellSizeAndPosition.size;
+
+        for (var i = this._lastMeasuredIndex + 1; i <= index; i++) {
+          var _size = this._cellSizeGetter({ index: i });
+
+          // undefined or NaN probably means a logic error in the size getter.
+          // null means we're using CellMeasurer and haven't yet measured a given index.
+          if (_size === undefined || isNaN(_size)) {
+            throw Error('Invalid size returned for cell ' + i + ' of value ' + _size);
+          } else if (_size === null) {
+            this._cellSizeAndPositionData[i] = {
+              offset: _offset,
+              size: 0
+            };
+
+            this._lastBatchedIndex = index;
+          } else {
+            this._cellSizeAndPositionData[i] = {
+              offset: _offset,
+              size: _size
+            };
+
+            _offset += _size;
+
+            this._lastMeasuredIndex = index;
+          }
+        }
+      }
+
+      return this._cellSizeAndPositionData[index];
+    }
+  }, {
+    key: 'getSizeAndPositionOfLastMeasuredCell',
+    value: function getSizeAndPositionOfLastMeasuredCell() {
+      return this._lastMeasuredIndex >= 0 ? this._cellSizeAndPositionData[this._lastMeasuredIndex] : {
+        offset: 0,
+        size: 0
+      };
+    }
+
+    /**
+     * Total size of all cells being measured.
+     * This value will be completely estimated initially.
+     * As cells as measured the estimate will be updated.
+     */
+
+  }, {
+    key: 'getTotalSize',
+    value: function getTotalSize() {
+      var lastMeasuredCellSizeAndPosition = this.getSizeAndPositionOfLastMeasuredCell();
+
+      return lastMeasuredCellSizeAndPosition.offset + lastMeasuredCellSizeAndPosition.size + (this._cellCount - this._lastMeasuredIndex - 1) * this._estimatedCellSize;
+    }
+
+    /**
+     * Determines a new offset that ensures a certain cell is visible, given the current offset.
+     * If the cell is already visible then the current offset will be returned.
+     * If the current offset is too great or small, it will be adjusted just enough to ensure the specified index is visible.
+     *
+     * @param align Desired alignment within container; one of "auto" (default), "start", or "end"
+     * @param containerSize Size (width or height) of the container viewport
+     * @param currentOffset Container's current (x or y) offset
+     * @param totalSize Total size (width or height) of all cells
+     * @return Offset to use to ensure the specified cell is visible
+     */
+
+  }, {
+    key: 'getUpdatedOffsetForIndex',
+    value: function getUpdatedOffsetForIndex(_ref4) {
+      var _ref4$align = _ref4.align,
+          align = _ref4$align === undefined ? 'auto' : _ref4$align,
+          containerSize = _ref4.containerSize,
+          currentOffset = _ref4.currentOffset,
+          targetIndex = _ref4.targetIndex;
+
+      if (containerSize <= 0) {
+        return 0;
+      }
+
+      var datum = this.getSizeAndPositionOfCell(targetIndex);
+      var maxOffset = datum.offset;
+      var minOffset = maxOffset - containerSize + datum.size;
+
+      var idealOffset = void 0;
+
+      switch (align) {
+        case 'start':
+          idealOffset = maxOffset;
+          break;
+        case 'end':
+          idealOffset = minOffset;
+          break;
+        case 'center':
+          idealOffset = maxOffset - (containerSize - datum.size) / 2;
+          break;
+        default:
+          idealOffset = Math.max(minOffset, Math.min(maxOffset, currentOffset));
+          break;
+      }
+
+      var totalSize = this.getTotalSize();
+
+      return Math.max(0, Math.min(totalSize - containerSize, idealOffset));
+    }
+  }, {
+    key: 'getVisibleCellRange',
+    value: function getVisibleCellRange(params) {
+      // Advanced use-cases (eg CellMeasurer) require batched measurements to determine accurate sizes.
+      // eg we can't know a row's height without measuring the height of all columns within that row.
+      if (this._batchAllCells) {
+        return {
+          start: 0,
+          stop: this._cellCount - 1
+        };
+      }
+
+      var containerSize = params.containerSize,
+          offset = params.offset;
+
+
+      var totalSize = this.getTotalSize();
+
+      if (totalSize === 0) {
+        return {};
+      }
+
+      var maxOffset = offset + containerSize;
+      var start = this._findNearestCell(offset);
+
+      var datum = this.getSizeAndPositionOfCell(start);
+      offset = datum.offset + datum.size;
+
+      var stop = start;
+
+      while (offset < maxOffset && stop < this._cellCount - 1) {
+        stop++;
+
+        offset += this.getSizeAndPositionOfCell(stop).size;
+      }
+
+      return {
+        start: start,
+        stop: stop
+      };
+    }
+
+    /**
+     * Clear all cached values for cells after the specified index.
+     * This method should be called for any cell that has changed its size.
+     * It will not immediately perform any calculations; they'll be performed the next time getSizeAndPositionOfCell() is called.
+     */
+
+  }, {
+    key: 'resetCell',
+    value: function resetCell(index) {
+      this._lastMeasuredIndex = Math.min(this._lastMeasuredIndex, index - 1);
+    }
+  }, {
+    key: '_binarySearch',
+    value: function _binarySearch(_ref5) {
+      var high = _ref5.high,
+          low = _ref5.low,
+          offset = _ref5.offset;
+
+      var middle = void 0;
+      var currentOffset = void 0;
+
+      while (low <= high) {
+        middle = low + Math.floor((high - low) / 2);
+        currentOffset = this.getSizeAndPositionOfCell(middle).offset;
+
+        if (currentOffset === offset) {
+          return middle;
+        } else if (currentOffset < offset) {
+          low = middle + 1;
+        } else if (currentOffset > offset) {
+          high = middle - 1;
+        }
+      }
+
+      if (low > 0) {
+        return low - 1;
+      }
+    }
+  }, {
+    key: '_exponentialSearch',
+    value: function _exponentialSearch(_ref6) {
+      var index = _ref6.index,
+          offset = _ref6.offset;
+
+      var interval = 1;
+
+      while (index < this._cellCount && this.getSizeAndPositionOfCell(index).offset < offset) {
+        index += interval;
+        interval *= 2;
+      }
+
+      return this._binarySearch({
+        high: Math.min(index, this._cellCount - 1),
+        low: Math.floor(index / 2),
+        offset: offset
+      });
+    }
+
+    /**
+     * Searches for the cell (index) nearest the specified offset.
+     *
+     * If no exact match is found the next lowest cell index will be returned.
+     * This allows partially visible cells (with offsets just before/above the fold) to be visible.
+     */
+
+  }, {
+    key: '_findNearestCell',
+    value: function _findNearestCell(offset) {
+      if (isNaN(offset)) {
+        throw Error('Invalid offset ' + offset + ' specified');
+      }
+
+      // Our search algorithms find the nearest match at or below the specified offset.
+      // So make sure the offset is at least 0 or no match will be found.
+      offset = Math.max(0, offset);
+
+      var lastMeasuredCellSizeAndPosition = this.getSizeAndPositionOfLastMeasuredCell();
+      var lastMeasuredIndex = Math.max(0, this._lastMeasuredIndex);
+
+      if (lastMeasuredCellSizeAndPosition.offset >= offset) {
+        // If we've already measured cells within this range just use a binary search as it's faster.
+        return this._binarySearch({
+          high: lastMeasuredIndex,
+          low: 0,
+          offset: offset
+        });
+      } else {
+        // If we haven't yet measured this high, fallback to an exponential search with an inner binary search.
+        // The exponential search avoids pre-computing sizes for the full set of cells as a binary search would.
+        // The overall complexity for this approach is O(log n).
+        return this._exponentialSearch({
+          index: lastMeasuredIndex,
+          offset: offset
+        });
+      }
+    }
+  }]);
+
+  return CellSizeAndPositionManager;
+}();
+
+exports.default = CellSizeAndPositionManager;
+
+/***/ }),
+/* 61 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.DEFAULT_MAX_SCROLL_SIZE = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _CellSizeAndPositionManager = __webpack_require__(60);
+
+var _CellSizeAndPositionManager2 = _interopRequireDefault(_CellSizeAndPositionManager);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * Browsers have scroll offset limitations (eg Chrome stops scrolling at ~33.5M pixels where as Edge tops out at ~1.5M pixels).
+ * After a certain position, the browser won't allow the user to scroll further (even via JavaScript scroll offset adjustments).
+ * This util picks a lower ceiling for max size and artificially adjusts positions within to make it transparent for users.
+ */
+var DEFAULT_MAX_SCROLL_SIZE = exports.DEFAULT_MAX_SCROLL_SIZE = 1500000;
+
+/**
+ * Extends CellSizeAndPositionManager and adds scaling behavior for lists that are too large to fit within a browser's native limits.
+ */
+
+var ScalingCellSizeAndPositionManager = function () {
+  function ScalingCellSizeAndPositionManager(_ref) {
+    var _ref$maxScrollSize = _ref.maxScrollSize,
+        maxScrollSize = _ref$maxScrollSize === undefined ? DEFAULT_MAX_SCROLL_SIZE : _ref$maxScrollSize,
+        params = _objectWithoutProperties(_ref, ['maxScrollSize']);
+
+    _classCallCheck(this, ScalingCellSizeAndPositionManager);
+
+    // Favor composition over inheritance to simplify IE10 support
+    this._cellSizeAndPositionManager = new _CellSizeAndPositionManager2.default(params);
+    this._maxScrollSize = maxScrollSize;
+  }
+
+  _createClass(ScalingCellSizeAndPositionManager, [{
+    key: 'areOffsetsAdjusted',
+    value: function areOffsetsAdjusted() {
+      return this._cellSizeAndPositionManager.getTotalSize() > this._maxScrollSize;
+    }
+  }, {
+    key: 'configure',
+    value: function configure(params) {
+      this._cellSizeAndPositionManager.configure(params);
+    }
+  }, {
+    key: 'getCellCount',
+    value: function getCellCount() {
+      return this._cellSizeAndPositionManager.getCellCount();
+    }
+  }, {
+    key: 'getEstimatedCellSize',
+    value: function getEstimatedCellSize() {
+      return this._cellSizeAndPositionManager.getEstimatedCellSize();
+    }
+  }, {
+    key: 'getLastMeasuredIndex',
+    value: function getLastMeasuredIndex() {
+      return this._cellSizeAndPositionManager.getLastMeasuredIndex();
+    }
+
+    /**
+     * Number of pixels a cell at the given position (offset) should be shifted in order to fit within the scaled container.
+     * The offset passed to this function is scaled (safe) as well.
+     */
+
+  }, {
+    key: 'getOffsetAdjustment',
+    value: function getOffsetAdjustment(_ref2) {
+      var containerSize = _ref2.containerSize,
+          offset = _ref2.offset;
+
+      var totalSize = this._cellSizeAndPositionManager.getTotalSize();
+      var safeTotalSize = this.getTotalSize();
+      var offsetPercentage = this._getOffsetPercentage({
+        containerSize: containerSize,
+        offset: offset,
+        totalSize: safeTotalSize
+      });
+
+      return Math.round(offsetPercentage * (safeTotalSize - totalSize));
+    }
+  }, {
+    key: 'getSizeAndPositionOfCell',
+    value: function getSizeAndPositionOfCell(index) {
+      return this._cellSizeAndPositionManager.getSizeAndPositionOfCell(index);
+    }
+  }, {
+    key: 'getSizeAndPositionOfLastMeasuredCell',
+    value: function getSizeAndPositionOfLastMeasuredCell() {
+      return this._cellSizeAndPositionManager.getSizeAndPositionOfLastMeasuredCell();
+    }
+
+    /** See CellSizeAndPositionManager#getTotalSize */
+
+  }, {
+    key: 'getTotalSize',
+    value: function getTotalSize() {
+      return Math.min(this._maxScrollSize, this._cellSizeAndPositionManager.getTotalSize());
+    }
+
+    /** See CellSizeAndPositionManager#getUpdatedOffsetForIndex */
+
+  }, {
+    key: 'getUpdatedOffsetForIndex',
+    value: function getUpdatedOffsetForIndex(_ref3) {
+      var _ref3$align = _ref3.align,
+          align = _ref3$align === undefined ? 'auto' : _ref3$align,
+          containerSize = _ref3.containerSize,
+          currentOffset = _ref3.currentOffset,
+          targetIndex = _ref3.targetIndex,
+          totalSize = _ref3.totalSize;
+
+      currentOffset = this._safeOffsetToOffset({
+        containerSize: containerSize,
+        offset: currentOffset
+      });
+
+      var offset = this._cellSizeAndPositionManager.getUpdatedOffsetForIndex({
+        align: align,
+        containerSize: containerSize,
+        currentOffset: currentOffset,
+        targetIndex: targetIndex,
+        totalSize: totalSize
+      });
+
+      return this._offsetToSafeOffset({
+        containerSize: containerSize,
+        offset: offset
+      });
+    }
+
+    /** See CellSizeAndPositionManager#getVisibleCellRange */
+
+  }, {
+    key: 'getVisibleCellRange',
+    value: function getVisibleCellRange(_ref4) {
+      var containerSize = _ref4.containerSize,
+          offset = _ref4.offset;
+
+      offset = this._safeOffsetToOffset({
+        containerSize: containerSize,
+        offset: offset
+      });
+
+      return this._cellSizeAndPositionManager.getVisibleCellRange({
+        containerSize: containerSize,
+        offset: offset
+      });
+    }
+  }, {
+    key: 'resetCell',
+    value: function resetCell(index) {
+      this._cellSizeAndPositionManager.resetCell(index);
+    }
+  }, {
+    key: '_getOffsetPercentage',
+    value: function _getOffsetPercentage(_ref5) {
+      var containerSize = _ref5.containerSize,
+          offset = _ref5.offset,
+          totalSize = _ref5.totalSize;
+
+      return totalSize <= containerSize ? 0 : offset / (totalSize - containerSize);
+    }
+  }, {
+    key: '_offsetToSafeOffset',
+    value: function _offsetToSafeOffset(_ref6) {
+      var containerSize = _ref6.containerSize,
+          offset = _ref6.offset;
+
+      var totalSize = this._cellSizeAndPositionManager.getTotalSize();
+      var safeTotalSize = this.getTotalSize();
+
+      if (totalSize === safeTotalSize) {
+        return offset;
+      } else {
+        var offsetPercentage = this._getOffsetPercentage({
+          containerSize: containerSize,
+          offset: offset,
+          totalSize: totalSize
+        });
+
+        return Math.round(offsetPercentage * (safeTotalSize - containerSize));
+      }
+    }
+  }, {
+    key: '_safeOffsetToOffset',
+    value: function _safeOffsetToOffset(_ref7) {
+      var containerSize = _ref7.containerSize,
+          offset = _ref7.offset;
+
+      var totalSize = this._cellSizeAndPositionManager.getTotalSize();
+      var safeTotalSize = this.getTotalSize();
+
+      if (totalSize === safeTotalSize) {
+        return offset;
+      } else {
+        var offsetPercentage = this._getOffsetPercentage({
+          containerSize: containerSize,
+          offset: offset,
+          totalSize: safeTotalSize
+        });
+
+        return Math.round(offsetPercentage * (totalSize - containerSize));
+      }
+    }
+  }]);
+
+  return ScalingCellSizeAndPositionManager;
+}();
+
+exports.default = ScalingCellSizeAndPositionManager;
+
+/***/ }),
+/* 62 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = calculateSizeAndPositionDataAndUpdateScrollOffset;
+/**
+ * Helper method that determines when to recalculate row or column metadata.
+ *
+ * @param cellCount Number of rows or columns in the current axis
+ * @param cellsSize Width or height of cells for the current axis
+ * @param computeMetadataCallback Method to invoke if cell metadata should be recalculated
+ * @param computeMetadataCallbackProps Parameters to pass to :computeMetadataCallback
+ * @param nextCellsCount Newly updated number of rows or columns in the current axis
+ * @param nextCellsSize Newly updated width or height of cells for the current axis
+ * @param nextScrollToIndex Newly updated scroll-to-index
+ * @param scrollToIndex Scroll-to-index
+ * @param updateScrollOffsetForScrollToIndex Callback to invoke if the scroll position should be recalculated
+ */
+function calculateSizeAndPositionDataAndUpdateScrollOffset(_ref) {
+  var cellCount = _ref.cellCount,
+      cellSize = _ref.cellSize,
+      computeMetadataCallback = _ref.computeMetadataCallback,
+      computeMetadataCallbackProps = _ref.computeMetadataCallbackProps,
+      nextCellsCount = _ref.nextCellsCount,
+      nextCellSize = _ref.nextCellSize,
+      nextScrollToIndex = _ref.nextScrollToIndex,
+      scrollToIndex = _ref.scrollToIndex,
+      updateScrollOffsetForScrollToIndex = _ref.updateScrollOffsetForScrollToIndex;
+
+  // Don't compare cell sizes if they are functions because inline functions would cause infinite loops.
+  // In that event users should use the manual recompute methods to inform of changes.
+  if (cellCount !== nextCellsCount || (typeof cellSize === 'number' || typeof nextCellSize === 'number') && cellSize !== nextCellSize) {
+    computeMetadataCallback(computeMetadataCallbackProps);
+
+    // Updated cell metadata may have hidden the previous scrolled-to item.
+    // In this case we should also update the scrollTop to ensure it stays visible.
+    if (scrollToIndex >= 0 && scrollToIndex === nextScrollToIndex) {
+      updateScrollOffsetForScrollToIndex();
+    }
+  }
+}
+
+/***/ }),
+/* 63 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = updateScrollIndexHelper;
+/**
+ * Helper function that determines when to update scroll offsets to ensure that a scroll-to-index remains visible.
+ * This function also ensures that the scroll ofset isn't past the last column/row of cells.
+ *
+ * @param cellsSize Width or height of cells for the current axis
+ * @param cellSizeAndPositionManager Manages size and position metadata of cells
+ * @param previousCellsCount Previous number of rows or columns
+ * @param previousCellsSize Previous width or height of cells
+ * @param previousScrollToIndex Previous scroll-to-index
+ * @param previousSize Previous width or height of the virtualized container
+ * @param scrollOffset Current scrollLeft or scrollTop
+ * @param scrollToIndex Scroll-to-index
+ * @param size Width or height of the virtualized container
+ * @param updateScrollIndexCallback Callback to invoke with an scroll-to-index value
+ */
+function updateScrollIndexHelper(_ref) {
+  var cellSize = _ref.cellSize,
+      cellSizeAndPositionManager = _ref.cellSizeAndPositionManager,
+      previousCellsCount = _ref.previousCellsCount,
+      previousCellSize = _ref.previousCellSize,
+      previousScrollToAlignment = _ref.previousScrollToAlignment,
+      previousScrollToIndex = _ref.previousScrollToIndex,
+      previousSize = _ref.previousSize,
+      scrollOffset = _ref.scrollOffset,
+      scrollToAlignment = _ref.scrollToAlignment,
+      scrollToIndex = _ref.scrollToIndex,
+      size = _ref.size,
+      sizeJustIncreasedFromZero = _ref.sizeJustIncreasedFromZero,
+      updateScrollIndexCallback = _ref.updateScrollIndexCallback;
+
+  var cellCount = cellSizeAndPositionManager.getCellCount();
+  var hasScrollToIndex = scrollToIndex >= 0 && scrollToIndex < cellCount;
+  var sizeHasChanged = size !== previousSize || sizeJustIncreasedFromZero || !previousCellSize || typeof cellSize === 'number' && cellSize !== previousCellSize;
+
+  // If we have a new scroll target OR if height/row-height has changed,
+  // We should ensure that the scroll target is visible.
+  if (hasScrollToIndex && (sizeHasChanged || scrollToAlignment !== previousScrollToAlignment || scrollToIndex !== previousScrollToIndex)) {
+    updateScrollIndexCallback(scrollToIndex);
+
+    // If we don't have a selected item but list size or number of children have decreased,
+    // Make sure we aren't scrolled too far past the current content.
+  } else if (!hasScrollToIndex && cellCount > 0 && (size < previousSize || cellCount < previousCellsCount)) {
+    // We need to ensure that the current scroll offset is still within the collection's range.
+    // To do this, we don't need to measure everything; CellMeasurer would perform poorly.
+    // Just check to make sure we're still okay.
+    // Only adjust the scroll position if we've scrolled below the last set of rows.
+    if (scrollOffset > cellSizeAndPositionManager.getTotalSize() - size) {
+      updateScrollIndexCallback(cellCount - 1);
+    }
+  }
+}
+
+/***/ }),
+/* 64 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _Grid = __webpack_require__(59);
+
+var _Grid2 = _interopRequireDefault(_Grid);
+
+var _propTypes = __webpack_require__(3);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _classnames = __webpack_require__(5);
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+/**
+ * It is inefficient to create and manage a large list of DOM elements within a scrolling container
+ * if only a few of those elements are visible. The primary purpose of this component is to improve
+ * performance by only rendering the DOM nodes that a user is able to see based on their current
+ * scroll position.
+ *
+ * This component renders a virtualized list of elements with either fixed or dynamic heights.
+ */
+var List = function (_PureComponent) {
+  _inherits(List, _PureComponent);
+
+  function List(props, context) {
+    _classCallCheck(this, List);
+
+    var _this = _possibleConstructorReturn(this, (List.__proto__ || Object.getPrototypeOf(List)).call(this, props, context));
+
+    _this._cellRenderer = _this._cellRenderer.bind(_this);
+    _this._onScroll = _this._onScroll.bind(_this);
+    _this._onSectionRendered = _this._onSectionRendered.bind(_this);
+    _this._setRef = _this._setRef.bind(_this);
+    return _this;
+  }
+
+  _createClass(List, [{
+    key: 'forceUpdateGrid',
+    value: function forceUpdateGrid() {
+      this.Grid.forceUpdate();
+    }
+
+    /** See Grid#getOffsetForCell */
+
+  }, {
+    key: 'getOffsetForRow',
+    value: function getOffsetForRow(_ref) {
+      var alignment = _ref.alignment,
+          index = _ref.index;
+
+      var _Grid$getOffsetForCel = this.Grid.getOffsetForCell({
+        alignment: alignment,
+        rowIndex: index
+      }),
+          scrollTop = _Grid$getOffsetForCel.scrollTop;
+
+      return scrollTop;
+    }
+
+    /** See Grid#measureAllCells */
+
+  }, {
+    key: 'measureAllRows',
+    value: function measureAllRows() {
+      this.Grid.measureAllCells();
+    }
+
+    /** See Grid#recomputeGridSize */
+
+  }, {
+    key: 'recomputeRowHeights',
+    value: function recomputeRowHeights() {
+      var index = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+
+      this.Grid.recomputeGridSize({
+        rowIndex: index
+      });
+    }
+
+    /** See Grid#scrollToPosition */
+
+  }, {
+    key: 'scrollToPosition',
+    value: function scrollToPosition() {
+      var scrollTop = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+
+      this.Grid.scrollToPosition({ scrollTop: scrollTop });
+    }
+
+    /** See Grid#scrollToCell */
+
+  }, {
+    key: 'scrollToRow',
+    value: function scrollToRow() {
+      var index = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+
+      this.Grid.scrollToCell({
+        columnIndex: 0,
+        rowIndex: index
+      });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          className = _props.className,
+          noRowsRenderer = _props.noRowsRenderer,
+          scrollToIndex = _props.scrollToIndex,
+          width = _props.width;
+
+
+      var classNames = (0, _classnames2.default)('ReactVirtualized__List', className);
+
+      return _react2.default.createElement(_Grid2.default, _extends({}, this.props, {
+        autoContainerWidth: true,
+        cellRenderer: this._cellRenderer,
+        className: classNames,
+        columnWidth: width,
+        columnCount: 1,
+        noContentRenderer: noRowsRenderer,
+        onScroll: this._onScroll,
+        onSectionRendered: this._onSectionRendered,
+        ref: this._setRef,
+        scrollToRow: scrollToIndex
+      }));
+    }
+  }, {
+    key: '_cellRenderer',
+    value: function _cellRenderer(_ref2) {
+      var rowIndex = _ref2.rowIndex,
+          style = _ref2.style,
+          rest = _objectWithoutProperties(_ref2, ['rowIndex', 'style']);
+
+      var rowRenderer = this.props.rowRenderer;
+
+      // TRICKY The style object is sometimes cached by Grid.
+      // This prevents new style objects from bypassing shallowCompare().
+      // However as of React 16, style props are auto-frozen (at least in dev mode)
+      // Check to make sure we can still modify the style before proceeding.
+      // https://github.com/facebook/react/commit/977357765b44af8ff0cfea327866861073095c12#commitcomment-20648713
+
+      var _Object$getOwnPropert = Object.getOwnPropertyDescriptor(style, 'width'),
+          writable = _Object$getOwnPropert.writable;
+
+      if (writable) {
+        // By default, List cells should be 100% width.
+        // This prevents them from flowing under a scrollbar (if present).
+        style.width = '100%';
+      }
+
+      return rowRenderer(_extends({
+        index: rowIndex,
+        style: style
+      }, rest));
+    }
+  }, {
+    key: '_setRef',
+    value: function _setRef(ref) {
+      this.Grid = ref;
+    }
+  }, {
+    key: '_onScroll',
+    value: function _onScroll(_ref3) {
+      var clientHeight = _ref3.clientHeight,
+          scrollHeight = _ref3.scrollHeight,
+          scrollTop = _ref3.scrollTop;
+      var onScroll = this.props.onScroll;
+
+
+      onScroll({ clientHeight: clientHeight, scrollHeight: scrollHeight, scrollTop: scrollTop });
+    }
+  }, {
+    key: '_onSectionRendered',
+    value: function _onSectionRendered(_ref4) {
+      var rowOverscanStartIndex = _ref4.rowOverscanStartIndex,
+          rowOverscanStopIndex = _ref4.rowOverscanStopIndex,
+          rowStartIndex = _ref4.rowStartIndex,
+          rowStopIndex = _ref4.rowStopIndex;
+      var onRowsRendered = this.props.onRowsRendered;
+
+
+      onRowsRendered({
+        overscanStartIndex: rowOverscanStartIndex,
+        overscanStopIndex: rowOverscanStopIndex,
+        startIndex: rowStartIndex,
+        stopIndex: rowStopIndex
+      });
+    }
+  }]);
+
+  return List;
+}(_react.PureComponent);
+
+List.defaultProps = {
+  estimatedRowSize: 30,
+  noRowsRenderer: function noRowsRenderer() {
+    return null;
+  },
+  onRowsRendered: function onRowsRendered() {
+    return null;
+  },
+  onScroll: function onScroll() {
+    return null;
+  },
+  overscanIndicesGetter: _Grid.accessibilityOverscanIndicesGetter,
+  overscanRowCount: 10,
+  scrollToAlignment: 'auto',
+  scrollToIndex: -1,
+  style: {}
+};
+exports.default = List;
+process.env.NODE_ENV !== "production" ? List.propTypes = {
+  'aria-label': _propTypes2.default.string,
+
+  /**
+   * Removes fixed height from the scrollingContainer so that the total height
+   * of rows can stretch the window. Intended for use with WindowScroller
+   */
+  autoHeight: _propTypes2.default.bool,
+
+  /** Optional CSS class name */
+  className: _propTypes2.default.string,
+
+  /**
+   * Used to estimate the total height of a List before all of its rows have actually been measured.
+   * The estimated total height is adjusted as rows are rendered.
+   */
+  estimatedRowSize: _propTypes2.default.number.isRequired,
+
+  /** Height constraint for list (determines how many actual rows are rendered) */
+  height: _propTypes2.default.number.isRequired,
+
+  /** Optional renderer to be used in place of rows when rowCount is 0 */
+  noRowsRenderer: _propTypes2.default.func.isRequired,
+
+  /**
+   * Callback invoked with information about the slice of rows that were just rendered.
+   * ({ startIndex, stopIndex }): void
+   */
+  onRowsRendered: _propTypes2.default.func.isRequired,
+
+  /**
+   * Callback invoked whenever the scroll offset changes within the inner scrollable region.
+   * This callback can be used to sync scrolling between lists, tables, or grids.
+   * ({ clientHeight, scrollHeight, scrollTop }): void
+   */
+  onScroll: _propTypes2.default.func.isRequired,
+
+  /** See Grid#overscanIndicesGetter */
+  overscanIndicesGetter: _propTypes2.default.func.isRequired,
+
+  /**
+   * Number of rows to render above/below the visible bounds of the list.
+   * These rows can help for smoother scrolling on touch devices.
+   */
+  overscanRowCount: _propTypes2.default.number.isRequired,
+
+  /**
+   * Either a fixed row height (number) or a function that returns the height of a row given its index.
+   * ({ index: number }): number
+   */
+  rowHeight: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]).isRequired,
+
+  /** Responsible for rendering a row given an index; ({ index: number }): node */
+  rowRenderer: _propTypes2.default.func.isRequired,
+
+  /** Number of rows in list. */
+  rowCount: _propTypes2.default.number.isRequired,
+
+  /** See Grid#scrollToAlignment */
+  scrollToAlignment: _propTypes2.default.oneOf(['auto', 'end', 'start', 'center']).isRequired,
+
+  /** Row index to ensure visible (by forcefully scrolling if necessary) */
+  scrollToIndex: _propTypes2.default.number.isRequired,
+
+  /** Vertical offset. */
+  scrollTop: _propTypes2.default.number,
+
+  /** Optional inline style */
+  style: _propTypes2.default.object,
+
+  /** Tab index for focus */
+  tabIndex: _propTypes2.default.number,
+
+  /** Width of list */
+  width: _propTypes2.default.number.isRequired
+} : void 0;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+
+/***/ }),
+/* 65 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.List = exports.default = undefined;
+
+var _List2 = __webpack_require__(64);
+
+var _List3 = _interopRequireDefault(_List2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = _List3.default;
+exports.List = _List3.default;
+
+/***/ }),
+/* 66 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = createCallbackMemoizer;
+/**
+ * Helper utility that updates the specified callback whenever any of the specified indices have changed.
+ */
+function createCallbackMemoizer() {
+  var requireAllKeys = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+
+  var cachedIndices = {};
+
+  return function (_ref) {
+    var callback = _ref.callback,
+        indices = _ref.indices;
+
+    var keys = Object.keys(indices);
+    var allInitialized = !requireAllKeys || keys.every(function (key) {
+      var value = indices[key];
+      return Array.isArray(value) ? value.length > 0 : value >= 0;
+    });
+    var indexChanged = keys.length !== Object.keys(cachedIndices).length || keys.some(function (key) {
+      var cachedValue = cachedIndices[key];
+      var value = indices[key];
+
+      return Array.isArray(value) ? cachedValue.join(',') !== value.join(',') : cachedValue !== value;
+    });
+
+    cachedIndices = indices;
+
+    if (allInitialized && indexChanged) {
+      callback(indices);
+    }
+  };
+}
+
+/***/ }),
+/* 67 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = createDetectElementResize;
+/**
+ * Detect Element Resize.
+ * https://github.com/sdecima/javascript-detect-element-resize
+ * Sebastian Decima
+ *
+ * Forked from version 0.5.3; includes the following modifications:
+ * 1) Guard against unsafe 'window' and 'document' references (to support SSR).
+ * 2) Defer initialization code via a top-level function wrapper (to support SSR).
+ * 3) Avoid unnecessary reflows by not measuring size for scroll events bubbling from children.
+ * 4) Add nonce for style element.
+ **/
+
+function createDetectElementResize(nonce) {
+  // Check `document` and `window` in case of server-side rendering
+  var _window;
+  if (typeof window !== 'undefined') {
+    _window = window;
+  } else if (typeof self !== 'undefined') {
+    _window = self;
+  } else {
+    _window = this;
+  }
+
+  var attachEvent = typeof document !== 'undefined' && document.attachEvent;
+
+  if (!attachEvent) {
+    var requestFrame = function () {
+      var raf = _window.requestAnimationFrame || _window.mozRequestAnimationFrame || _window.webkitRequestAnimationFrame || function (fn) {
+        return _window.setTimeout(fn, 20);
+      };
+      return function (fn) {
+        return raf(fn);
+      };
+    }();
+
+    var cancelFrame = function () {
+      var cancel = _window.cancelAnimationFrame || _window.mozCancelAnimationFrame || _window.webkitCancelAnimationFrame || _window.clearTimeout;
+      return function (id) {
+        return cancel(id);
+      };
+    }();
+
+    var resetTriggers = function resetTriggers(element) {
+      var triggers = element.__resizeTriggers__,
+          expand = triggers.firstElementChild,
+          contract = triggers.lastElementChild,
+          expandChild = expand.firstElementChild;
+      contract.scrollLeft = contract.scrollWidth;
+      contract.scrollTop = contract.scrollHeight;
+      expandChild.style.width = expand.offsetWidth + 1 + 'px';
+      expandChild.style.height = expand.offsetHeight + 1 + 'px';
+      expand.scrollLeft = expand.scrollWidth;
+      expand.scrollTop = expand.scrollHeight;
+    };
+
+    var checkTriggers = function checkTriggers(element) {
+      return element.offsetWidth != element.__resizeLast__.width || element.offsetHeight != element.__resizeLast__.height;
+    };
+
+    var scrollListener = function scrollListener(e) {
+      // Don't measure (which forces) reflow for scrolls that happen inside of children!
+      if (e.target.className.indexOf('contract-trigger') < 0 && e.target.className.indexOf('expand-trigger') < 0) {
+        return;
+      }
+
+      var element = this;
+      resetTriggers(this);
+      if (this.__resizeRAF__) cancelFrame(this.__resizeRAF__);
+      this.__resizeRAF__ = requestFrame(function () {
+        if (checkTriggers(element)) {
+          element.__resizeLast__.width = element.offsetWidth;
+          element.__resizeLast__.height = element.offsetHeight;
+          element.__resizeListeners__.forEach(function (fn) {
+            fn.call(element, e);
+          });
+        }
+      });
+    };
+
+    /* Detect CSS Animations support to detect element display/re-attach */
+    var animation = false,
+        animationstring = 'animation',
+        keyframeprefix = '',
+        animationstartevent = 'animationstart',
+        domPrefixes = 'Webkit Moz O ms'.split(' '),
+        startEvents = 'webkitAnimationStart animationstart oAnimationStart MSAnimationStart'.split(' '),
+        pfx = '';
+    {
+      var elm = document.createElement('fakeelement');
+      if (elm.style.animationName !== undefined) {
+        animation = true;
+      }
+
+      if (animation === false) {
+        for (var i = 0; i < domPrefixes.length; i++) {
+          if (elm.style[domPrefixes[i] + 'AnimationName'] !== undefined) {
+            pfx = domPrefixes[i];
+            animationstring = pfx + 'Animation';
+            keyframeprefix = '-' + pfx.toLowerCase() + '-';
+            animationstartevent = startEvents[i];
+            animation = true;
+            break;
+          }
+        }
+      }
+    }
+
+    var animationName = 'resizeanim';
+    var animationKeyframes = '@' + keyframeprefix + 'keyframes ' + animationName + ' { from { opacity: 0; } to { opacity: 0; } } ';
+    var animationStyle = keyframeprefix + 'animation: 1ms ' + animationName + '; ';
+  }
+
+  var createStyles = function createStyles() {
+    if (!document.getElementById('detectElementResize')) {
+      //opacity:0 works around a chrome bug https://code.google.com/p/chromium/issues/detail?id=286360
+      var css = (animationKeyframes ? animationKeyframes : '') + '.resize-triggers { ' + (animationStyle ? animationStyle : '') + 'visibility: hidden; opacity: 0; } ' + '.resize-triggers, .resize-triggers > div, .contract-trigger:before { content: \" \"; display: block; position: absolute; top: 0; left: 0; height: 100%; width: 100%; overflow: hidden; z-index: -1; } .resize-triggers > div { background: #eee; overflow: auto; } .contract-trigger:before { width: 200%; height: 200%; }',
+          head = document.head || document.getElementsByTagName('head')[0],
+          style = document.createElement('style');
+
+      style.id = 'detectElementResize';
+      style.type = 'text/css';
+
+      if (nonce != null) {
+        style.setAttribute('nonce', nonce);
+      }
+
+      if (style.styleSheet) {
+        style.styleSheet.cssText = css;
+      } else {
+        style.appendChild(document.createTextNode(css));
+      }
+
+      head.appendChild(style);
+    }
+  };
+
+  var addResizeListener = function addResizeListener(element, fn) {
+    if (attachEvent) element.attachEvent('onresize', fn);else {
+      if (!element.__resizeTriggers__) {
+        var elementStyle = _window.getComputedStyle(element);
+        if (elementStyle && elementStyle.position == 'static') {
+          element.style.position = 'relative';
+        }
+        createStyles();
+        element.__resizeLast__ = {};
+        element.__resizeListeners__ = [];
+        (element.__resizeTriggers__ = document.createElement('div')).className = 'resize-triggers';
+        element.__resizeTriggers__.innerHTML = '<div class="expand-trigger"><div></div></div>' + '<div class="contract-trigger"></div>';
+        element.appendChild(element.__resizeTriggers__);
+        resetTriggers(element);
+        element.addEventListener('scroll', scrollListener, true);
+
+        /* Listen for a css animation to detect element display/re-attach */
+        if (animationstartevent) {
+          element.__resizeTriggers__.__animationListener__ = function animationListener(e) {
+            if (e.animationName == animationName) resetTriggers(element);
+          };
+          element.__resizeTriggers__.addEventListener(animationstartevent, element.__resizeTriggers__.__animationListener__);
+        }
+      }
+      element.__resizeListeners__.push(fn);
+    }
+  };
+
+  var removeResizeListener = function removeResizeListener(element, fn) {
+    if (attachEvent) element.detachEvent('onresize', fn);else {
+      element.__resizeListeners__.splice(element.__resizeListeners__.indexOf(fn), 1);
+      if (!element.__resizeListeners__.length) {
+        element.removeEventListener('scroll', scrollListener, true);
+        if (element.__resizeTriggers__.__animationListener__) {
+          element.__resizeTriggers__.removeEventListener(animationstartevent, element.__resizeTriggers__.__animationListener__);
+          element.__resizeTriggers__.__animationListener__ = null;
+        }
+        try {
+          element.__resizeTriggers__ = !element.removeChild(element.__resizeTriggers__);
+        } catch (e) {
+          // Preact compat; see developit/preact-compat/issues/228
+        }
+      }
+    }
+  };
+
+  return {
+    addResizeListener: addResizeListener,
+    removeResizeListener: removeResizeListener
+  };
+}
+
+/***/ }),
+/* 68 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {

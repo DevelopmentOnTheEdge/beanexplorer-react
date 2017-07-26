@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Datetime from 'react-datetime';
 import Select from 'react-select';
+import VirtualizedSelect from 'react-virtualized-select'
 import moment from 'moment';
 
 
@@ -49,11 +50,24 @@ class Property extends Component {
         <input type="checkbox" id={id} key={id} value={value} checked={value} onChange={handle}
                  className={this.props.controlClassName || 'form-check-input'} disabled={meta.readOnly}/>
       ),
-      select: () => (
-        <Select name="form-field-name" value={value} options={this.optionsToArray(meta.tagList)}
-                placeholder={meta.placeholder} multi={meta.multipleSelectionList}
-                disabled={meta.readOnly} onChange={handle} />
-      ),
+      select: () => {
+        const options = this.optionsToArray(meta.tagList);
+        if(options.length > 100){
+          return <VirtualizedSelect ref={id} name={id} value={value} options={options}
+                          disabled={meta.readOnly} onChange={handle} placeholder={meta.placeholder}
+                          multi={meta.multipleSelectionList} matchPos="start"
+                          clearable
+                          searchable
+                          labelKey="label"
+                          valueKey="value"
+          />
+        }else{
+          return <Select ref={id} name={id} value={value} options={options}
+                          disabled={meta.readOnly} onChange={handle} placeholder={meta.placeholder}
+                          multi={meta.multipleSelectionList} matchPos="start"
+          />
+        }
+      },
       Date: {
         normal: () => {
           return <Datetime dateFormat="DD.MM.YYYY" value={moment(value)} onChange={handle} id={id} key={id}
