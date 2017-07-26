@@ -109,7 +109,7 @@ class Property extends Component {
     if(meta.type === "Boolean")
     {
       return (
-        <div className={(this.props.classNameFormCheck || 'form-check property') + ' ' + (meta.inputSize || 'col-xs-12') + ' ' + hasStatus}>
+        <div className={(this.props.classNameFormCheck || 'form-check property') + ' ' + (meta.cssClasses || 'col-xs-12') + ' ' + hasStatus}>
           <label className="form-check-label">
             {valueControl}
             {' ' + meta.displayName || id}
@@ -118,7 +118,7 @@ class Property extends Component {
       );
     }else{
       return (
-        <div className={(this.props.classNameFormFroup || 'form-group property') + ' ' + (meta.inputSize || 'col-xs-12') + ' ' + hasStatus}>
+        <div className={(this.props.classNameFormFroup || 'form-group property') + ' ' + (meta.cssClasses || 'col-xs-12') + ' ' + hasStatus}>
           {label}
           <div className="controls">
             {valueControl}

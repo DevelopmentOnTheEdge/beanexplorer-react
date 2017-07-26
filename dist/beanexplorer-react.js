@@ -7527,7 +7527,7 @@ var Property = function (_Component) {
       if (meta.type === "Boolean") {
         return _react2.default.createElement(
           'div',
-          { className: (this.props.classNameFormCheck || 'form-check property') + ' ' + (meta.inputSize || 'col-xs-12') + ' ' + hasStatus },
+          { className: (this.props.classNameFormCheck || 'form-check property') + ' ' + (meta.cssClasses || 'col-xs-12') + ' ' + hasStatus },
           _react2.default.createElement(
             'label',
             { className: 'form-check-label' },
@@ -7538,7 +7538,7 @@ var Property = function (_Component) {
       } else {
         return _react2.default.createElement(
           'div',
-          { className: (this.props.classNameFormFroup || 'form-group property') + ' ' + (meta.inputSize || 'col-xs-12') + ' ' + hasStatus },
+          { className: (this.props.classNameFormFroup || 'form-group property') + ' ' + (meta.cssClasses || 'col-xs-12') + ' ' + hasStatus },
           label,
           _react2.default.createElement(
             'div',

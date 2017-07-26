@@ -5,7 +5,7 @@ React component for [BeanExplorer](https://github.com/DevelopmentOnTheEdge/beane
 
 ### Installation
 ```sh
-$ npm install --save git+https://git@github.com/DevelopmentOnTheEdge/beanexplorer-react.git
+$ npm install --save beanexplorer-react
 ```
 
 ### Usage

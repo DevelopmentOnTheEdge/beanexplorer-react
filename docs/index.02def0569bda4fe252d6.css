@@ -651,3 +651,7 @@ td.rdtYear:hover {
   font-size: 1.6em;
   margin: 0 0 0 -3px;
 }
+
+.form-control-feedback {
+  font-size: 0.875em;
+}
