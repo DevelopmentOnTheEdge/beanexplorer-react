@@ -3,6 +3,10 @@ React component for [BeanExplorer](https://github.com/DevelopmentOnTheEdge/beane
 
 [![Build Status](https://travis-ci.org/DevelopmentOnTheEdge/beanexplorer-react.svg?branch=master)](https://travis-ci.org/DevelopmentOnTheEdge/beanexplorer-react) [![Coverage Status](https://coveralls.io/repos/github/DevelopmentOnTheEdge/beanexplorer-react/badge.svg?branch=master)](https://coveralls.io/github/DevelopmentOnTheEdge/beanexplorer-react?branch=master)
 
+### Used components:  
+[react-select](https://github.com/JedWatson/react-select)  
+[react-datetime](https://github.com/YouCanBookMe/react-datetime)
+
 ### Installation
 ```sh
 $ npm install --save beanexplorer-react
