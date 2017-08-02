@@ -39,6 +39,18 @@ class App extends Component {
     this.forceUpdate();
   }
 
+  getLocalization(){
+    return {
+      locale: 'ru',
+      clearAllText: 'Очистить всё',
+      clearValueText: 'Очистить',
+      noResultsText: 'Нет результатов',
+      searchPromptText: 'Начните вводить для поиска',
+      placeholder: 'Выберите...',
+      loadingPlaceholder: 'Загрузка...'
+    }
+  }
+
   render() {
     const readOnlyForm = this.readOnlyForm();
 
@@ -52,7 +64,7 @@ class App extends Component {
 							<div className="row">
 								<div className="col-lg-12">
 									<form onSubmit={this.handleSubmit} className="bs-example">
-										<PropertySet fields={this.state.fields} onChange={this.handleFieldChange}/>
+										<PropertySet fields={this.state.fields} onChange={this.handleFieldChange} localization={this.getLocalization()}/>
 									</form>
 									{readOnlyForm}
 								</div>
@@ -80,7 +92,7 @@ class App extends Component {
       <div>
         <h2>All with readOnly</h2>
         <form onSubmit={this.handleSubmit} className="bs-example">
-          <PropertySet fields={fields} onChange={this.handleFieldChange}/>
+          <PropertySet fields={fields} onChange={this.handleFieldChange} propertyLocalization={this.getLocalization()}/>
           <div className="text-center">
             <button type="submit" className="btn btn-primary btn-primary-spacing">Submit</button>
             <button type="button" className="btn btn-default btn-primary-spacing">Cancel</button>

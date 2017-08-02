@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import Property from './Property';
-import JsonPointer from 'json-pointer';
+import PropTypes            from 'prop-types';
+import Property             from './Property';
+import JsonPointer          from 'json-pointer';
 
 class PropertySet extends Component {
 
@@ -33,7 +34,8 @@ class PropertySet extends Component {
         curGroupId = newGroupId;
       }
       const field = (<Property meta={itemMeta} name={itemName} value={itemValue} path={item}
-                               key={itemName + "Property"} ref={itemName + "Property"} onChange={this.props.onChange} />);
+                               key={itemName + "Property"} ref={itemName + "Property"} onChange={this.props.onChange}
+                               localization={this.props.localization} />);
       curGroup.push(field);
     }
     finishGroup();
@@ -57,5 +59,15 @@ class PropertySet extends Component {
   }
 
 }
+
+PropertySet.defaultProps = {
+  localization: {},
+};
+
+PropertySet.propTypes = {
+  fields: PropTypes.object.isRequired,
+  onChange: PropTypes.func,
+  localization: PropTypes.object
+};
 
 export default PropertySet;

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import Datetime from 'react-datetime';
-import Select from 'react-select';
-import VirtualizedSelect from 'react-virtualized-select'
-import moment from 'moment';
+import PropTypes            from 'prop-types';
+import Datetime             from 'react-datetime';
+import moment               from 'moment';
+import Select               from 'react-select';
+import VirtualizedSelect    from 'react-virtualized-select'
 
 
 class Property extends Component {
@@ -52,7 +53,7 @@ class Property extends Component {
       ),
       select: () => {
         const options = this.optionsToArray(meta.tagList);
-        if(options.length > 100){
+        //if(options.length > 100){
           return <VirtualizedSelect ref={id} name={id} value={value} options={options}
                           disabled={meta.readOnly} onChange={handle} placeholder={meta.placeholder}
                           multi={meta.multipleSelectionList} matchPos="start"
@@ -60,17 +61,29 @@ class Property extends Component {
                           searchable
                           labelKey="label"
                           valueKey="value"
+                          clearAllText={this.props.localization.clearAllText}
+                          clearValueText={this.props.localization.clearValueText}
+                          noResultsText={this.props.localization.noResultsText}
+                          searchPromptText={this.props.localization.searchPromptText}
+                          placeholder={this.props.localization.placeholder}
+                          loadingPlaceholder={this.props.localization.loadingPlaceholder}
           />
-        }else{
-          return <Select ref={id} name={id} value={value} options={options}
-                          disabled={meta.readOnly} onChange={handle} placeholder={meta.placeholder}
-                          multi={meta.multipleSelectionList} matchPos="start"
-          />
-        }
+//        }else{
+//          return <Select ref={id} name={id} value={value} options={options}
+//                          disabled={meta.readOnly} onChange={handle} placeholder={meta.placeholder}
+//                          multi={meta.multipleSelectionList} matchPos="start"
+//                          clearAllText={this.props.localization.clearAllText}
+//                          clearValueText={this.props.localization.clearValueText}
+//                          noResultsText={this.props.localization.noResultsText}
+//                          searchPromptText={this.props.localization.searchPromptText}
+//                          placeholder={this.props.localization.placeholder}
+//                          loadingPlaceholder={this.props.localization.loadingPlaceholder}
+//          />
+//        }
       },
       Date: () => {
           return <Datetime dateFormat="DD.MM.YYYY" value={moment(value)} onChange={handle} id={id} key={id}
-                           timeFormat={false} closeOnSelect={true} closeOnTab={true} locale="ru"
+                           timeFormat={false} closeOnSelect={true} closeOnTab={true} locale={this.props.localization.locale || "en"}
                            inputProps={ {disabled: meta.readOnly} } />
       },
 //      dateTime: {
@@ -86,7 +99,6 @@ class Property extends Component {
       textInput: () => {
           return <input type="text" placeholder={meta.placeholder} id={id} key={id} value={value}
                     onChange={handle} className={this.props.controlClassName || "form-control"} disabled={meta.readOnly} />
-
       },
       passwordField: () => {
           return <input type="password" placeholder={meta.placeholder} id={id} key={id} value={value}
@@ -177,5 +189,21 @@ class Property extends Component {
     return ("0" + number).slice(-2);
   }
 }
+
+Property.defaultProps = {
+  localization: {
+    locale: 'en',
+    clearAllText: 'Clear all',
+    clearValueText: 'Clear value',
+    noResultsText: 'No results found',
+    searchPromptText: 'Type to search',
+    placeholder: 'Select ...',
+    loadingPlaceholder: 'Loading...'
+  },
+};
+
+Property.propTypes = {
+  localization: PropTypes.object
+};
 
 export default Property;
