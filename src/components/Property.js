@@ -149,7 +149,7 @@ class Property extends Component {
       classNameForm,
       cssClasses,
       hasStatusClasses,
-      {'required' : !meta.canBeNull}
+      {'required' : !meta.canBeNull && !meta.readOnly}
     );
 
     if(meta.type === "Boolean")
