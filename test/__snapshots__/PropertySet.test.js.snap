@@ -24,6 +24,7 @@ exports[`simple property set 1`] = `
     >
       <input
         className="form-control"
+        disabled={undefined}
         id="numberField"
         onChange={[Function]}
         placeholder={undefined}

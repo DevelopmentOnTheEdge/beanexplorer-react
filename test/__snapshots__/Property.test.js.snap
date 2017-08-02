@@ -15,6 +15,7 @@ exports[`simple property 1`] = `
   >
     <input
       className="form-control"
+      disabled={undefined}
       id="testNameField"
       onChange={[Function]}
       placeholder={undefined}
