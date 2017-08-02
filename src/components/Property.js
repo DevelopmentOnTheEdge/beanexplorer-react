@@ -46,9 +46,9 @@ class Property extends Component {
     const handle = meta.multipleSelectionList ? this.handleChangeMulti : this.handleChange;
 
     const controls = {
-      checkBox: () => (
+      Boolean: () => (
         <input type="checkbox" id={id} key={id} value={value} checked={value} onChange={handle}
-                 className={this.props.controlClassName || 'form-check-input'} disabled={meta.readOnly}/>
+                 className={this.props.controlClassName || 'form-check-input'} disabled={meta.readOnly} />
       ),
       select: () => {
         const options = this.optionsToArray(meta.tagList);
@@ -68,12 +68,10 @@ class Property extends Component {
           />
         }
       },
-      Date: {
-        normal: () => {
+      Date: () => {
           return <Datetime dateFormat="DD.MM.YYYY" value={moment(value)} onChange={handle} id={id} key={id}
-                           timeFormat={false} closeOnSelect={true} closeOnTab={true} locale="ru"/>
-        },
-        readOnly: () => this.createStatic(value)
+                           timeFormat={false} closeOnSelect={true} closeOnTab={true} locale="ru"
+                           inputProps={ {disabled: meta.readOnly} } />
       },
 //      dateTime: {
 //        normal: () => {
@@ -81,36 +79,44 @@ class Property extends Component {
 //        },
 //        readOnly: () => this.createStatic(value)
 //      },
-      textArea: {
-        normal: () => (
-          <textarea placeholder={meta.placeholder} id={id}  rows={meta.rows || 3} cols={meta.columns} value={value}
-                    onChange={handle} className={this.props.controlClassName || "form-control"}/>
-        ),
-        readOnly: () => this.createStatic(value)
+      textArea: () => {
+          return <textarea placeholder={meta.placeholder} id={id}  rows={meta.rows || 3} cols={meta.columns} value={value}
+                    onChange={handle} className={this.props.controlClassName || "form-control"} disabled={meta.readOnly} />
       },
-      textInput: {
-        normal: () => (
-          <input type="text" placeholder={meta.placeholder} id={id} key={id} value={value}
-                       onChange={handle} className={this.props.controlClassName || "form-control"}/>
-        ),
-        readOnly: () => this.createStatic(value)
+      textInput: () => {
+          return <input type="text" placeholder={meta.placeholder} id={id} key={id} value={value}
+                    onChange={handle} className={this.props.controlClassName || "form-control"} disabled={meta.readOnly} />
+
       },
-      passwordInput: {
-        normal: () => (
-          <input type="password" placeholder={meta.placeholder} id={id} key={id} value={value}
-                       onChange={handle} className={this.props.controlClassName || "form-control"}/>
-        ),
-        readOnly: () => this.createStatic('******')
-      }
+      passwordField: () => {
+          return <input type="password" placeholder={meta.placeholder} id={id} key={id} value={value}
+                       onChange={handle} className={this.props.controlClassName || "form-control"} disabled={meta.readOnly} />
+      },
+      labelField: () => {
+          if(meta.rawValue){
+            return (<div dangerouslySetInnerHTML={{__html: value}} ></div>)
+          }else{
+            return (<div>{value}</div>)
+          }
+      },
     };
 
-    const renderer = controls[meta.type] || controls['textInput'];
-    let valueControl = renderer[meta.readOnly ? 'readOnly' : 'normal']();
-    if(meta.hasOwnProperty('tagList')){
+    let valueControl;
+    if(meta.tagList)
+    {
       valueControl = controls['select']();
     }
-    if(meta.type === 'Boolean'){
-      valueControl = controls['checkBox']();
+    else if(meta.passwordField)
+    {
+      valueControl = controls['passwordField']();
+    }
+    else if(meta.labelField)
+    {
+      valueControl = controls['labelField']();
+    }
+    else
+    {
+      valueControl = (controls[meta.type] || controls['textInput'])();
     }
 
     const label = <label htmlFor={id} className={this.props.labelClassName}>{meta.displayName || id}</label>;
@@ -130,6 +136,10 @@ class Property extends Component {
           </label>
         </div>
       );
+    }else if(meta.labelField){
+       return (
+         <div className={(meta.cssClasses || 'col-xs-12') + ' ' + hasStatus}>{valueControl}</div>
+       );
     }else{
       return (
         <div className={(this.props.classNameFormFroup || 'form-group property') + ' ' + (meta.cssClasses || 'col-xs-12') + ' ' + hasStatus}>
@@ -151,9 +161,9 @@ class Property extends Component {
     return optionObject;
   }
 
-  createStatic(value) {
-    return <p className="form-control-static" dangerouslySetInnerHTML={{__html: value}} />;
-  }
+//  createStatic(value) {
+//    return <p className="form-control-static" dangerouslySetInnerHTML={{__html: value}} />;
+//  }
 
   //ISO 8601 format
   formatDate(date) {

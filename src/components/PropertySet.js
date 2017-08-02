@@ -33,7 +33,7 @@ class PropertySet extends Component {
         curGroupId = newGroupId;
       }
       const field = (<Property meta={itemMeta} name={itemName} value={itemValue} path={item}
-                               key={itemName + "Property"} ref={itemName + "Property"} onChange={this.props.onChange}/>);
+                               key={itemName + "Property"} ref={itemName + "Property"} onChange={this.props.onChange} />);
       curGroup.push(field);
     }
     finishGroup();
