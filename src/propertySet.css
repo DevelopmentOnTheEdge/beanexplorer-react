@@ -27,3 +27,15 @@
 .form-control-feedback {
   font-size: 0.875em;
 }
+
+.form-group.required .form-control-label:after,
+.form-check.required .form-check-label:after{
+  content:"*";
+  color:#b90000;
+  margin-left: 2px;
+}
+
+/*.form-group.required .form-control-label,
+.form-check.required .form-check-label{
+  font-weight: bold;
+}*/

@@ -17,11 +17,9 @@ loaders.push({
 
 module.exports = {
   entry: [
-    'app': [
-      'babel-polyfill',
-      'react-hot-loader/patch',
-      './src/dev.js'
-    ]
+    'babel-polyfill',
+    'react-hot-loader/patch',
+    './src/dev.js'
   ],
   devtool: process.env.WEBPACK_DEVTOOL || 'eval-source-map',
   output: {

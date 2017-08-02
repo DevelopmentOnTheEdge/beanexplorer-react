@@ -2,10 +2,10 @@
 
 exports[`simple property 1`] = `
 <div
-  className="form-group property col-xs-12 "
+  className="form-group property col-xs-12 required"
 >
   <label
-    className={undefined}
+    className="form-control-label"
     htmlFor="testNameField"
   >
     Simple property

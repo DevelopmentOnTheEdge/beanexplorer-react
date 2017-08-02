@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes            from 'prop-types';
+import classNames           from 'classnames';
 import Datetime             from 'react-datetime';
 import moment               from 'moment';
 import Select               from 'react-select';
@@ -131,30 +132,42 @@ class Property extends Component {
       valueControl = (controls[meta.type] || controls['textInput'])();
     }
 
-    const label = <label htmlFor={id} className={this.props.labelClassName}>{meta.displayName || id}</label>;
+    const label = <label htmlFor={id} className={this.props.labelClassName || 'form-control-label'}>{meta.displayName || id}</label>;
     const messageElement = meta.message ? <span className={this.props.messageClassName || "form-control-feedback"}>{meta.message}</span> : undefined;
 
-    let hasStatus;
-    if(meta.status === 'error') hasStatus = 'has-danger';
-    else hasStatus = meta.status ? 'has-'+meta.status : '';
+    const hasStatusClasses = classNames(
+      {'has-danger' : meta.status === 'error'},
+      {'has-warning' : meta.status === 'warning'},
+      {'has-success' : meta.status === 'success'},
+    );
+    const classNameForm = (meta.type === "Boolean")
+          ? this.props.classNameFormCheck || 'form-check property'
+          : this.props.classNameFormGroup || 'form-group property';
+    const cssClasses = meta.cssClasses || 'col-xs-12';
+
+    const classes = classNames(
+      classNameForm,
+      cssClasses,
+      hasStatusClasses,
+      {'required' : !meta.canBeNull}
+    );
 
     if(meta.type === "Boolean")
     {
       return (
-        <div className={(this.props.classNameFormCheck || 'form-check property') + ' ' + (meta.cssClasses || 'col-xs-12') + ' ' + hasStatus}>
+        <div className={classes}>
           <label className="form-check-label">
-            {valueControl}
-            {' ' + meta.displayName || id}
+            {valueControl} {' ' + meta.displayName || id}
           </label>
         </div>
       );
     }else if(meta.labelField){
        return (
-         <div className={(meta.cssClasses || 'col-xs-12') + ' ' + hasStatus}>{valueControl}</div>
+         <div className={classNames(meta.cssClasses || 'col-xs-12', hasStatusClasses)}>{valueControl}</div>
        );
     }else{
       return (
-        <div className={(this.props.classNameFormFroup || 'form-group property') + ' ' + (meta.cssClasses || 'col-xs-12') + ' ' + hasStatus}>
+        <div className={classes}>
           {label}
           <div className="controls">
             {valueControl}

@@ -11,10 +11,10 @@ exports[`simple property set 1`] = `
   className="property-set row"
 >
   <div
-    className="form-group property col-xs-12 "
+    className="form-group property col-xs-12 required"
   >
     <label
-      className={undefined}
+      className="form-control-label"
       htmlFor="numberField"
     >
       numberField
