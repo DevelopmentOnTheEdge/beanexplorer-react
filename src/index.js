@@ -1,8 +1,13 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './app.js';
+import Property        from './components/Property.js';
+import Properties      from './components/Properties.js';
+import PropertyInput   from './components/PropertyInput.js';
+import PropertySet     from './components/PropertySet.js';
 
-ReactDOM.render(
-	<App />,
-	document.getElementById('root')
-);
+
+export {
+  Property,
+  Properties,
+  PropertyInput,
+  PropertySet,
+}
+

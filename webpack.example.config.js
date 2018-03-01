@@ -3,10 +3,12 @@ const webpack = require('webpack');
 const path = require('path');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const WebpackCleanupPlugin = require('webpack-cleanup-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 
 module.exports = {
-	entry: __dirname + '/src/index.js',
+	entry: __dirname + '/src/example.js',
 	output: {
 		path: __dirname + '/docs',
     filename: 'example.[hash].js'
@@ -32,6 +34,7 @@ module.exports = {
     ]
   },
 	plugins: [
+    new WebpackCleanupPlugin(),
     new ExtractTextPlugin({
       filename: 'index.[hash].css',
       allChunks: true

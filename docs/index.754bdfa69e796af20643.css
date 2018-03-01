@@ -96,6 +96,7 @@
 .rdtPicker .dow {
   width: 14.2857%;
   border-bottom: none;
+  cursor: default;
 }
 .rdtPicker th.rdtSwitch {
   width: 100px;
@@ -211,6 +212,10 @@ td.rdtYear:hover {
   font-size: 1.2em;
   margin-top: 37px;
 }
+
+.rdtTime td {
+  cursor: default;
+}
 /**
  * React Select
  * ============
@@ -298,6 +303,9 @@ td.rdtYear:hover {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+.has-value.is-clearable.Select--single > .Select-control .Select-value {
+  padding-right: 42px;
 }
 .has-value.Select--single > .Select-control .Select-value .Select-value-label,
 .has-value.is-pseudo-focused.Select--single > .Select-control .Select-value .Select-value-label {
@@ -613,32 +621,26 @@ td.rdtYear:hover {
 .ReactVirtualized__Table__headerRow {
   font-weight: 700;
   text-transform: uppercase;
-  display: -webkit-flex;
-  display: -moz-box;
+  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-flex-direction: row;
-     -moz-box-orient: horizontal;
-     -moz-box-direction: normal;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
-  -webkit-align-items: center;
-     -moz-box-align: center;
+  -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
 }
 .ReactVirtualized__Table__row {
-  display: -webkit-flex;
-  display: -moz-box;
+  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-flex-direction: row;
-     -moz-box-orient: horizontal;
-     -moz-box-direction: normal;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
-  -webkit-align-items: center;
-     -moz-box-align: center;
+  -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
 }
@@ -670,18 +672,15 @@ td.rdtYear:hover {
 }
 
 .ReactVirtualized__Table__sortableHeaderIconContainer {
-  display: -webkit-flex;
-  display: -moz-box;
+  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-     -moz-box-align: center;
+  -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
 }
 .ReactVirtualized__Table__sortableHeaderIcon {
-  -webkit-flex: 0 0 24px;
-     -moz-box-flex: 0;
+  -webkit-box-flex: 0;
       -ms-flex: 0 0 24px;
           flex: 0 0 24px;
   height: 1em;
@@ -692,8 +691,7 @@ td.rdtYear:hover {
 /* List default theme */
 
 .ReactVirtualized__List {
-}
-.VirtualSelectGrid {
+}.VirtualSelectGrid {
   z-index: 1;
 }
 
@@ -760,24 +758,26 @@ td.rdtYear:hover {
 }
 
 .property-group {
-  border-top: 1px solid rgba(0, 0, 0, 0.125);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
-  padding: 1.4em 15px 1.1em;
-  margin-top: 1.8em;
-  margin-bottom: 1.2em;
+  border-top: 1px solid rgb(216, 216, 216);
+  margin-top: 1.2em;
+  padding-top: 1em;
   position: relative;
+}
+
+.property-groop-box {
+
 }
 
 .property-group:first-child{
   border-top: none;
 }
 
-.property-group h3 {
-  top: -0.8em;
+.property-group__title {
+  top: -1em;
   position: absolute;
   background-color: white;
   padding: 3pt;
-  font-size: 1.6em;
+  /*font-size: 1.6em;*/
   margin: 0 0 0 -3px;
 }
 
@@ -785,11 +785,27 @@ td.rdtYear:hover {
   font-size: 0.875em;
 }
 
+.has-danger .form-control-feedback {
+  color:#b90000;
+}
+
 .form-group.required .form-control-label:after,
 .form-check.required .form-check-label:after{
   content:"*";
   color:#b90000;
   margin-left: 2px;
+}
+
+.property-label .form-control-label {
+  margin: 0;
+}
+
+.display-none{
+  display: none;
+}
+
+.form-check.property {
+  margin-bottom: 0.5rem;
 }
 
 /*.form-group.required .form-control-label,

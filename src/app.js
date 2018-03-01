@@ -9,14 +9,15 @@ import 'react-virtualized-select/styles.css'
 import "./app.css";
 import "./propertySet.css";
 
-class App extends Component {
 
+class App extends Component
+{
   constructor(props) {
     super(props);
-    var testJson = require('./testJson.json');
+    const testJson = require('./testJson.json');
 
     this.state = {
-      fields: testJson
+      bean: testJson
     };
 
     this.handleFieldChange = this.handleFieldChange.bind(this);
@@ -30,12 +31,12 @@ class App extends Component {
   }
 
   handleJsonChange(event){
-    this.setState({fields: JSON.parse(event.target.value)});
+    this.setState({bean: JSON.parse(event.target.value)});
   }
 
   handleFieldChange(path, value) {
     console.log("call handleFieldChange: ", path, value);
-    JsonPointer.set(this.state.fields, "/values" + path, value);
+    JsonPointer.set(this.state.bean, "/values" + path, value);
     this.forceUpdate();
   }
 
@@ -64,12 +65,12 @@ class App extends Component {
 							<div className="row">
 								<div className="col-lg-12">
 									<form onSubmit={this.handleSubmit} className="bs-example">
-										<PropertySet fields={this.state.fields} onChange={this.handleFieldChange} localization={this.getLocalization()}/>
+										<PropertySet bean={this.state.bean} onChange={this.handleFieldChange} localization={this.getLocalization()}/>
 									</form>
 									{readOnlyForm}
 								</div>
 								<div className="col-lg-12">
-									<textarea rows="20" name="inputJson" className="inputJson form-control" defaultValue={JSON.stringify(this.state.fields, null, 4)}
+									<textarea rows="20" name="inputJson" className="inputJson form-control" defaultValue={JSON.stringify(this.state.bean, null, 4)}
 														onChange={this.handleJsonChange} />
 									<br/>
 									<div className="alert alert-info" role="alert">onChange calls displayed in the console [Chrome <b>F12</b>]</div>
@@ -82,17 +83,17 @@ class App extends Component {
   }
 
   readOnlyForm(){
-    let fieldsJson = JSON.stringify(this.state.fields);
-    let fields = JSON.parse(fieldsJson);
+    let beanJson = JSON.stringify(this.state.bean);
+    let bean = JSON.parse(beanJson);
 
-    for(let item in fields.meta) {
-      fields.meta[item]['readOnly'] = true;
+    for(let item in bean.meta) {
+      bean.meta[item]['readOnly'] = true;
     }
     return (
       <div>
         <h2>All with readOnly</h2>
         <form onSubmit={this.handleSubmit} className="bs-example">
-          <PropertySet fields={fields} onChange={this.handleFieldChange} propertyLocalization={this.getLocalization()}/>
+          <PropertySet bean={bean} onChange={this.handleFieldChange} propertyLocalization={this.getLocalization()}/>
           <div className="text-center">
             <button type="submit" className="btn btn-primary btn-primary-spacing">Submit</button>
             <button type="button" className="btn btn-default btn-primary-spacing">Cancel</button>
