@@ -1,39 +1,52 @@
-import nodeResolve from 'rollup-plugin-node-resolve';
 import babel       from 'rollup-plugin-babel'
-import commonjs    from 'rollup-plugin-commonjs'
-import replace     from 'rollup-plugin-replace'
 import resolve     from 'rollup-plugin-node-resolve'
-import imageBase64 from 'rollup-plugin-image-base64';
-import pkg         from './package.json'
-
-const external = Object.keys(pkg.dependencies || {});
 
 
-export default {
-  input: 'src/index.js',
-  external: external,
-  output: {
-    file: pkg.main,
-    format: 'es'
+const name = 'PropertySet';
+const path = 'dist/beanexplorer-react';
+
+const babelOptions = {
+  babelrc: false,
+  exclude: 'node_modules/**',
+  presets: [ [ 'es2015', { modules: false } ], 'react' ],
+  plugins: [ 'external-helpers' ]
+};
+const globals = {
+  'react': 'React',
+  'react-dom': 'ReactDOM',
+  'prop-types': 'PropTypes',
+  'classnames': 'classNames',
+  'moment': 'moment',
+  'json-pointer': 'JsonPointer',
+  'react-datetime': 'Datetime',
+  'react-ckeditor-component': 'CKEditor',
+  'react-maskedinput': 'MaskedInput',
+  'react-numeric-input': 'NumericInput',
+  'react-select': 'Select',
+  'react-virtualized-select': 'VirtualizedSelect',
+};
+const external = Object.keys(globals);
+
+
+export default [
+  {
+    input: 'src/index.js',
+    output: {
+      file: path + '.es.js',
+      format: 'es',
+    },
+    external: external,
+    plugins: [babel(babelOptions)],
   },
-  name: pkg.main,
-  plugins: [
-    nodeResolve(),
-    babel({
-      babelrc: false,
-      exclude: 'node_modules/**',
-      presets: [ [ 'es2015', { modules: false } ], 'react' ],
-      plugins: [ 'external-helpers' ]
-    }),
-    commonjs(),
-    replace({ 'process.env.NODE_ENV': JSON.stringify('development') }),
-    resolve({
-      module: true,
-      jsnext: true,
-      main: true,
-      browser: true,
-    }),
-    imageBase64()
-  ],
-  sourcemap: true
-}
+  {
+    input: 'src/index.umd.js',
+    output: {
+      name: name,
+      file: path + '.js',
+      format: 'umd',
+    },
+    globals: globals,
+    external: external,
+    plugins: [babel(babelOptions), resolve()],
+  }
+];

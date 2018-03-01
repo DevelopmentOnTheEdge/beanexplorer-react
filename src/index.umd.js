@@ -8,9 +8,3 @@ PropertySet.Properties = Properties;
 PropertySet.PropertyInput = PropertyInput;
 
 export default PropertySet
-export {
-  Property,
-  Properties,
-  PropertyInput
-}
-

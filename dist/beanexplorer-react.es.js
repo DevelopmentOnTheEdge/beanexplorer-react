@@ -1,20 +1,14 @@
-(function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('react'), require('prop-types'), require('classnames'), require('react-datetime'), require('moment'), require('react-select'), require('react-virtualized-select'), require('react-numeric-input'), require('react-ckeditor-component'), require('react-maskedinput'), require('json-pointer')) :
-	typeof define === 'function' && define.amd ? define(['react', 'prop-types', 'classnames', 'react-datetime', 'moment', 'react-select', 'react-virtualized-select', 'react-numeric-input', 'react-ckeditor-component', 'react-maskedinput', 'json-pointer'], factory) :
-	(global.PropertySet = factory(global.React,global.PropTypes,global.classNames,global.Datetime,global.moment,global.Select,global.VirtualizedSelect,global.NumericInput,global.CKEditor,global.MaskedInput,global.JsonPointer));
-}(this, (function (React,PropTypes,classNames,Datetime,moment,Select,VirtualizedSelect,NumericInput,CKEditor,MaskedInput,JsonPointer) { 'use strict';
-
-React = React && React.hasOwnProperty('default') ? React['default'] : React;
-PropTypes = PropTypes && PropTypes.hasOwnProperty('default') ? PropTypes['default'] : PropTypes;
-classNames = classNames && classNames.hasOwnProperty('default') ? classNames['default'] : classNames;
-Datetime = Datetime && Datetime.hasOwnProperty('default') ? Datetime['default'] : Datetime;
-moment = moment && moment.hasOwnProperty('default') ? moment['default'] : moment;
-var Select__default = 'default' in Select ? Select['default'] : Select;
-VirtualizedSelect = VirtualizedSelect && VirtualizedSelect.hasOwnProperty('default') ? VirtualizedSelect['default'] : VirtualizedSelect;
-NumericInput = NumericInput && NumericInput.hasOwnProperty('default') ? NumericInput['default'] : NumericInput;
-CKEditor = CKEditor && CKEditor.hasOwnProperty('default') ? CKEditor['default'] : CKEditor;
-MaskedInput = MaskedInput && MaskedInput.hasOwnProperty('default') ? MaskedInput['default'] : MaskedInput;
-JsonPointer = JsonPointer && JsonPointer.hasOwnProperty('default') ? JsonPointer['default'] : JsonPointer;
+import React from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import Datetime from 'react-datetime';
+import moment from 'moment';
+import Select, { Creatable } from 'react-select';
+import VirtualizedSelect from 'react-virtualized-select';
+import NumericInput from 'react-numeric-input';
+import CKEditor from 'react-ckeditor-component';
+import MaskedInput from 'react-maskedinput';
+import JsonPointer from 'json-pointer';
 
 var classCallCheck = function (instance, Constructor) {
   if (!(instance instanceof Constructor)) {
@@ -308,13 +302,13 @@ var Property = function (_React$Component) {
           };
 
           if (extraAttrsMap.inputType === "Creatable") {
-            return React.createElement(Select.Creatable, selectProps);
+            return React.createElement(Creatable, selectProps);
           }
 
           if (extraAttrsMap.inputType === "VirtualizedSelect") {
             return React.createElement(VirtualizedSelect, _extends({}, selectProps, { clearable: true, searchable: true, labelKey: 'label', valueKey: 'value' }));
           }
-          return React.createElement(Select__default, selectProps);
+          return React.createElement(Select, selectProps);
         },
         Date: function Date() {
           return React.createElement(Datetime, { dateFormat: 'DD.MM.YYYY', value: moment(value === undefined ? "" : value),
@@ -950,6 +944,5 @@ PropertySet$1.Property = Property;
 PropertySet$1.Properties = Properties;
 PropertySet$1.PropertyInput = PropertyInput;
 
-return PropertySet$1;
-
-})));
+export { Property, Properties, PropertyInput };
+export default PropertySet$1;

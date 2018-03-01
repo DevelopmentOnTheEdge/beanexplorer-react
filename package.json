@@ -3,6 +3,8 @@
   "version": "0.1.15",
   "description": "React component for BeanExplorer beans",
   "main": "dist/beanexplorer-react.js",
+  "jsnext:main": "dist/beanexplorer-react.es.js",
+  "module": "dist/beanexplorer-react.es.js",
   "scripts": {
     "start": "webpack-dev-server --host 127.0.0.1 --hot --history-api-fallback --open --progress --profile --colors",
     "example": "webpack --config webpack.example.config.js",
