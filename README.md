@@ -1,9 +1,11 @@
 # beanexplorer-react 
 React component for [BeanExplorer](https://github.com/DevelopmentOnTheEdge/beanexplorer) beans
 
+[![NPM Version](https://img.shields.io/npm/v/beanexplorer-react.svg?branch=master)](https://www.npmjs.com/package/beanexplorer-react)
 [![Build Status](https://travis-ci.org/DevelopmentOnTheEdge/beanexplorer-react.svg?branch=master)](https://travis-ci.org/DevelopmentOnTheEdge/beanexplorer-react)
 [![Coverage Status](https://coveralls.io/repos/github/DevelopmentOnTheEdge/beanexplorer-react/badge.svg?branch=master)](https://coveralls.io/github/DevelopmentOnTheEdge/beanexplorer-react?branch=master)
 [![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://github.com/facebook/jest)
+<a href="https://david-dm.org/DevelopmentOnTheEdge/beanexplorer-react"><img src="https://david-dm.org/DevelopmentOnTheEdge/beanexplorer-react.svg" alt="Dependency Status"></a>
 
 ### Used components:  
 [react-select](https://github.com/JedWatson/react-select)  
