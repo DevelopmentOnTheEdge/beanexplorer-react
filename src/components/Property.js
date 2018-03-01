@@ -34,8 +34,9 @@ class Property extends React.Component {
     this.props.onChange(this.props.path, selectArray);
   }
 
+  //todo move as anonymous function to NumericInput
   numericHandleChange(valueAsNumber, valueAsString, input){
-    this.props.onChange(this.props.path, valueAsNumber);
+    this.props.onChange(this.props.path, valueAsNumber !== null ? valueAsNumber : "");
   }
 
   static _getValueFromEvent(event) {
@@ -232,7 +233,8 @@ class Property extends React.Component {
                          onChange={handle} className={props.controlClassName || "form-control"} disabled={meta.readOnly} />
       },
       maskTest: () => {
-        return <MaskedInput mask={Property.getMaskInput(meta.validationRules)} onChange={handle} className={props.controlClassName || "form-control"} />
+        return <MaskedInput mask={Property.getMaskInput(meta.validationRules)} value={value === undefined ? "" : value}
+                            onChange={handle} className={props.controlClassName || "form-control"} disabled={meta.readOnly} />
       },
       textInput: () => {
         return <input type="text" placeholder={meta.placeholder} id={id} key={id} value={value === undefined ? "" : value}

@@ -120,10 +120,13 @@ var Property = function (_React$Component) {
       });
       this.props.onChange(this.props.path, selectArray);
     }
+
+    //todo move as anonymous function to NumericInput
+
   }, {
     key: 'numericHandleChange',
     value: function numericHandleChange(valueAsNumber, valueAsString, input) {
-      this.props.onChange(this.props.path, valueAsNumber);
+      this.props.onChange(this.props.path, valueAsNumber !== null ? valueAsNumber : "");
     }
   }, {
     key: 'onDateChange',
@@ -331,7 +334,8 @@ var Property = function (_React$Component) {
             onChange: handle, className: props.controlClassName || "form-control", disabled: meta.readOnly });
         },
         maskTest: function maskTest() {
-          return React.createElement(MaskedInput, { mask: Property.getMaskInput(meta.validationRules), onChange: handle, className: props.controlClassName || "form-control" });
+          return React.createElement(MaskedInput, { mask: Property.getMaskInput(meta.validationRules), value: value === undefined ? "" : value,
+            onChange: handle, className: props.controlClassName || "form-control", disabled: meta.readOnly });
         },
         textInput: function textInput() {
           return React.createElement('input', { type: 'text', placeholder: meta.placeholder, id: id, key: id, value: value === undefined ? "" : value,
