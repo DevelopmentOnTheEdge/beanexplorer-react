@@ -7,10 +7,6 @@ React component for [BeanExplorer](https://github.com/DevelopmentOnTheEdge/beane
 [![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://github.com/facebook/jest)
 <a href="https://david-dm.org/DevelopmentOnTheEdge/beanexplorer-react"><img src="https://david-dm.org/DevelopmentOnTheEdge/beanexplorer-react.svg" alt="Dependency Status"></a>
 
-### Used components:  
-[react-select](https://github.com/JedWatson/react-select)  
-[react-datetime](https://github.com/YouCanBookMe/react-datetime)
-
 ### Installation
 ```sh
 $ npm install --save beanexplorer-react
@@ -59,7 +55,7 @@ Run the example app at http://localhost:8888
 $ npm start
 ```
 
-Run tests using [jest](https://github.com/facebook/jest):
+Run tests
 ```sh
 $ npm test
 ```
