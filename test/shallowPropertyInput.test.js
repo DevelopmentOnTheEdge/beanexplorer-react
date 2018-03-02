@@ -5,7 +5,7 @@ import VirtualizedSelect    from 'react-virtualized-select';
 import bean from '../src/testJson.json';
 
 
-it('input', () => {
+test('input', () => {
   const handle = jest.fn();
 
   const wrapper = shallow(
@@ -21,7 +21,7 @@ it('input', () => {
   expect(handle.mock.calls.length).toBe(2);
 });
 
-it('Select', () => {
+test('Select', () => {
   const handle = jest.fn();
 
   const wrapper = shallow(

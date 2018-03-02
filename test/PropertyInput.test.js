@@ -1,13 +1,12 @@
 import React from 'react';
 import PropertyInput from '../src/components/PropertyInput';
-import renderer from 'react-test-renderer';
+import {shallow} from 'enzyme';
 import bean from '../src/testJson.json';
 
-
-it('input', () => {
+test('input', () => {
 
 });
-// it('input', () => {
+// test('input', () => {
 //   const handle = jest.fn();
 //
 //   let component = renderer.create(
@@ -29,7 +28,7 @@ it('input', () => {
 //   tests for select
 // */
 //
-// it('select', () => {
+// test('select', () => {
 //   const handle = jest.fn();
 //
 //   let component = renderer.create(
@@ -59,7 +58,7 @@ it('input', () => {
 //   tests for multiSelect
 // */
 //
-// it('multiSelect', () => {
+// test('multiSelect', () => {
 //   const handle = jest.fn();
 //
 //   let component = renderer.create(
@@ -73,7 +72,7 @@ it('input', () => {
 //   tests for description
 // */
 //
-// it('Description', () => {
+// test('Description', () => {
 //   const handle = jest.fn();
 //
 //   let component = renderer.create(
@@ -87,7 +86,7 @@ it('input', () => {
 //   tests for passwordField
 // */
 //
-// it('passwordField', () => {
+// test('passwordField', () => {
 //   const handle = jest.fn();
 //
 //   let component = renderer.create(
@@ -101,7 +100,7 @@ it('input', () => {
 //   tests for login
 // */
 //
-// it('property login', () => {
+// test('property login', () => {
 //   const handle = jest.fn();
 //
 //   let component = renderer.create(
@@ -111,7 +110,7 @@ it('input', () => {
 //   expect(component.toJSON()).toMatchSnapshot();
 // });
 //
-// it('property Boolean', () => {
+// test('property Boolean', () => {
 //   const handle = jest.fn();
 //
 //   let component = renderer.create(
@@ -125,7 +124,7 @@ it('input', () => {
 //   tests for lableField
 // */
 //
-// it('property labelField', () => {
+// test('property labelField', () => {
 //   const handle = jest.fn();
 //
 //   let component = renderer.create(
@@ -135,7 +134,7 @@ it('input', () => {
 //   expect(component.toJSON()).toMatchSnapshot();
 // });
 //
-// it('property maskTest', () => {
+// test('property maskTest', () => {
 //   const handle = jest.fn();
 //
 //   let component = renderer.create(
@@ -146,7 +145,7 @@ it('input', () => {
 // });
 
 //to do: не работает, выдает непонятную ошибку
-// it('property data', () => {
+// test('property data', () => {
 //     
 //
 //     const handle = jest.fn();

@@ -9,7 +9,7 @@ jest.mock('react-dom', () => ({
   findDOMNode: () => {},
 }));
 
-it('renders without crashing', () => {
+test('renders without crashing', () => {
 
 	mount(<PropertySet bean={bean}/>);
 
@@ -27,7 +27,7 @@ it('renders without crashing', () => {
   expect(component.toJSON()).toMatchSnapshot();
 });
 
-it('renders without crashing readOnly', () => {
+test('renders without crashing readOnly', () => {
   for(let item in bean.meta) {
     bean.meta[item]['readOnly'] = true;
   }
@@ -35,7 +35,7 @@ it('renders without crashing readOnly', () => {
   mount(<PropertySet bean={bean}/>);
 });
 
-it('renders without crashing empty value', () => {
+test('renders without crashing empty value', () => {
   for(let item in bean.value) {
     bean.value[item] = "";
   }
@@ -43,7 +43,7 @@ it('renders without crashing empty value', () => {
   mount(<PropertySet bean={bean}/>);
 });
 
-it('simple property set', () => {
+test('simple property set', () => {
 	const simpleBean = {
     "values": {
       "number": "",
@@ -62,7 +62,7 @@ it('simple property set', () => {
   expect(component.toJSON()).toMatchSnapshot();
 });
 
-it('empty property set', () => {
+test('empty property set', () => {
 	const emptyBean = {
 		 "values": {},
 		 "meta": {},

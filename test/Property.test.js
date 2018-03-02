@@ -8,7 +8,7 @@ const itemName = item.substring(item.lastIndexOf("/")+1);
 const itemValue = "testValue";
 
 
-// it('simple property', () => {
+// test('simple property', () => {
 // 	const itemMeta = {"displayName": "Simple property"};
 //
 // 	const component = renderer.create(
@@ -19,7 +19,7 @@ const itemValue = "testValue";
 // 	expect(tree).toMatchSnapshot();
 // });
 //
-// it('property Boolean', () => {
+// test('property Boolean', () => {
 //   const itemMeta = {"type":"Boolean"};
 //   const item = "/agree";
 //
@@ -33,7 +33,7 @@ const itemValue = "testValue";
 /*
     shallow test
 */
-it('call callback after click', () => {
+test('call callback after click', () => {
 	const itemMeta = {};
 
 	const handle = jest.fn();
@@ -51,7 +51,7 @@ it('call callback after click', () => {
   //expect(myMock.mock.calls[0]).toEqual(["/testName", true]);
 });
 
-it('call callback after set text', () => {
+test('call callback after set text', () => {
 	const itemMeta = {};
 	const itemValue = "testValue";
 

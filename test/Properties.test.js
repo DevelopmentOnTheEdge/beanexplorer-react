@@ -4,14 +4,14 @@ import renderer from 'react-test-renderer';
 import bean from '../src/testJson.json';
 
 
-it('contain property', () => {
+test('contain property', () => {
 	const component = renderer.create(
     <Properties bean={bean} ids={[0,13]}/>
   );
   expect(component.toJSON()).toMatchSnapshot();
 });
 
-it('not contain property', () => {
+test('not contain property', () => {
   const component = renderer.create(
     <Properties bean={bean} ids={[1000000]}/>
   );
