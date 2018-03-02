@@ -33,26 +33,27 @@ class PropertyInput extends React.Component
     }
   }
 
-  handleChange(event) {
-    let path;
+  getPath(){
     if(this.props.path){
-      path = this.props.path;
+      return this.props.path;
     }else{
-      path = this.props.bean.order[this.props.id];
+      return this.props.bean.order[this.props.id];
     }
-    this.props.onChange(path, this._getValueFromEvent(event));
+  }
+
+  handleChange(event) {
+    console.log(event);
+    this.props.onChange(this.getPath(), this._getValueFromEvent(event));
   }
 
   onDateChange(date){
-      //console.log(date);
-      if(typeof date === "string"){
-          if(date.match('(0[1-9]|[12][0-9]|3[01])\.(0[1-9]|1[012])\.(19|20)\d\d')){
-              //console.log("str 10: " + date);
-              this.handleChange(date);
-          }
-      }else{
-          this.handleChange(date)
-      }
+    console.log(date);
+    if(typeof date === "string"){
+      this.props.onChange(this.getPath(), date);
+    }else{
+      console.log(typeof date);
+      this.props.onChange(this.getPath(), date.format('YYYY-MM-DD'));
+    }
   }
 
   handleChangeMulti(event) {
@@ -66,10 +67,10 @@ class PropertyInput extends React.Component
   _getValueFromEvent(event) {
     if(!event)
       return '';
-    if(event._d)
-    {
-      return this.formatDate(event._d);
-    }
+    // if(event._d)
+    // {
+    //   return this.formatDate(event._d);
+    // }
     if(!event.target)
       return event.value;
     const element = event.target;
@@ -77,12 +78,8 @@ class PropertyInput extends React.Component
   }
 
   render() {
-    let attr;
-    if(this.props.path){
-      attr = PropertyInput.get(this.props.path, this.props.bean, this.props.localization)
-    }else{
-      attr = PropertyInput.get(this.props.bean.order[this.props.id], this.props.bean, this.props.localization)
-    }
+    const attr = PropertyInput.get(this.getPath(), this.props.bean, this.props.localization);
+
     const meta  = attr.meta;
     const value = attr.value || attr.meta.defaultValue;
     const id    = attr.name + "Field";
@@ -134,8 +131,8 @@ class PropertyInput extends React.Component
       },
       Date: () => {
           return <Datetime dateFormat="DD.MM.YYYY" value={moment(value === undefined ? "" : value)}
-                           onChange={(v) => onDateChange(v)} id={id} key={id}
-                           timeFormat={false} closeOnSelect={true} closeOnTab={true} locale={props.localization.locale || "en"}
+                           onChange={(v) => this.onDateChange(v)} id={id} key={id}
+                           timeFormat={false} closeOnSelect={true} closeOnTab={true} locale={attr.localization.locale || "en"}
                            inputProps={ {disabled: meta.readOnly} } />
       },
 //      dateTime: {
@@ -201,14 +198,6 @@ class PropertyInput extends React.Component
 //  createStatic(value) {
 //    return <p className="form-control-static" dangerouslySetInnerHTML={{__html: value}} />;
 //  }
-
-  //ISO 8601 format
-  formatDate(date) {
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
-    return year + '-' + this.format2digit(month) + '-' + this.format2digit(day);
-  }
 
   format2digit(number){
     return ("0" + number).slice(-2);

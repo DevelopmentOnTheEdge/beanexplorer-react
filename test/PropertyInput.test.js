@@ -1,11 +1,9 @@
 import React from 'react';
 import PropertyInput from '../src/components/PropertyInput';
-import {shallow} from 'enzyme';
+import {shallow, mount, render} from 'enzyme';
 import bean from '../src/testJson.json';
 
-test('input', () => {
 
-});
 // test('input', () => {
 //   const handle = jest.fn();
 //
@@ -144,15 +142,23 @@ test('input', () => {
 //   expect(component.toJSON()).toMatchSnapshot();
 // });
 
-//to do: не работает, выдает непонятную ошибку
-// test('property data', () => {
-//     
-//
-//     const handle = jest.fn();
-//
-//     let component = renderer.create(
-//         <PropertyInput path={"/date"} bean={bean} onChange={handle} />
-//     );
-//
-//     expect(component.toJSON()).toMatchSnapshot();
-// });
+test('property data', () => {
+  const handle = jest.fn();
+
+  const wrapper = mount(
+    <PropertyInput path={"/date"} bean={bean} onChange={handle} />
+  );
+
+  wrapper.find('input').simulate('change', {target: {value: '20.07.2017'}});
+  expect(handle.mock.calls[0]).toEqual(["/date", "2017-07-20"]);
+
+
+  wrapper.find('input').simulate('change', {target: {value: ''}});
+  expect(handle.mock.calls[1]).toEqual(["/date", ""]);
+
+
+  wrapper.find('input').simulate('change', {target: {value: '20.07.20'}});
+  expect(handle.mock.calls[2]).toEqual(["/date", "20.07.20"]);
+
+  expect(handle.mock.calls.length).toEqual(3);
+});
