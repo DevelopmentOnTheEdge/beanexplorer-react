@@ -1,20 +1,24 @@
 {
   "values": {
+    "textInput": "test",
     "date": "2017-07-20",
     "number": "123",
     "mask": "123",
     "agree": true,
     "textArea": "test",
     "WYSIWYG": "test",
+    "password": "password",
     "file": "",
     "select": "vanilla",
+    "virtualizedSelect": "vanilla",
     "multiSelect": ["chocolate", "strawberry"],
-    "login": "user",
-    "pass": "password",
     "labelFieldRaw": "<p>Pellentesque habitant morbi tristique senectus et netus et <a href=\"#test\">Link</a> malesuada fames ac <b>turpis</b> egestas.</p>",
     "labelField": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas."
   },
   "meta": {
+    "/textInput": {
+      "displayName": "Name"
+    },
     "/date": {
       "displayName": "Date",
       "type": "Date"
@@ -38,35 +42,28 @@
       "extraAttrs": [["inputType", "WYSIWYG"]],
       "placeholder": "text editor"
     },
+    "/password": {
+      "displayName": "Password",
+      "passwordField": true,
+      "status": "success"
+    },
     "/file": {
       "displayName": "File",
       "extraAttrs": [["inputType", "file"]]
     },
     "/select": {
       "displayName": "Select",
+      "tagList": [["vanilla","Vanilla"],["chocolate","Chocolate"],["strawberry","Strawberry"],["cookiescream","Cookies and Cream"],["caramel","Caramel"],["peppermint","Peppermint"]]
+    },
+    "/virtualizedSelect": {
+      "displayName": "VirtualizedSelect",
       "tagList": [["vanilla","Vanilla"],["chocolate","Chocolate"],["strawberry","Strawberry"],["cookiescream","Cookies and Cream"],["caramel","Caramel"],["peppermint","Peppermint"]],
-      "message": "message example",
-      "groupId": 4,
-      "groupName": "Selects"
+      "extraAttrs": [["inputType", "VirtualizedSelect"]]
     },
     "/multiSelect": {
       "displayName": "Multi Select",
       "multipleSelectionList": true,
-      "tagList": [["vanilla","Vanilla"],["chocolate","Chocolate"],["strawberry","Strawberry"],["cookiescream","Cookies and Cream"],["caramel","Caramel"],["peppermint","Peppermint"]],
-      "groupId": 4
-    },
-    "/login": {
-      "displayName": "Name",
-      "groupId": 5,
-      "groupName": "Security",
-      "cssClasses": "col-md-12"
-    },
-    "/pass": {
-      "displayName": "Password",
-      "passwordField": true,
-      "groupId": 5,
-      "status": "success",
-      "cssClasses": "col-md-12"
+      "tagList": [["vanilla","Vanilla"],["chocolate","Chocolate"],["strawberry","Strawberry"],["cookiescream","Cookies and Cream"],["caramel","Caramel"],["peppermint","Peppermint"]]
     },
     "/agree": {
       "displayName": "Agree",
@@ -75,26 +72,24 @@
     },
     "/labelFieldRaw": {
       "labelField": true,
-      "rawValue": true,
-      "groupId": 6,
-      "groupName": "Labels"
+      "rawValue": true
     },
     "/labelField": {
-      "labelField": true,
-      "groupId": 6
+      "labelField": true
     }
   },
   "order": [
+    "/textInput",
     "/date",
     "/number",
     "/mask",
     "/textArea",
     "/WYSIWYG",
+    "/password",
     "/file",
     "/select",
+    "/virtualizedSelect",
     "/multiSelect",
-    "/login",
-    "/pass",
     "/agree",
     "/labelFieldRaw",
     "/labelField"

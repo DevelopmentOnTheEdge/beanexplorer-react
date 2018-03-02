@@ -226,8 +226,6 @@ class Property extends React.Component {
 //        },
 //        readOnly: () => this.createStatic(value)
 //      },
-
-
       textArea: () => {
         return <textarea placeholder={meta.placeholder} id={id}  rows={meta.rows || 3} cols={meta.columns} value={value === undefined ? "" : value}
                          onChange={handle} className={props.controlClassName || "form-control"} disabled={meta.readOnly} />
