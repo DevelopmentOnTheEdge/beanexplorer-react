@@ -8,28 +8,27 @@ const itemName = item.substring(item.lastIndexOf("/")+1);
 const itemValue = "testValue";
 
 
-it('simple property', () => {
-	const itemMeta = {"displayName": "Simple property"};
-
-	const component = renderer.create(
-    <Property meta={itemMeta} name={itemName} value={itemValue} path={item}
-    													  key={itemName} />
-  );
-  let tree = component.toJSON();
-	expect(tree).toMatchSnapshot();
-});
-
-it('property Boolean', () => {
-    const itemMeta = {"type":"Boolean"};
-    const item = "/agree";
-
-
-    let component = renderer.create(
-        <Property path={item} meta={itemMeta} name={itemName} key={itemName} value={"true"}/>
-    );
-
-    expect(component.toJSON()).toMatchSnapshot();
-});
+// it('simple property', () => {
+// 	const itemMeta = {"displayName": "Simple property"};
+//
+// 	const component = renderer.create(
+//     <Property meta={itemMeta} name={itemName} value={itemValue} path={item}
+//     													  key={itemName} />
+//   );
+//   let tree = component.toJSON();
+// 	expect(tree).toMatchSnapshot();
+// });
+//
+// it('property Boolean', () => {
+//   const itemMeta = {"type":"Boolean"};
+//   const item = "/agree";
+//
+//   let component = renderer.create(
+//     <Property path={item} meta={itemMeta} name={itemName} key={itemName} value={"true"}/>
+//   );
+//
+//   expect(component.toJSON()).toMatchSnapshot();
+// });
 
 /*
     shallow test

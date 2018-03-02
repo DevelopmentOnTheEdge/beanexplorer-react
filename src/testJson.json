@@ -4,7 +4,6 @@
     "date": "2017-07-20",
     "number": "123",
     "mask": "123",
-    "agree": true,
     "textArea": "test",
     "WYSIWYG": "test",
     "password": "password",
@@ -12,6 +11,7 @@
     "select": "vanilla",
     "virtualizedSelect": "vanilla",
     "multiSelect": ["chocolate", "strawberry"],
+    "agree": true,
     "labelFieldRaw": "<p>Pellentesque habitant morbi tristique senectus et netus et <a href=\"#test\">Link</a> malesuada fames ac <b>turpis</b> egestas.</p>",
     "labelField": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas."
   },

@@ -1,10 +1,10 @@
-import React from 'react';
-import PropTypes            from 'prop-types';
-import Property             from './Property';
-import JsonPointer          from 'json-pointer';
+import React       from 'react';
+import PropTypes   from 'prop-types';
+import Property    from './Property';
+import JsonPointer from 'json-pointer';
 
-class Properties extends React.Component {
-
+class Properties extends React.Component
+{
   static get(path, bean, localization){
     const itemName = path.substring(path.lastIndexOf("/")+1);
     const itemMeta = bean.meta[path];
@@ -31,6 +31,7 @@ class Properties extends React.Component {
       }
     });
 
+    //todo remove outer element
     return <div className={this.props.className}>{fields}</div>;
   }
 
@@ -38,7 +39,6 @@ class Properties extends React.Component {
 
 Properties.defaultProps = {
   className: "row",
-  localization: {},
 };
 
 Properties.propTypes = {

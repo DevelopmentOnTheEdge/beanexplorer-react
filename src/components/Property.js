@@ -1,17 +1,17 @@
-import React                from 'react';
-import PropTypes            from 'prop-types';
-import classNames           from 'classnames';
-import Datetime             from 'react-datetime';
-import moment               from 'moment';
-import Select, { Creatable }from 'react-select';
-import VirtualizedSelect    from 'react-virtualized-select'
-import NumericInput         from 'react-numeric-input';
-import CKEditor             from 'react-ckeditor-component';
-import MaskedInput          from 'react-maskedinput';
+import React                 from 'react';
+import PropTypes             from 'prop-types';
+import classNames            from 'classnames';
+import Datetime              from 'react-datetime';
+import moment                from 'moment';
+import Select, { Creatable } from 'react-select';
+import VirtualizedSelect     from 'react-virtualized-select'
+import NumericInput          from 'react-numeric-input';
+import CKEditor              from 'react-ckeditor-component';
+import MaskedInput           from 'react-maskedinput';
 
 
-class Property extends React.Component {
-
+class Property extends React.Component
+{
   constructor(props) {
     super(props);
 
@@ -420,6 +420,7 @@ Property.defaultProps = {
 };
 
 Property.propTypes = {
+  onChange: PropTypes.func,
   localization: PropTypes.object
 };
 

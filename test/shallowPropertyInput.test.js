@@ -2,7 +2,7 @@ import React from 'react';
 import PropertyInput from '../src/components/PropertyInput';
 import {shallow} from 'enzyme';
 import VirtualizedSelect    from 'react-virtualized-select';
-import bean from './testJson.json';
+import bean from '../src/testJson.json';
 
 
 it('input', () => {

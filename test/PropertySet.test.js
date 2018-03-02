@@ -2,23 +2,45 @@ import React from 'react';
 import PropertySet from '../src/components/PropertySet';
 import renderer from 'react-test-renderer';
 import {shallow, mount, render} from 'enzyme';
-import bean from './testJson.json';
+import bean from '../src/testJson.json';
 
+//https://github.com/YouCanBookMe/react-datetime/issues/384
+jest.mock('react-dom', () => ({
+  findDOMNode: () => {},
+}));
 
 it('renders without crashing', () => {
-	const handle = jest.fn();
 
-	mount(<PropertySet bean={bean} onChange={handle}/>);
+	mount(<PropertySet bean={bean}/>);
+
+  const beanForSnapshot = Object.assign({}, bean);
+
+  let index = beanForSnapshot.order.indexOf("/number");
+  beanForSnapshot.order.splice(index, 1);
+
+  // index = beanForSnapshot.order.indexOf("/date");
+  // beanForSnapshot.order.splice(index, 1);
+
+  const component = renderer.create(
+    <PropertySet bean={bean} />
+  );
+  expect(component.toJSON()).toMatchSnapshot();
 });
 
 it('renders without crashing readOnly', () => {
-	for(let item in bean.meta) {
+  for(let item in bean.meta) {
     bean.meta[item]['readOnly'] = true;
-	}
+  }
 
-	const handle = jest.fn();
+  mount(<PropertySet bean={bean}/>);
+});
 
-	mount(<PropertySet bean={bean} onChange={handle}/>);
+it('renders without crashing empty value', () => {
+  for(let item in bean.value) {
+    bean.value[item] = "";
+  }
+
+  mount(<PropertySet bean={bean}/>);
 });
 
 it('simple property set', () => {

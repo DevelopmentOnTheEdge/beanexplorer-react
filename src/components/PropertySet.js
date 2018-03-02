@@ -4,8 +4,8 @@ import Property    from './Property';
 import JsonPointer from 'json-pointer';
 
 
-class PropertySet extends React.Component {
-
+class PropertySet extends React.Component
+{
   _createGroup(curGroup, curGroupId, curGroupName) {
     return (
       <div className='property-group col-12' key={curGroupId} ref={curGroupId}>
@@ -73,10 +73,6 @@ class PropertySet extends React.Component {
   }
 
 }
-
-PropertySet.defaultProps = {
-  localization: {},
-};
 
 PropertySet.propTypes = {
   bean: PropTypes.object.isRequired,

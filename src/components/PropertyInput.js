@@ -8,8 +8,8 @@ import VirtualizedSelect    from 'react-virtualized-select'
 import JsonPointer          from 'json-pointer';
 
 
-class PropertyInput extends React.Component {
-
+class PropertyInput extends React.Component
+{
   constructor(props) {
     super(props);
 
