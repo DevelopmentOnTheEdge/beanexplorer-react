@@ -37,7 +37,7 @@ const fields = {
 handleFieldChange(path, value) {}
 ```
 ```js
-<PropertySet fields={fields} onChange={this.handleFieldChange}/>
+<PropertySet bean={fields} onChange={this.handleFieldChange}/>
 ```
 
 ### Demo
