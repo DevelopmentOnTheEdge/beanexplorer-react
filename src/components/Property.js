@@ -260,27 +260,28 @@ class Property extends React.Component {
                           Property.getBase64(e.target.files[0]).then(data => {
                             handle({value: {type: "Base64File", name: fileName, data: data}})
                           });
+                        }else if(e.target.files && e.target.files.length === 0) {
+                          handle({value: ""})
                         }
                       }
                       } />
       },
-
       WYSIWYG: () => {
         return <CKEditor activeClass="p10" content={value}
                          events={{
                            "change": (evt) => { handle({value: evt.editor.getData()}) }
                          }}
-                         config={{language: 'ru',}}
+                         config={{language: 'ru', readOnly: meta.readOnly}}
         />
       },
       labelField: () => {
         if(meta.rawValue)
         {
-          return (<div dangerouslySetInnerHTML={{__html: value}} />)
+          return <div dangerouslySetInnerHTML={{__html: value}} />
         }
         else
         {
-          return (<label className="form-control-label">{value}</label>)
+          return <label className="form-control-label">{value}</label>
         }
       },
     };
@@ -292,12 +293,12 @@ class Property extends React.Component {
 
     if(meta.passwordField)
     {
-      return  controls['passwordField']();
+      return controls['passwordField']();
     }
 
     if(meta.labelField)
     {
-      return  controls['labelField']();
+      return controls['labelField']();
     }
 
     if(meta.validationRules !== undefined && Property.isNumberInput(meta.validationRules))
@@ -348,7 +349,8 @@ class Property extends React.Component {
       {
         props['min'] = -2147483648;
         props['max'] = 2147483647;
-        props['maxLength'] = 10;
+        props['maxLength'] = 9;
+        props['precision'] = 0;
       }
       // if(rules[i].type === "digits")
       // {

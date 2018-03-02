@@ -63,14 +63,14 @@ class App extends Component
 					<div className="app-intro">
 						<div className="container">
 							<div className="row">
-								<div className="col-lg-12">
+								<div className="col-md-6">
 									<form onSubmit={this.handleSubmit} className="bs-example">
 										<PropertySet bean={this.state.bean} onChange={this.handleFieldChange} localization={this.getLocalization()}/>
 									</form>
 									{readOnlyForm}
 								</div>
-								<div className="col-lg-12">
-									<textarea rows="20" name="inputJson" className="inputJson form-control" defaultValue={JSON.stringify(this.state.bean, null, 4)}
+								<div className="col-md-6">
+									<textarea rows="200" name="inputJson" className="inputJson form-control" defaultValue={JSON.stringify(this.state.bean, null, 4)}
 														onChange={this.handleJsonChange} />
 									<br/>
 									<div className="alert alert-info" role="alert">onChange calls displayed in the console [Chrome <b>F12</b>]</div>
