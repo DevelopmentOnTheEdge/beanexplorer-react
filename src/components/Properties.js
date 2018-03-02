@@ -3,6 +3,7 @@ import PropTypes   from 'prop-types';
 import Property    from './Property';
 import JsonPointer from 'json-pointer';
 
+
 class Properties extends React.Component
 {
   static get(path, bean, localization){

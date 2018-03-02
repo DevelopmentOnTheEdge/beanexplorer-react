@@ -1,10 +1,12 @@
 import React                from 'react';
 import PropTypes            from 'prop-types';
-import classNames           from 'classnames';
 import Datetime             from 'react-datetime';
 import moment               from 'moment';
 import Select               from 'react-select';
 import VirtualizedSelect    from 'react-virtualized-select'
+import NumericInput          from 'react-numeric-input';
+import CKEditor              from 'react-ckeditor-component';
+import MaskedInput           from 'react-maskedinput';
 import JsonPointer          from 'json-pointer';
 
 
@@ -15,7 +17,6 @@ class PropertyInput extends React.Component
 
     this.handleChange = this.handleChange.bind(this);
     this.handleChangeMulti = this.handleChangeMulti.bind(this);
-    this.onDateChange = this.onDateChange.bind(this);
   }
 
   static get(path, bean, localization){
@@ -43,16 +44,24 @@ class PropertyInput extends React.Component
 
   handleChange(event) {
     console.log(event);
-    this.props.onChange(this.getPath(), this._getValueFromEvent(event));
+    this.props.onChange(this.getPath(), PropertyInput._getValueFromEvent(event));
   }
 
-  onDateChange(date){
+  dateToISOFormat(date){
     console.log(date);
     if(typeof date === "string"){
       this.props.onChange(this.getPath(), date);
     }else{
-      console.log(typeof date);
       this.props.onChange(this.getPath(), date.format('YYYY-MM-DD'));
+    }
+  }
+
+  dateFromISOFormat(stringDate) {
+    const date = moment(stringDate === undefined ? "" : stringDate, 'YYYY-MM-DD', true);
+    if (date.isValid()){
+      return date.format('DD.MM.YYYY');
+    }else{
+      return stringDate;
     }
   }
 
@@ -64,13 +73,9 @@ class PropertyInput extends React.Component
     this.props.onChange(this.props.path, selectArray);
   }
 
-  _getValueFromEvent(event) {
+  static _getValueFromEvent(event) {
     if(!event)
       return '';
-    // if(event._d)
-    // {
-    //   return this.formatDate(event._d);
-    // }
     if(!event.target)
       return event.value;
     const element = event.target;
@@ -81,18 +86,19 @@ class PropertyInput extends React.Component
     const attr = PropertyInput.get(this.getPath(), this.props.bean, this.props.localization);
 
     const meta  = attr.meta;
-    const value = attr.value || attr.meta.defaultValue;
+    const value = attr.value;
     const id    = attr.name + "Field";
     const handle = meta.multipleSelectionList ? this.handleChangeMulti : this.handleChange;
+    const extraAttrsMap = PropertyInput.getExtraAttrsMap(meta.extraAttrs);
 
     const controls = {
       Boolean: () => (
-        <input type="checkbox" id={id} key={id} value={value} checked={value === undefined ? "" : value} onChange={handle}
-                 className={attr.controlClassName || 'form-check-input'} disabled={meta.readOnly} />
+        <input type="checkbox" id={id} key={id} checked={value === true || value === "true"} onChange={handle}
+               className={attr.controlClassName || 'form-check-input'} disabled={meta.readOnly} />
       ),
       select: () => {
-        const options = this.optionsToArray(meta.tagList);
-        //if(options.length > 100){
+        const options = PropertyInput.optionsToArray(meta.tagList);
+        // VirtualizedSelect css подправить (на длинных строках с переносами)
         let strValue;
         if(Array.isArray(value)){
           strValue = [];
@@ -102,38 +108,34 @@ class PropertyInput extends React.Component
         {
           strValue = "" + value;
         }
-          return <VirtualizedSelect ref={id} name={id} value={strValue} options={options}
-                          disabled={meta.readOnly} onChange={handle}
-                          multi={meta.multipleSelectionList} matchPos="any"
-                          clearable
-                          searchable
-                          labelKey="label"
-                          valueKey="value"
-                          clearAllText={attr.localization.clearAllText}
-                          clearValueText={attr.localization.clearValueText}
-                          noResultsText={attr.localization.noResultsText}
-                          searchPromptText={attr.localization.searchPromptText}
-                          placeholder={attr.localization.placeholder}
-                          loadingPlaceholder={attr.localization.loadingPlaceholder}
-          />
-//        }else{
-//          return <Select ref={id} name={id} value={value} options={options}
-//                          disabled={meta.readOnly} onChange={handle} placeholder={meta.placeholder}
-//                          multi={meta.multipleSelectionList} matchPos="start"
-//                          clearAllText={attr.localization.clearAllText}
-//                          clearValueText={attr.localization.clearValueText}
-//                          noResultsText={attr.localization.noResultsText}
-//                          searchPromptText={attr.localization.searchPromptText}
-//                          placeholder={attr.localization.placeholder}
-//                          loadingPlaceholder={attr.localization.loadingPlaceholder}
-//          />
-//        }
+        const selectAttr = {
+          ref: id, name: id, value: strValue, options: options, onChange: handle,
+          clearAllText: attr.localization.clearAllText,
+          clearValueText: attr.localization.clearValueText,
+          noResultsText: attr.localization.noResultsText,
+          searchPromptText: attr.localization.searchPromptText,
+          loadingPlaceholder: attr.localization.loadingPlaceholder,
+          placeholder: meta.placeholder || attr.localization.placeholder,
+          backspaceRemoves: false,
+          disabled: meta.readOnly,
+          multi: meta.multipleSelectionList,
+          matchPos: extraAttrsMap.matchPos || "any"
+        };
+
+        if(extraAttrsMap.inputType === "Creatable"){
+          return <Creatable {...selectAttr} />
+        }
+
+        if(extraAttrsMap.inputType === "VirtualizedSelect"){
+          return <VirtualizedSelect {...selectAttr} clearable searchable labelKey="label" valueKey="value" />
+        }
+        return <Select {...selectAttr} />
       },
       Date: () => {
-          return <Datetime dateFormat="DD.MM.YYYY" value={moment(value === undefined ? "" : value)}
-                           onChange={(v) => this.onDateChange(v)} id={id} key={id}
-                           timeFormat={false} closeOnSelect={true} closeOnTab={true} locale={attr.localization.locale || "en"}
-                           inputProps={ {disabled: meta.readOnly} } />
+        return <Datetime dateFormat="DD.MM.YYYY" value={this.dateFromISOFormat(value)}
+                         onChange={(v) => this.dateToISOFormat(v)} id={id} key={id}
+                         timeFormat={false} closeOnSelect={true} closeOnTab={true} locale={attr.localization.locale || "en"}
+                         inputProps={ {disabled: meta.readOnly} } />
       },
 //      dateTime: {
 //        normal: () => {
@@ -142,52 +144,181 @@ class PropertyInput extends React.Component
 //        readOnly: () => this.createStatic(value)
 //      },
       textArea: () => {
-          return <textarea placeholder={meta.placeholder} id={id}  rows={meta.rows || 3} cols={meta.columns} value={value === undefined ? "" : value}
-                    onChange={handle} className={attr.controlClassName || "form-control"} disabled={meta.readOnly} />
+        return <textarea placeholder={meta.placeholder} id={id}  rows={meta.rows || 3} cols={meta.columns} value={value === undefined ? "" : value}
+                         onChange={handle} className={attr.controlClassName || "form-control"} disabled={meta.readOnly} />
+      },
+      maskTest: () => {
+        return <MaskedInput mask={PropertyInput.getMaskInput(meta.validationRules)} value={value === undefined ? "" : value}
+                            onChange={handle} className={attr.controlClassName || "form-control"} disabled={meta.readOnly} />
       },
       textInput: () => {
-          return <input type="text" placeholder={meta.placeholder} id={id} key={id} value={value === undefined ? "" : value}
-                    onChange={handle} className={attr.controlClassName || "form-control"} disabled={meta.readOnly} />
+        return <input type="text" placeholder={meta.placeholder} id={id} key={id} value={value === undefined ? "" : value}
+                      onChange={handle} className={attr.controlClassName || "form-control"} disabled={meta.readOnly} />
+      },
+      numberInput: () => {
+        const numericProps = PropertyInput.getNumericProps(meta);
+        return <NumericInput {...numericProps} placeholder={meta.placeholder} id={id} key={id} value={value}
+                             onChange={(valueAsNumber, valueAsString, input) => {
+                               this.props.onChange(this.props.path, valueAsNumber !== null ? valueAsNumber : "");
+                             }}
+                             style={ false } className={attr.controlClassName || "form-control"} disabled={meta.readOnly} />
       },
       passwordField: () => {
-          return <input type="password" placeholder={meta.placeholder} id={id} key={id} value={value === undefined ? "" : value}
-                       onChange={handle} className={attr.controlClassName || "form-control"} disabled={meta.readOnly} />
+        return <input type="password" placeholder={meta.placeholder} id={id} key={id} value={value === undefined ? "" : value}
+                      onChange={handle} className={attr.controlClassName || "form-control"} disabled={meta.readOnly} />
+      },
+      file: () => {
+        return <input type="file" placeholder={meta.placeholder} id={id} key={id}
+                      className={attr.controlClassName || "form-control"} disabled={meta.readOnly}
+                      multiple={meta.multipleSelectionList}
+                      onChange={(e) => {
+                        if(e.target.files && e.target.files.length === 1) {
+                          const fileName = e.target.files[0].name;
+                          PropertyInput.getBase64(e.target.files[0]).then(data => {
+                            handle({value: {type: "Base64File", name: fileName, data: data}})
+                          });
+                        }else if(e.target.files && e.target.files.length === 0) {
+                          handle({value: ""})
+                        }
+                      }
+                      } />
+      },
+      WYSIWYG: () => {
+        return <CKEditor activeClass="p10" content={value}
+                         events={{
+                           "change": (evt) => { handle({value: evt.editor.getData()}) }
+                         }}
+                         config={{language: 'ru', readOnly: meta.readOnly}}
+        />
       },
       labelField: () => {
-          if(meta.rawValue){
-            return (<div dangerouslySetInnerHTML={{__html: value}} ></div>)
-          }else{
-            return (<div>{value}</div>)
-          }
+        if(meta.rawValue)
+        {
+          return <div dangerouslySetInnerHTML={{__html: value}} />
+        }
+        else
+        {
+          return <label className="form-control-label">{value}</label>
+        }
       },
     };
 
-    //let valueControl;
     if(meta.tagList)
     {
       return controls['select']();
     }
-    else if(meta.passwordField)
+
+    if(meta.passwordField)
     {
       return controls['passwordField']();
     }
-    else if(meta.labelField)
+
+    if(meta.labelField)
     {
       return controls['labelField']();
     }
-    else
-    {
-      return (controls[meta.type] || controls['textInput'])();
-    }
-    //return ({valueControl})
-//    return (
-//      <ValueControl {...Properties.get(attr.bean, path, attr.localization)}
-//                    onChange={attr.onChange} />
-//    );
 
+    if(meta.validationRules !== undefined && PropertyInput.isNumberInput(meta.validationRules))
+    {
+      return controls['numberInput']()
+    }
+
+    if(controls[meta.type] !== undefined)
+    {
+      return controls[meta.type]();
+    }
+
+    if(extraAttrsMap.inputType === 'WYSIWYG')
+    {
+      return controls['WYSIWYG']();
+    }
+
+    if(extraAttrsMap.inputType === 'textArea')
+    {
+      return controls['textArea']();
+    }
+
+    if(extraAttrsMap.inputType === 'file')
+    {
+      return controls['file']();
+    }
+
+    if(meta.validationRules !== undefined && PropertyInput.getMaskInput(meta.validationRules))
+    {
+      return controls['maskTest']();
+    }
+
+    return controls['textInput']();
   }
 
-  optionsToArray(options){
+  static getMaskInput(rules)
+  {
+    for (let i = 0; i < rules.length; i++)
+    {
+      if ("mask" in rules[i]) {
+        return rules[i].mask
+      }
+    }
+    return null;
+  }
+
+  static isNumberInput(rules)
+  {
+    for (let i =0 ; i< rules.length; i++)
+    {
+      if(rules[i].type === "baseRule" &&
+        ( rules[i].attr === "digits" || rules[i].attr === "integer" || rules[i].attr === "number" ))return true;
+    }
+    return false;
+  }
+
+  static getNumericProps(meta)
+  {
+    let props = {};
+    props['maxLength'] = 14;//errors if more
+    const rules = meta.validationRules;
+    for (let i =0 ; i< rules.length; i++)
+    {
+      if(rules[i].type === "baseRule" && (rules[i].attr === "number"))
+      {
+        props['precision'] = 10;
+      }
+      if(rules[i].type === "baseRule" && (rules[i].attr === "integer"))
+      {
+        props['min'] = -2147483648;
+        props['max'] = 2147483647;
+        props['maxLength'] = 9;
+        props['precision'] = 0;
+      }
+      // if(rules[i].type === "digits")
+      // {
+      //   props['min'] = 0;//todo not work
+      // }
+    }
+    if(meta.columnSize){
+      props['maxLength'] = parseInt(meta.columnSize);
+    }
+    return props;
+  }
+
+  static getBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = error => reject(error);
+    });
+  }
+  static getExtraAttrsMap(extraAttrs){
+    let map = {};
+    if(extraAttrs === undefined)return map;
+    for (let i=0 ;i< extraAttrs.length; i++){
+      map[extraAttrs[i][0]] = extraAttrs[i][1];
+    }
+    return map;
+  }
+
+  static optionsToArray(options){
     let optionObject = [];
     for(let i =0 ;i < options.length; i++){
       optionObject.push({ value: options[i][0], label: options[i][1] });
@@ -195,13 +326,6 @@ class PropertyInput extends React.Component
     return optionObject;
   }
 
-//  createStatic(value) {
-//    return <p className="form-control-static" dangerouslySetInnerHTML={{__html: value}} />;
-//  }
-
-  format2digit(number){
-    return ("0" + number).slice(-2);
-  }
 }
 
 PropertyInput.defaultProps = {

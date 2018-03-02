@@ -93,7 +93,7 @@ class App extends Component
       <div>
         <h2>All with readOnly</h2>
         <form onSubmit={this.handleSubmit} className="bs-example">
-          <PropertySet bean={bean} onChange={this.handleFieldChange} propertyLocalization={this.getLocalization()}/>
+          <PropertySet bean={bean} onChange={this.handleFieldChange} localization={this.getLocalization()}/>
           <div className="text-center">
             <button type="submit" className="btn btn-primary btn-primary-spacing">Submit</button>
             <button type="button" className="btn btn-default btn-primary-spacing">Cancel</button>

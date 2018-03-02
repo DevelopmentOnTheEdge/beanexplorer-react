@@ -6,7 +6,7 @@ import JsonPointer from 'json-pointer';
 
 class PropertySet extends React.Component
 {
-  _createGroup(curGroup, curGroupId, curGroupName) {
+  static _createGroup(curGroup, curGroupId, curGroupName) {
     return (
       <div className='property-group col-12' key={curGroupId} ref={curGroupId}>
         <div className='property-groop-box'>
@@ -42,7 +42,7 @@ class PropertySet extends React.Component
     const finishGroup = () => {
       if(curGroup.length > 0) {
         if(curGroupId) {
-          fields.push(this._createGroup(curGroup, curGroupId, curGroupName));
+          fields.push(PropertySet._createGroup(curGroup, curGroupId, curGroupName));
         } else {
           Array.prototype.push.apply(fields, curGroup);
         }
@@ -60,7 +60,7 @@ class PropertySet extends React.Component
         curGroupName = newGroupName;
         curGroupId = newGroupId;
       }
-      const field = (<Property {...itemProps} onChange={this.props.onChange} />);
+      const field = (<Property {...this.props} path={itemProps.path} onChange={this.props.onChange} />);
       curGroup.push(field);
     }
     finishGroup();
