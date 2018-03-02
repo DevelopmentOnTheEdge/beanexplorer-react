@@ -8,16 +8,16 @@ import 'react-virtualized/styles.css'
 import 'react-virtualized-select/styles.css'
 import "./app.css";
 import "./propertySet.css";
+import bean from './testJson.json';
 
 
 class App extends Component
 {
   constructor(props) {
     super(props);
-    const testJson = require('./testJson.json');
 
     this.state = {
-      bean: testJson
+      bean: bean
     };
 
     this.handleFieldChange = this.handleFieldChange.bind(this);

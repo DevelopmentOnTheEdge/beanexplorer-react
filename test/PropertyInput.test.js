@@ -1,26 +1,25 @@
 import React from 'react';
 import PropertyInput from '../src/components/PropertyInput';
 import renderer from 'react-test-renderer';
+import bean from './testJson.json';
 
 
 it('input', () => {
-    const bean = require('./testJson.json');
+  const handle = jest.fn();
 
-    const handle = jest.fn();
+  let component = renderer.create(
+    <PropertyInput path={"/textInput"} bean={bean} onChange={handle} />
+  );
 
-    let component = renderer.create(
-        <PropertyInput path={"/textInput"} bean={bean} onChange={handle} />
-    );
+  expect(component.toJSON()).toMatchSnapshot();
 
-    expect(component.toJSON()).toMatchSnapshot();
+  bean.values.textInput = "";
 
-    bean.values.textInput = "";
+  component = renderer.create(
+    <PropertyInput path={"/textInput"} bean={bean} onChange={handle} />
+  );
 
-    component = renderer.create(
-        <PropertyInput path={"/textInput"} bean={bean} onChange={handle} />
-    );
-
-    expect(component.toJSON()).toMatchSnapshot();
+  expect(component.toJSON()).toMatchSnapshot();
 });
 
 /*
@@ -28,31 +27,29 @@ it('input', () => {
 */
 
 it('select', () => {
-    const bean = require('./testJson.json');
+  const handle = jest.fn();
 
-    const handle = jest.fn();
+  let component = renderer.create(
+    <PropertyInput path={"/select"} bean={bean} onChange={handle} />
+  );
 
-    let component = renderer.create(
-        <PropertyInput path={"/select"} bean={bean} onChange={handle} />
-    );
+  expect(component.toJSON()).toMatchSnapshot();
 
-    expect(component.toJSON()).toMatchSnapshot();
+  //check for null values
+  bean.values.select = "";
+  component = renderer.create(
+    <PropertyInput path={"/select"} bean={bean} onChange={handle} />
+  );
 
-    //check for null values
-    bean.values.select = "";
-    component = renderer.create(
-        <PropertyInput path={"/select"} bean={bean} onChange={handle} />
-    );
+  expect(component.toJSON()).toMatchSnapshot();
 
-    expect(component.toJSON()).toMatchSnapshot();
+  //check for valid values
+  bean.values.select = "watermelon";
+  component = renderer.create(
+    <PropertyInput path={"/select"} bean={bean} onChange={handle} />
+  );
 
-    //check for valid values
-    bean.values.select = "watermelon";
-    component = renderer.create(
-        <PropertyInput path={"/select"} bean={bean} onChange={handle} />
-    );
-
-    expect(component.toJSON()).toMatchSnapshot();
+  expect(component.toJSON()).toMatchSnapshot();
 });
 
 /*
@@ -60,15 +57,13 @@ it('select', () => {
 */
 
 it('multiSelect', () => {
-    const bean = require('./testJson.json');
+  const handle = jest.fn();
 
-    const handle = jest.fn();
+  let component = renderer.create(
+    <PropertyInput path={"/multiSelect"} bean={bean} onChange={handle} />
+  );
 
-    let component = renderer.create(
-        <PropertyInput path={"/multiSelect"} bean={bean} onChange={handle} />
-    );
-
-    expect(component.toJSON()).toMatchSnapshot();
+  expect(component.toJSON()).toMatchSnapshot();
 });
 
 /*
@@ -76,15 +71,13 @@ it('multiSelect', () => {
 */
 
 it('Description', () => {
-    const bean = require('./testJson.json');
+  const handle = jest.fn();
 
-    const handle = jest.fn();
+  let component = renderer.create(
+    <PropertyInput path={"/description"} bean={bean} onChange={handle} />
+  );
 
-    let component = renderer.create(
-        <PropertyInput path={"/description"} bean={bean} onChange={handle} />
-    );
-
-    expect(component.toJSON()).toMatchSnapshot();
+  expect(component.toJSON()).toMatchSnapshot();
 });
 
 /*
@@ -92,15 +85,13 @@ it('Description', () => {
 */
 
 it('passwordField', () => {
-    const bean = require('./testJson.json');
+  const handle = jest.fn();
 
-    const handle = jest.fn();
+  let component = renderer.create(
+    <PropertyInput path={"/pass"} bean={bean} onChange={handle} />
+  );
 
-    let component = renderer.create(
-        <PropertyInput path={"/pass"} bean={bean} onChange={handle} />
-    );
-
-    expect(component.toJSON()).toMatchSnapshot();
+  expect(component.toJSON()).toMatchSnapshot();
 });
 
 /*
@@ -108,27 +99,23 @@ it('passwordField', () => {
 */
 
 it('property login', () => {
-    const bean = require('./testJson.json');
+  const handle = jest.fn();
 
-    const handle = jest.fn();
+  let component = renderer.create(
+    <PropertyInput path={"/login"} bean={bean} onChange={handle} />
+  );
 
-    let component = renderer.create(
-        <PropertyInput path={"/login"} bean={bean} onChange={handle} />
-    );
-
-    expect(component.toJSON()).toMatchSnapshot();
+  expect(component.toJSON()).toMatchSnapshot();
 });
 
 it('property Boolean', () => {
-    const bean = require('./testJson.json');
+  const handle = jest.fn();
 
-    const handle = jest.fn();
+  let component = renderer.create(
+    <PropertyInput path={"/agree"} bean={bean} onChange={handle} />
+  );
 
-    let component = renderer.create(
-        <PropertyInput path={"/agree"} bean={bean} onChange={handle} />
-    );
-
-    expect(component.toJSON()).toMatchSnapshot();
+  expect(component.toJSON()).toMatchSnapshot();
 });
 
 /*
@@ -136,19 +123,16 @@ it('property Boolean', () => {
 */
 
 it('property labelField', () => {
-    const bean = require('./testJson.json');
+  const handle = jest.fn();
 
-    const handle = jest.fn();
+  let component = renderer.create(
+    <PropertyInput path={"/label"} bean={bean} onChange={handle} />
+  );
 
-    let component = renderer.create(
-        <PropertyInput path={"/label"} bean={bean} onChange={handle} />
-    );
-
-    expect(component.toJSON()).toMatchSnapshot();
+  expect(component.toJSON()).toMatchSnapshot();
 });
 
 it('property maskTest', () => {
-  const bean = require('./testJson.json');
   const handle = jest.fn();
 
   let component = renderer.create(
@@ -160,7 +144,7 @@ it('property maskTest', () => {
 
 //to do: не работает, выдает непонятную ошибку
 // it('property data', () => {
-//     const bean = require('./testJson.json');
+//     
 //
 //     const handle = jest.fn();
 //

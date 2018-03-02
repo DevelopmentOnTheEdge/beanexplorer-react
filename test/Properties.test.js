@@ -2,11 +2,10 @@ import React from 'react';
 import Properties from '../src/components/Properties';
 import renderer from 'react-test-renderer';
 import {shallow, mount, render} from 'enzyme';
+import bean from './testJson.json';
 
 
 it('contain property', () => {
-	const bean = require('./testJson.json');
-
 	const component = renderer.create(
     <Properties bean={bean} ids={[0,1]}/>
   );
@@ -15,8 +14,6 @@ it('contain property', () => {
 });
 
 it('not contain property', () => {
-    const bean = require('./testJson.json');
-
     const component = renderer.create(
         <Properties bean={bean} ids={[1000000]}/>
     );
