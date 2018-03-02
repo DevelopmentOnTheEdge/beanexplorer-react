@@ -43,12 +43,10 @@ class PropertyInput extends React.Component
   }
 
   handleChange(event) {
-    console.log(event);
     this.props.onChange(this.getPath(), PropertyInput._getValueFromEvent(event));
   }
 
   dateToISOFormat(date){
-    console.log(date);
     if(typeof date === "string"){
       this.props.onChange(this.getPath(), date);
     }else{

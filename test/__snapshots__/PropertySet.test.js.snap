@@ -1045,15 +1045,15 @@ exports[`renders without crashing 1`] = `
         checked={true}
         className="form-check-input"
         disabled={undefined}
-        id="agreeField"
+        id="checkBoxField"
         onChange={[Function]}
         type="checkbox"
       />
       <label
         className="form-check-label"
-        htmlFor="agreeField"
+        htmlFor="checkBoxField"
       >
-        Agree
+        CheckBox
       </label>
     </div>
   </div>

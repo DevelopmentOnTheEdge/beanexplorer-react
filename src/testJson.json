@@ -11,7 +11,7 @@
     "select": "vanilla",
     "virtualizedSelect": "vanilla",
     "multiSelect": ["chocolate", "strawberry"],
-    "agree": true,
+    "checkBox": true,
     "labelFieldRaw": "<p>Pellentesque habitant morbi tristique senectus et netus et <a href=\"#test\">Link</a> malesuada fames ac <b>turpis</b> egestas.</p>",
     "labelField": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas."
   },
@@ -65,8 +65,8 @@
       "multipleSelectionList": true,
       "tagList": [["vanilla","Vanilla"],["chocolate","Chocolate"],["strawberry","Strawberry"],["cookiescream","Cookies and Cream"],["caramel","Caramel"],["peppermint","Peppermint"]]
     },
-    "/agree": {
-      "displayName": "Agree",
+    "/checkBox": {
+      "displayName": "CheckBox",
       "type": "Boolean",
       "status": "success"
     },
@@ -90,7 +90,7 @@
     "/select",
     "/virtualizedSelect",
     "/multiSelect",
-    "/agree",
+    "/checkBox",
     "/labelFieldRaw",
     "/labelField"
   ]

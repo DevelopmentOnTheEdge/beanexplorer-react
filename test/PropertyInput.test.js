@@ -142,7 +142,31 @@ import bean from '../src/testJson.json';
 //   expect(component.toJSON()).toMatchSnapshot();
 // });
 
-test('property data', () => {
+test('checkBox', () => {
+  const handle = jest.fn();
+
+  const wrapper = mount(
+    <PropertyInput path={"/checkBox"} bean={bean} onChange={handle} />
+  );
+
+  wrapper.find('input').simulate('change');
+
+  expect(handle.mock.calls[0]).toEqual(["/checkBox", true]);
+});
+
+test('textInput', () => {
+  const handle = jest.fn();
+
+  const wrapper = mount(
+    <PropertyInput path={"/textInput"} bean={bean} onChange={handle} />
+  );
+
+  wrapper.find('input').simulate('change', {target: {value: 'newValue'}});
+  expect(handle.mock.calls[0]).toEqual(["/textInput", "newValue"]);
+
+});
+
+test('property date', () => {
   const handle = jest.fn();
 
   const wrapper = mount(
