@@ -5,7 +5,11 @@
     "labelField": "Pellentesque habitant morbi tristique senectus...",
     "textInput2": "test",
     "checkBox2": false,
-    "textInput3": "test"
+    "labelField2": "Pellentesque habitant morbi tristique senectus...",
+    "textInput3": "test",
+    "checkBox3": true,
+    "labelField3": "Pellentesque habitant morbi tristique senectus...",
+    "textInput4": ""
   },
   "meta": {
     "/textInput": {
@@ -24,7 +28,7 @@
     },
     "/textInput2": {
       "displayName": "Name",
-      "groupName": "Group 2 - With Statuses",
+      "groupName": "Group 2 - Error",
       "groupId": 2,
       "message": "Error here",
       "status": "error"
@@ -33,12 +37,37 @@
       "displayName": "CheckBox",
       "type": "Boolean",
       "groupId": 2,
-      "status": "success"
+      "message": "You must check before submitting.",
+      "status": "error"
+    },
+    "/labelField2": {
+      "labelField": true,
+      "groupId": 2,
+      "status": "error"
     },
     "/textInput3": {
       "displayName": "Name",
-      "groupName": "Group 3 - CanBeNull",
+      "groupName": "Group 3 - Success",
       "groupId": 3,
+      "message": "Ok here",
+      "status": "success"
+    },
+    "/checkBox3": {
+      "displayName": "CheckBox",
+      "type": "Boolean",
+      "groupId": 3,
+      "message": "Ok here",
+      "status": "success"
+    },
+    "/labelField3": {
+      "labelField": true,
+      "groupId": 3,
+      "status": "success"
+    },
+    "/textInput4": {
+      "displayName": "Name",
+      "groupName": "Group 4 - CanBeNull",
+      "groupId": 4,
       "canBeNull": true
     }
   },
@@ -48,6 +77,10 @@
     "/labelField",
     "/textInput2",
     "/checkBox2",
-    "/textInput3"
+    "/labelField2",
+    "/textInput3",
+    "/checkBox3",
+    "/labelField3",
+    "/textInput4"
   ]
 }

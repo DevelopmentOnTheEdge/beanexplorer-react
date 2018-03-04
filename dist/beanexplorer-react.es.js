@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Datetime from 'react-datetime';
 import moment from 'moment';
-import Select, { Creatable } from 'react-select';
+import Select from 'react-select';
 import VirtualizedSelect from 'react-virtualized-select';
 import NumericInput from 'react-numeric-input';
 import CKEditor from 'react-ckeditor-component';
@@ -90,26 +90,51 @@ var possibleConstructorReturn = function (self, call) {
   return call && (typeof call === "object" || typeof call === "function") ? call : self;
 };
 
-var Property = function (_React$Component) {
-  inherits(Property, _React$Component);
+var PropertyInput = function (_React$Component) {
+  inherits(PropertyInput, _React$Component);
 
-  function Property(props) {
-    classCallCheck(this, Property);
+  function PropertyInput(props) {
+    classCallCheck(this, PropertyInput);
 
-    var _this = possibleConstructorReturn(this, (Property.__proto__ || Object.getPrototypeOf(Property)).call(this, props));
+    var _this = possibleConstructorReturn(this, (PropertyInput.__proto__ || Object.getPrototypeOf(PropertyInput)).call(this, props));
 
-    _this.onDateChange = _this.onDateChange.bind(_this);
     _this.handleChange = _this.handleChange.bind(_this);
     _this.handleChangeMulti = _this.handleChangeMulti.bind(_this);
-    _this.numericHandleChange = _this.numericHandleChange.bind(_this);
     return _this;
   }
 
-  createClass(Property, [{
+  createClass(PropertyInput, [{
+    key: 'getPath',
+    value: function getPath() {
+      if (this.props.path) {
+        return this.props.path;
+      } else {
+        return this.props.bean.order[this.props.id];
+      }
+    }
+  }, {
     key: 'handleChange',
     value: function handleChange(event) {
-      //console.log(this.props.path, Property._getValueFromEvent(event));
-      this.props.onChange(this.props.path, Property._getValueFromEvent(event));
+      this.props.onChange(this.getPath(), PropertyInput._getValueFromEvent(event));
+    }
+  }, {
+    key: 'dateToISOFormat',
+    value: function dateToISOFormat(date) {
+      if (typeof date === "string") {
+        this.props.onChange(this.getPath(), date);
+      } else {
+        this.props.onChange(this.getPath(), date.format('YYYY-MM-DD'));
+      }
+    }
+  }, {
+    key: 'dateFromISOFormat',
+    value: function dateFromISOFormat(stringDate) {
+      var date = moment(stringDate === undefined ? "" : stringDate, 'YYYY-MM-DD', true);
+      if (date.isValid()) {
+        return date.format('DD.MM.YYYY');
+      } else {
+        return stringDate;
+      }
     }
   }, {
     key: 'handleChangeMulti',
@@ -120,53 +145,323 @@ var Property = function (_React$Component) {
       });
       this.props.onChange(this.props.path, selectArray);
     }
-
-    //todo move as anonymous function to NumericInput
-
-  }, {
-    key: 'numericHandleChange',
-    value: function numericHandleChange(valueAsNumber, valueAsString, input) {
-      this.props.onChange(this.props.path, valueAsNumber !== null ? valueAsNumber : "");
-    }
-  }, {
-    key: 'onDateChange',
-    value: function onDateChange(date) {
-      //console.log(date);
-      if (typeof date === "string") {
-        if (date.match('(0[1-9]|[12][0-9]|3[01])\.(0[1-9]|1[012])\.(19|20)\d\d')) {
-          //console.log("str 10: " + date);
-          this.handleChange(date);
-        }
-      } else {
-        this.handleChange(date);
-      }
-    }
-
-    //todo error date status
-    // onDateChange(date){
-    //   //console.log(date);
-    //   if(typeof date === "string"){
-    //     if(date.match('(0[1-9]|[12][0-9]|3[01])\.(0[1-9]|1[012])\.(19|20)\d\d')){
-    //       //console.log("str 10: " + date);
-    //       this.handleChange(date);
-    //       this.setState({status: 'none'});
-    //     }else{
-    //       this.handleChange(date);
-    //       this.setState({status: 'error'});
-    //     }
-    //   }else{
-    //     this.handleChange(date);
-    //     this.setState({status: 'none'});
-    //   }
-    // }
-
   }, {
     key: 'render',
     value: function render() {
-      var meta = this.props.meta;
-      var id = this.props.name + "Field";
+      var _this2 = this;
 
-      var valueControl = Property.getControl(this.props, this.handleChange, this.handleChangeMulti, this.numericHandleChange, this.onDateChange);
+      var attr = PropertyInput.get(this.getPath(), this.props.bean, this.props.localization);
+
+      var meta = attr.meta;
+      var value = attr.value;
+      var id = attr.name + "Field";
+      var handle = meta.multipleSelectionList ? this.handleChangeMulti : this.handleChange;
+      var extraAttrsMap = PropertyInput.getExtraAttrsMap(meta.extraAttrs);
+
+      var controls = {
+        Boolean: function Boolean() {
+          return React.createElement('input', { type: 'checkbox', id: id, key: id, checked: value === true || value === "true", onChange: handle,
+            className: attr.controlClassName || 'form-check-input', disabled: meta.readOnly });
+        },
+        select: function select() {
+          var options = PropertyInput.optionsToArray(meta.tagList);
+          // VirtualizedSelect css подправить (на длинных строках с переносами)
+          var strValue = void 0;
+          if (Array.isArray(value)) {
+            strValue = [];
+            for (var i = 0; i < value.length; i++) {
+              strValue.push("" + value[i]);
+            }
+          } else {
+            strValue = "" + value;
+          }
+          var selectAttr = {
+            ref: id, name: id, value: strValue, options: options, onChange: handle,
+            clearAllText: attr.localization.clearAllText,
+            clearValueText: attr.localization.clearValueText,
+            noResultsText: attr.localization.noResultsText,
+            searchPromptText: attr.localization.searchPromptText,
+            loadingPlaceholder: attr.localization.loadingPlaceholder,
+            placeholder: meta.placeholder || attr.localization.placeholder,
+            backspaceRemoves: false,
+            disabled: meta.readOnly,
+            multi: meta.multipleSelectionList,
+            matchPos: extraAttrsMap.matchPos || "any"
+          };
+
+          if (extraAttrsMap.inputType === "Creatable") {
+            return React.createElement(Creatable, selectAttr);
+          }
+
+          if (extraAttrsMap.inputType === "VirtualizedSelect") {
+            return React.createElement(VirtualizedSelect, _extends({}, selectAttr, { clearable: true, searchable: true, labelKey: 'label', valueKey: 'value' }));
+          }
+          return React.createElement(Select, selectAttr);
+        },
+        Date: function Date() {
+          return React.createElement(Datetime, { dateFormat: 'DD.MM.YYYY', value: _this2.dateFromISOFormat(value),
+            onChange: function onChange(v) {
+              return _this2.dateToISOFormat(v);
+            }, id: id, key: id,
+            timeFormat: false, closeOnSelect: true, closeOnTab: true, locale: attr.localization.locale || "en",
+            inputProps: { disabled: meta.readOnly } });
+        },
+        //      dateTime: {
+        //        normal: () => {
+        //          return ( React.createElement(Datetime, {id: id, key: id, value: value, parent: _this, onChange: handleChange, time: true, className: attr.controlClassName}) );
+        //        },
+        //        readOnly: () => this.createStatic(value)
+        //      },
+        textArea: function textArea() {
+          return React.createElement('textarea', { placeholder: meta.placeholder, id: id, rows: meta.rows || 3, cols: meta.columns, value: value === undefined ? "" : value,
+            onChange: handle, className: attr.controlClassName || "form-control", disabled: meta.readOnly });
+        },
+        maskTest: function maskTest() {
+          return React.createElement(MaskedInput, { mask: PropertyInput.getMaskInput(meta.validationRules), value: value === undefined ? "" : value,
+            onChange: handle, className: attr.controlClassName || "form-control", disabled: meta.readOnly });
+        },
+        textInput: function textInput() {
+          return React.createElement('input', { type: 'text', placeholder: meta.placeholder, id: id, key: id, value: value === undefined ? "" : value,
+            onChange: handle, className: attr.controlClassName || "form-control", disabled: meta.readOnly });
+        },
+        numberInput: function numberInput() {
+          var numericProps = PropertyInput.getNumericProps(meta);
+          return React.createElement(NumericInput, _extends({}, numericProps, { placeholder: meta.placeholder, id: id, key: id, value: value,
+            onChange: function onChange(valueAsNumber, valueAsString, input) {
+              _this2.props.onChange(_this2.props.path, valueAsNumber !== null ? valueAsNumber : "");
+            },
+            style: false, className: attr.controlClassName || "form-control", disabled: meta.readOnly }));
+        },
+        passwordField: function passwordField() {
+          return React.createElement('input', { type: 'password', placeholder: meta.placeholder, id: id, key: id, value: value === undefined ? "" : value,
+            onChange: handle, className: attr.controlClassName || "form-control", disabled: meta.readOnly });
+        },
+        file: function file() {
+          return React.createElement('input', { type: 'file', placeholder: meta.placeholder, id: id, key: id,
+            className: attr.controlClassName || "form-control", disabled: meta.readOnly,
+            multiple: meta.multipleSelectionList,
+            onChange: function onChange(e) {
+              if (e.target.files && e.target.files.length === 1) {
+                var fileName = e.target.files[0].name;
+                PropertyInput.getBase64(e.target.files[0]).then(function (data) {
+                  handle({ value: { type: "Base64File", name: fileName, data: data } });
+                });
+              } else if (e.target.files && e.target.files.length === 0) {
+                handle({ value: "" });
+              }
+            } });
+        },
+        WYSIWYG: function WYSIWYG() {
+          return React.createElement(CKEditor, { activeClass: 'p10', content: value,
+            events: {
+              "change": function change(evt) {
+                handle({ value: evt.editor.getData() });
+              }
+            },
+            config: { language: 'ru', readOnly: meta.readOnly }
+          });
+        },
+        labelField: function labelField() {
+          if (meta.rawValue) {
+            return React.createElement('div', { dangerouslySetInnerHTML: { __html: value } });
+          } else {
+            return React.createElement(
+              'label',
+              { className: 'form-control-label' },
+              value
+            );
+          }
+        }
+      };
+
+      if (meta.tagList) {
+        return controls['select']();
+      }
+
+      if (meta.passwordField) {
+        return controls['passwordField']();
+      }
+
+      if (meta.labelField) {
+        return controls['labelField']();
+      }
+
+      if (meta.validationRules !== undefined && PropertyInput.isNumberInput(meta.validationRules)) {
+        return controls['numberInput']();
+      }
+
+      if (controls[meta.type] !== undefined) {
+        return controls[meta.type]();
+      }
+
+      if (extraAttrsMap.inputType === 'WYSIWYG') {
+        return controls['WYSIWYG']();
+      }
+
+      if (extraAttrsMap.inputType === 'textArea') {
+        return controls['textArea']();
+      }
+
+      if (extraAttrsMap.inputType === 'file') {
+        return controls['file']();
+      }
+
+      if (meta.validationRules !== undefined && PropertyInput.getMaskInput(meta.validationRules)) {
+        return controls['maskTest']();
+      }
+
+      return controls['textInput']();
+    }
+  }], [{
+    key: 'get',
+    value: function get$$1(path, bean, localization) {
+      var itemName = path.substring(path.lastIndexOf("/") + 1);
+      var itemMeta = bean.meta[path];
+      var itemValue = JsonPointer.get(bean, "/values" + path);
+      return {
+        meta: itemMeta,
+        name: itemName,
+        value: itemValue,
+        path: path,
+        key: itemName + "Property",
+        ref: itemName + "Property",
+        localization: localization
+      };
+    }
+  }, {
+    key: '_getValueFromEvent',
+    value: function _getValueFromEvent(event) {
+      if (!event) return '';
+      if (!event.target) return event.value;
+      var element = event.target;
+      return element.type === 'checkbox' ? element.checked : element.value;
+    }
+  }, {
+    key: 'getMaskInput',
+    value: function getMaskInput(rules) {
+      for (var i = 0; i < rules.length; i++) {
+        if ("mask" in rules[i]) {
+          return rules[i].mask;
+        }
+      }
+      return null;
+    }
+  }, {
+    key: 'isNumberInput',
+    value: function isNumberInput(rules) {
+      for (var i = 0; i < rules.length; i++) {
+        if (rules[i].type === "baseRule" && (rules[i].attr === "digits" || rules[i].attr === "integer" || rules[i].attr === "number")) return true;
+      }
+      return false;
+    }
+  }, {
+    key: 'getNumericProps',
+    value: function getNumericProps(meta) {
+      var props = {};
+      props['maxLength'] = 14; //errors if more
+      var rules = meta.validationRules;
+      for (var i = 0; i < rules.length; i++) {
+        if (rules[i].type === "baseRule" && rules[i].attr === "number") {
+          props['precision'] = 10;
+        }
+        if (rules[i].type === "baseRule" && rules[i].attr === "integer") {
+          props['min'] = -2147483648;
+          props['max'] = 2147483647;
+          props['maxLength'] = 9;
+          props['precision'] = 0;
+        }
+        // if(rules[i].type === "digits")
+        // {
+        //   props['min'] = 0;//todo not work
+        // }
+      }
+      if (meta.columnSize) {
+        props['maxLength'] = parseInt(meta.columnSize);
+      }
+      return props;
+    }
+  }, {
+    key: 'getBase64',
+    value: function getBase64(file) {
+      return new Promise(function (resolve, reject) {
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function () {
+          return resolve(reader.result);
+        };
+        reader.onerror = function (error) {
+          return reject(error);
+        };
+      });
+    }
+  }, {
+    key: 'getExtraAttrsMap',
+    value: function getExtraAttrsMap(extraAttrs) {
+      var map = {};
+      if (extraAttrs === undefined) return map;
+      for (var i = 0; i < extraAttrs.length; i++) {
+        map[extraAttrs[i][0]] = extraAttrs[i][1];
+      }
+      return map;
+    }
+  }, {
+    key: 'optionsToArray',
+    value: function optionsToArray(options) {
+      var optionObject = [];
+      for (var i = 0; i < options.length; i++) {
+        optionObject.push({ value: options[i][0], label: options[i][1] });
+      }
+      return optionObject;
+    }
+  }]);
+  return PropertyInput;
+}(React.Component);
+
+PropertyInput.defaultProps = {
+  localization: {
+    locale: 'en',
+    clearAllText: 'Clear all',
+    clearValueText: 'Clear value',
+    noResultsText: 'No results found',
+    searchPromptText: 'Type to search',
+    placeholder: 'Select ...',
+    loadingPlaceholder: 'Loading...'
+  }
+};
+
+PropertyInput.propTypes = {
+  bean: PropTypes.object.isRequired,
+  path: PropTypes.string,
+  id: PropTypes.number,
+  onChange: PropTypes.func,
+  localization: PropTypes.object
+};
+
+var Property = function (_React$Component) {
+  inherits(Property, _React$Component);
+
+  function Property() {
+    classCallCheck(this, Property);
+    return possibleConstructorReturn(this, (Property.__proto__ || Object.getPrototypeOf(Property)).apply(this, arguments));
+  }
+
+  createClass(Property, [{
+    key: 'getPath',
+    value: function getPath() {
+      if (this.props.path) {
+        return this.props.path;
+      } else {
+        return this.props.bean.order[this.props.id];
+      }
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var path = this.getPath();
+      var meta = this.props.bean.meta[path];
+      var id = path.substring(path.lastIndexOf("/") + 1) + "Field";
+
+      var valueControl = this.getControl();
 
       var label = React.createElement(
         'label',
@@ -181,9 +476,7 @@ var Property = function (_React$Component) {
       ) : undefined;
 
       var hasStatusClasses = classNames({ 'has-danger': meta.status === 'error' }, { 'has-warning': meta.status === 'warning' }, { 'has-success': meta.status === 'success' });
-      if (this.state && this.state.status === 'error') {
-        hasStatusClasses = 'has-danger';
-      }
+
       var classNameForm = meta.type === "Boolean" ? this.props.classNameFormCheck || 'form-check property' : this.props.classNameFormGroup || 'form-group property';
 
       var cssClasses = meta.cssClasses || 'col-lg-12';
@@ -228,275 +521,10 @@ var Property = function (_React$Component) {
         );
       }
     }
-  }], [{
-    key: '_getValueFromEvent',
-    value: function _getValueFromEvent(event) {
-      if (!event) return '';
-      if (event._d) {
-        console.log(Property.formatDate(event._d));
-        return Property.formatDate(event._d);
-      }
-      if (!event.target) return event.value;
-      var element = event.target;
-      return element.type === 'checkbox' ? element.checked : element.value;
-    }
-  }, {
-    key: 'getBase64',
-    value: function getBase64(file) {
-      return new Promise(function (resolve, reject) {
-        var reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = function () {
-          return resolve(reader.result);
-        };
-        reader.onerror = function (error) {
-          return reject(error);
-        };
-      });
-    }
-  }, {
-    key: 'getExtraAttrsMap',
-    value: function getExtraAttrsMap(extraAttrs) {
-      var map = {};
-      if (extraAttrs === undefined) return map;
-      for (var i = 0; i < extraAttrs.length; i++) {
-        map[extraAttrs[i][0]] = extraAttrs[i][1];
-      }
-      return map;
-    }
   }, {
     key: 'getControl',
-    value: function getControl(props, handleChange, handleChangeMulti, numericHandleChange, onDateChange) {
-      var meta = props.meta;
-      var value = props.value;
-      var id = props.name + "Field";
-      var handle = meta.multipleSelectionList ? handleChangeMulti : handleChange;
-      var extraAttrsMap = Property.getExtraAttrsMap(meta.extraAttrs);
-
-      var controls = {
-        Boolean: function Boolean() {
-          return React.createElement('input', { type: 'checkbox', id: id, key: id, checked: value === true || value === "true", onChange: handle,
-            className: props.controlClassName || 'form-check-input', disabled: meta.readOnly });
-        },
-        select: function select() {
-          var options = Property.optionsToArray(meta.tagList);
-          // VirtualizedSelect css подправить (на длинных строках с переносами)
-          var strValue = void 0;
-          if (Array.isArray(value)) {
-            strValue = [];
-            for (var i = 0; i < value.length; i++) {
-              strValue.push("" + value[i]);
-            }
-          } else {
-            strValue = "" + value;
-          }
-          var selectProps = {
-            ref: id, name: id, value: strValue, options: options, onChange: handle,
-            clearAllText: props.localization.clearAllText,
-            clearValueText: props.localization.clearValueText,
-            noResultsText: props.localization.noResultsText,
-            searchPromptText: props.localization.searchPromptText,
-            loadingPlaceholder: props.localization.loadingPlaceholder,
-            placeholder: meta.placeholder || props.localization.placeholder,
-            backspaceRemoves: false,
-            disabled: meta.readOnly,
-            multi: meta.multipleSelectionList,
-            matchPos: extraAttrsMap.matchPos || "any"
-          };
-
-          if (extraAttrsMap.inputType === "Creatable") {
-            return React.createElement(Creatable, selectProps);
-          }
-
-          if (extraAttrsMap.inputType === "VirtualizedSelect") {
-            return React.createElement(VirtualizedSelect, _extends({}, selectProps, { clearable: true, searchable: true, labelKey: 'label', valueKey: 'value' }));
-          }
-          return React.createElement(Select, selectProps);
-        },
-        Date: function Date() {
-          return React.createElement(Datetime, { dateFormat: 'DD.MM.YYYY', value: moment(value === undefined ? "" : value),
-            onChange: function onChange(v) {
-              return onDateChange(v);
-            }, id: id, key: id,
-            timeFormat: false, closeOnSelect: true, closeOnTab: true, locale: props.localization.locale || "en",
-            inputProps: { disabled: meta.readOnly } });
-        },
-        //      dateTime: {
-        //        normal: () => {
-        //          return ( React.createElement(Datetime, {id: id, key: id, value: value, parent: _this, onChange: handleChange, time: true, className: props.controlClassName}) );
-        //        },
-        //        readOnly: () => this.createStatic(value)
-        //      },
-
-
-        textArea: function textArea() {
-          return React.createElement('textarea', { placeholder: meta.placeholder, id: id, rows: meta.rows || 3, cols: meta.columns, value: value === undefined ? "" : value,
-            onChange: handle, className: props.controlClassName || "form-control", disabled: meta.readOnly });
-        },
-        maskTest: function maskTest() {
-          return React.createElement(MaskedInput, { mask: Property.getMaskInput(meta.validationRules), value: value === undefined ? "" : value,
-            onChange: handle, className: props.controlClassName || "form-control", disabled: meta.readOnly });
-        },
-        textInput: function textInput() {
-          return React.createElement('input', { type: 'text', placeholder: meta.placeholder, id: id, key: id, value: value === undefined ? "" : value,
-            onChange: handle, className: props.controlClassName || "form-control", disabled: meta.readOnly });
-        },
-        numberInput: function numberInput() {
-          var numericProps = Property.getNumericProps(meta);
-          return React.createElement(NumericInput, _extends({}, numericProps, { placeholder: meta.placeholder, id: id, key: id, value: value,
-            onChange: numericHandleChange, style: false,
-            className: props.controlClassName || "form-control", disabled: meta.readOnly }));
-        },
-        passwordField: function passwordField() {
-          return React.createElement('input', { type: 'password', placeholder: meta.placeholder, id: id, key: id, value: value === undefined ? "" : value,
-            onChange: handle, className: props.controlClassName || "form-control", disabled: meta.readOnly });
-        },
-        file: function file() {
-          return React.createElement('input', { type: 'file', placeholder: meta.placeholder, id: id, key: id,
-            className: props.controlClassName || "form-control", disabled: meta.readOnly,
-            multiple: meta.multipleSelectionList,
-            onChange: function onChange(e) {
-              if (e.target.files && e.target.files.length === 1) {
-                var fileName = e.target.files[0].name;
-                Property.getBase64(e.target.files[0]).then(function (data) {
-                  handle({ value: { type: "Base64File", name: fileName, data: data } });
-                });
-              }
-            } });
-        },
-
-        WYSIWYG: function WYSIWYG() {
-          return React.createElement(CKEditor, { activeClass: 'p10', content: value,
-            events: {
-              "change": function change(evt) {
-                handle({ value: evt.editor.getData() });
-              }
-            },
-            config: { language: 'ru' }
-          });
-        },
-        labelField: function labelField() {
-          if (meta.rawValue) {
-            return React.createElement('div', { dangerouslySetInnerHTML: { __html: value } });
-          } else {
-            return React.createElement(
-              'label',
-              { className: 'form-control-label' },
-              value
-            );
-          }
-        }
-      };
-
-      if (meta.tagList) {
-        return controls['select']();
-      }
-
-      if (meta.passwordField) {
-        return controls['passwordField']();
-      }
-
-      if (meta.labelField) {
-        return controls['labelField']();
-      }
-
-      if (meta.validationRules !== undefined && Property.isNumberInput(meta.validationRules)) {
-        return controls['numberInput']();
-      }
-
-      if (controls[meta.type] !== undefined) {
-        return controls[meta.type]();
-      }
-
-      if (extraAttrsMap.inputType === 'WYSIWYG') {
-        return controls['WYSIWYG']();
-      }
-
-      if (extraAttrsMap.inputType === 'textArea') {
-        return controls['textArea']();
-      }
-
-      if (extraAttrsMap.inputType === 'file') {
-        return controls['file']();
-      }
-
-      if (meta.validationRules !== undefined && Property.getMaskInput(meta.validationRules)) {
-        return controls['maskTest']();
-      }
-
-      return controls['textInput']();
-    }
-  }, {
-    key: 'getNumericProps',
-    value: function getNumericProps(meta) {
-      var props = {};
-      props['maxLength'] = 14; //errors if more
-      var rules = meta.validationRules;
-      for (var i = 0; i < rules.length; i++) {
-        if (rules[i].type === "baseRule" && rules[i].attr === "number") {
-          props['precision'] = 10;
-        }
-        if (rules[i].type === "baseRule" && rules[i].attr === "integer") {
-          props['min'] = -2147483648;
-          props['max'] = 2147483647;
-          props['maxLength'] = 10;
-        }
-        // if(rules[i].type === "digits")
-        // {
-        //   props['min'] = 0;//todo not work
-        // }
-      }
-      if (meta.columnSize) {
-        props['maxLength'] = parseInt(meta.columnSize);
-      }
-      return props;
-    }
-  }, {
-    key: 'getMaskInput',
-    value: function getMaskInput(rules) {
-      for (var i = 0; i < rules.length; i++) {
-        if ("mask" in rules[i]) {
-          return rules[i].mask;
-        }
-      }
-      return null;
-    }
-  }, {
-    key: 'isNumberInput',
-    value: function isNumberInput(rules) {
-      for (var i = 0; i < rules.length; i++) {
-        if (rules[i].type === "baseRule" && (rules[i].attr === "digits" || rules[i].attr === "integer" || rules[i].attr === "number")) return true;
-      }
-      return false;
-    }
-  }, {
-    key: 'optionsToArray',
-    value: function optionsToArray(options) {
-      var optionObject = [];
-      for (var i = 0; i < options.length; i++) {
-        optionObject.push({ value: options[i][0], label: options[i][1] });
-      }
-      return optionObject;
-    }
-
-    //  createStatic(value) {
-    //    return <p className="form-control-static" dangerouslySetInnerHTML={{__html: value}} />;
-    //  }
-
-    //ISO 8601 format
-
-  }, {
-    key: 'formatDate',
-    value: function formatDate(date) {
-      var day = date.getDate();
-      var month = date.getMonth() + 1;
-      var year = date.getFullYear();
-      return year + '-' + Property.format2digit(month) + '-' + Property.format2digit(day);
-    }
-  }, {
-    key: 'format2digit',
-    value: function format2digit(number) {
-      return ("0" + number).slice(-2);
+    value: function getControl() {
+      return React.createElement(PropertyInput, this.props);
     }
   }]);
   return Property;
@@ -515,6 +543,10 @@ Property.defaultProps = {
 };
 
 Property.propTypes = {
+  bean: PropTypes.object.isRequired,
+  path: PropTypes.string,
+  id: PropTypes.number,
+  onChange: PropTypes.func,
   localization: PropTypes.object
 };
 
@@ -533,289 +565,31 @@ var Properties = function (_React$Component) {
 
       var fields = this.props.bean.order.map(function (path, i) {
         if (_this2.props.ids === undefined || _this2.props.ids.includes(i)) {
-          return React.createElement(Property, _extends({}, Properties.get(path, _this2.props.bean, _this2.props.localization), { onChange: _this2.props.onChange }));
+          return React.createElement(Property, _extends({}, _this2.props, { path: path, onChange: _this2.props.onChange }));
         } else {
           return null;
         }
       });
 
+      //todo remove outer element after migrate to react 16.2
       return React.createElement(
         'div',
         { className: this.props.className },
         fields
       );
     }
-  }], [{
-    key: 'get',
-    value: function get$$1(path, bean, localization) {
-      var itemName = path.substring(path.lastIndexOf("/") + 1);
-      var itemMeta = bean.meta[path];
-      var itemValue = JsonPointer.get(bean, "/values" + path);
-      return {
-        meta: itemMeta,
-        name: itemName,
-        value: itemValue,
-        path: path,
-        key: itemName + "Property",
-        ref: itemName + "Property",
-        localization: localization
-      };
-    }
   }]);
   return Properties;
 }(React.Component);
 
 Properties.defaultProps = {
-  className: "row",
-  localization: {}
+  className: "row"
 };
 
 Properties.propTypes = {
   className: PropTypes.string.isRequired,
   bean: PropTypes.object.isRequired,
   ids: PropTypes.array,
-  onChange: PropTypes.func,
-  localization: PropTypes.object
-};
-
-var PropertyInput = function (_React$Component) {
-  inherits(PropertyInput, _React$Component);
-
-  function PropertyInput(props) {
-    classCallCheck(this, PropertyInput);
-
-    var _this = possibleConstructorReturn(this, (PropertyInput.__proto__ || Object.getPrototypeOf(PropertyInput)).call(this, props));
-
-    _this.handleChange = _this.handleChange.bind(_this);
-    _this.handleChangeMulti = _this.handleChangeMulti.bind(_this);
-    _this.onDateChange = _this.onDateChange.bind(_this);
-    return _this;
-  }
-
-  createClass(PropertyInput, [{
-    key: 'handleChange',
-    value: function handleChange(event) {
-      var path = void 0;
-      if (this.props.path) {
-        path = this.props.path;
-      } else {
-        path = this.props.bean.order[this.props.id];
-      }
-      this.props.onChange(path, this._getValueFromEvent(event));
-    }
-  }, {
-    key: 'onDateChange',
-    value: function onDateChange(date) {
-      //console.log(date);
-      if (typeof date === "string") {
-        if (date.match('(0[1-9]|[12][0-9]|3[01])\.(0[1-9]|1[012])\.(19|20)\d\d')) {
-          //console.log("str 10: " + date);
-          this.handleChange(date);
-        }
-      } else {
-        this.handleChange(date);
-      }
-    }
-  }, {
-    key: 'handleChangeMulti',
-    value: function handleChangeMulti(event) {
-      var selectArray = [];
-      Object.keys(event).forEach(function (key) {
-        selectArray.push(event[key].value);
-      });
-      this.props.onChange(this.props.path, selectArray);
-    }
-  }, {
-    key: '_getValueFromEvent',
-    value: function _getValueFromEvent(event) {
-      if (!event) return '';
-      if (event._d) {
-        return this.formatDate(event._d);
-      }
-      if (!event.target) return event.value;
-      var element = event.target;
-      return element.type === 'checkbox' ? element.checked : element.value;
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      var _this2 = this;
-
-      var attr = void 0;
-      if (this.props.path) {
-        attr = PropertyInput.get(this.props.path, this.props.bean, this.props.localization);
-      } else {
-        attr = PropertyInput.get(this.props.bean.order[this.props.id], this.props.bean, this.props.localization);
-      }
-      var meta = attr.meta;
-      var value = attr.value || attr.meta.defaultValue;
-      var id = attr.name + "Field";
-      var handle = meta.multipleSelectionList ? this.handleChangeMulti : this.handleChange;
-
-      var controls = {
-        Boolean: function Boolean() {
-          return React.createElement('input', { type: 'checkbox', id: id, key: id, value: value, checked: value === undefined ? "" : value, onChange: handle,
-            className: attr.controlClassName || 'form-check-input', disabled: meta.readOnly });
-        },
-        select: function select() {
-          var options = _this2.optionsToArray(meta.tagList);
-          //if(options.length > 100){
-          var strValue = void 0;
-          if (Array.isArray(value)) {
-            strValue = [];
-            for (var i = 0; i < value.length; i++) {
-              strValue.push("" + value[i]);
-            }
-          } else {
-            strValue = "" + value;
-          }
-          return React.createElement(VirtualizedSelect, { ref: id, name: id, value: strValue, options: options,
-            disabled: meta.readOnly, onChange: handle,
-            multi: meta.multipleSelectionList, matchPos: 'any',
-            clearable: true,
-            searchable: true,
-            labelKey: 'label',
-            valueKey: 'value',
-            clearAllText: attr.localization.clearAllText,
-            clearValueText: attr.localization.clearValueText,
-            noResultsText: attr.localization.noResultsText,
-            searchPromptText: attr.localization.searchPromptText,
-            placeholder: attr.localization.placeholder,
-            loadingPlaceholder: attr.localization.loadingPlaceholder
-          });
-          //        }else{
-          //          return <Select ref={id} name={id} value={value} options={options}
-          //                          disabled={meta.readOnly} onChange={handle} placeholder={meta.placeholder}
-          //                          multi={meta.multipleSelectionList} matchPos="start"
-          //                          clearAllText={attr.localization.clearAllText}
-          //                          clearValueText={attr.localization.clearValueText}
-          //                          noResultsText={attr.localization.noResultsText}
-          //                          searchPromptText={attr.localization.searchPromptText}
-          //                          placeholder={attr.localization.placeholder}
-          //                          loadingPlaceholder={attr.localization.loadingPlaceholder}
-          //          />
-          //        }
-        },
-        Date: function Date() {
-          return React.createElement(Datetime, { dateFormat: 'DD.MM.YYYY', value: moment(value === undefined ? "" : value),
-            onChange: function onChange(v) {
-              return onDateChange(v);
-            }, id: id, key: id,
-            timeFormat: false, closeOnSelect: true, closeOnTab: true, locale: props.localization.locale || "en",
-            inputProps: { disabled: meta.readOnly } });
-        },
-        //      dateTime: {
-        //        normal: () => {
-        //          return ( React.createElement(Datetime, {id: id, key: id, value: value, parent: _this, onChange: handleChange, time: true, className: attr.controlClassName}) );
-        //        },
-        //        readOnly: () => this.createStatic(value)
-        //      },
-        textArea: function textArea() {
-          return React.createElement('textarea', { placeholder: meta.placeholder, id: id, rows: meta.rows || 3, cols: meta.columns, value: value === undefined ? "" : value,
-            onChange: handle, className: attr.controlClassName || "form-control", disabled: meta.readOnly });
-        },
-        textInput: function textInput() {
-          return React.createElement('input', { type: 'text', placeholder: meta.placeholder, id: id, key: id, value: value === undefined ? "" : value,
-            onChange: handle, className: attr.controlClassName || "form-control", disabled: meta.readOnly });
-        },
-        passwordField: function passwordField() {
-          return React.createElement('input', { type: 'password', placeholder: meta.placeholder, id: id, key: id, value: value === undefined ? "" : value,
-            onChange: handle, className: attr.controlClassName || "form-control", disabled: meta.readOnly });
-        },
-        labelField: function labelField() {
-          if (meta.rawValue) {
-            return React.createElement('div', { dangerouslySetInnerHTML: { __html: value } });
-          } else {
-            return React.createElement(
-              'div',
-              null,
-              value
-            );
-          }
-        }
-      };
-
-      //let valueControl;
-      if (meta.tagList) {
-        return controls['select']();
-      } else if (meta.passwordField) {
-        return controls['passwordField']();
-      } else if (meta.labelField) {
-        return controls['labelField']();
-      } else {
-        return (controls[meta.type] || controls['textInput'])();
-      }
-      //return ({valueControl})
-      //    return (
-      //      <ValueControl {...Properties.get(attr.bean, path, attr.localization)}
-      //                    onChange={attr.onChange} />
-      //    );
-    }
-  }, {
-    key: 'optionsToArray',
-    value: function optionsToArray(options) {
-      var optionObject = [];
-      for (var i = 0; i < options.length; i++) {
-        optionObject.push({ value: options[i][0], label: options[i][1] });
-      }
-      return optionObject;
-    }
-
-    //  createStatic(value) {
-    //    return <p className="form-control-static" dangerouslySetInnerHTML={{__html: value}} />;
-    //  }
-
-    //ISO 8601 format
-
-  }, {
-    key: 'formatDate',
-    value: function formatDate(date) {
-      var day = date.getDate();
-      var month = date.getMonth() + 1;
-      var year = date.getFullYear();
-      return year + '-' + this.format2digit(month) + '-' + this.format2digit(day);
-    }
-  }, {
-    key: 'format2digit',
-    value: function format2digit(number) {
-      return ("0" + number).slice(-2);
-    }
-  }], [{
-    key: 'get',
-    value: function get$$1(path, bean, localization) {
-      var itemName = path.substring(path.lastIndexOf("/") + 1);
-      var itemMeta = bean.meta[path];
-      var itemValue = JsonPointer.get(bean, "/values" + path);
-      return {
-        meta: itemMeta,
-        name: itemName,
-        value: itemValue,
-        path: path,
-        key: itemName + "Property",
-        ref: itemName + "Property",
-        localization: localization
-      };
-    }
-  }]);
-  return PropertyInput;
-}(React.Component);
-
-PropertyInput.defaultProps = {
-  localization: {
-    locale: 'en',
-    clearAllText: 'Clear all',
-    clearValueText: 'Clear value',
-    noResultsText: 'No results found',
-    searchPromptText: 'Type to search',
-    placeholder: 'Select ...',
-    loadingPlaceholder: 'Loading...'
-  }
-};
-
-PropertyInput.propTypes = {
-  bean: PropTypes.object.isRequired,
-  path: PropTypes.string,
-  id: PropTypes.number,
   onChange: PropTypes.func,
   localization: PropTypes.object
 };
@@ -829,48 +603,8 @@ var PropertySet$1 = function (_React$Component) {
   }
 
   createClass(PropertySet, [{
-    key: '_createGroup',
-    value: function _createGroup(curGroup, curGroupId, curGroupName) {
-      return React.createElement(
-        'div',
-        { className: 'property-group col-12', key: curGroupId, ref: curGroupId },
-        React.createElement(
-          'div',
-          { className: 'property-groop-box' },
-          React.createElement(
-            'h4',
-            { className: 'property-group__title' },
-            curGroupName
-          ),
-          React.createElement(
-            'div',
-            { className: 'row' },
-            curGroup
-          )
-        )
-      );
-    }
-  }, {
-    key: 'get',
-    value: function get$$1(path) {
-      var itemName = path.substring(path.lastIndexOf("/") + 1);
-      var itemMeta = this.props.bean.meta[path];
-      var itemValue = JsonPointer.get(this.props.bean, "/values" + path);
-      return {
-        meta: itemMeta,
-        name: itemName,
-        value: itemValue,
-        path: path,
-        key: itemName + "Property",
-        ref: itemName + "Property",
-        localization: this.props.localization
-      };
-    }
-  }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
-
       var curGroup = [];
       var curGroupName = null,
           curGroupId = null;
@@ -879,7 +613,7 @@ var PropertySet$1 = function (_React$Component) {
       var finishGroup = function finishGroup() {
         if (curGroup.length > 0) {
           if (curGroupId) {
-            fields.push(_this2._createGroup(curGroup, curGroupId, curGroupName));
+            fields.push(PropertySet._createGroup(curGroup, curGroupId, curGroupName));
           } else {
             Array.prototype.push.apply(fields, curGroup);
           }
@@ -895,16 +629,16 @@ var PropertySet$1 = function (_React$Component) {
         for (var _iterator = this.props.bean.order[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
           var path = _step.value;
 
-          var itemProps = this.get(path);
+          var meta = this.props.bean.meta[path];
 
-          var newGroupId = itemProps.meta.groupId || null;
-          var newGroupName = itemProps.meta.groupName || null;
+          var newGroupId = meta.groupId || null;
+          var newGroupName = meta.groupName || null;
           if (newGroupId !== curGroupId) {
             finishGroup();
             curGroupName = newGroupName;
             curGroupId = newGroupId;
           }
-          var field = React.createElement(Property, _extends({}, itemProps, { onChange: this.props.onChange }));
+          var field = React.createElement(Property, _extends({}, this.props, { key: path, path: path, onChange: this.props.onChange }));
           curGroup.push(field);
         }
       } catch (err) {
@@ -930,13 +664,31 @@ var PropertySet$1 = function (_React$Component) {
         fields
       );
     }
+  }], [{
+    key: '_createGroup',
+    value: function _createGroup(curGroup, curGroupId, curGroupName) {
+      return React.createElement(
+        'div',
+        { className: 'property-group col-12', key: curGroupId, ref: curGroupId },
+        React.createElement(
+          'div',
+          { className: 'property-groop-box' },
+          React.createElement(
+            'h4',
+            { className: 'property-group__title' },
+            curGroupName
+          ),
+          React.createElement(
+            'div',
+            { className: 'row' },
+            curGroup
+          )
+        )
+      );
+    }
   }]);
   return PropertySet;
 }(React.Component);
-
-PropertySet$1.defaultProps = {
-  localization: {}
-};
 
 PropertySet$1.propTypes = {
   bean: PropTypes.object.isRequired,

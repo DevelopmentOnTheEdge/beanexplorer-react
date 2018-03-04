@@ -832,10 +832,27 @@ td.rdtYear:hover {
 
 .form-control-feedback {
   font-size: 0.875em;
+  display: block;
 }
 
-.has-danger .form-control-feedback {
-  color:#b90000;
+.has-danger .form-control-feedback,
+.has-danger .form-check-label,
+.has-danger .form-control-label{
+  color: #b90000;
+}
+
+.has-danger input{
+  border-color: #dc3545;
+}
+
+.has-success .form-control-feedback,
+.has-success .form-check-label,
+.has-success .form-control-label{
+  color: #28a745;
+}
+
+.has-success input{
+  border-color: #28a745;
 }
 
 .form-group.required .form-control-label:after,

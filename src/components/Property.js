@@ -31,9 +31,7 @@ class Property extends React.Component
       {'has-warning' : meta.status === 'warning'},
       {'has-success' : meta.status === 'success'},
     );
-    if(this.state && this.state.status === 'error'){
-      hasStatusClasses = 'has-danger';
-    }
+
     const classNameForm = (meta.type === "Boolean")
       ? this.props.classNameFormCheck || 'form-check property'
       : this.props.classNameFormGroup || 'form-group property';
