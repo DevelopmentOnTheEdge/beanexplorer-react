@@ -1,0 +1,53 @@
+{
+  "values": {
+    "textInput": "test",
+    "checkBox": true,
+    "labelField": "Pellentesque habitant morbi tristique senectus...",
+    "textInput2": "test",
+    "checkBox2": false,
+    "textInput3": "test"
+  },
+  "meta": {
+    "/textInput": {
+      "displayName": "Name",
+      "groupName": "Group 1",
+      "groupId": 1
+    },
+    "/checkBox": {
+      "displayName": "CheckBox",
+      "type": "Boolean",
+      "groupId": 1
+    },
+    "/labelField": {
+      "labelField": true,
+      "groupId": 1
+    },
+    "/textInput2": {
+      "displayName": "Name",
+      "groupName": "Group 2 - With Statuses",
+      "groupId": 2,
+      "message": "Error here",
+      "status": "error"
+    },
+    "/checkBox2": {
+      "displayName": "CheckBox",
+      "type": "Boolean",
+      "groupId": 2,
+      "status": "success"
+    },
+    "/textInput3": {
+      "displayName": "Name",
+      "groupName": "Group 3 - CanBeNull",
+      "groupId": 3,
+      "canBeNull": true
+    }
+  },
+  "order": [
+    "/textInput",
+    "/checkBox",
+    "/labelField",
+    "/textInput2",
+    "/checkBox2",
+    "/textInput3"
+  ]
+}

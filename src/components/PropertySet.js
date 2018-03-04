@@ -1,7 +1,6 @@
 import React       from 'react';
 import PropTypes   from 'prop-types';
 import Property    from './Property';
-import JsonPointer from 'json-pointer';
 
 
 class PropertySet extends React.Component
@@ -17,21 +16,6 @@ class PropertySet extends React.Component
         </div>
       </div>
     );
-  }
-
-  get(path){
-    const itemName = path.substring(path.lastIndexOf("/")+1);
-    const itemMeta = this.props.bean.meta[path];
-    const itemValue = JsonPointer.get(this.props.bean, "/values" + path);
-    return {
-      meta: itemMeta,
-      name: itemName,
-      value: itemValue,
-      path: path,
-      key: itemName + "Property",
-      ref: itemName + "Property",
-      localization: this.props.localization
-    }
   }
 
   render() {
@@ -51,16 +35,16 @@ class PropertySet extends React.Component
     };
 
     for(const path of this.props.bean.order) {
-      const itemProps = this.get(path);
+      const meta = this.props.bean.meta[path];
 
-      const newGroupId = itemProps.meta.groupId || null;
-      const newGroupName = itemProps.meta.groupName || null;
+      const newGroupId = meta.groupId || null;
+      const newGroupName = meta.groupName || null;
       if(newGroupId !== curGroupId) {
         finishGroup();
         curGroupName = newGroupName;
         curGroupId = newGroupId;
       }
-      const field = (<Property {...this.props} path={itemProps.path} onChange={this.props.onChange} />);
+      const field = (<Property {...this.props} key={path} path={path} onChange={this.props.onChange} />);
       curGroup.push(field);
     }
     finishGroup();
