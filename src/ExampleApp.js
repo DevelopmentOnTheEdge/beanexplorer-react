@@ -101,11 +101,25 @@ class PropertyOuter extends AllPropertyTypes
 const ExampleApp = () => (
   <Router>
     <div className="app">
-      <div className="app-header">
-        <h3>React component for BeanExplorer</h3>
-      </div>
+      <nav className="app-header navbar navbar-expand-md navbar-dark">
+        <div className="container">
+          <a className="navbar-brand" href="#">beanexplorer-react</a>
+          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon"/>
+          </button>
+          <div className="collapse navbar-collapse" id="navbarNav">
+            <ul className="ml-sm-auto navbar-nav">
+              <li className="nav-item">
+                <a href="https://github.com/DevelopmentOnTheEdge/beanexplorer-react" className="nav-link">Github</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
       <div className="app-intro">
         <div className="container">
+          <h3>React component for BeanExplorer</h3>
+          <br/>
           <ul className="nav nav-pills">
             <li className="nav-item"><NavLink to="/" className="nav-link" exact>All PropertyInput</NavLink></li>
             <li className="nav-item"><NavLink to="/allReadOnly" className="nav-link" >All Read Only</NavLink></li>
