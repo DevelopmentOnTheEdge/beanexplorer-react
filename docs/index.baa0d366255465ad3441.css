@@ -763,23 +763,22 @@ td.rdtYear:hover {
   font-weight: bold;
 }
 .app-header {
-  padding: 20px 28px;
   background-color: #3f51b5;
 }
+
 .app-header h3{
   margin: 0;
   color: #fff;
 }
 
 .app-intro {
-  padding-top: 40px;
+  padding-top: 22px;
   background: #eee;
 }
 
 .bs-example{
   background-color: #fff;
   border: 1px solid #ddd;
-  border-width: 1px;
   border-radius: 4px;
   padding: 45px 15px 15px;
   margin: 0 0px 15px;

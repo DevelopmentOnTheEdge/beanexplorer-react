@@ -99,7 +99,7 @@ class PropertyOuter extends AllPropertyTypes
 }
 
 const ExampleApp = () => (
-  <Router>
+  <Router basename="/beanexplorer-react">
     <div className="app">
       <nav className="app-header navbar navbar-expand-md navbar-dark">
         <div className="container">
