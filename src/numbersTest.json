@@ -1,0 +1,32 @@
+{
+  "values": {
+    "short": "32767",
+    "integer": "2147483647",
+    "long": "123",
+    "double": "123.3"
+  },
+  "meta": {
+    "/short": {
+      "displayName": "Short",
+      "type": "Short"
+    },
+    "/integer": {
+      "displayName": "Integer",
+      "type": "Integer"
+    },
+    "/long": {
+      "displayName": "Long",
+      "type": "Long"
+    },
+    "/double": {
+      "displayName": "Double",
+      "type": "Double"
+    }
+  },
+  "order": [
+    "/short",
+    "/integer",
+    "/long",
+    "/double"
+  ]
+}

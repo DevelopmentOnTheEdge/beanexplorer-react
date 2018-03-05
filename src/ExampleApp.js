@@ -12,6 +12,7 @@ import JsonPointer   from 'json-pointer';
 
 import bean from './testJson.json';
 import testOuter from './testOuter.json';
+import numbersTest from './numbersTest.json';
 
 import 'react-datetime/css/react-datetime.css';
 import 'react-select/dist/react-select.css';
@@ -99,6 +100,17 @@ class PropertyOuter extends AllPropertyTypes
   }
 }
 
+class Numbers extends AllPropertyTypes
+{
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      bean: numbersTest
+    };
+  }
+}
+
 const ExampleApp = () => (
   <Router basename="/beanexplorer-react">
     <div className="app">
@@ -124,11 +136,13 @@ const ExampleApp = () => (
           <ul className="nav nav-pills">
             <li className="nav-item"><NavLink to="/" className="nav-link" exact>All PropertyInput</NavLink></li>
             <li className="nav-item"><NavLink to="/allReadOnly" className="nav-link" >All Read Only</NavLink></li>
+            <li className="nav-item"><NavLink to="/numbers" className="nav-link" >Numbers</NavLink></li>
             <li className="nav-item"><NavLink to="/propertyOuter" className="nav-link" >Property outer</NavLink></li>
           </ul>
           <br/>
           <Route exact path="/" component={AllPropertyTypes}/>
           <Route path="/allReadOnly" component={AllReadOnly}/>
+          <Route path="/numbers" component={Numbers}/>
           <Route path="/propertyOuter" component={PropertyOuter}/>
           <br/><br/><br/><br/>
         </div>

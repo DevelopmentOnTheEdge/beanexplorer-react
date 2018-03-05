@@ -6,6 +6,134 @@ exports[`empty property set 1`] = `
 />
 `;
 
+exports[`numbersTest 1`] = `
+<div
+  className="property-set form-row"
+>
+  <div
+    className="col-lg-12"
+  >
+    <div
+      className="form-group property required"
+    >
+      <label
+        className="form-control-label"
+        htmlFor="shortField"
+      >
+        Short
+      </label>
+      <div
+        className="controls"
+      >
+        <input
+          className="form-control"
+          disabled={undefined}
+          id="shortPropertyInput"
+          max={32767}
+          min={-32768}
+          onChange={[Function]}
+          placeholder={undefined}
+          required={true}
+          step={1}
+          type="number"
+          value="32767"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="col-lg-12"
+  >
+    <div
+      className="form-group property required"
+    >
+      <label
+        className="form-control-label"
+        htmlFor="integerField"
+      >
+        Integer
+      </label>
+      <div
+        className="controls"
+      >
+        <input
+          className="form-control"
+          disabled={undefined}
+          id="integerPropertyInput"
+          max={2147483647}
+          min={-2147483648}
+          onChange={[Function]}
+          placeholder={undefined}
+          required={true}
+          step={1}
+          type="number"
+          value="2147483647"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="col-lg-12"
+  >
+    <div
+      className="form-group property required"
+    >
+      <label
+        className="form-control-label"
+        htmlFor="longField"
+      >
+        Long
+      </label>
+      <div
+        className="controls"
+      >
+        <input
+          className="form-control"
+          disabled={undefined}
+          id="longPropertyInput"
+          max={9223372036854775000}
+          min={-9223372036854775000}
+          onChange={[Function]}
+          placeholder={undefined}
+          required={true}
+          step={1}
+          type="number"
+          value="123"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="col-lg-12"
+  >
+    <div
+      className="form-group property required"
+    >
+      <label
+        className="form-control-label"
+        htmlFor="doubleField"
+      >
+        Double
+      </label>
+      <div
+        className="controls"
+      >
+        <input
+          className="form-control"
+          disabled={undefined}
+          id="doublePropertyInput"
+          onChange={[Function]}
+          placeholder={undefined}
+          required={true}
+          type="number"
+          value="123.3"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`renders without crashing 1`] = `
 <div
   className="property-set form-row"

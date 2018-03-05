@@ -167,14 +167,15 @@ class PropertyInput extends React.Component
       textArea: () => (
         <textarea rows={meta.rows || 3} cols={meta.columns} {...rawTextInputProps} />
       ),
+      Short: () => (
+        <input type="number" min={-32768} max={32767} step={1} {...rawTextInputProps} />
+      ),
       Integer: () => (
         <input type="number" min={-2147483648} max={2147483647} step={1} {...rawTextInputProps} />
       ),
+      //the numbers are rounded off - 3 last digits
       Long: () => (
-        <input type="number" min={-9223372036854775808} max={9223372036854775807} step={1} {...rawTextInputProps} />
-      ),
-      Short: () => (
-        <input type="number" min={-32768} max={32767} step={1} {...rawTextInputProps} />
+        <input type="number" min={-9223372036854775000} max={9223372036854775000} step={1} {...rawTextInputProps} />
       ),
       Double: () => (
         <input type="number" {...rawTextInputProps} />

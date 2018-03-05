@@ -5,7 +5,6 @@ import Datetime from 'react-datetime';
 import moment from 'moment';
 import Select from 'react-select';
 import VirtualizedSelect from 'react-virtualized-select';
-import NumericInput from 'react-numeric-input';
 import CKEditor from 'react-ckeditor-component';
 import MaskedInput from 'react-maskedinput';
 import JsonPointer from 'json-pointer';
@@ -102,9 +101,6 @@ var PropertyInput = function (_React$Component) {
     return _this;
   }
 
-  //todo refactoring - many unused
-
-
   createClass(PropertyInput, [{
     key: 'getPath',
     value: function getPath() {
@@ -162,17 +158,75 @@ var PropertyInput = function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
-      var attr = PropertyInput.get(this.getPath(), this.props.bean, this.props.localization);
-
-      var meta = attr.meta;
-      var value = attr.value;
-      var id = attr.name + "Field";
+      var path = this.getPath();
+      var meta = this.props.bean.meta[path];
+      var value = JsonPointer.get(this.props.bean, "/values" + path);
+      var id = path.substring(path.lastIndexOf("/") + 1) + "PropertyInput";
       var extraAttrsMap = PropertyInput.getExtraAttrsMap(meta.extraAttrs);
+      var required = meta.canBeNull !== true;
+
+      var baseProps = {
+        id: id,
+        key: id,
+        disabled: meta.readOnly,
+        required: required
+      };
+
+      var rawTextInputProps = Object.assign({}, baseProps, {
+        value: value === undefined ? "" : value,
+        onChange: this.handleChange,
+        placeholder: meta.placeholder,
+        className: classNames("form-control", this.props.controlClassName)
+      });
 
       var controls = {
+        textInput: function textInput() {
+          return React.createElement('input', _extends({ type: 'text' }, rawTextInputProps));
+        },
+        passwordField: function passwordField() {
+          return React.createElement('input', _extends({ type: 'password' }, rawTextInputProps));
+        },
+        textArea: function textArea() {
+          return React.createElement('textarea', _extends({ rows: meta.rows || 3, cols: meta.columns }, rawTextInputProps));
+        },
+        Short: function Short() {
+          return React.createElement('input', _extends({ type: 'number', min: -32768, max: 32767, step: 1 }, rawTextInputProps));
+        },
+        Integer: function Integer() {
+          return React.createElement('input', _extends({ type: 'number', min: -2147483648, max: 2147483647, step: 1 }, rawTextInputProps));
+        },
+        //the numbers are rounded off
+        Long: function Long() {
+          return React.createElement('input', _extends({ type: 'number', min: -9223372036854775000, max: 9223372036854775000, step: 1 }, rawTextInputProps));
+        },
+        Double: function Double() {
+          return React.createElement('input', _extends({ type: 'number' }, rawTextInputProps));
+        },
         Boolean: function Boolean() {
-          return React.createElement('input', { type: 'checkbox', id: id, key: id, checked: value === true || value === "true", onChange: _this2.handleChange,
-            className: attr.controlClassName || 'form-check-input', disabled: meta.readOnly });
+          return React.createElement('input', _extends({ type: 'checkbox', checked: value === true || value === "true", onChange: _this2.handleChange,
+            className: classNames("form-check-input", _this2.props.controlClassName) }, baseProps));
+        },
+        Date: function Date() {
+          return React.createElement(Datetime, { dateFormat: 'DD.MM.YYYY', id: id, key: id, inputProps: { disabled: meta.readOnly, required: required },
+            onChange: function onChange(v) {
+              return _this2.dateToISOFormat(v);
+            }, value: _this2.dateFromISOFormat(value),
+            timeFormat: false, closeOnSelect: true, closeOnTab: true, locale: _this2.props.localization.locale || "en",
+            className: classNames(_this2.props.controlClassName) });
+        },
+        Base64File: function Base64File() {
+          return React.createElement('input', _extends({ type: 'file', className: classNames("form-control-file", _this2.props.controlClassName) }, baseProps, {
+            multiple: meta.multipleSelectionList,
+            onChange: function onChange(e) {
+              if (e.target.files && e.target.files.length === 1) {
+                var fileName = e.target.files[0].name;
+                PropertyInput.getBase64(e.target.files[0]).then(function (data) {
+                  _this2.callOnChange({ type: "Base64File", name: fileName, data: data });
+                });
+              } else if (e.target.files && e.target.files.length === 0) {
+                _this2.callOnChange("");
+              }
+            } }));
         },
         select: function select() {
           var options = [];
@@ -193,16 +247,17 @@ var PropertyInput = function (_React$Component) {
             ref: id, name: id, value: strValue, options: options, onChange: function onChange(v) {
               return _this2.handleChangeSelect(v);
             },
-            clearAllText: attr.localization.clearAllText,
-            clearValueText: attr.localization.clearValueText,
-            noResultsText: attr.localization.noResultsText,
-            searchPromptText: attr.localization.searchPromptText,
-            loadingPlaceholder: attr.localization.loadingPlaceholder,
-            placeholder: meta.placeholder || attr.localization.placeholder,
+            clearAllText: _this2.props.localization.clearAllText,
+            clearValueText: _this2.props.localization.clearValueText,
+            noResultsText: _this2.props.localization.noResultsText,
+            searchPromptText: _this2.props.localization.searchPromptText,
+            loadingPlaceholder: _this2.props.localization.loadingPlaceholder,
+            placeholder: meta.placeholder || _this2.props.localization.placeholder,
             backspaceRemoves: false,
             disabled: meta.readOnly,
             multi: meta.multipleSelectionList,
-            matchPos: extraAttrsMap.matchPos || "any"
+            matchPos: extraAttrsMap.matchPos || "any",
+            required: required
           };
 
           if (extraAttrsMap.inputType === "Creatable") {
@@ -213,59 +268,15 @@ var PropertyInput = function (_React$Component) {
             return React.createElement(Select, selectAttr);
           }
         },
-        Date: function Date() {
-          return React.createElement(Datetime, { dateFormat: 'DD.MM.YYYY', value: _this2.dateFromISOFormat(value),
-            onChange: function onChange(v) {
-              return _this2.dateToISOFormat(v);
-            }, id: id, key: id,
-            timeFormat: false, closeOnSelect: true, closeOnTab: true, locale: attr.localization.locale || "en",
-            inputProps: { disabled: meta.readOnly } });
-        },
         //      dateTime: {
         //        normal: () => {
-        //          return ( React.createElement(Datetime, {id: id, key: id, value: value, parent: _this, onChange: handleChange, time: true, className: attr.controlClassName}) );
+        //          return ( React.createElement(Datetime, {id: id, key: id, value: value, parent: _this, onChange: handleChange, time: true, className: this.props.controlClassName}) );
         //        },
         //        readOnly: () => this.createStatic(value)
         //      },
-        textArea: function textArea() {
-          return React.createElement('textarea', { placeholder: meta.placeholder, id: id, rows: meta.rows || 3, cols: meta.columns, value: value === undefined ? "" : value,
-            onChange: _this2.handleChange, className: attr.controlClassName || "form-control", disabled: meta.readOnly });
-        },
         maskTest: function maskTest() {
-          return React.createElement(MaskedInput, { mask: PropertyInput.getMaskInput(meta.validationRules), value: value === undefined ? "" : value,
-            onChange: _this2.handleChange, className: attr.controlClassName || "form-control", disabled: meta.readOnly });
-        },
-        textInput: function textInput() {
-          return React.createElement('input', { type: 'text', placeholder: meta.placeholder, id: id, key: id, value: value === undefined ? "" : value,
-            onChange: _this2.handleChange, className: attr.controlClassName || "form-control", disabled: meta.readOnly });
-        },
-        numberInput: function numberInput() {
-          var numericProps = PropertyInput.getNumericProps(meta);
-          return React.createElement(NumericInput, _extends({}, numericProps, { placeholder: meta.placeholder, id: id, key: id, value: value,
-            onChange: function onChange(valueAsNumber, valueAsString, input) {
-              _this2.props.onChange(_this2.props.path, valueAsNumber !== null ? valueAsNumber : "");
-            },
-            style: false, className: attr.controlClassName || "form-control", disabled: meta.readOnly }));
-        },
-        passwordField: function passwordField() {
-          return React.createElement('input', { type: 'password', placeholder: meta.placeholder, id: id, key: id, value: value === undefined ? "" : value,
-            onChange: _this2.handleChange, className: attr.controlClassName || "form-control", disabled: meta.readOnly });
-        },
-        file: function file() {
-          return React.createElement('input', { type: 'file', placeholder: meta.placeholder, id: id, key: id,
-            className: attr.controlClassName || "form-control", disabled: meta.readOnly,
-            multiple: meta.multipleSelectionList,
-            onChange: function onChange(e) {
-              if (e.target.files && e.target.files.length === 1) {
-                var fileName = e.target.files[0].name;
-                PropertyInput.getBase64(e.target.files[0]).then(function (data) {
-                  _this2.callOnChange({ type: "Base64File", name: fileName, data: data });
-                });
-              } else if (e.target.files && e.target.files.length === 0) {
-                console.log(e.target.files);
-                _this2.callOnChange("");
-              }
-            } });
+          return React.createElement(MaskedInput, _extends({ mask: PropertyInput.getMaskInput(meta.validationRules), value: value === undefined ? "" : value,
+            onChange: _this2.handleChange, className: classNames("form-control", _this2.props.controlClassName) }, baseProps));
         },
         WYSIWYG: function WYSIWYG() {
           return React.createElement(CKEditor, { activeClass: 'p10', content: value,
@@ -279,11 +290,13 @@ var PropertyInput = function (_React$Component) {
         },
         labelField: function labelField() {
           if (meta.rawValue) {
-            return React.createElement('div', { dangerouslySetInnerHTML: { __html: value } });
+            return React.createElement('div', { className: classNames("form-control-label", _this2.props.controlClassName), id: id, key: id,
+              dangerouslySetInnerHTML: { __html: value } });
           } else {
             return React.createElement(
               'label',
-              { className: 'form-control-label' },
+              { className: classNames("form-control-label", _this2.props.controlClassName),
+                id: id, key: id },
               value
             );
           }
@@ -302,14 +315,6 @@ var PropertyInput = function (_React$Component) {
         return controls['labelField']();
       }
 
-      if (meta.validationRules !== undefined && PropertyInput.isNumberInput(meta.validationRules)) {
-        return controls['numberInput']();
-      }
-
-      if (controls[meta.type] !== undefined) {
-        return controls[meta.type]();
-      }
-
       if (extraAttrsMap.inputType === 'WYSIWYG') {
         return controls['WYSIWYG']();
       }
@@ -318,33 +323,17 @@ var PropertyInput = function (_React$Component) {
         return controls['textArea']();
       }
 
-      if (extraAttrsMap.inputType === 'file') {
-        return controls['file']();
-      }
-
       if (meta.validationRules !== undefined && PropertyInput.getMaskInput(meta.validationRules)) {
         return controls['maskTest']();
+      }
+
+      if (controls[meta.type] !== undefined) {
+        return controls[meta.type]();
       }
 
       return controls['textInput']();
     }
   }], [{
-    key: 'get',
-    value: function get$$1(path, bean, localization) {
-      var itemName = path.substring(path.lastIndexOf("/") + 1);
-      var itemMeta = bean.meta[path];
-      var itemValue = JsonPointer.get(bean, "/values" + path);
-      return {
-        meta: itemMeta,
-        name: itemName,
-        value: itemValue,
-        path: path,
-        key: itemName + "Property",
-        ref: itemName + "Property",
-        localization: localization
-      };
-    }
-  }, {
     key: 'getMaskInput',
     value: function getMaskInput(rules) {
       for (var i = 0; i < rules.length; i++) {
@@ -354,40 +343,46 @@ var PropertyInput = function (_React$Component) {
       }
       return null;
     }
-  }, {
-    key: 'isNumberInput',
-    value: function isNumberInput(rules) {
-      for (var i = 0; i < rules.length; i++) {
-        if (rules[i].type === "baseRule" && (rules[i].attr === "digits" || rules[i].attr === "integer" || rules[i].attr === "number")) return true;
-      }
-      return false;
-    }
-  }, {
-    key: 'getNumericProps',
-    value: function getNumericProps(meta) {
-      var props = {};
-      props['maxLength'] = 14; //errors if more
-      var rules = meta.validationRules;
-      for (var i = 0; i < rules.length; i++) {
-        if (rules[i].type === "baseRule" && rules[i].attr === "number") {
-          props['precision'] = 10;
-        }
-        if (rules[i].type === "baseRule" && rules[i].attr === "integer") {
-          props['min'] = -2147483648;
-          props['max'] = 2147483647;
-          props['maxLength'] = 9;
-          props['precision'] = 0;
-        }
-        // if(rules[i].type === "digits")
-        // {
-        //   props['min'] = 0;//todo not work
-        // }
-      }
-      if (meta.columnSize) {
-        props['maxLength'] = parseInt(meta.columnSize);
-      }
-      return props;
-    }
+
+    // static isNumberInput(rules)
+    // {
+    //   for (let i =0 ; i< rules.length; i++)
+    //   {
+    //     if(rules[i].type === "baseRule" &&
+    //       ( rules[i].attr === "digits" || rules[i].attr === "integer" || rules[i].attr === "number" ))return true;
+    //   }
+    //   return false;
+    // }
+    //
+    // static getNumericProps(meta)
+    // {
+    //   let props = {};
+    //   props['maxLength'] = 14;//errors if more
+    //   const rules = meta.validationRules;
+    //   for (let i =0 ; i< rules.length; i++)
+    //   {
+    //     if(rules[i].type === "baseRule" && (rules[i].attr === "number"))
+    //     {
+    //       props['precision'] = 10;
+    //     }
+    //     if(rules[i].type === "baseRule" && (rules[i].attr === "integer"))
+    //     {
+    //       props['min'] = -2147483648;
+    //       props['max'] = 2147483647;
+    //       props['maxLength'] = 9;
+    //       props['precision'] = 0;
+    //     }
+    //     // if(rules[i].type === "digits")
+    //     // {
+    //     //   props['min'] = 0;
+    //     // }
+    //   }
+    //   if(meta.columnSize){
+    //     props['maxLength'] = parseInt(meta.columnSize);
+    //   }
+    //   return props;
+    // }
+
   }, {
     key: 'getBase64',
     value: function getBase64(file) {
@@ -434,7 +429,8 @@ PropertyInput.propTypes = {
   path: PropTypes.string,
   id: PropTypes.number,
   onChange: PropTypes.func,
-  localization: PropTypes.object
+  localization: PropTypes.object,
+  controlClassName: PropTypes.string
 };
 
 var Property = function (_React$Component) {
@@ -574,7 +570,7 @@ var Properties = function (_React$Component) {
       //todo remove outer element after migrate to react 16.2
       return React.createElement(
         'div',
-        { className: this.props.className },
+        { className: this.props.rowClass },
         fields
       );
     }
@@ -583,11 +579,11 @@ var Properties = function (_React$Component) {
 }(React.Component);
 
 Properties.defaultProps = {
-  className: "row"
+  rowClass: "form-row"
 };
 
 Properties.propTypes = {
-  className: PropTypes.string.isRequired,
+  rowClass: PropTypes.string,
   bean: PropTypes.object.isRequired,
   ids: PropTypes.array,
   onChange: PropTypes.func,
@@ -660,7 +656,7 @@ var PropertySet$1 = function (_React$Component) {
 
       return React.createElement(
         'div',
-        { className: 'property-set row' },
+        { className: classNames('property-set', this.props.rowClass) },
         fields
       );
     }
@@ -690,10 +686,15 @@ var PropertySet$1 = function (_React$Component) {
   return PropertySet;
 }(React.Component);
 
+PropertySet$1.defaultProps = {
+  rowClass: 'form-row'
+};
+
 PropertySet$1.propTypes = {
   bean: PropTypes.object.isRequired,
   onChange: PropTypes.func,
-  localization: PropTypes.object
+  localization: PropTypes.object,
+  rowClass: PropTypes.string
 };
 
 PropertySet$1.Property = Property;

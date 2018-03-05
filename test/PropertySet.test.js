@@ -4,6 +4,7 @@ import renderer from 'react-test-renderer';
 import {shallow, mount, render} from 'enzyme';
 import bean from '../src/testJson.json';
 import testOuter from '../src/testOuter.json';
+import numbersTest from '../src/numbersTest.json';
 
 //https://github.com/YouCanBookMe/react-datetime/issues/384
 jest.mock('react-dom', () => ({
@@ -50,6 +51,14 @@ test('test outer', () => {
   );
   expect(component.toJSON()).toMatchSnapshot();
 });
+
+test('numbersTest', () => {
+  const component = renderer.create(
+    <PropertySet bean={numbersTest} />
+  );
+  expect(component.toJSON()).toMatchSnapshot();
+});
+
 
 test('simple property set', () => {
 	const simpleBean = {
