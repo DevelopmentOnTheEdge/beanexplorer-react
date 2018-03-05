@@ -28,13 +28,6 @@ test('renders without crashing', () => {
   expect(component.toJSON()).toMatchSnapshot();
 });
 
-test('test outer', () => {
-  const component = renderer.create(
-    <PropertySet bean={testOuter} />
-  );
-  expect(component.toJSON()).toMatchSnapshot();
-});
-
 test('renders without crashing readOnly', () => {
   for(let item in bean.meta) {
     bean.meta[item]['readOnly'] = true;
@@ -51,17 +44,18 @@ test('renders without crashing empty value', () => {
   mount(<PropertySet bean={bean}/>);
 });
 
+test('test outer', () => {
+  const component = renderer.create(
+    <PropertySet bean={testOuter} />
+  );
+  expect(component.toJSON()).toMatchSnapshot();
+});
+
 test('simple property set', () => {
 	const simpleBean = {
-    "values": {
-      "number": "",
-    },
-    "meta": {
-      "/number": {},
-    },
-    "order": [
-      "/number",
-    ]
+    "values": { "number": "" },
+    "meta":   { "/number": {} },
+    "order":  [ "/number" ]
 	};
 
 	const component = renderer.create(

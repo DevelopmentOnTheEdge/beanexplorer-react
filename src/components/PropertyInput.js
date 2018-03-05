@@ -19,6 +19,7 @@ class PropertyInput extends React.Component
     this.handleChangeMulti = this.handleChangeMulti.bind(this);
   }
 
+  //todo refactoring - many unused
   static get(path, bean, localization){
     const itemName = path.substring(path.lastIndexOf("/")+1);
     const itemMeta = bean.meta[path];
@@ -34,8 +35,8 @@ class PropertyInput extends React.Component
     }
   }
 
-  getPath(){
-    if(this.props.path){
+  getPath() {
+    if(this.props.path) {
       return this.props.path;
     }else{
       return this.props.bean.order[this.props.id];
@@ -43,11 +44,12 @@ class PropertyInput extends React.Component
   }
 
   handleChange(event) {
-    this.props.onChange(this.getPath(), PropertyInput._getValueFromEvent(event));
+    const value = (event.target.type === 'checkbox') ? event.target.checked : event.target.value;
+    this.props.onChange(this.getPath(), value);
   }
 
-  dateToISOFormat(date){
-    if(typeof date === "string"){
+  dateToISOFormat(date) {
+    if(typeof date === "string") {
       this.props.onChange(this.getPath(), date);
     }else{
       this.props.onChange(this.getPath(), date.format('YYYY-MM-DD'));
@@ -56,7 +58,7 @@ class PropertyInput extends React.Component
 
   dateFromISOFormat(stringDate) {
     const date = moment(stringDate === undefined ? "" : stringDate, 'YYYY-MM-DD', true);
-    if (date.isValid()){
+    if (date.isValid()) {
       return date.format('DD.MM.YYYY');
     }else{
       return stringDate;
@@ -71,13 +73,72 @@ class PropertyInput extends React.Component
     this.props.onChange(this.props.path, selectArray);
   }
 
-  static _getValueFromEvent(event) {
-    if(!event)
-      return '';
-    if(!event.target)
-      return event.value;
-    const element = event.target;
-    return (element.type === 'checkbox') ? element.checked : element.value;
+  static getMaskInput(rules)
+  {
+    for (let i = 0; i < rules.length; i++)
+    {
+      if ("mask" in rules[i]) {
+        return rules[i].mask
+      }
+    }
+    return null;
+  }
+
+  static isNumberInput(rules)
+  {
+    for (let i =0 ; i< rules.length; i++)
+    {
+      if(rules[i].type === "baseRule" &&
+        ( rules[i].attr === "digits" || rules[i].attr === "integer" || rules[i].attr === "number" ))return true;
+    }
+    return false;
+  }
+
+  static getNumericProps(meta)
+  {
+    let props = {};
+    props['maxLength'] = 14;//errors if more
+    const rules = meta.validationRules;
+    for (let i =0 ; i< rules.length; i++)
+    {
+      if(rules[i].type === "baseRule" && (rules[i].attr === "number"))
+      {
+        props['precision'] = 10;
+      }
+      if(rules[i].type === "baseRule" && (rules[i].attr === "integer"))
+      {
+        props['min'] = -2147483648;
+        props['max'] = 2147483647;
+        props['maxLength'] = 9;
+        props['precision'] = 0;
+      }
+      // if(rules[i].type === "digits")
+      // {
+      //   props['min'] = 0;//todo not work
+      // }
+    }
+    if(meta.columnSize){
+      props['maxLength'] = parseInt(meta.columnSize);
+    }
+    return props;
+  }
+
+  static getBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = error => reject(error);
+    });
+  }
+
+  static getExtraAttrsMap(extraAttrs){
+    let map = {};
+    if(extraAttrs === undefined)return map;
+    for (let i=0 ;i< extraAttrs.length; i++){
+      map[extraAttrs[i][0]] = extraAttrs[i][1];
+    }
+    return map;
   }
 
   render() {
@@ -95,8 +156,11 @@ class PropertyInput extends React.Component
                className={attr.controlClassName || 'form-check-input'} disabled={meta.readOnly} />
       ),
       select: () => {
-        const options = PropertyInput.optionsToArray(meta.tagList);
-        // VirtualizedSelect css подправить (на длинных строках с переносами)
+        let options = [];
+        for(let i =0 ;i < meta.tagList.length; i++){
+          options.push({ value: meta.tagList[i][0], label: meta.tagList[i][1] });
+        }
+
         let strValue;
         if(Array.isArray(value)){
           strValue = [];
@@ -120,14 +184,18 @@ class PropertyInput extends React.Component
           matchPos: extraAttrsMap.matchPos || "any"
         };
 
-        if(extraAttrsMap.inputType === "Creatable"){
+        if(extraAttrsMap.inputType === "Creatable")
+        {
           return <Creatable {...selectAttr} />
         }
-
-        if(extraAttrsMap.inputType === "VirtualizedSelect"){
+        else if(extraAttrsMap.inputType === "VirtualizedSelect")
+        {
           return <VirtualizedSelect {...selectAttr} clearable searchable labelKey="label" valueKey="value" />
         }
-        return <Select {...selectAttr} />
+        else
+        {
+          return <Select {...selectAttr} />
+        }
       },
       Date: () => {
         return <Datetime dateFormat="DD.MM.YYYY" value={this.dateFromISOFormat(value)}
@@ -142,7 +210,7 @@ class PropertyInput extends React.Component
 //        readOnly: () => this.createStatic(value)
 //      },
       textArea: () => {
-        return <textarea placeholder={meta.placeholder} id={id}  rows={meta.rows || 3} cols={meta.columns} value={value === undefined ? "" : value}
+        return <textarea placeholder={meta.placeholder} id={id} rows={meta.rows || 3} cols={meta.columns} value={value === undefined ? "" : value}
                          onChange={handle} className={attr.controlClassName || "form-control"} disabled={meta.readOnly} />
       },
       maskTest: () => {
@@ -247,81 +315,6 @@ class PropertyInput extends React.Component
     }
 
     return controls['textInput']();
-  }
-
-  static getMaskInput(rules)
-  {
-    for (let i = 0; i < rules.length; i++)
-    {
-      if ("mask" in rules[i]) {
-        return rules[i].mask
-      }
-    }
-    return null;
-  }
-
-  static isNumberInput(rules)
-  {
-    for (let i =0 ; i< rules.length; i++)
-    {
-      if(rules[i].type === "baseRule" &&
-        ( rules[i].attr === "digits" || rules[i].attr === "integer" || rules[i].attr === "number" ))return true;
-    }
-    return false;
-  }
-
-  static getNumericProps(meta)
-  {
-    let props = {};
-    props['maxLength'] = 14;//errors if more
-    const rules = meta.validationRules;
-    for (let i =0 ; i< rules.length; i++)
-    {
-      if(rules[i].type === "baseRule" && (rules[i].attr === "number"))
-      {
-        props['precision'] = 10;
-      }
-      if(rules[i].type === "baseRule" && (rules[i].attr === "integer"))
-      {
-        props['min'] = -2147483648;
-        props['max'] = 2147483647;
-        props['maxLength'] = 9;
-        props['precision'] = 0;
-      }
-      // if(rules[i].type === "digits")
-      // {
-      //   props['min'] = 0;//todo not work
-      // }
-    }
-    if(meta.columnSize){
-      props['maxLength'] = parseInt(meta.columnSize);
-    }
-    return props;
-  }
-
-  static getBase64(file) {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = error => reject(error);
-    });
-  }
-  static getExtraAttrsMap(extraAttrs){
-    let map = {};
-    if(extraAttrs === undefined)return map;
-    for (let i=0 ;i< extraAttrs.length; i++){
-      map[extraAttrs[i][0]] = extraAttrs[i][1];
-    }
-    return map;
-  }
-
-  static optionsToArray(options){
-    let optionObject = [];
-    for(let i =0 ;i < options.length; i++){
-      optionObject.push({ value: options[i][0], label: options[i][1] });
-    }
-    return optionObject;
   }
 
 }

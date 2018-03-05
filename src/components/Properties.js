@@ -9,7 +9,7 @@ class Properties extends React.Component
     let fields = this.props.bean.order.map((path, i)=> {
       if(this.props.ids === undefined || this.props.ids.includes(i)){
         return(
-         <Property {...this.props} path={path} onChange={this.props.onChange} />
+         <Property {...this.props} path={path} />
         )
       }else{
         return null;
