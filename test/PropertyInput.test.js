@@ -62,7 +62,7 @@ test('date init with no valid date', () => {
 });
 
 test('file', () => {
-  const handle = jest.fn((path, value) => { console.log(path, value); });
+  const handle = jest.fn();//jest.fn((path, value) => { console.log(path, value); });
 
   const wrapper = mount(
     <PropertyInput path={"/file"} bean={bean} onChange={handle} />

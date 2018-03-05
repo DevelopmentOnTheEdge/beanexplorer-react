@@ -36,7 +36,7 @@ class AllPropertyTypes extends Component
   }
 
   handleSubmit(event) {
-    alert('A name was submitted: ' + this.state.value);
+    console.log('submit');
     event.preventDefault();
   }
 
@@ -56,6 +56,7 @@ class AllPropertyTypes extends Component
         <div className="col-lg-6">
           <form onSubmit={this.handleSubmit} className="bs-example">
             <PropertySet bean={this.state.bean} onChange={this.handleFieldChange} />
+            <input className="btn btn-primary" type="submit" value="Submit" />
           </form>
         </div>
         <div className="col-lg-6">

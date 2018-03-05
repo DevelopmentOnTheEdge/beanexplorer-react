@@ -31,6 +31,7 @@ exports[`renders without crashing 1`] = `
           id="textInputPropertyInput"
           onChange={[Function]}
           placeholder={undefined}
+          required={true}
           type="text"
           value="test"
         />
@@ -62,6 +63,7 @@ exports[`renders without crashing 1`] = `
             onClick={[Function]}
             onFocus={[Function]}
             onKeyDown={[Function]}
+            required={true}
             type="text"
             value="20.07.2017"
           />
@@ -478,6 +480,7 @@ exports[`renders without crashing 1`] = `
           onKeyPress={[Function]}
           onPaste={[Function]}
           placeholder="_____"
+          required={true}
           size={5}
           value="123__"
         />
@@ -506,6 +509,7 @@ exports[`renders without crashing 1`] = `
           id="textAreaPropertyInput"
           onChange={[Function]}
           placeholder="field for text"
+          required={true}
           rows={3}
           value="test"
         />
@@ -554,6 +558,7 @@ exports[`renders without crashing 1`] = `
           id="passwordPropertyInput"
           onChange={[Function]}
           placeholder={undefined}
+          required={true}
           type="password"
           value="password"
         />
@@ -581,6 +586,7 @@ exports[`renders without crashing 1`] = `
           id="filePropertyInput"
           multiple={undefined}
           onChange={[Function]}
+          required={true}
           type="file"
         />
       </div>
@@ -1047,6 +1053,7 @@ exports[`renders without crashing 1`] = `
         disabled={undefined}
         id="checkBoxPropertyInput"
         onChange={[Function]}
+        required={true}
         type="checkbox"
       />
       <label
@@ -1105,6 +1112,7 @@ exports[`simple property set 1`] = `
           id="numberPropertyInput"
           onChange={[Function]}
           placeholder={undefined}
+          required={true}
           type="text"
           value=""
         />
@@ -1153,6 +1161,7 @@ exports[`test outer 1`] = `
                 id="textInputPropertyInput"
                 onChange={[Function]}
                 placeholder={undefined}
+                required={true}
                 type="text"
                 value="test"
               />
@@ -1171,6 +1180,7 @@ exports[`test outer 1`] = `
               disabled={undefined}
               id="checkBoxPropertyInput"
               onChange={[Function]}
+              required={true}
               type="checkbox"
             />
             <label
@@ -1228,6 +1238,7 @@ exports[`test outer 1`] = `
                 id="textInput2PropertyInput"
                 onChange={[Function]}
                 placeholder={undefined}
+                required={true}
                 type="text"
                 value="test"
               />
@@ -1251,6 +1262,7 @@ exports[`test outer 1`] = `
               disabled={undefined}
               id="checkBox2PropertyInput"
               onChange={[Function]}
+              required={true}
               type="checkbox"
             />
             <label
@@ -1313,6 +1325,7 @@ exports[`test outer 1`] = `
                 id="textInput3PropertyInput"
                 onChange={[Function]}
                 placeholder={undefined}
+                required={true}
                 type="text"
                 value="test"
               />
@@ -1336,6 +1349,7 @@ exports[`test outer 1`] = `
               disabled={undefined}
               id="checkBox3PropertyInput"
               onChange={[Function]}
+              required={true}
               type="checkbox"
             />
             <label
@@ -1398,6 +1412,7 @@ exports[`test outer 1`] = `
                 id="textInput4PropertyInput"
                 onChange={[Function]}
                 placeholder={undefined}
+                required={false}
                 type="text"
                 value=""
               />

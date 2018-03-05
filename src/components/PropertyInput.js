@@ -141,11 +141,13 @@ class PropertyInput extends React.Component
     const value = JsonPointer.get(this.props.bean, "/values" + path);
     const id    = path.substring(path.lastIndexOf("/")+1) + "PropertyInput";
     const extraAttrsMap = PropertyInput.getExtraAttrsMap(meta.extraAttrs);
+    const required = meta.canBeNull !== true;
 
     const baseProps = {
       id: id,
       key: id,
-      disabled: meta.readOnly
+      disabled: meta.readOnly,
+      required: required
     };
 
     const rawTextInputProps = Object.assign({}, baseProps, {
@@ -179,7 +181,6 @@ class PropertyInput extends React.Component
                             this.callOnChange({type: "Base64File", name: fileName, data: data})
                           });
                         }else if(e.target.files && e.target.files.length === 0) {
-                          console.log(e.target.files);
                           this.callOnChange("")
                         }
                       }} />
@@ -210,7 +211,8 @@ class PropertyInput extends React.Component
           backspaceRemoves: false,
           disabled: meta.readOnly,
           multi: meta.multipleSelectionList,
-          matchPos: extraAttrsMap.matchPos || "any"
+          matchPos: extraAttrsMap.matchPos || "any",
+          required: required
         };
 
         if(extraAttrsMap.inputType === "Creatable")
@@ -227,7 +229,7 @@ class PropertyInput extends React.Component
         }
       },
       Date: () => (
-        <Datetime dateFormat="DD.MM.YYYY" id={id} key={id} inputProps={ {disabled: meta.readOnly} }
+        <Datetime dateFormat="DD.MM.YYYY" id={id} key={id} inputProps={ {disabled: meta.readOnly, required: required} }
                          onChange={(v) => this.dateToISOFormat(v)} value={this.dateFromISOFormat(value)}
                          timeFormat={false} closeOnSelect={true} closeOnTab={true} locale={this.props.localization.locale || "en"} />
       ),

@@ -25,6 +25,7 @@ exports[`contain property 1`] = `
           id="textInputPropertyInput"
           onChange={[Function]}
           placeholder={undefined}
+          required={true}
           type="text"
           value="test"
         />
