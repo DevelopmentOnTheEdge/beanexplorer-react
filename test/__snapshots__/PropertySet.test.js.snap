@@ -2,13 +2,13 @@
 
 exports[`empty property set 1`] = `
 <div
-  className="property-set row"
+  className="property-set form-row"
 />
 `;
 
 exports[`renders without crashing 1`] = `
 <div
-  className="property-set row"
+  className="property-set form-row"
 >
   <div
     className="col-lg-12"
@@ -576,7 +576,7 @@ exports[`renders without crashing 1`] = `
         className="controls"
       >
         <input
-          className="form-control"
+          className="form-control-file"
           disabled={undefined}
           id="filePropertyInput"
           multiple={undefined}
@@ -1082,7 +1082,7 @@ exports[`renders without crashing 1`] = `
 
 exports[`simple property set 1`] = `
 <div
-  className="property-set row"
+  className="property-set form-row"
 >
   <div
     className="col-lg-12"
@@ -1116,7 +1116,7 @@ exports[`simple property set 1`] = `
 
 exports[`test outer 1`] = `
 <div
-  className="property-set row"
+  className="property-set form-row"
 >
   <div
     className="property-group col-12"

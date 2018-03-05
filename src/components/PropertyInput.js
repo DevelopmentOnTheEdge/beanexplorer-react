@@ -156,21 +156,21 @@ class PropertyInput extends React.Component
     });
 
     const controls = {
-      textInput: () => {
-        return <input type="text" {...rawTextInputProps} />
-      },
-      passwordField: () => {
-        return <input type="password" {...rawTextInputProps} />
-      },
-      textArea: () => {
-        return <textarea rows={meta.rows || 3} cols={meta.columns} {...rawTextInputProps} />
-      },
+      textInput: () => (
+        <input type="text" {...rawTextInputProps} />
+      ),
+      passwordField: () => (
+        <input type="password" {...rawTextInputProps} />
+      ),
+      textArea: () => (
+        <textarea rows={meta.rows || 3} cols={meta.columns} {...rawTextInputProps} />
+      ),
       Boolean: () => (
         <input type="checkbox" checked={value === true || value === "true"} onChange={this.handleChange}
                className={this.props.controlClassName || 'form-check-input'} {...baseProps} />
       ),
-      file: () => {
-        return <input type="file" className={this.props.controlClassName || "form-control"} {...baseProps}
+      file: () => (
+        <input type="file" className={this.props.controlClassName || "form-control-file"} {...baseProps}
                       multiple={meta.multipleSelectionList}
                       onChange={(e) => {
                         if(e.target.files && e.target.files.length === 1) {
@@ -183,7 +183,7 @@ class PropertyInput extends React.Component
                           this.callOnChange("")
                         }
                       }} />
-      },
+      ),
       select: () => {
         let options = [];
         for(let i =0 ;i < meta.tagList.length; i++){
@@ -226,21 +226,21 @@ class PropertyInput extends React.Component
           return <Select {...selectAttr} />
         }
       },
-      Date: () => {
-        return <Datetime dateFormat="DD.MM.YYYY" id={id} key={id} inputProps={ {disabled: meta.readOnly} }
+      Date: () => (
+        <Datetime dateFormat="DD.MM.YYYY" id={id} key={id} inputProps={ {disabled: meta.readOnly} }
                          onChange={(v) => this.dateToISOFormat(v)} value={this.dateFromISOFormat(value)}
                          timeFormat={false} closeOnSelect={true} closeOnTab={true} locale={this.props.localization.locale || "en"} />
-      },
+      ),
 //      dateTime: {
 //        normal: () => {
 //          return ( React.createElement(Datetime, {id: id, key: id, value: value, parent: _this, onChange: handleChange, time: true, className: this.props.controlClassName}) );
 //        },
 //        readOnly: () => this.createStatic(value)
 //      },
-      maskTest: () => {
-        return <MaskedInput mask={PropertyInput.getMaskInput(meta.validationRules)} value={value === undefined ? "" : value}
+      maskTest: () => (
+        <MaskedInput mask={PropertyInput.getMaskInput(meta.validationRules)} value={value === undefined ? "" : value}
                             onChange={this.handleChange} className={this.props.controlClassName || "form-control"} {...baseProps} />
-      },
+      ),
       numberInput: () => {
         const numericProps = PropertyInput.getNumericProps(meta);
         return <NumericInput {...numericProps} placeholder={meta.placeholder} value={value} {...baseProps}
@@ -249,14 +249,14 @@ class PropertyInput extends React.Component
                              }}
                              style={ false } className={this.props.controlClassName || "form-control"} />
       },
-      WYSIWYG: () => {
-        return <CKEditor activeClass="p10" content={value}
+      WYSIWYG: () => (
+        <CKEditor activeClass="p10" content={value}
                          events={{
                            "change": (evt) => { this.callOnChange(evt.editor.getData()) }
                          }}
                          config={{language: 'ru', readOnly: meta.readOnly}}
         />
-      },
+      ),
       labelField: () => {
         if(meta.rawValue)
         {
@@ -289,11 +289,6 @@ class PropertyInput extends React.Component
       return controls['numberInput']()
     }
 
-    if(controls[meta.type] !== undefined)
-    {
-      return controls[meta.type]();
-    }
-
     if(extraAttrsMap.inputType === 'WYSIWYG')
     {
       return controls['WYSIWYG']();
@@ -312,6 +307,11 @@ class PropertyInput extends React.Component
     if(meta.validationRules !== undefined && PropertyInput.getMaskInput(meta.validationRules))
     {
       return controls['maskTest']();
+    }
+
+    if(controls[meta.type] !== undefined)
+    {
+      return controls[meta.type]();
     }
 
     return controls['textInput']();

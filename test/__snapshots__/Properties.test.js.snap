@@ -2,7 +2,7 @@
 
 exports[`contain property 1`] = `
 <div
-  className="row"
+  className="form-row"
 >
   <div
     className="col-lg-12"
@@ -45,6 +45,6 @@ exports[`contain property 1`] = `
 
 exports[`not contain property 1`] = `
 <div
-  className="row"
+  className="form-row"
 />
 `;

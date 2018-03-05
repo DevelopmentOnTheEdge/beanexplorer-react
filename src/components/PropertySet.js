@@ -1,6 +1,7 @@
 import React       from 'react';
 import PropTypes   from 'prop-types';
 import Property    from './Property';
+import classNames  from 'classnames';
 
 
 class PropertySet extends React.Component
@@ -50,7 +51,7 @@ class PropertySet extends React.Component
     finishGroup();
 
     return (
-      <div className="property-set row">
+      <div className={classNames('property-set', this.props.rowClass)}>
         {fields}
       </div>
     );
@@ -58,10 +59,15 @@ class PropertySet extends React.Component
 
 }
 
+PropertySet.defaultProps = {
+  rowClass: 'form-row'
+};
+
 PropertySet.propTypes = {
   bean: PropTypes.object.isRequired,
   onChange: PropTypes.func,
-  localization: PropTypes.object
+  localization: PropTypes.object,
+  rowClass: PropTypes.string
 };
 
 export default PropertySet;

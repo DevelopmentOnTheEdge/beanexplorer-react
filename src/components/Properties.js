@@ -17,17 +17,17 @@ class Properties extends React.Component
     });
 
     //todo remove outer element after migrate to react 16.2
-    return <div className={this.props.className}>{fields}</div>;
+    return <div className={this.props.rowClass}>{fields}</div>;
   }
 
 }
 
 Properties.defaultProps = {
-  className: "row",
+  rowClass: "form-row",
 };
 
 Properties.propTypes = {
-  className: PropTypes.string.isRequired,
+  rowClass: PropTypes.string,
   bean: PropTypes.object.isRequired,
   ids: PropTypes.array,
   onChange: PropTypes.func,
