@@ -36,7 +36,7 @@ class AllPropertyTypes extends Component
   }
 
   handleSubmit(event) {
-    console.log('submit');
+    console.log('submit', this.state.bean.values);
     event.preventDefault();
   }
 

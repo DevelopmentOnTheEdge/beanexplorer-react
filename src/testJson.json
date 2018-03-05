@@ -25,7 +25,6 @@
     },
     "/number": {
       "displayName": "Number",
-      "validationRules":[{"attr":"integer","type":"baseRule"}],
       "type": "Integer"
     },
     "/mask": {
@@ -48,7 +47,7 @@
     },
     "/file": {
       "displayName": "File",
-      "extraAttrs": [["inputType", "file"]]
+      "type": "Base64File"
     },
     "/select": {
       "displayName": "Select",

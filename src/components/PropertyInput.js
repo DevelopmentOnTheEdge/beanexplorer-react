@@ -4,7 +4,6 @@ import Datetime             from 'react-datetime';
 import moment               from 'moment';
 import Select               from 'react-select';
 import VirtualizedSelect    from 'react-virtualized-select'
-import NumericInput         from 'react-numeric-input';
 import CKEditor             from 'react-ckeditor-component';
 import MaskedInput          from 'react-maskedinput';
 import JsonPointer          from 'json-pointer';
@@ -76,44 +75,44 @@ class PropertyInput extends React.Component
     return null;
   }
 
-  static isNumberInput(rules)
-  {
-    for (let i =0 ; i< rules.length; i++)
-    {
-      if(rules[i].type === "baseRule" &&
-        ( rules[i].attr === "digits" || rules[i].attr === "integer" || rules[i].attr === "number" ))return true;
-    }
-    return false;
-  }
-
-  static getNumericProps(meta)
-  {
-    let props = {};
-    props['maxLength'] = 14;//errors if more
-    const rules = meta.validationRules;
-    for (let i =0 ; i< rules.length; i++)
-    {
-      if(rules[i].type === "baseRule" && (rules[i].attr === "number"))
-      {
-        props['precision'] = 10;
-      }
-      if(rules[i].type === "baseRule" && (rules[i].attr === "integer"))
-      {
-        props['min'] = -2147483648;
-        props['max'] = 2147483647;
-        props['maxLength'] = 9;
-        props['precision'] = 0;
-      }
-      // if(rules[i].type === "digits")
-      // {
-      //   props['min'] = 0;//todo not work
-      // }
-    }
-    if(meta.columnSize){
-      props['maxLength'] = parseInt(meta.columnSize);
-    }
-    return props;
-  }
+  // static isNumberInput(rules)
+  // {
+  //   for (let i =0 ; i< rules.length; i++)
+  //   {
+  //     if(rules[i].type === "baseRule" &&
+  //       ( rules[i].attr === "digits" || rules[i].attr === "integer" || rules[i].attr === "number" ))return true;
+  //   }
+  //   return false;
+  // }
+  //
+  // static getNumericProps(meta)
+  // {
+  //   let props = {};
+  //   props['maxLength'] = 14;//errors if more
+  //   const rules = meta.validationRules;
+  //   for (let i =0 ; i< rules.length; i++)
+  //   {
+  //     if(rules[i].type === "baseRule" && (rules[i].attr === "number"))
+  //     {
+  //       props['precision'] = 10;
+  //     }
+  //     if(rules[i].type === "baseRule" && (rules[i].attr === "integer"))
+  //     {
+  //       props['min'] = -2147483648;
+  //       props['max'] = 2147483647;
+  //       props['maxLength'] = 9;
+  //       props['precision'] = 0;
+  //     }
+  //     // if(rules[i].type === "digits")
+  //     // {
+  //     //   props['min'] = 0;
+  //     // }
+  //   }
+  //   if(meta.columnSize){
+  //     props['maxLength'] = parseInt(meta.columnSize);
+  //   }
+  //   return props;
+  // }
 
   static getBase64(file) {
     return new Promise((resolve, reject) => {
@@ -168,11 +167,29 @@ class PropertyInput extends React.Component
       textArea: () => (
         <textarea rows={meta.rows || 3} cols={meta.columns} {...rawTextInputProps} />
       ),
+      Integer: () => (
+        <input type="number" min={-2147483648} max={2147483647} step={1} {...rawTextInputProps} />
+      ),
+      Long: () => (
+        <input type="number" min={-9223372036854775808} max={9223372036854775807} step={1} {...rawTextInputProps} />
+      ),
+      Short: () => (
+        <input type="number" min={-32768} max={32767} step={1} {...rawTextInputProps} />
+      ),
+      Double: () => (
+        <input type="number" {...rawTextInputProps} />
+      ),
       Boolean: () => (
         <input type="checkbox" checked={value === true || value === "true"} onChange={this.handleChange}
                className={classNames("form-check-input", this.props.controlClassName)} {...baseProps} />
       ),
-      file: () => (
+      Date: () => (
+        <Datetime dateFormat="DD.MM.YYYY" id={id} key={id} inputProps={ {disabled: meta.readOnly, required: required} }
+                  onChange={(v) => this.dateToISOFormat(v)} value={this.dateFromISOFormat(value)}
+                  timeFormat={false} closeOnSelect={true} closeOnTab={true} locale={this.props.localization.locale || "en"}
+                  className={classNames(this.props.controlClassName)} />
+      ),
+      Base64File: () => (
         <input type="file" className={classNames("form-control-file", this.props.controlClassName)} {...baseProps}
                       multiple={meta.multipleSelectionList}
                       onChange={(e) => {
@@ -229,12 +246,6 @@ class PropertyInput extends React.Component
           return <Select {...selectAttr} />
         }
       },
-      Date: () => (
-        <Datetime dateFormat="DD.MM.YYYY" id={id} key={id} inputProps={ {disabled: meta.readOnly, required: required} }
-                  onChange={(v) => this.dateToISOFormat(v)} value={this.dateFromISOFormat(value)}
-                  timeFormat={false} closeOnSelect={true} closeOnTab={true} locale={this.props.localization.locale || "en"}
-                  className={classNames(this.props.controlClassName)} />
-      ),
 //      dateTime: {
 //        normal: () => {
 //          return ( React.createElement(Datetime, {id: id, key: id, value: value, parent: _this, onChange: handleChange, time: true, className: this.props.controlClassName}) );
@@ -245,14 +256,6 @@ class PropertyInput extends React.Component
         <MaskedInput mask={PropertyInput.getMaskInput(meta.validationRules)} value={value === undefined ? "" : value}
                             onChange={this.handleChange} className={classNames("form-control", this.props.controlClassName)} {...baseProps} />
       ),
-      numberInput: () => {
-        const numericProps = PropertyInput.getNumericProps(meta);
-        return <NumericInput {...numericProps} placeholder={meta.placeholder} value={value} {...baseProps}
-                             onChange={(valueAsNumber, valueAsString, input) => {
-                               this.callOnChange(valueAsNumber !== null ? valueAsNumber : "");
-                             }}
-                             style={ false } className={classNames("form-control", this.props.controlClassName)} />
-      },
       WYSIWYG: () => (
         <CKEditor activeClass="p10" content={value}
                          events={{
@@ -290,11 +293,6 @@ class PropertyInput extends React.Component
       return controls['labelField']();
     }
 
-    if(meta.validationRules !== undefined && PropertyInput.isNumberInput(meta.validationRules))
-    {
-      return controls['numberInput']()
-    }
-
     if(extraAttrsMap.inputType === 'WYSIWYG')
     {
       return controls['WYSIWYG']();
@@ -303,11 +301,6 @@ class PropertyInput extends React.Component
     if(extraAttrsMap.inputType === 'textArea')
     {
       return controls['textArea']();
-    }
-
-    if(extraAttrsMap.inputType === 'file')
-    {
-      return controls['file']();
     }
 
     if(meta.validationRules !== undefined && PropertyInput.getMaskInput(meta.validationRules))

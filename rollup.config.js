@@ -21,7 +21,6 @@ const globals = {
   'react-datetime': 'Datetime',
   'react-ckeditor-component': 'CKEditor',
   'react-maskedinput': 'MaskedInput',
-  'react-numeric-input': 'NumericInput',
   'react-select': 'Select',
   'react-virtualized-select': 'VirtualizedSelect',
 };
