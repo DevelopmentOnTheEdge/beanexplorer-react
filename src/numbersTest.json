@@ -2,8 +2,8 @@
   "values": {
     "short": "32767",
     "integer": "2147483647",
-    "long": "123",
-    "double": "123.3"
+    "long": "9223372036854775009",
+    "double": "100.5"
   },
   "meta": {
     "/short": {
@@ -16,7 +16,8 @@
     },
     "/long": {
       "displayName": "Long",
-      "type": "Long"
+      "type": "Long",
+      "message": "the numbers are rounded off 3 last digits of java Long.MAX_VALUE"
     },
     "/double": {
       "displayName": "Double",
