@@ -71,6 +71,7 @@ PropertySet.defaultProps = {
 PropertySet.propTypes = {
   bean: PropTypes.object.isRequired,
   onChange: PropTypes.func,
+  inline: PropTypes.bool,
   localization: PropTypes.object,
   rowClass: PropTypes.string
 };

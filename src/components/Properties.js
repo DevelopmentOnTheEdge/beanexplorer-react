@@ -30,6 +30,7 @@ Properties.propTypes = {
   rowClass: PropTypes.string,
   bean: PropTypes.object.isRequired,
   ids: PropTypes.array,
+  inline: PropTypes.bool,
   onChange: PropTypes.func,
   localization: PropTypes.object
 };

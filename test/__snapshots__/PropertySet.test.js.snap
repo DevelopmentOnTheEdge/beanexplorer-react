@@ -1266,6 +1266,9 @@ exports[`test outer 1`] = `
     className="property-group col-12"
   >
     <div
+      className="row property-group__line"
+    />
+    <div
       className="property-groop-box"
     >
       <h4
@@ -1277,65 +1280,73 @@ exports[`test outer 1`] = `
         className="row"
       >
         <div
-          className="col-lg-12"
+          className="col-12"
         >
           <div
-            className="form-group property required"
+            className="form-row"
           >
-            <label
-              className="form-control-label"
-              htmlFor="textInputField"
-            >
-              Name
-            </label>
             <div
-              className="controls"
+              className="col-lg-12"
             >
-              <input
-                className="form-control"
-                disabled={undefined}
-                id="textInputPropertyInput"
-                onChange={[Function]}
-                placeholder={undefined}
-                required={true}
-                type="text"
-                value="test"
-              />
+              <div
+                className="form-group property required"
+              >
+                <label
+                  className="form-control-label"
+                  htmlFor="textInputField"
+                >
+                  Name
+                </label>
+                <div
+                  className="controls"
+                >
+                  <input
+                    className="form-control"
+                    disabled={undefined}
+                    id="textInputPropertyInput"
+                    onChange={[Function]}
+                    placeholder={undefined}
+                    required={true}
+                    type="text"
+                    value="test"
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              className="col-lg-12"
+            >
+              <div
+                className="form-check property required"
+              >
+                <input
+                  checked={true}
+                  className="form-check-input"
+                  disabled={undefined}
+                  id="checkBoxPropertyInput"
+                  onChange={[Function]}
+                  required={true}
+                  type="checkbox"
+                />
+                <label
+                  className="form-check-label"
+                  htmlFor="checkBoxField"
+                >
+                  CheckBox
+                </label>
+              </div>
+            </div>
+            <div
+              className="form-group property property-label col-lg-12"
+            >
+              <label
+                className="form-control-label"
+                id="labelFieldPropertyInput"
+              >
+                Pellentesque habitant morbi tristique senectus...
+              </label>
             </div>
           </div>
-        </div>
-        <div
-          className="col-lg-12"
-        >
-          <div
-            className="form-check property required"
-          >
-            <input
-              checked={true}
-              className="form-check-input"
-              disabled={undefined}
-              id="checkBoxPropertyInput"
-              onChange={[Function]}
-              required={true}
-              type="checkbox"
-            />
-            <label
-              className="form-check-label"
-              htmlFor="checkBoxField"
-            >
-              CheckBox
-            </label>
-          </div>
-        </div>
-        <div
-          className="form-group property property-label col-lg-12"
-        >
-          <label
-            className="form-control-label"
-            id="labelFieldPropertyInput"
-          >
-            Pellentesque habitant morbi tristique senectus...
-          </label>
         </div>
       </div>
     </div>
@@ -1343,6 +1354,9 @@ exports[`test outer 1`] = `
   <div
     className="property-group col-12"
   >
+    <div
+      className="row property-group__line"
+    />
     <div
       className="property-groop-box"
     >
@@ -1355,75 +1369,83 @@ exports[`test outer 1`] = `
         className="row"
       >
         <div
-          className="col-lg-12"
+          className="col-12"
         >
           <div
-            className="form-group property has-error required"
+            className="form-row"
           >
-            <label
-              className="form-control-label"
-              htmlFor="textInput2Field"
-            >
-              Name
-            </label>
             <div
-              className="controls"
+              className="col-lg-12"
             >
-              <input
-                className="form-control"
-                disabled={undefined}
-                id="textInput2PropertyInput"
-                onChange={[Function]}
-                placeholder={undefined}
-                required={true}
-                type="text"
-                value="test"
-              />
-              <span
-                className="form-control-feedback"
+              <div
+                className="form-group property has-error required"
               >
-                Error here
-              </span>
+                <label
+                  className="form-control-label"
+                  htmlFor="textInput2Field"
+                >
+                  Name
+                </label>
+                <div
+                  className="controls"
+                >
+                  <input
+                    className="form-control"
+                    disabled={undefined}
+                    id="textInput2PropertyInput"
+                    onChange={[Function]}
+                    placeholder={undefined}
+                    required={true}
+                    type="text"
+                    value="test"
+                  />
+                  <span
+                    className="form-control-feedback"
+                  >
+                    Error here
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div
+              className="col-lg-12"
+            >
+              <div
+                className="form-check property has-error required"
+              >
+                <input
+                  checked={false}
+                  className="form-check-input"
+                  disabled={undefined}
+                  id="checkBox2PropertyInput"
+                  onChange={[Function]}
+                  required={true}
+                  type="checkbox"
+                />
+                <label
+                  className="form-check-label"
+                  htmlFor="checkBox2Field"
+                >
+                  CheckBox
+                </label>
+                <span
+                  className="form-control-feedback"
+                >
+                  You must check before submitting.
+                </span>
+              </div>
+            </div>
+            <div
+              className="form-group property property-label col-lg-12 has-error"
+            >
+              <label
+                className="form-control-label"
+                id="labelField2PropertyInput"
+              >
+                Pellentesque habitant morbi tristique senectus...
+              </label>
             </div>
           </div>
-        </div>
-        <div
-          className="col-lg-12"
-        >
-          <div
-            className="form-check property has-error required"
-          >
-            <input
-              checked={false}
-              className="form-check-input"
-              disabled={undefined}
-              id="checkBox2PropertyInput"
-              onChange={[Function]}
-              required={true}
-              type="checkbox"
-            />
-            <label
-              className="form-check-label"
-              htmlFor="checkBox2Field"
-            >
-              CheckBox
-            </label>
-            <span
-              className="form-control-feedback"
-            >
-              You must check before submitting.
-            </span>
-          </div>
-        </div>
-        <div
-          className="form-group property property-label col-lg-12 has-error"
-        >
-          <label
-            className="form-control-label"
-            id="labelField2PropertyInput"
-          >
-            Pellentesque habitant morbi tristique senectus...
-          </label>
         </div>
       </div>
     </div>
@@ -1431,6 +1453,9 @@ exports[`test outer 1`] = `
   <div
     className="property-group col-12"
   >
+    <div
+      className="row property-group__line"
+    />
     <div
       className="property-groop-box"
     >
@@ -1443,75 +1468,83 @@ exports[`test outer 1`] = `
         className="row"
       >
         <div
-          className="col-lg-12"
+          className="col-12"
         >
           <div
-            className="form-group property has-success required"
+            className="form-row"
           >
-            <label
-              className="form-control-label"
-              htmlFor="textInput3Field"
-            >
-              Name
-            </label>
             <div
-              className="controls"
+              className="col-lg-12"
             >
-              <input
-                className="form-control"
-                disabled={undefined}
-                id="textInput3PropertyInput"
-                onChange={[Function]}
-                placeholder={undefined}
-                required={true}
-                type="text"
-                value="test"
-              />
-              <span
-                className="form-control-feedback"
+              <div
+                className="form-group property has-success required"
               >
-                Ok here
-              </span>
+                <label
+                  className="form-control-label"
+                  htmlFor="textInput3Field"
+                >
+                  Name
+                </label>
+                <div
+                  className="controls"
+                >
+                  <input
+                    className="form-control"
+                    disabled={undefined}
+                    id="textInput3PropertyInput"
+                    onChange={[Function]}
+                    placeholder={undefined}
+                    required={true}
+                    type="text"
+                    value="test"
+                  />
+                  <span
+                    className="form-control-feedback"
+                  >
+                    Ok here
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div
+              className="col-lg-12"
+            >
+              <div
+                className="form-check property has-success required"
+              >
+                <input
+                  checked={true}
+                  className="form-check-input"
+                  disabled={undefined}
+                  id="checkBox3PropertyInput"
+                  onChange={[Function]}
+                  required={true}
+                  type="checkbox"
+                />
+                <label
+                  className="form-check-label"
+                  htmlFor="checkBox3Field"
+                >
+                  CheckBox
+                </label>
+                <span
+                  className="form-control-feedback"
+                >
+                  Ok here
+                </span>
+              </div>
+            </div>
+            <div
+              className="form-group property property-label col-lg-12 has-success"
+            >
+              <label
+                className="form-control-label"
+                id="labelField3PropertyInput"
+              >
+                Pellentesque habitant morbi tristique senectus...
+              </label>
             </div>
           </div>
-        </div>
-        <div
-          className="col-lg-12"
-        >
-          <div
-            className="form-check property has-success required"
-          >
-            <input
-              checked={true}
-              className="form-check-input"
-              disabled={undefined}
-              id="checkBox3PropertyInput"
-              onChange={[Function]}
-              required={true}
-              type="checkbox"
-            />
-            <label
-              className="form-check-label"
-              htmlFor="checkBox3Field"
-            >
-              CheckBox
-            </label>
-            <span
-              className="form-control-feedback"
-            >
-              Ok here
-            </span>
-          </div>
-        </div>
-        <div
-          className="form-group property property-label col-lg-12 has-success"
-        >
-          <label
-            className="form-control-label"
-            id="labelField3PropertyInput"
-          >
-            Pellentesque habitant morbi tristique senectus...
-          </label>
         </div>
       </div>
     </div>
@@ -1519,6 +1552,9 @@ exports[`test outer 1`] = `
   <div
     className="property-group col-12"
   >
+    <div
+      className="row property-group__line"
+    />
     <div
       className="property-groop-box"
     >
@@ -1531,30 +1567,122 @@ exports[`test outer 1`] = `
         className="row"
       >
         <div
-          className="col-lg-12"
+          className="col-12"
         >
           <div
-            className="form-group property"
+            className="form-row"
           >
-            <label
-              className="form-control-label"
-              htmlFor="textInput4Field"
-            >
-              Name
-            </label>
             <div
-              className="controls"
+              className="col-lg-12"
             >
-              <input
-                className="form-control"
-                disabled={undefined}
-                id="textInput4PropertyInput"
-                onChange={[Function]}
-                placeholder={undefined}
-                required={false}
-                type="text"
-                value=""
-              />
+              <div
+                className="form-group property"
+              >
+                <label
+                  className="form-control-label"
+                  htmlFor="textInput4Field"
+                >
+                  Name
+                </label>
+                <div
+                  className="controls"
+                >
+                  <input
+                    className="form-control"
+                    disabled={undefined}
+                    id="textInput4PropertyInput"
+                    onChange={[Function]}
+                    placeholder={undefined}
+                    required={false}
+                    type="text"
+                    value=""
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="property-group col-12"
+  >
+    <div
+      className="row property-group__line"
+    />
+    <div
+      className="property-groop-box"
+    >
+      <h4
+        className="property-group__title"
+      >
+        Group 5 - use cssClasses
+      </h4>
+      <div
+        className="row"
+      >
+        <div
+          className="col-12"
+        >
+          <div
+            className="form-row"
+          >
+            <div
+              className="col-lg-6"
+            >
+              <div
+                className="form-group property required"
+              >
+                <label
+                  className="form-control-label"
+                  htmlFor="nameField"
+                >
+                  Name
+                </label>
+                <div
+                  className="controls"
+                >
+                  <input
+                    className="form-control"
+                    disabled={undefined}
+                    id="namePropertyInput"
+                    onChange={[Function]}
+                    placeholder={undefined}
+                    required={true}
+                    type="text"
+                    value=""
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              className="col-lg-6"
+            >
+              <div
+                className="form-group property required"
+              >
+                <label
+                  className="form-control-label"
+                  htmlFor="subjectField"
+                >
+                  Subject
+                </label>
+                <div
+                  className="controls"
+                >
+                  <input
+                    className="form-control"
+                    disabled={undefined}
+                    id="subjectPropertyInput"
+                    onChange={[Function]}
+                    placeholder={undefined}
+                    required={true}
+                    type="text"
+                    value=""
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </div>

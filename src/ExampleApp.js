@@ -52,14 +52,20 @@ class AllPropertyTypes extends Component
     this.forceUpdate();
   }
 
+  getForm(){
+    return (
+      <form onSubmit={this.handleSubmit} className="bs-example">
+        <PropertySet bean={this.state.bean} onChange={this.handleFieldChange} />
+        <button type="submit" className="btn btn-primary mb-2">Submit</button>
+      </form>
+    )
+  }
+
   render() {
     return (
       <div className="row">
         <div className="col-lg-8">
-          <form onSubmit={this.handleSubmit} className="bs-example">
-            <PropertySet bean={this.state.bean} onChange={this.handleFieldChange} />
-            <input className="btn btn-primary" type="submit" value="Submit" />
-          </form>
+          {this.getForm()}
         </div>
         <div className="col-lg-4">
           <textarea rows="200" name="inputJson" className="inputJson form-control" defaultValue={JSON.stringify(this.state.bean, null, 4)}
@@ -112,7 +118,7 @@ class Numbers extends AllPropertyTypes
   }
 }
 
-class Layouts extends AllPropertyTypes
+class InlineForm extends AllPropertyTypes
 {
   constructor(props) {
     super(props);
@@ -120,6 +126,17 @@ class Layouts extends AllPropertyTypes
     this.state = {
       bean: layout1
     };
+  }
+
+  getForm(){
+    return (
+      <form onSubmit={this.handleSubmit} className="bs-example form-inline">
+        <PropertySet bean={this.state.bean} onChange={this.handleFieldChange} inline />
+        <div className="col-auto">
+          <button type="submit" className="btn btn-primary">Submit</button>
+        </div>
+      </form>
+    )
   }
 }
 
@@ -150,14 +167,14 @@ const ExampleApp = () => (
             <li className="nav-item"><NavLink to="/allReadOnly" className="nav-link" >All Read Only</NavLink></li>
             <li className="nav-item"><NavLink to="/numbers" className="nav-link" >Numbers</NavLink></li>
             <li className="nav-item"><NavLink to="/propertyOuter" className="nav-link" >Property outer</NavLink></li>
-            <li className="nav-item"><NavLink to="/layouts" className="nav-link" >Layouts</NavLink></li>
+            <li className="nav-item"><NavLink to="/inlineForm" className="nav-link" >Inline form</NavLink></li>
           </ul>
           <br/>
           <Route exact path="/" component={AllPropertyTypes}/>
           <Route path="/allReadOnly" component={AllReadOnly}/>
           <Route path="/numbers" component={Numbers}/>
           <Route path="/propertyOuter" component={PropertyOuter}/>
-          <Route path="/layouts" component={Layouts}/>
+          <Route path="/inlineForm" component={InlineForm}/>
           <br/><br/><br/><br/>
         </div>
       </div>

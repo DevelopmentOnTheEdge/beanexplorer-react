@@ -9,7 +9,9 @@
     "textInput3": "test",
     "checkBox3": true,
     "labelField3": "Pellentesque habitant morbi tristique senectus...",
-    "textInput4": ""
+    "textInput4": "",
+    "name": "",
+    "subject": ""
   },
   "meta": {
     "/textInput": {
@@ -69,6 +71,17 @@
       "groupName": "Group 4 - CanBeNull",
       "groupId": 4,
       "canBeNull": true
+    },
+    "/name": {
+      "displayName": "Name",
+      "cssClasses": "col-lg-6",
+      "groupName": "Group 5 - use cssClasses",
+      "groupId": 5
+    },
+    "/subject": {
+      "displayName": "Subject",
+      "cssClasses": "col-lg-6",
+      "groupId": 5
     }
   },
   "order": [
@@ -81,6 +94,8 @@
     "/textInput3",
     "/checkBox3",
     "/labelField3",
-    "/textInput4"
+    "/textInput4",
+    "/name",
+    "/subject"
   ]
 }

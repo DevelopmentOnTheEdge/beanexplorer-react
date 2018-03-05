@@ -1,46 +1,18 @@
 {
   "values": {
     "name": "",
-    "subject": "",
-    "message": "",
-    "name2": "",
-    "subject2": "",
-    "message2": ""
+    "subject": ""
   },
   "meta": {
     "/name": {
-      "displayName": "Name",
-      "cssClasses": "col-lg-6"
+      "displayName": "Name"
     },
     "/subject": {
-      "displayName": "Subject",
-      "cssClasses": "col-lg-6"
-    },
-    "/message": {
-      "displayName": "Message"
-    },
-    "/name2": {
-      "displayName": "Name",
-      "cssClasses": "col-lg-6",
-      "groupName": "Group 1",
-      "groupId": 1
-    },
-    "/subject2": {
-      "displayName": "Subject",
-      "cssClasses": "col-lg-6",
-      "groupId": 1
-    },
-    "/message2": {
-      "displayName": "Message",
-      "groupId": 1
+      "displayName": "Subject"
     }
   },
   "order": [
     "/name",
-    "/subject",
-    "/message",
-    "/name2",
-    "/subject2",
-    "/message2"
+    "/subject"
   ]
 }

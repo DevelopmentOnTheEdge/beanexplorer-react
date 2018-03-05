@@ -47,40 +47,54 @@ class Property extends React.Component
       {'required' : !meta.canBeNull}
     );
 
-    if(meta.type === "Boolean")
+    if(this.props.inline)
     {
-      return (
-        <div className={outerClasses}>
-          <div className={classes}>
-            <PropertyInput {...this.props} />
-            {label}
-            {messageElement}
+      {
+        return (
+          <div className="col-auto">
+            <input type="text" className="form-control" id="inlineFormInput" placeholder="Jane Doe"/>
           </div>
-        </div>
-      );
-    }
-    else if(meta.labelField)
-    {
-      return (
-        <div className={classNames('form-group property property-label', meta.cssClasses || 'col-lg-12', hasStatusClasses)}>
-          <PropertyInput {...this.props} />
-        </div>
-      );
+        );
+      }
     }
     else
     {
-      return (
-        <div className={outerClasses}>
-          <div className={classes}>
-            {label}
-            <div className="controls">
+      if(meta.type === "Boolean")
+      {
+        return (
+          <div className={outerClasses}>
+            <div className={classes}>
               <PropertyInput {...this.props} />
+              {label}
               {messageElement}
             </div>
           </div>
-        </div>
-      );
+        );
+      }
+      else if(meta.labelField)
+      {
+        return (
+          <div className={classNames('form-group property property-label', meta.cssClasses || 'col-lg-12', hasStatusClasses)}>
+            <PropertyInput {...this.props} />
+          </div>
+        );
+      }
+      else
+      {
+        return (
+          <div className={outerClasses}>
+            <div className={classes}>
+              {label}
+              <div className="controls">
+                <PropertyInput {...this.props} />
+                {messageElement}
+              </div>
+            </div>
+          </div>
+        );
+      }
     }
+
   }
 
 }
@@ -101,6 +115,7 @@ Property.propTypes = {
   bean: PropTypes.object.isRequired,
   path: PropTypes.string,
   id: PropTypes.number,
+  inline: PropTypes.bool,
   onChange: PropTypes.func,
   localization: PropTypes.object
 };
