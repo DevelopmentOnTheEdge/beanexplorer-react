@@ -31,13 +31,13 @@
   display: block;
 }
 
-.has-danger .form-control-feedback,
-.has-danger .form-check-label,
-.has-danger .form-control-label{
+.has-error .form-control-feedback,
+.has-error .form-check-label,
+.has-error .form-control-label{
   color: #b90000;
 }
 
-.has-danger input{
+.has-error input{
   border-color: #dc3545;
 }
 

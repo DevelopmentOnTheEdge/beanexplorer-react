@@ -27,7 +27,7 @@ class Property extends React.Component
     const messageElement = meta.message ? <span className={this.props.messageClassName || "form-control-feedback"}>{meta.message}</span> : undefined;
 
     let hasStatusClasses = classNames(
-      {'has-danger' : meta.status === 'error'},
+      {'has-error' : meta.status === 'error'},
       {'has-warning' : meta.status === 'warning'},
       {'has-success' : meta.status === 'success'},
     );

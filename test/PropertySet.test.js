@@ -3,6 +3,7 @@ import PropertySet from '../src/components/PropertySet';
 import renderer from 'react-test-renderer';
 import {shallow, mount, render} from 'enzyme';
 import bean from '../src/testJson.json';
+import testOuter from '../src/testOuter.json';
 
 //https://github.com/YouCanBookMe/react-datetime/issues/384
 jest.mock('react-dom', () => ({
@@ -23,6 +24,13 @@ test('renders without crashing', () => {
 
   const component = renderer.create(
     <PropertySet bean={bean} />
+  );
+  expect(component.toJSON()).toMatchSnapshot();
+});
+
+test('test outer', () => {
+  const component = renderer.create(
+    <PropertySet bean={testOuter} />
   );
   expect(component.toJSON()).toMatchSnapshot();
 });

@@ -44,8 +44,7 @@
     },
     "/password": {
       "displayName": "Password",
-      "passwordField": true,
-      "status": "success"
+      "passwordField": true
     },
     "/file": {
       "displayName": "File",
@@ -67,8 +66,7 @@
     },
     "/checkBox": {
       "displayName": "CheckBox",
-      "type": "Boolean",
-      "status": "success"
+      "type": "Boolean"
     },
     "/labelFieldRaw": {
       "labelField": true,
