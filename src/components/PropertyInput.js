@@ -18,22 +18,6 @@ class PropertyInput extends React.Component
     this.handleChange = this.handleChange.bind(this);
   }
 
-  //todo refactoring - many unused
-  static get(path, bean, localization){
-    const itemName = path.substring(path.lastIndexOf("/")+1);
-    const itemMeta = bean.meta[path];
-    const itemValue = JsonPointer.get(bean, "/values" + path);
-    return {
-      meta: itemMeta,
-      name: itemName,
-      value: itemValue,
-      path: path,
-      key: itemName + "Property",
-      ref: itemName + "Property",
-      localization: localization
-    }
-  }
-
   getPath() {
     if(this.props.path) {
       return this.props.path;
@@ -152,17 +136,16 @@ class PropertyInput extends React.Component
   }
 
   render() {
-    const attr = PropertyInput.get(this.getPath(), this.props.bean, this.props.localization);
-
-    const meta  = attr.meta;
-    const value = attr.value;
-    const id    = attr.name + "Field";
+    const path  = this.getPath();
+    const meta  = this.props.bean.meta[path];
+    const value = JsonPointer.get(this.props.bean, "/values" + path);
+    const id    = path.substring(path.lastIndexOf("/")+1) + "PropertyInput";
     const extraAttrsMap = PropertyInput.getExtraAttrsMap(meta.extraAttrs);
 
     const controls = {
       Boolean: () => (
         <input type="checkbox" id={id} key={id} checked={value === true || value === "true"} onChange={this.handleChange}
-               className={attr.controlClassName || 'form-check-input'} disabled={meta.readOnly} />
+               className={this.props.controlClassName || 'form-check-input'} disabled={meta.readOnly} />
       ),
       select: () => {
         let options = [];
@@ -181,12 +164,12 @@ class PropertyInput extends React.Component
         }
         const selectAttr = {
           ref: id, name: id, value: strValue, options: options, onChange: (v) => this.handleChangeSelect(v),
-          clearAllText: attr.localization.clearAllText,
-          clearValueText: attr.localization.clearValueText,
-          noResultsText: attr.localization.noResultsText,
-          searchPromptText: attr.localization.searchPromptText,
-          loadingPlaceholder: attr.localization.loadingPlaceholder,
-          placeholder: meta.placeholder || attr.localization.placeholder,
+          clearAllText: this.props.localization.clearAllText,
+          clearValueText: this.props.localization.clearValueText,
+          noResultsText: this.props.localization.noResultsText,
+          searchPromptText: this.props.localization.searchPromptText,
+          loadingPlaceholder: this.props.localization.loadingPlaceholder,
+          placeholder: meta.placeholder || this.props.localization.placeholder,
           backspaceRemoves: false,
           disabled: meta.readOnly,
           multi: meta.multipleSelectionList,
@@ -209,42 +192,42 @@ class PropertyInput extends React.Component
       Date: () => {
         return <Datetime dateFormat="DD.MM.YYYY" value={this.dateFromISOFormat(value)}
                          onChange={(v) => this.dateToISOFormat(v)} id={id} key={id}
-                         timeFormat={false} closeOnSelect={true} closeOnTab={true} locale={attr.localization.locale || "en"}
+                         timeFormat={false} closeOnSelect={true} closeOnTab={true} locale={this.props.localization.locale || "en"}
                          inputProps={ {disabled: meta.readOnly} } />
       },
 //      dateTime: {
 //        normal: () => {
-//          return ( React.createElement(Datetime, {id: id, key: id, value: value, parent: _this, onChange: handleChange, time: true, className: attr.controlClassName}) );
+//          return ( React.createElement(Datetime, {id: id, key: id, value: value, parent: _this, onChange: handleChange, time: true, className: this.props.controlClassName}) );
 //        },
 //        readOnly: () => this.createStatic(value)
 //      },
       textArea: () => {
         return <textarea placeholder={meta.placeholder} id={id} rows={meta.rows || 3} cols={meta.columns} value={value === undefined ? "" : value}
-                         onChange={this.handleChange} className={attr.controlClassName || "form-control"} disabled={meta.readOnly} />
+                         onChange={this.handleChange} className={this.props.controlClassName || "form-control"} disabled={meta.readOnly} />
       },
       maskTest: () => {
         return <MaskedInput mask={PropertyInput.getMaskInput(meta.validationRules)} value={value === undefined ? "" : value}
-                            onChange={this.handleChange} className={attr.controlClassName || "form-control"} disabled={meta.readOnly} />
+                            onChange={this.handleChange} className={this.props.controlClassName || "form-control"} disabled={meta.readOnly} />
       },
       textInput: () => {
         return <input type="text" placeholder={meta.placeholder} id={id} key={id} value={value === undefined ? "" : value}
-                      onChange={this.handleChange} className={attr.controlClassName || "form-control"} disabled={meta.readOnly} />
+                      onChange={this.handleChange} className={this.props.controlClassName || "form-control"} disabled={meta.readOnly} />
       },
       numberInput: () => {
         const numericProps = PropertyInput.getNumericProps(meta);
         return <NumericInput {...numericProps} placeholder={meta.placeholder} id={id} key={id} value={value}
                              onChange={(valueAsNumber, valueAsString, input) => {
-                               this.props.onChange(this.props.path, valueAsNumber !== null ? valueAsNumber : "");
+                               this.callOnChange(valueAsNumber !== null ? valueAsNumber : "");
                              }}
-                             style={ false } className={attr.controlClassName || "form-control"} disabled={meta.readOnly} />
+                             style={ false } className={this.props.controlClassName || "form-control"} disabled={meta.readOnly} />
       },
       passwordField: () => {
         return <input type="password" placeholder={meta.placeholder} id={id} key={id} value={value === undefined ? "" : value}
-                      onChange={this.handleChange} className={attr.controlClassName || "form-control"} disabled={meta.readOnly} />
+                      onChange={this.handleChange} className={this.props.controlClassName || "form-control"} disabled={meta.readOnly} />
       },
       file: () => {
         return <input type="file" placeholder={meta.placeholder} id={id} key={id}
-                      className={attr.controlClassName || "form-control"} disabled={meta.readOnly}
+                      className={this.props.controlClassName || "form-control"} disabled={meta.readOnly}
                       multiple={meta.multipleSelectionList}
                       onChange={(e) => {
                         if(e.target.files && e.target.files.length === 1) {
@@ -347,6 +330,7 @@ PropertyInput.propTypes = {
   id: PropTypes.number,
   onChange: PropTypes.func,
   localization: PropTypes.object,
+  controlClassName: PropTypes.string, 
 };
 
 export default PropertyInput;

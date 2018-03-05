@@ -22,7 +22,7 @@ exports[`contain property 1`] = `
         <input
           className="form-control"
           disabled={undefined}
-          id="textInputField"
+          id="textInputPropertyInput"
           onChange={[Function]}
           placeholder={undefined}
           type="text"
