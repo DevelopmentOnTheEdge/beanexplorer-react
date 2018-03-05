@@ -470,6 +470,7 @@ exports[`renders without crashing 1`] = `
         <input
           className="form-control"
           disabled={undefined}
+          id="maskPropertyInput"
           mask="11111"
           maxLength={5}
           onChange={[Function]}
@@ -580,7 +581,6 @@ exports[`renders without crashing 1`] = `
           id="filePropertyInput"
           multiple={undefined}
           onChange={[Function]}
-          placeholder={undefined}
           type="file"
         />
       </div>

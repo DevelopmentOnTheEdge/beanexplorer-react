@@ -142,11 +142,48 @@ class PropertyInput extends React.Component
     const id    = path.substring(path.lastIndexOf("/")+1) + "PropertyInput";
     const extraAttrsMap = PropertyInput.getExtraAttrsMap(meta.extraAttrs);
 
+    const baseProps = {
+      id: id,
+      key: id,
+      disabled: meta.readOnly
+    };
+
+    const rawTextInputProps = Object.assign({}, baseProps, {
+      value: value === undefined ? "" : value,
+      onChange: this.handleChange,
+      placeholder: meta.placeholder,
+      className: this.props.controlClassName || "form-control"
+    });
+
     const controls = {
+      textInput: () => {
+        return <input type="text" {...rawTextInputProps} />
+      },
+      passwordField: () => {
+        return <input type="password" {...rawTextInputProps} />
+      },
+      textArea: () => {
+        return <textarea rows={meta.rows || 3} cols={meta.columns} {...rawTextInputProps} />
+      },
       Boolean: () => (
-        <input type="checkbox" id={id} key={id} checked={value === true || value === "true"} onChange={this.handleChange}
-               className={this.props.controlClassName || 'form-check-input'} disabled={meta.readOnly} />
+        <input type="checkbox" checked={value === true || value === "true"} onChange={this.handleChange}
+               className={this.props.controlClassName || 'form-check-input'} {...baseProps} />
       ),
+      file: () => {
+        return <input type="file" className={this.props.controlClassName || "form-control"} {...baseProps}
+                      multiple={meta.multipleSelectionList}
+                      onChange={(e) => {
+                        if(e.target.files && e.target.files.length === 1) {
+                          const fileName = e.target.files[0].name;
+                          PropertyInput.getBase64(e.target.files[0]).then(data => {
+                            this.callOnChange({type: "Base64File", name: fileName, data: data})
+                          });
+                        }else if(e.target.files && e.target.files.length === 0) {
+                          console.log(e.target.files);
+                          this.callOnChange("")
+                        }
+                      }} />
+      },
       select: () => {
         let options = [];
         for(let i =0 ;i < meta.tagList.length; i++){
@@ -190,10 +227,9 @@ class PropertyInput extends React.Component
         }
       },
       Date: () => {
-        return <Datetime dateFormat="DD.MM.YYYY" value={this.dateFromISOFormat(value)}
-                         onChange={(v) => this.dateToISOFormat(v)} id={id} key={id}
-                         timeFormat={false} closeOnSelect={true} closeOnTab={true} locale={this.props.localization.locale || "en"}
-                         inputProps={ {disabled: meta.readOnly} } />
+        return <Datetime dateFormat="DD.MM.YYYY" id={id} key={id} inputProps={ {disabled: meta.readOnly} }
+                         onChange={(v) => this.dateToISOFormat(v)} value={this.dateFromISOFormat(value)}
+                         timeFormat={false} closeOnSelect={true} closeOnTab={true} locale={this.props.localization.locale || "en"} />
       },
 //      dateTime: {
 //        normal: () => {
@@ -201,46 +237,17 @@ class PropertyInput extends React.Component
 //        },
 //        readOnly: () => this.createStatic(value)
 //      },
-      textArea: () => {
-        return <textarea placeholder={meta.placeholder} id={id} rows={meta.rows || 3} cols={meta.columns} value={value === undefined ? "" : value}
-                         onChange={this.handleChange} className={this.props.controlClassName || "form-control"} disabled={meta.readOnly} />
-      },
       maskTest: () => {
         return <MaskedInput mask={PropertyInput.getMaskInput(meta.validationRules)} value={value === undefined ? "" : value}
-                            onChange={this.handleChange} className={this.props.controlClassName || "form-control"} disabled={meta.readOnly} />
-      },
-      textInput: () => {
-        return <input type="text" placeholder={meta.placeholder} id={id} key={id} value={value === undefined ? "" : value}
-                      onChange={this.handleChange} className={this.props.controlClassName || "form-control"} disabled={meta.readOnly} />
+                            onChange={this.handleChange} className={this.props.controlClassName || "form-control"} {...baseProps} />
       },
       numberInput: () => {
         const numericProps = PropertyInput.getNumericProps(meta);
-        return <NumericInput {...numericProps} placeholder={meta.placeholder} id={id} key={id} value={value}
+        return <NumericInput {...numericProps} placeholder={meta.placeholder} value={value} {...baseProps}
                              onChange={(valueAsNumber, valueAsString, input) => {
                                this.callOnChange(valueAsNumber !== null ? valueAsNumber : "");
                              }}
-                             style={ false } className={this.props.controlClassName || "form-control"} disabled={meta.readOnly} />
-      },
-      passwordField: () => {
-        return <input type="password" placeholder={meta.placeholder} id={id} key={id} value={value === undefined ? "" : value}
-                      onChange={this.handleChange} className={this.props.controlClassName || "form-control"} disabled={meta.readOnly} />
-      },
-      file: () => {
-        return <input type="file" placeholder={meta.placeholder} id={id} key={id}
-                      className={this.props.controlClassName || "form-control"} disabled={meta.readOnly}
-                      multiple={meta.multipleSelectionList}
-                      onChange={(e) => {
-                        if(e.target.files && e.target.files.length === 1) {
-                          const fileName = e.target.files[0].name;
-                          PropertyInput.getBase64(e.target.files[0]).then(data => {
-                            this.callOnChange({type: "Base64File", name: fileName, data: data})
-                          });
-                        }else if(e.target.files && e.target.files.length === 0) {
-                          console.log(e.target.files);
-                          this.callOnChange("")
-                        }
-                      }
-                      } />
+                             style={ false } className={this.props.controlClassName || "form-control"} />
       },
       WYSIWYG: () => {
         return <CKEditor activeClass="p10" content={value}
