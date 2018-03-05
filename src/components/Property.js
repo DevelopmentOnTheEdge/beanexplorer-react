@@ -19,8 +19,6 @@ class Property extends React.Component
     const meta  = this.props.bean.meta[path];
     const id    = path.substring(path.lastIndexOf("/")+1) + "Field";
 
-    let valueControl = this.getControl();
-
     const label = <label htmlFor={id} className={meta.type === "Boolean" ? 'form-check-label' : 'form-control-label'}>
       {meta.displayName || id}</label>;
 
@@ -54,33 +52,35 @@ class Property extends React.Component
       return (
         <div className={outerClasses}>
           <div className={classes}>
-            {valueControl}
+            <PropertyInput {...this.props} />
             {label}
             {messageElement}
           </div>
         </div>
       );
-    }else if(meta.labelField){
+    }
+    else if(meta.labelField)
+    {
       return (
-        <div className={classNames('form-group property property-label', meta.cssClasses || 'col-lg-12', hasStatusClasses)}>{valueControl}</div>
+        <div className={classNames('form-group property property-label', meta.cssClasses || 'col-lg-12', hasStatusClasses)}>
+          <PropertyInput {...this.props} />
+        </div>
       );
-    }else{
+    }
+    else
+    {
       return (
         <div className={outerClasses}>
           <div className={classes}>
             {label}
             <div className="controls">
-              {valueControl}
+              <PropertyInput {...this.props} />
               {messageElement}
             </div>
           </div>
         </div>
       );
     }
-  }
-
-  getControl(){
-    return <PropertyInput {...this.props}/>
   }
 
 }

@@ -14,7 +14,7 @@ exports[`contain property 1`] = `
         className="form-control-label"
         htmlFor="textInputField"
       >
-        Name
+        Text input
       </label>
       <div
         className="controls"

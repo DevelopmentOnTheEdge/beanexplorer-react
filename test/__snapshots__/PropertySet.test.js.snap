@@ -98,8 +98,13 @@ exports[`numbersTest 1`] = `
           required={true}
           step={1}
           type="number"
-          value="123"
+          value="9223372036854775009"
         />
+        <span
+          className="form-control-feedback"
+        >
+          the numbers are rounded off 3 last digits of java Long.MAX_VALUE
+        </span>
       </div>
     </div>
   </div>
@@ -126,7 +131,7 @@ exports[`numbersTest 1`] = `
           placeholder={undefined}
           required={true}
           type="number"
-          value="123.3"
+          value="100.5"
         />
       </div>
     </div>
@@ -148,7 +153,7 @@ exports[`renders without crashing 1`] = `
         className="form-control-label"
         htmlFor="textInputField"
       >
-        Name
+        Text input
       </label>
       <div
         className="controls"
