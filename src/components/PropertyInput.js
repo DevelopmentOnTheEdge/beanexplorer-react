@@ -4,10 +4,11 @@ import Datetime             from 'react-datetime';
 import moment               from 'moment';
 import Select               from 'react-select';
 import VirtualizedSelect    from 'react-virtualized-select'
-import NumericInput          from 'react-numeric-input';
-import CKEditor              from 'react-ckeditor-component';
-import MaskedInput           from 'react-maskedinput';
+import NumericInput         from 'react-numeric-input';
+import CKEditor             from 'react-ckeditor-component';
+import MaskedInput          from 'react-maskedinput';
 import JsonPointer          from 'json-pointer';
+import classNames           from 'classnames';
 
 
 class PropertyInput extends React.Component
@@ -154,7 +155,7 @@ class PropertyInput extends React.Component
       value: value === undefined ? "" : value,
       onChange: this.handleChange,
       placeholder: meta.placeholder,
-      className: this.props.controlClassName || "form-control"
+      className: classNames("form-control", this.props.controlClassName)
     });
 
     const controls = {
@@ -169,10 +170,10 @@ class PropertyInput extends React.Component
       ),
       Boolean: () => (
         <input type="checkbox" checked={value === true || value === "true"} onChange={this.handleChange}
-               className={this.props.controlClassName || 'form-check-input'} {...baseProps} />
+               className={classNames("form-check-input", this.props.controlClassName)} {...baseProps} />
       ),
       file: () => (
-        <input type="file" className={this.props.controlClassName || "form-control-file"} {...baseProps}
+        <input type="file" className={classNames("form-control-file", this.props.controlClassName)} {...baseProps}
                       multiple={meta.multipleSelectionList}
                       onChange={(e) => {
                         if(e.target.files && e.target.files.length === 1) {
@@ -230,8 +231,9 @@ class PropertyInput extends React.Component
       },
       Date: () => (
         <Datetime dateFormat="DD.MM.YYYY" id={id} key={id} inputProps={ {disabled: meta.readOnly, required: required} }
-                         onChange={(v) => this.dateToISOFormat(v)} value={this.dateFromISOFormat(value)}
-                         timeFormat={false} closeOnSelect={true} closeOnTab={true} locale={this.props.localization.locale || "en"} />
+                  onChange={(v) => this.dateToISOFormat(v)} value={this.dateFromISOFormat(value)}
+                  timeFormat={false} closeOnSelect={true} closeOnTab={true} locale={this.props.localization.locale || "en"}
+                  className={classNames(this.props.controlClassName)} />
       ),
 //      dateTime: {
 //        normal: () => {
@@ -241,7 +243,7 @@ class PropertyInput extends React.Component
 //      },
       maskTest: () => (
         <MaskedInput mask={PropertyInput.getMaskInput(meta.validationRules)} value={value === undefined ? "" : value}
-                            onChange={this.handleChange} className={this.props.controlClassName || "form-control"} {...baseProps} />
+                            onChange={this.handleChange} className={classNames("form-control", this.props.controlClassName)} {...baseProps} />
       ),
       numberInput: () => {
         const numericProps = PropertyInput.getNumericProps(meta);
@@ -249,7 +251,7 @@ class PropertyInput extends React.Component
                              onChange={(valueAsNumber, valueAsString, input) => {
                                this.callOnChange(valueAsNumber !== null ? valueAsNumber : "");
                              }}
-                             style={ false } className={this.props.controlClassName || "form-control"} />
+                             style={ false } className={classNames("form-control", this.props.controlClassName)} />
       },
       WYSIWYG: () => (
         <CKEditor activeClass="p10" content={value}
@@ -262,11 +264,13 @@ class PropertyInput extends React.Component
       labelField: () => {
         if(meta.rawValue)
         {
-          return <div dangerouslySetInnerHTML={{__html: value}} />
+          return <div className={classNames("form-control-label", this.props.controlClassName)} id={id} key={id}
+                      dangerouslySetInnerHTML={{__html: value}} />
         }
         else
         {
-          return <label className="form-control-label">{value}</label>
+          return <label className={classNames("form-control-label", this.props.controlClassName)}
+                        id={id} key={id}>{value}</label>
         }
       },
     };

@@ -1068,11 +1068,13 @@ exports[`renders without crashing 1`] = `
     className="form-group property property-label col-lg-12"
   >
     <div
+      className="form-control-label"
       dangerouslySetInnerHTML={
         Object {
           "__html": "<p>Pellentesque habitant morbi tristique senectus et netus et <a href=\\"#test\\">Link</a> malesuada fames ac <b>turpis</b> egestas.</p>",
         }
       }
+      id="labelFieldRawPropertyInput"
     />
   </div>
   <div
@@ -1080,6 +1082,7 @@ exports[`renders without crashing 1`] = `
   >
     <label
       className="form-control-label"
+      id="labelFieldPropertyInput"
     >
       Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
     </label>
@@ -1196,6 +1199,7 @@ exports[`test outer 1`] = `
         >
           <label
             className="form-control-label"
+            id="labelFieldPropertyInput"
           >
             Pellentesque habitant morbi tristique senectus...
           </label>
@@ -1283,6 +1287,7 @@ exports[`test outer 1`] = `
         >
           <label
             className="form-control-label"
+            id="labelField2PropertyInput"
           >
             Pellentesque habitant morbi tristique senectus...
           </label>
@@ -1370,6 +1375,7 @@ exports[`test outer 1`] = `
         >
           <label
             className="form-control-label"
+            id="labelField3PropertyInput"
           >
             Pellentesque habitant morbi tristique senectus...
           </label>

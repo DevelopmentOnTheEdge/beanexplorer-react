@@ -37,6 +37,7 @@ exports[`contain property 1`] = `
   >
     <label
       className="form-control-label"
+      id="labelFieldPropertyInput"
     >
       Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
     </label>
