@@ -17,7 +17,7 @@
   },
   "meta": {
     "/textInput": {
-      "displayName": "Name"
+      "displayName": "Text input"
     },
     "/date": {
       "displayName": "Date",

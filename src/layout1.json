@@ -1,0 +1,25 @@
+{
+  "values": {
+    "name": "",
+    "subject": "",
+    "message": ""
+  },
+  "meta": {
+    "/name": {
+      "displayName": "Name",
+      "cssClasses": "col-lg-6"
+    },
+    "/subject": {
+      "displayName": "Subject",
+      "cssClasses": "col-lg-6"
+    },
+    "/message": {
+      "displayName": "Message"
+    }
+  },
+  "order": [
+    "/name",
+    "/subject",
+    "/message"
+  ]
+}
