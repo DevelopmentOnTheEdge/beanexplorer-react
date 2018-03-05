@@ -6,13 +6,18 @@ import classNames  from 'classnames';
 
 class PropertySet extends React.Component
 {
-  static _createGroup(curGroup, curGroupId, curGroupName) {
+  createGroup(curGroup, curGroupId, curGroupName) {
     return (
       <div className='property-group col-12' key={curGroupId} ref={curGroupId}>
+        <div className="row property-group__line"/>
         <div className='property-groop-box'>
           <h4 className='property-group__title'>{curGroupName}</h4>
           <div className="row">
-            {curGroup}
+            <div className="col-12">
+              <div className={this.props.rowClass}>
+                {curGroup}
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -27,7 +32,7 @@ class PropertySet extends React.Component
     const finishGroup = () => {
       if(curGroup.length > 0) {
         if(curGroupId) {
-          fields.push(PropertySet._createGroup(curGroup, curGroupId, curGroupName));
+          fields.push(this.createGroup(curGroup, curGroupId, curGroupName));
         } else {
           Array.prototype.push.apply(fields, curGroup);
         }
