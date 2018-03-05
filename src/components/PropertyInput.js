@@ -16,7 +16,6 @@ class PropertyInput extends React.Component
     super(props);
 
     this.handleChange = this.handleChange.bind(this);
-    this.handleChangeMulti = this.handleChangeMulti.bind(this);
   }
 
   //todo refactoring - many unused
@@ -43,16 +42,20 @@ class PropertyInput extends React.Component
     }
   }
 
+  callOnChange(value) {
+    this.props.onChange(this.getPath(), value);
+  }
+
   handleChange(event) {
     const value = (event.target.type === 'checkbox') ? event.target.checked : event.target.value;
-    this.props.onChange(this.getPath(), value);
+    this.callOnChange(value);
   }
 
   dateToISOFormat(date) {
     if(typeof date === "string") {
-      this.props.onChange(this.getPath(), date);
-    }else{
-      this.props.onChange(this.getPath(), date.format('YYYY-MM-DD'));
+      this.callOnChange(date);
+    } else {
+      this.callOnChange(date.format('YYYY-MM-DD'));
     }
   }
 
@@ -60,17 +63,21 @@ class PropertyInput extends React.Component
     const date = moment(stringDate === undefined ? "" : stringDate, 'YYYY-MM-DD', true);
     if (date.isValid()) {
       return date.format('DD.MM.YYYY');
-    }else{
+    } else {
       return stringDate;
     }
   }
 
-  handleChangeMulti(event) {
-    let selectArray = [];
-    Object.keys(event).forEach(function (key) {
-      selectArray.push(event[key].value);
-    });
-    this.props.onChange(this.props.path, selectArray);
+  handleChangeSelect(object) {
+    if(Array.isArray(object)) {
+      let selectArray = [];
+      Object.keys(object).forEach(function (key) {
+        selectArray.push(object[key].value);
+      });
+      this.callOnChange(selectArray);
+    } else {
+      this.callOnChange(object !== null ? object.value : "");
+    }
   }
 
   static getMaskInput(rules)
@@ -126,9 +133,12 @@ class PropertyInput extends React.Component
   static getBase64(file) {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
+      reader.addEventListener("load", function () {
+        resolve(reader.result);
+      }, false);
       reader.onerror = error => reject(error);
+
+      reader.readAsDataURL(file);
     });
   }
 
@@ -147,12 +157,11 @@ class PropertyInput extends React.Component
     const meta  = attr.meta;
     const value = attr.value;
     const id    = attr.name + "Field";
-    const handle = meta.multipleSelectionList ? this.handleChangeMulti : this.handleChange;
     const extraAttrsMap = PropertyInput.getExtraAttrsMap(meta.extraAttrs);
 
     const controls = {
       Boolean: () => (
-        <input type="checkbox" id={id} key={id} checked={value === true || value === "true"} onChange={handle}
+        <input type="checkbox" id={id} key={id} checked={value === true || value === "true"} onChange={this.handleChange}
                className={attr.controlClassName || 'form-check-input'} disabled={meta.readOnly} />
       ),
       select: () => {
@@ -171,7 +180,7 @@ class PropertyInput extends React.Component
           strValue = "" + value;
         }
         const selectAttr = {
-          ref: id, name: id, value: strValue, options: options, onChange: handle,
+          ref: id, name: id, value: strValue, options: options, onChange: (v) => this.handleChangeSelect(v),
           clearAllText: attr.localization.clearAllText,
           clearValueText: attr.localization.clearValueText,
           noResultsText: attr.localization.noResultsText,
@@ -211,15 +220,15 @@ class PropertyInput extends React.Component
 //      },
       textArea: () => {
         return <textarea placeholder={meta.placeholder} id={id} rows={meta.rows || 3} cols={meta.columns} value={value === undefined ? "" : value}
-                         onChange={handle} className={attr.controlClassName || "form-control"} disabled={meta.readOnly} />
+                         onChange={this.handleChange} className={attr.controlClassName || "form-control"} disabled={meta.readOnly} />
       },
       maskTest: () => {
         return <MaskedInput mask={PropertyInput.getMaskInput(meta.validationRules)} value={value === undefined ? "" : value}
-                            onChange={handle} className={attr.controlClassName || "form-control"} disabled={meta.readOnly} />
+                            onChange={this.handleChange} className={attr.controlClassName || "form-control"} disabled={meta.readOnly} />
       },
       textInput: () => {
         return <input type="text" placeholder={meta.placeholder} id={id} key={id} value={value === undefined ? "" : value}
-                      onChange={handle} className={attr.controlClassName || "form-control"} disabled={meta.readOnly} />
+                      onChange={this.handleChange} className={attr.controlClassName || "form-control"} disabled={meta.readOnly} />
       },
       numberInput: () => {
         const numericProps = PropertyInput.getNumericProps(meta);
@@ -231,7 +240,7 @@ class PropertyInput extends React.Component
       },
       passwordField: () => {
         return <input type="password" placeholder={meta.placeholder} id={id} key={id} value={value === undefined ? "" : value}
-                      onChange={handle} className={attr.controlClassName || "form-control"} disabled={meta.readOnly} />
+                      onChange={this.handleChange} className={attr.controlClassName || "form-control"} disabled={meta.readOnly} />
       },
       file: () => {
         return <input type="file" placeholder={meta.placeholder} id={id} key={id}
@@ -241,10 +250,11 @@ class PropertyInput extends React.Component
                         if(e.target.files && e.target.files.length === 1) {
                           const fileName = e.target.files[0].name;
                           PropertyInput.getBase64(e.target.files[0]).then(data => {
-                            handle({value: {type: "Base64File", name: fileName, data: data}})
+                            this.callOnChange({type: "Base64File", name: fileName, data: data})
                           });
                         }else if(e.target.files && e.target.files.length === 0) {
-                          handle({value: ""})
+                          console.log(e.target.files);
+                          this.callOnChange("")
                         }
                       }
                       } />
@@ -252,7 +262,7 @@ class PropertyInput extends React.Component
       WYSIWYG: () => {
         return <CKEditor activeClass="p10" content={value}
                          events={{
-                           "change": (evt) => { handle({value: evt.editor.getData()}) }
+                           "change": (evt) => { this.callOnChange(evt.editor.getData()) }
                          }}
                          config={{language: 'ru', readOnly: meta.readOnly}}
         />

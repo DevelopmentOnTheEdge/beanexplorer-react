@@ -28,16 +28,6 @@ test('textInput', () => {
 
 });
 
-test('get by id', () => {
-  const handle = jest.fn();
-
-  const wrapper = mount(
-    <PropertyInput id={0} bean={bean} onChange={handle} />
-  );
-
-  expect(wrapper.instance().getPath()).toEqual('/textInput');
-});
-
 test('date', () => {
   const handle = jest.fn();
 
@@ -69,4 +59,44 @@ test('date init with no valid date', () => {
   const input = wrapper.find('input');
 
   expect(input.get(0).value).toEqual('no date');
+});
+
+test('file', () => {
+  const handle = jest.fn((path, value) => { console.log(path, value); });
+
+  const wrapper = mount(
+    <PropertyInput path={"/file"} bean={bean} onChange={handle} />
+  );
+
+  const fileContents       = 'file contents';
+  // const file               = new Blob([fileContents], {type : 'text/plain'});
+  const readAsText         = jest.fn();
+  const addEventListener   = jest.fn((_, evtHandler) => { evtHandler(); });
+  const dummyFileReader    = {addEventListener, readAsText, result: fileContents};
+  window.FileReader        = jest.fn(() => dummyFileReader);
+
+  wrapper.find('input').simulate('change', {target: {files: ['dummyValue.something']}});
+
+  expect(addEventListener.mock.calls[0]).toEqual(["load", expect.any(Function), false]);
+
+  wrapper.find('input').simulate('change', {target: {files: []}});
+
+  expect(handle.mock.calls[0]).toEqual(["/file", ""]);
+});
+
+test('handleChangeSelect', () => {
+  const handle = jest.fn();
+
+  const wrapper = mount(
+    <PropertyInput path={"/multiSelect"} bean={bean} onChange={handle} />
+  );
+
+  wrapper.instance().handleChangeSelect(null);
+  expect(handle.mock.calls[0]).toEqual(["/multiSelect", ""]);
+
+  wrapper.instance().handleChangeSelect({"value": "test"});
+  expect(handle.mock.calls[1]).toEqual(["/multiSelect", "test"]);
+
+  wrapper.instance().handleChangeSelect([{"value": "test"},{"value": "test2"}]);
+  expect(handle.mock.calls[2]).toEqual(["/multiSelect", ["test", "test2"]]);
 });

@@ -105,9 +105,11 @@ var PropertyInput = function (_React$Component) {
     var _this = possibleConstructorReturn(this, (PropertyInput.__proto__ || Object.getPrototypeOf(PropertyInput)).call(this, props));
 
     _this.handleChange = _this.handleChange.bind(_this);
-    _this.handleChangeMulti = _this.handleChangeMulti.bind(_this);
     return _this;
   }
+
+  //todo refactoring - many unused
+
 
   createClass(PropertyInput, [{
     key: 'getPath',
@@ -119,17 +121,23 @@ var PropertyInput = function (_React$Component) {
       }
     }
   }, {
+    key: 'callOnChange',
+    value: function callOnChange(value) {
+      this.props.onChange(this.getPath(), value);
+    }
+  }, {
     key: 'handleChange',
     value: function handleChange(event) {
-      this.props.onChange(this.getPath(), PropertyInput._getValueFromEvent(event));
+      var value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
+      this.callOnChange(value);
     }
   }, {
     key: 'dateToISOFormat',
     value: function dateToISOFormat(date) {
       if (typeof date === "string") {
-        this.props.onChange(this.getPath(), date);
+        this.callOnChange(date);
       } else {
-        this.props.onChange(this.getPath(), date.format('YYYY-MM-DD'));
+        this.callOnChange(date.format('YYYY-MM-DD'));
       }
     }
   }, {
@@ -143,13 +151,17 @@ var PropertyInput = function (_React$Component) {
       }
     }
   }, {
-    key: 'handleChangeMulti',
-    value: function handleChangeMulti(event) {
-      var selectArray = [];
-      Object.keys(event).forEach(function (key) {
-        selectArray.push(event[key].value);
-      });
-      this.props.onChange(this.props.path, selectArray);
+    key: 'handleChangeSelect',
+    value: function handleChangeSelect(object) {
+      if (Array.isArray(object)) {
+        var selectArray = [];
+        Object.keys(object).forEach(function (key) {
+          selectArray.push(object[key].value);
+        });
+        this.callOnChange(selectArray);
+      } else {
+        this.callOnChange(object !== null ? object.value : "");
+      }
     }
   }, {
     key: 'render',
@@ -161,28 +173,32 @@ var PropertyInput = function (_React$Component) {
       var meta = attr.meta;
       var value = attr.value;
       var id = attr.name + "Field";
-      var handle = meta.multipleSelectionList ? this.handleChangeMulti : this.handleChange;
       var extraAttrsMap = PropertyInput.getExtraAttrsMap(meta.extraAttrs);
 
       var controls = {
         Boolean: function Boolean() {
-          return React.createElement('input', { type: 'checkbox', id: id, key: id, checked: value === true || value === "true", onChange: handle,
+          return React.createElement('input', { type: 'checkbox', id: id, key: id, checked: value === true || value === "true", onChange: _this2.handleChange,
             className: attr.controlClassName || 'form-check-input', disabled: meta.readOnly });
         },
         select: function select() {
-          var options = PropertyInput.optionsToArray(meta.tagList);
-          // VirtualizedSelect css подправить (на длинных строках с переносами)
+          var options = [];
+          for (var i = 0; i < meta.tagList.length; i++) {
+            options.push({ value: meta.tagList[i][0], label: meta.tagList[i][1] });
+          }
+
           var strValue = void 0;
           if (Array.isArray(value)) {
             strValue = [];
-            for (var i = 0; i < value.length; i++) {
-              strValue.push("" + value[i]);
+            for (var _i = 0; _i < value.length; _i++) {
+              strValue.push("" + value[_i]);
             }
           } else {
             strValue = "" + value;
           }
           var selectAttr = {
-            ref: id, name: id, value: strValue, options: options, onChange: handle,
+            ref: id, name: id, value: strValue, options: options, onChange: function onChange(v) {
+              return _this2.handleChangeSelect(v);
+            },
             clearAllText: attr.localization.clearAllText,
             clearValueText: attr.localization.clearValueText,
             noResultsText: attr.localization.noResultsText,
@@ -197,12 +213,11 @@ var PropertyInput = function (_React$Component) {
 
           if (extraAttrsMap.inputType === "Creatable") {
             return React.createElement(Creatable, selectAttr);
-          }
-
-          if (extraAttrsMap.inputType === "VirtualizedSelect") {
+          } else if (extraAttrsMap.inputType === "VirtualizedSelect") {
             return React.createElement(VirtualizedSelect, _extends({}, selectAttr, { clearable: true, searchable: true, labelKey: 'label', valueKey: 'value' }));
+          } else {
+            return React.createElement(Select, selectAttr);
           }
-          return React.createElement(Select, selectAttr);
         },
         Date: function Date() {
           return React.createElement(Datetime, { dateFormat: 'DD.MM.YYYY', value: _this2.dateFromISOFormat(value),
@@ -220,15 +235,15 @@ var PropertyInput = function (_React$Component) {
         //      },
         textArea: function textArea() {
           return React.createElement('textarea', { placeholder: meta.placeholder, id: id, rows: meta.rows || 3, cols: meta.columns, value: value === undefined ? "" : value,
-            onChange: handle, className: attr.controlClassName || "form-control", disabled: meta.readOnly });
+            onChange: _this2.handleChange, className: attr.controlClassName || "form-control", disabled: meta.readOnly });
         },
         maskTest: function maskTest() {
           return React.createElement(MaskedInput, { mask: PropertyInput.getMaskInput(meta.validationRules), value: value === undefined ? "" : value,
-            onChange: handle, className: attr.controlClassName || "form-control", disabled: meta.readOnly });
+            onChange: _this2.handleChange, className: attr.controlClassName || "form-control", disabled: meta.readOnly });
         },
         textInput: function textInput() {
           return React.createElement('input', { type: 'text', placeholder: meta.placeholder, id: id, key: id, value: value === undefined ? "" : value,
-            onChange: handle, className: attr.controlClassName || "form-control", disabled: meta.readOnly });
+            onChange: _this2.handleChange, className: attr.controlClassName || "form-control", disabled: meta.readOnly });
         },
         numberInput: function numberInput() {
           var numericProps = PropertyInput.getNumericProps(meta);
@@ -240,7 +255,7 @@ var PropertyInput = function (_React$Component) {
         },
         passwordField: function passwordField() {
           return React.createElement('input', { type: 'password', placeholder: meta.placeholder, id: id, key: id, value: value === undefined ? "" : value,
-            onChange: handle, className: attr.controlClassName || "form-control", disabled: meta.readOnly });
+            onChange: _this2.handleChange, className: attr.controlClassName || "form-control", disabled: meta.readOnly });
         },
         file: function file() {
           return React.createElement('input', { type: 'file', placeholder: meta.placeholder, id: id, key: id,
@@ -250,10 +265,11 @@ var PropertyInput = function (_React$Component) {
               if (e.target.files && e.target.files.length === 1) {
                 var fileName = e.target.files[0].name;
                 PropertyInput.getBase64(e.target.files[0]).then(function (data) {
-                  handle({ value: { type: "Base64File", name: fileName, data: data } });
+                  _this2.callOnChange({ type: "Base64File", name: fileName, data: data });
                 });
               } else if (e.target.files && e.target.files.length === 0) {
-                handle({ value: "" });
+                console.log(e.target.files);
+                _this2.callOnChange("");
               }
             } });
         },
@@ -261,7 +277,7 @@ var PropertyInput = function (_React$Component) {
           return React.createElement(CKEditor, { activeClass: 'p10', content: value,
             events: {
               "change": function change(evt) {
-                handle({ value: evt.editor.getData() });
+                _this2.callOnChange(evt.editor.getData());
               }
             },
             config: { language: 'ru', readOnly: meta.readOnly }
@@ -335,14 +351,6 @@ var PropertyInput = function (_React$Component) {
       };
     }
   }, {
-    key: '_getValueFromEvent',
-    value: function _getValueFromEvent(event) {
-      if (!event) return '';
-      if (!event.target) return event.value;
-      var element = event.target;
-      return element.type === 'checkbox' ? element.checked : element.value;
-    }
-  }, {
     key: 'getMaskInput',
     value: function getMaskInput(rules) {
       for (var i = 0; i < rules.length; i++) {
@@ -391,13 +399,14 @@ var PropertyInput = function (_React$Component) {
     value: function getBase64(file) {
       return new Promise(function (resolve, reject) {
         var reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = function () {
-          return resolve(reader.result);
-        };
+        reader.addEventListener("load", function () {
+          resolve(reader.result);
+        }, false);
         reader.onerror = function (error) {
           return reject(error);
         };
+
+        reader.readAsDataURL(file);
       });
     }
   }, {
@@ -409,15 +418,6 @@ var PropertyInput = function (_React$Component) {
         map[extraAttrs[i][0]] = extraAttrs[i][1];
       }
       return map;
-    }
-  }, {
-    key: 'optionsToArray',
-    value: function optionsToArray(options) {
-      var optionObject = [];
-      for (var i = 0; i < options.length; i++) {
-        optionObject.push({ value: options[i][0], label: options[i][1] });
-      }
-      return optionObject;
     }
   }]);
   return PropertyInput;
@@ -481,7 +481,7 @@ var Property = function (_React$Component) {
         meta.message
       ) : undefined;
 
-      var hasStatusClasses = classNames({ 'has-danger': meta.status === 'error' }, { 'has-warning': meta.status === 'warning' }, { 'has-success': meta.status === 'success' });
+      var hasStatusClasses = classNames({ 'has-error': meta.status === 'error' }, { 'has-warning': meta.status === 'warning' }, { 'has-success': meta.status === 'success' });
 
       var classNameForm = meta.type === "Boolean" ? this.props.classNameFormCheck || 'form-check property' : this.props.classNameFormGroup || 'form-group property';
 
@@ -571,7 +571,7 @@ var Properties = function (_React$Component) {
 
       var fields = this.props.bean.order.map(function (path, i) {
         if (_this2.props.ids === undefined || _this2.props.ids.includes(i)) {
-          return React.createElement(Property, _extends({}, _this2.props, { path: path, onChange: _this2.props.onChange }));
+          return React.createElement(Property, _extends({}, _this2.props, { path: path }));
         } else {
           return null;
         }
