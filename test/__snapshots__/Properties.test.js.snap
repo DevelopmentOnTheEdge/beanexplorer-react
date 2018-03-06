@@ -12,7 +12,7 @@ exports[`contain property 1`] = `
     >
       <label
         className="form-control-label"
-        htmlFor="textInputField"
+        htmlFor="textInputPropertyInput"
       >
         Text input
       </label>

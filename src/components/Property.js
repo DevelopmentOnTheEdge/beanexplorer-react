@@ -17,7 +17,7 @@ class Property extends React.Component
   render() {
     const path = this.getPath();
     const meta  = this.props.bean.meta[path];
-    const id    = path.substring(path.lastIndexOf("/")+1) + "Field";
+    const id    = path.substring(path.lastIndexOf("/")+1) + "PropertyInput";
 
     const label = <label htmlFor={id} className={meta.type === "Boolean" ? 'form-check-label' : 'form-control-label'}>
                          {meta.displayName || id}</label>;
@@ -44,7 +44,7 @@ class Property extends React.Component
     const classes = classNames(
       classNameForm,
       hasStatusClasses,
-      {'required' : !meta.canBeNull}
+      {'required' : meta.canBeNull !== true}
     );
 
     if(this.props.inline)

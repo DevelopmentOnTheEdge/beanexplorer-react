@@ -460,7 +460,7 @@ var Property = function (_React$Component) {
     value: function render() {
       var path = this.getPath();
       var meta = this.props.bean.meta[path];
-      var id = path.substring(path.lastIndexOf("/") + 1) + "Field";
+      var id = path.substring(path.lastIndexOf("/") + 1) + "PropertyInput";
 
       var label = React.createElement(
         'label',
@@ -482,7 +482,7 @@ var Property = function (_React$Component) {
 
       var outerClasses = classNames(cssClasses, { 'display-none': meta.hidden });
 
-      var classes = classNames(classNameForm, hasStatusClasses, { 'required': !meta.canBeNull });
+      var classes = classNames(classNameForm, hasStatusClasses, { 'required': meta.canBeNull !== true });
 
       if (this.props.inline) {
         if (meta.type === "Boolean") {
