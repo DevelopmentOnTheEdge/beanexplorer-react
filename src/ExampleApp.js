@@ -134,12 +134,12 @@ class InlineForm extends AllPropertyTypes
       <div>
         <form onSubmit={this.handleSubmit} className="bs-example form-inline">
           <PropertySet bean={this.state.bean} onChange={this.handleFieldChange}
-                       inline rowClass="" />
+                       inline rowClass="d-flex" />
           <button type="submit" className="btn btn-primary mb-2">Submit</button>
         </form>
         <form className="bs-example form-inline">
           <PropertySet bean={layout2} onChange={this.handleFieldChange}
-                       inline rowClass="" />
+                       inline rowClass="d-flex" />
           <button type="submit" className="btn btn-primary mb-2">Submit</button>
         </form>
       </div>

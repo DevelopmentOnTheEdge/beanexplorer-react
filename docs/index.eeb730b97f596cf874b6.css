@@ -801,10 +801,6 @@ td.rdtYear:hover {
   letter-spacing: 1px;
   content: "Example";
 }
-.property-set {
-  display: inherit;
-}
-
 .property-error .help-block{
   color: #920000;
 }
