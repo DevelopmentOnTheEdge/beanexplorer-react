@@ -22,12 +22,11 @@
 }
 
 .form-control-feedback {
-  font-size: 0.875em;
   display: block;
 }
 
 .form-control-feedback{
-  color: #4c4c4c;
+  color: #2b2b2b;
 }
 
 .has-error .form-control-feedback,

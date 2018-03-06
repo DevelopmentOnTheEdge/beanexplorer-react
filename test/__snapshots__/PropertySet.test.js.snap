@@ -143,11 +143,11 @@ exports[`numbersTest 1`] = `
           type="number"
           value="9223372036854775009"
         />
-        <span
+        <small
           className="form-control-feedback"
         >
           the numbers are rounded off 3 last digits of java Long.MAX_VALUE
-        </span>
+        </small>
       </div>
     </div>
   </div>
@@ -1358,11 +1358,11 @@ exports[`test outer 1`] = `
                     type="text"
                     value="test"
                   />
-                  <span
+                  <small
                     className="form-control-feedback"
                   >
                     Help text
-                  </span>
+                  </small>
                 </div>
               </div>
             </div>
@@ -1387,11 +1387,11 @@ exports[`test outer 1`] = `
                 >
                   CheckBox
                 </label>
-                <span
+                <small
                   className="form-control-feedback"
                 >
                   You must check before submitting.
-                </span>
+                </small>
               </div>
             </div>
             <div
@@ -1458,11 +1458,11 @@ exports[`test outer 1`] = `
                     type="text"
                     value="test"
                   />
-                  <span
+                  <small
                     className="form-control-feedback"
                   >
                     Error here
-                  </span>
+                  </small>
                 </div>
               </div>
             </div>
@@ -1487,11 +1487,11 @@ exports[`test outer 1`] = `
                 >
                   CheckBox
                 </label>
-                <span
+                <small
                   className="form-control-feedback"
                 >
                   You must check before submitting.
-                </span>
+                </small>
               </div>
             </div>
             <div
@@ -1558,11 +1558,11 @@ exports[`test outer 1`] = `
                     type="text"
                     value="test"
                   />
-                  <span
+                  <small
                     className="form-control-feedback"
                   >
                     Ok here
-                  </span>
+                  </small>
                 </div>
               </div>
             </div>
@@ -1587,11 +1587,11 @@ exports[`test outer 1`] = `
                 >
                   CheckBox
                 </label>
-                <span
+                <small
                   className="form-control-feedback"
                 >
                   Ok here
-                </span>
+                </small>
               </div>
             </div>
             <div
