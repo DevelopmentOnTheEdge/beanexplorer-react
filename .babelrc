@@ -1,5 +1,5 @@
 {
-  "presets": ["react","es2015"],
+  "presets": ["react","env"],
   "plugins": ["add-module-exports", "react-hot-loader/babel"],
   "env": {
     "test": {
