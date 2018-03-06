@@ -201,7 +201,7 @@ var PropertyInput = function (_React$Component) {
         Integer: function Integer() {
           return React.createElement('input', _extends({ type: 'number', min: -2147483648, max: 2147483647, step: 1 }, rawTextInputProps));
         },
-        //the numbers are rounded off
+        //the numbers are rounded off - 3 last digits
         Long: function Long() {
           return React.createElement('input', _extends({ type: 'number', min: -9223372036854775000, max: 9223372036854775000, step: 1 }, rawTextInputProps));
         },
@@ -296,13 +296,12 @@ var PropertyInput = function (_React$Component) {
         },
         labelField: function labelField() {
           if (meta.rawValue) {
-            return React.createElement('div', { className: classNames("form-control-label", _this2.props.controlClassName), id: id, key: id,
+            return React.createElement('label', { className: classNames("form-control-label", _this2.props.controlClassName), id: id, key: id,
               dangerouslySetInnerHTML: { __html: value } });
           } else {
             return React.createElement(
               'label',
-              { className: classNames("form-control-label", _this2.props.controlClassName),
-                id: id, key: id },
+              { className: classNames("form-control-label", _this2.props.controlClassName), id: id, key: id },
               value
             );
           }
@@ -463,8 +462,6 @@ var Property = function (_React$Component) {
       var meta = this.props.bean.meta[path];
       var id = path.substring(path.lastIndexOf("/") + 1) + "Field";
 
-      var valueControl = this.getControl();
-
       var label = React.createElement(
         'label',
         { htmlFor: id, className: meta.type === "Boolean" ? 'form-check-label' : 'form-control-label' },
@@ -487,46 +484,54 @@ var Property = function (_React$Component) {
 
       var classes = classNames(classNameForm, hasStatusClasses, { 'required': !meta.canBeNull });
 
-      if (meta.type === "Boolean") {
-        return React.createElement(
-          'div',
-          { className: outerClasses },
-          React.createElement(
+      if (this.props.inline) {
+        if (meta.type === "Boolean") {
+          return React.createElement(
             'div',
-            { className: classes },
-            valueControl,
-            label,
-            messageElement
-          )
-        );
-      } else if (meta.labelField) {
-        return React.createElement(
-          'div',
-          { className: classNames('form-group property property-label', meta.cssClasses || 'col-lg-12', hasStatusClasses) },
-          valueControl
-        );
+            { className: 'form-check mb-2 mr-sm-2' },
+            React.createElement(PropertyInput, this.props),
+            label
+          );
+        } else {
+          return React.createElement(PropertyInput, _extends({}, this.props, { controlClassName: 'mb-2 mr-sm-2' }));
+        }
       } else {
-        return React.createElement(
-          'div',
-          { className: outerClasses },
-          React.createElement(
+        if (meta.type === "Boolean") {
+          return React.createElement(
             'div',
-            { className: classes },
-            label,
+            { className: outerClasses },
             React.createElement(
               'div',
-              { className: 'controls' },
-              valueControl,
+              { className: classes },
+              React.createElement(PropertyInput, this.props),
+              label,
               messageElement
             )
-          )
-        );
+          );
+        } else if (meta.labelField) {
+          return React.createElement(
+            'div',
+            { className: classNames('form-group property property-label', meta.cssClasses || 'col-lg-12', hasStatusClasses) },
+            React.createElement(PropertyInput, this.props)
+          );
+        } else {
+          return React.createElement(
+            'div',
+            { className: outerClasses },
+            React.createElement(
+              'div',
+              { className: classes },
+              label,
+              React.createElement(
+                'div',
+                { className: 'controls' },
+                React.createElement(PropertyInput, this.props),
+                messageElement
+              )
+            )
+          );
+        }
       }
-    }
-  }, {
-    key: 'getControl',
-    value: function getControl() {
-      return React.createElement(PropertyInput, this.props);
     }
   }]);
   return Property;
@@ -548,6 +553,7 @@ Property.propTypes = {
   bean: PropTypes.object.isRequired,
   path: PropTypes.string,
   id: PropTypes.number,
+  inline: PropTypes.bool,
   onChange: PropTypes.func,
   localization: PropTypes.object
 };
@@ -567,7 +573,7 @@ var Properties = function (_React$Component) {
 
       var fields = this.props.bean.order.map(function (path, i) {
         if (_this2.props.ids === undefined || _this2.props.ids.includes(i)) {
-          return React.createElement(Property, _extends({}, _this2.props, { path: path }));
+          return React.createElement(Property, _extends({}, _this2.props, { path: path, key: path }));
         } else {
           return null;
         }
@@ -592,6 +598,7 @@ Properties.propTypes = {
   rowClass: PropTypes.string,
   bean: PropTypes.object.isRequired,
   ids: PropTypes.array,
+  inline: PropTypes.bool,
   onChange: PropTypes.func,
   localization: PropTypes.object
 };
@@ -605,8 +612,41 @@ var PropertySet$1 = function (_React$Component) {
   }
 
   createClass(PropertySet, [{
+    key: 'createGroup',
+    value: function createGroup(curGroup, curGroupId, curGroupName) {
+      return React.createElement(
+        'div',
+        { className: 'property-group col-12', key: curGroupId, ref: curGroupId },
+        React.createElement('div', { className: 'row property-group__line' }),
+        React.createElement(
+          'div',
+          { className: 'property-groop-box' },
+          React.createElement(
+            'h4',
+            { className: 'property-group__title' },
+            curGroupName
+          ),
+          React.createElement(
+            'div',
+            { className: 'row' },
+            React.createElement(
+              'div',
+              { className: 'col-12' },
+              React.createElement(
+                'div',
+                { className: this.props.rowClass },
+                curGroup
+              )
+            )
+          )
+        )
+      );
+    }
+  }, {
     key: 'render',
     value: function render() {
+      var _this2 = this;
+
       var curGroup = [];
       var curGroupName = null,
           curGroupId = null;
@@ -615,7 +655,7 @@ var PropertySet$1 = function (_React$Component) {
       var finishGroup = function finishGroup() {
         if (curGroup.length > 0) {
           if (curGroupId) {
-            fields.push(PropertySet._createGroup(curGroup, curGroupId, curGroupName));
+            fields.push(_this2.createGroup(curGroup, curGroupId, curGroupName));
           } else {
             Array.prototype.push.apply(fields, curGroup);
           }
@@ -666,28 +706,6 @@ var PropertySet$1 = function (_React$Component) {
         fields
       );
     }
-  }], [{
-    key: '_createGroup',
-    value: function _createGroup(curGroup, curGroupId, curGroupName) {
-      return React.createElement(
-        'div',
-        { className: 'property-group col-12', key: curGroupId, ref: curGroupId },
-        React.createElement(
-          'div',
-          { className: 'property-groop-box' },
-          React.createElement(
-            'h4',
-            { className: 'property-group__title' },
-            curGroupName
-          ),
-          React.createElement(
-            'div',
-            { className: 'row' },
-            curGroup
-          )
-        )
-      );
-    }
   }]);
   return PropertySet;
 }(React.Component);
@@ -699,6 +717,7 @@ PropertySet$1.defaultProps = {
 PropertySet$1.propTypes = {
   bean: PropTypes.object.isRequired,
   onChange: PropTypes.func,
+  inline: PropTypes.bool,
   localization: PropTypes.object,
   rowClass: PropTypes.string
 };

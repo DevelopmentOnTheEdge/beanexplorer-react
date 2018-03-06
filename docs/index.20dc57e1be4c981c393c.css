@@ -801,27 +801,30 @@ td.rdtYear:hover {
   letter-spacing: 1px;
   content: "Example";
 }
+.property-set {
+  display: inherit;
+}
+
 .property-error .help-block{
   color: #920000;
 }
 
 .property-group {
-  border-top: 1px solid rgb(216, 216, 216);
   margin-top: 1.2em;
-  padding-top: 1em;
   position: relative;
 }
 
-.property-groop-box {
-
+.property-group__line {
+  border-top: 1px solid rgb(216, 216, 216);
+  padding-top: 1em;
 }
 
-.property-group:first-child{
+.property-group:first-child .property-group__line{
   border-top: none;
 }
 
 .property-group__title {
-  top: -0.95em;
+  top: -0.9em;
   position: absolute;
   background-color: white;
   padding: 3pt;
