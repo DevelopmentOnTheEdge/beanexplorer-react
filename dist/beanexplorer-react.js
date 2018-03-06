@@ -213,8 +213,9 @@ var PropertyInput = function (_React$Component) {
             className: classNames("form-check-input", _this2.props.controlClassName) }, baseProps));
         },
         Date: function Date() {
-          return React.createElement(Datetime, { dateFormat: 'DD.MM.YYYY', id: id, key: id, className: classNames(_this2.props.controlClassName),
-            inputProps: { disabled: meta.readOnly, required: required, pattern: "(^$|\\d{1,2}\\.\\d{1,2}\\.\\d{4})" },
+          return React.createElement(Datetime, { dateFormat: 'DD.MM.YYYY', key: id + "Datetime",
+            inputProps: Object.assign({}, baseProps, { pattern: "(^$|\\d{1,2}\\.\\d{1,2}\\.\\d{4})",
+              placeholder: meta.placeholder, className: classNames("form-control", _this2.props.controlClassName) }),
             onChange: function onChange(v) {
               return _this2.dateToISOFormat(v);
             }, value: _this2.dateFromISOFormat(value),

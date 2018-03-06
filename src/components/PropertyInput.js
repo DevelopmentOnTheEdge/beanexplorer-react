@@ -185,8 +185,9 @@ class PropertyInput extends React.Component
              className={classNames("form-check-input", this.props.controlClassName)} {...baseProps} />
       ),
       Date: () => (
-        <Datetime dateFormat="DD.MM.YYYY" id={id} key={id} className={classNames(this.props.controlClassName)}
-            inputProps={ {disabled: meta.readOnly, required: required, pattern: "(^$|\\d{1,2}\\.\\d{1,2}\\.\\d{4})"} }
+        <Datetime dateFormat="DD.MM.YYYY" key={id + "Datetime"}
+            inputProps={ Object.assign({}, baseProps, {pattern: "(^$|\\d{1,2}\\.\\d{1,2}\\.\\d{4})",
+              placeholder: meta.placeholder, className: classNames("form-control", this.props.controlClassName)}) }
             onChange={(v) => this.dateToISOFormat(v)} value={this.dateFromISOFormat(value)}
             timeFormat={false} closeOnSelect={true} closeOnTab={true} locale={this.props.localization.locale || "en"} />
       ),

@@ -236,11 +236,13 @@ exports[`renders without crashing 1`] = `
           <input
             className="form-control"
             disabled={undefined}
+            id="datePropertyInput"
             onChange={[Function]}
             onClick={[Function]}
             onFocus={[Function]}
             onKeyDown={[Function]}
             pattern="(^$|\\\\d{1,2}\\\\.\\\\d{1,2}\\\\.\\\\d{4})"
+            placeholder={undefined}
             required={true}
             type="text"
             value="20.07.2017"
