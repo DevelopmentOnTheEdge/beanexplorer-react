@@ -21,7 +21,6 @@
   },
   "author": "",
   "dependencies": {
-    "babel-polyfill": "^6.26.0",
     "classnames": "2.2.5",
     "json-pointer": "^0.6.0",
     "moment": "2.20.1",
@@ -36,6 +35,7 @@
   },
   "devDependencies": {
     "babel-jest": "^20.0.3",
+    "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-plugin-external-helpers": "6.18.0",
     "babel-preset-react": "^6.24.1",

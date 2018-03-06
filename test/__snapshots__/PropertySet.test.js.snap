@@ -240,6 +240,7 @@ exports[`renders without crashing 1`] = `
             onClick={[Function]}
             onFocus={[Function]}
             onKeyDown={[Function]}
+            pattern="(^$|\\\\d{1,2}\\\\.\\\\d{1,2}\\\\.\\\\d{4})"
             required={true}
             type="text"
             value="20.07.2017"

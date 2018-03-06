@@ -182,27 +182,27 @@ class PropertyInput extends React.Component
       ),
       Boolean: () => (
         <input type="checkbox" checked={value === true || value === "true"} onChange={this.handleChange}
-               className={classNames("form-check-input", this.props.controlClassName)} {...baseProps} />
+             className={classNames("form-check-input", this.props.controlClassName)} {...baseProps} />
       ),
       Date: () => (
-        <Datetime dateFormat="DD.MM.YYYY" id={id} key={id} inputProps={ {disabled: meta.readOnly, required: required} }
-                  onChange={(v) => this.dateToISOFormat(v)} value={this.dateFromISOFormat(value)}
-                  timeFormat={false} closeOnSelect={true} closeOnTab={true} locale={this.props.localization.locale || "en"}
-                  className={classNames(this.props.controlClassName)} />
+        <Datetime dateFormat="DD.MM.YYYY" id={id} key={id} className={classNames(this.props.controlClassName)}
+            inputProps={ {disabled: meta.readOnly, required: required, pattern: "(^$|\\d{1,2}\\.\\d{1,2}\\.\\d{4})"} }
+            onChange={(v) => this.dateToISOFormat(v)} value={this.dateFromISOFormat(value)}
+            timeFormat={false} closeOnSelect={true} closeOnTab={true} locale={this.props.localization.locale || "en"} />
       ),
       Base64File: () => (
         <input type="file" className={classNames("form-control-file", this.props.controlClassName)} {...baseProps}
-                      multiple={meta.multipleSelectionList}
-                      onChange={(e) => {
-                        if(e.target.files && e.target.files.length === 1) {
-                          const fileName = e.target.files[0].name;
-                          PropertyInput.getBase64(e.target.files[0]).then(data => {
-                            this.callOnChange({type: "Base64File", name: fileName, data: data})
-                          });
-                        }else if(e.target.files && e.target.files.length === 0) {
-                          this.callOnChange("")
-                        }
-                      }} />
+            multiple={meta.multipleSelectionList}
+            onChange={(e) => {
+              if(e.target.files && e.target.files.length === 1) {
+                const fileName = e.target.files[0].name;
+                PropertyInput.getBase64(e.target.files[0]).then(data => {
+                  this.callOnChange({type: "Base64File", name: fileName, data: data})
+                });
+              }else if(e.target.files && e.target.files.length === 0) {
+                this.callOnChange("")
+              }
+            }} />
       ),
       select: () => {
         let options = [];
