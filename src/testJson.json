@@ -17,7 +17,8 @@
   },
   "meta": {
     "/textInput": {
-      "displayName": "Text input"
+      "displayName": "Text input",
+      "columnSize": 30
     },
     "/date": {
       "displayName": "Date",
@@ -34,7 +35,8 @@
     "/textArea": {
       "displayName": "TextArea",
       "extraAttrs": [["inputType", "textArea"]],
-      "placeholder": "field for text"
+      "placeholder": "field for text, max length 256",
+      "columnSize": 256
     },
     "/password": {
       "displayName": "Password",

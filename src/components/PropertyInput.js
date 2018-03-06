@@ -150,7 +150,7 @@ class PropertyInput extends React.Component
       required: required
     };
 
-    const rawTextInputProps = Object.assign({}, baseProps, {
+    const rawInputProps = Object.assign({}, baseProps, {
       value: value === undefined ? "" : value,
       onChange: this.handleChange,
       placeholder: meta.placeholder,
@@ -159,26 +159,26 @@ class PropertyInput extends React.Component
 
     const controls = {
       textInput: () => (
-        <input type="text" {...rawTextInputProps} />
+        <input type="text" {...rawInputProps} maxLength={meta.columnSize} />
       ),
       passwordField: () => (
-        <input type="password" {...rawTextInputProps} />
+        <input type="password" {...rawInputProps} maxLength={meta.columnSize} />
       ),
       textArea: () => (
-        <textarea rows={meta.rows || 3} cols={meta.columns} {...rawTextInputProps} />
+        <textarea rows={meta.rows || 3} cols={meta.columns} {...rawInputProps} maxLength={meta.columnSize} />
       ),
       Short: () => (
-        <input type="number" min={-32768} max={32767} step={1} {...rawTextInputProps} />
+        <input type="number" min={-32768} max={32767} step={1} {...rawInputProps} />
       ),
       Integer: () => (
-        <input type="number" min={-2147483648} max={2147483647} step={1} {...rawTextInputProps} />
+        <input type="number" min={-2147483648} max={2147483647} step={1} {...rawInputProps} />
       ),
       //the numbers are rounded off - 3 last digits
       Long: () => (
-        <input type="number" min={-9223372036854775000} max={9223372036854775000} step={1} {...rawTextInputProps} />
+        <input type="number" min={-9223372036854775000} max={9223372036854775000} step={1} {...rawInputProps} />
       ),
       Double: () => (
-        <input type="number" {...rawTextInputProps} />
+        <input type="number" {...rawInputProps} />
       ),
       Boolean: () => (
         <input type="checkbox" checked={value === true || value === "true"} onChange={this.handleChange}
