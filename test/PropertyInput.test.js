@@ -26,6 +26,9 @@ test('textInput', () => {
   wrapper.find('input').simulate('change', {target: {value: 'newValue'}});
   expect(handle.mock.calls[0]).toEqual(["/textInput", "newValue"]);
 
+  wrapper.find('input').simulate('change', {target: {value: ''}});
+  expect(handle.mock.calls[1]).toEqual(["/textInput", ""]);
+
 });
 
 test('date', () => {
