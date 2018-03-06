@@ -1200,7 +1200,7 @@ exports[`renders without crashing 1`] = `
   <div
     className="form-group property property-label col-lg-12"
   >
-    <div
+    <label
       className="form-control-label"
       dangerouslySetInnerHTML={
         Object {

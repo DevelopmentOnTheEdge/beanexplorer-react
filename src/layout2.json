@@ -1,0 +1,24 @@
+{
+  "values": {
+    "name2": "value",
+    "subject2": "",
+    "labelField": "Text label"
+  },
+  "meta": {
+    "/name2": {
+      "placeholder": "Name"
+    },
+    "/subject2": {
+      "displayName": "Remember me",
+      "type": "Boolean"
+    },
+    "/labelField": {
+      "labelField": true
+    }
+  },
+  "order": [
+    "/name2",
+    "/subject2",
+    "/labelField"
+  ]
+}

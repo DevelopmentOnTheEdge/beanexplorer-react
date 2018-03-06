@@ -20,7 +20,7 @@ class Property extends React.Component
     const id    = path.substring(path.lastIndexOf("/")+1) + "Field";
 
     const label = <label htmlFor={id} className={meta.type === "Boolean" ? 'form-check-label' : 'form-control-label'}>
-      {meta.displayName || id}</label>;
+                         {meta.displayName || id}</label>;
 
     const messageElement = meta.message ? <span className={this.props.messageClassName || "form-control-feedback"}>{meta.message}</span> : undefined;
 
@@ -49,11 +49,19 @@ class Property extends React.Component
 
     if(this.props.inline)
     {
+      if(meta.type === "Boolean")
       {
         return (
-          <div className="col-auto">
-            <input type="text" className="form-control" id="inlineFormInput" placeholder="Jane Doe"/>
+          <div className="form-check mb-2 mr-sm-2">
+            <PropertyInput {...this.props} />
+            {label}
           </div>
+        );
+      }
+      else
+      {
+        return (
+          <PropertyInput {...this.props} controlClassName="mb-2 mr-sm-2"/>
         );
       }
     }

@@ -14,6 +14,7 @@ import bean from './testJson.json';
 import testOuter from './testOuter.json';
 import numbersTest from './numbersTest.json';
 import layout1 from './layout1.json';
+import layout2 from './layout2.json';
 
 import 'react-datetime/css/react-datetime.css';
 import 'react-select/dist/react-select.css';
@@ -128,16 +129,23 @@ class InlineForm extends AllPropertyTypes
     };
   }
 
-  getForm(){
+  getForm() {
     return (
-      <form onSubmit={this.handleSubmit} className="bs-example form-inline">
-        <PropertySet bean={this.state.bean} onChange={this.handleFieldChange} inline />
-        <div className="col-auto">
-          <button type="submit" className="btn btn-primary">Submit</button>
-        </div>
-      </form>
+      <div>
+        <form onSubmit={this.handleSubmit} className="bs-example form-inline">
+          <PropertySet bean={this.state.bean} onChange={this.handleFieldChange}
+                       inline rowClass="" />
+          <button type="submit" className="btn btn-primary mb-2">Submit</button>
+        </form>
+        <form className="bs-example form-inline">
+          <PropertySet bean={layout2} onChange={this.handleFieldChange}
+                       inline rowClass="" />
+          <button type="submit" className="btn btn-primary mb-2">Submit</button>
+        </form>
+      </div>
     )
   }
+
 }
 
 const ExampleApp = () => (

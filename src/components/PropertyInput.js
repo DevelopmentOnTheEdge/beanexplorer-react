@@ -268,13 +268,13 @@ class PropertyInput extends React.Component
       labelField: () => {
         if(meta.rawValue)
         {
-          return <div className={classNames("form-control-label", this.props.controlClassName)} id={id} key={id}
+          return <label className={classNames("form-control-label", this.props.controlClassName)} id={id} key={id}
                       dangerouslySetInnerHTML={{__html: value}} />
         }
         else
         {
-          return <label className={classNames("form-control-label", this.props.controlClassName)}
-                        id={id} key={id}>{value}</label>
+          return <label className={classNames("form-control-label", this.props.controlClassName)} id={id} key={id}>
+                      {value}</label>
         }
       },
     };
