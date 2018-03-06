@@ -5,7 +5,6 @@
     "number": "123",
     "mask": "123",
     "textArea": "test",
-    "WYSIWYG": "test",
     "password": "password",
     "checkBox": true,
     "file": "",
@@ -13,7 +12,8 @@
     "virtualizedSelect": "vanilla",
     "multiSelect": ["chocolate", "strawberry"],
     "labelFieldRaw": "<p>Pellentesque habitant morbi tristique senectus et netus et <a href=\"#test\">Link</a> malesuada fames ac <b>turpis</b> egestas.</p>",
-    "labelField": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas."
+    "labelField": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.",
+    "WYSIWYG": "test"
   },
   "meta": {
     "/textInput": {
@@ -35,11 +35,6 @@
       "displayName": "TextArea",
       "extraAttrs": [["inputType", "textArea"]],
       "placeholder": "field for text"
-    },
-    "/WYSIWYG": {
-      "displayName": "WYSIWYG",
-      "extraAttrs": [["inputType", "WYSIWYG"]],
-      "placeholder": "text editor"
     },
     "/password": {
       "displayName": "Password",
@@ -73,6 +68,11 @@
     },
     "/labelField": {
       "labelField": true
+    },
+    "/WYSIWYG": {
+      "displayName": "WYSIWYG",
+      "extraAttrs": [["inputType", "WYSIWYG"]],
+      "placeholder": "text editor"
     }
   },
   "order": [
@@ -81,7 +81,6 @@
     "/number",
     "/mask",
     "/textArea",
-    "/WYSIWYG",
     "/password",
     "/checkBox",
     "/file",
@@ -89,6 +88,7 @@
     "/virtualizedSelect",
     "/multiSelect",
     "/labelFieldRaw",
-    "/labelField"
+    "/labelField",
+    "/WYSIWYG"
   ]
 }

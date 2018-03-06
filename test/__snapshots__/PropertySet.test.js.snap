@@ -699,27 +699,6 @@ exports[`renders without crashing 1`] = `
     >
       <label
         className="form-control-label"
-        htmlFor="WYSIWYGPropertyInput"
-      >
-        WYSIWYG
-      </label>
-      <div
-        className="controls"
-      >
-        <div
-          className="p10"
-        />
-      </div>
-    </div>
-  </div>
-  <div
-    className="col-lg-12"
-  >
-    <div
-      className="form-group property required"
-    >
-      <label
-        className="form-control-label"
         htmlFor="passwordPropertyInput"
       >
         Password
@@ -1261,6 +1240,27 @@ exports[`renders without crashing 1`] = `
     >
       Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
     </label>
+  </div>
+  <div
+    className="col-lg-12"
+  >
+    <div
+      className="form-group property required"
+    >
+      <label
+        className="form-control-label"
+        htmlFor="WYSIWYGPropertyInput"
+      >
+        WYSIWYG
+      </label>
+      <div
+        className="controls"
+      >
+        <div
+          className="p10"
+        />
+      </div>
+    </div>
   </div>
 </div>
 `;
