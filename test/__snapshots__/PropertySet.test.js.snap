@@ -6,6 +6,48 @@ exports[`empty property set 1`] = `
 />
 `;
 
+exports[`inline layout 1`] = `
+<div
+  className="property-set"
+>
+  <input
+    className="form-control mb-2 mr-sm-2"
+    disabled={undefined}
+    id="name2PropertyInput"
+    onChange={[Function]}
+    placeholder="Name"
+    required={true}
+    type="text"
+    value="value"
+  />
+  <div
+    className="form-check mb-2 mr-sm-2"
+  >
+    <input
+      checked={false}
+      className="form-check-input"
+      disabled={undefined}
+      id="subject2PropertyInput"
+      onChange={[Function]}
+      required={true}
+      type="checkbox"
+    />
+    <label
+      className="form-check-label"
+      htmlFor="subject2Field"
+    >
+      Remember me
+    </label>
+  </div>
+  <label
+    className="form-control-label mb-2 mr-sm-2"
+    id="labelFieldPropertyInput"
+  >
+    Text label
+  </label>
+</div>
+`;
+
 exports[`numbersTest 1`] = `
 <div
   className="property-set form-row"

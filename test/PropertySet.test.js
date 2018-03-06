@@ -5,6 +5,7 @@ import {shallow, mount, render} from 'enzyme';
 import bean from '../src/testJson.json';
 import testOuter from '../src/testOuter.json';
 import numbersTest from '../src/numbersTest.json';
+import layout2 from '../src/layout2.json';
 
 //https://github.com/YouCanBookMe/react-datetime/issues/384
 jest.mock('react-dom', () => ({
@@ -59,6 +60,12 @@ test('numbersTest', () => {
   expect(component.toJSON()).toMatchSnapshot();
 });
 
+test('inline layout', () => {
+  const component = renderer.create(
+    <PropertySet bean={layout2} inline rowClass="" />
+  );
+  expect(component.toJSON()).toMatchSnapshot();
+});
 
 test('simple property set', () => {
 	const simpleBean = {
