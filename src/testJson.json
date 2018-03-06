@@ -7,11 +7,11 @@
     "textArea": "test",
     "WYSIWYG": "test",
     "password": "password",
+    "checkBox": true,
     "file": "",
     "select": "vanilla",
     "virtualizedSelect": "vanilla",
     "multiSelect": ["chocolate", "strawberry"],
-    "checkBox": true,
     "labelFieldRaw": "<p>Pellentesque habitant morbi tristique senectus et netus et <a href=\"#test\">Link</a> malesuada fames ac <b>turpis</b> egestas.</p>",
     "labelField": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas."
   },
@@ -45,6 +45,10 @@
       "displayName": "Password",
       "passwordField": true
     },
+    "/checkBox": {
+      "displayName": "CheckBox",
+      "type": "Boolean"
+    },
     "/file": {
       "displayName": "File",
       "type": "Base64File"
@@ -63,10 +67,6 @@
       "multipleSelectionList": true,
       "tagList": [["vanilla","Vanilla"],["chocolate","Chocolate"],["strawberry","Strawberry"],["cookiescream","Cookies and Cream"],["caramel","Caramel"],["peppermint","Peppermint"]]
     },
-    "/checkBox": {
-      "displayName": "CheckBox",
-      "type": "Boolean"
-    },
     "/labelFieldRaw": {
       "labelField": true,
       "rawValue": true
@@ -83,11 +83,11 @@
     "/textArea",
     "/WYSIWYG",
     "/password",
+    "/checkBox",
     "/file",
     "/select",
     "/virtualizedSelect",
     "/multiSelect",
-    "/checkBox",
     "/labelFieldRaw",
     "/labelField"
   ]

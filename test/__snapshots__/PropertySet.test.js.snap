@@ -702,6 +702,29 @@ exports[`renders without crashing 1`] = `
     className="col-lg-12"
   >
     <div
+      className="form-check property required"
+    >
+      <input
+        checked={true}
+        className="form-check-input"
+        disabled={undefined}
+        id="checkBoxPropertyInput"
+        onChange={[Function]}
+        required={true}
+        type="checkbox"
+      />
+      <label
+        className="form-check-label"
+        htmlFor="checkBoxField"
+      >
+        CheckBox
+      </label>
+    </div>
+  </div>
+  <div
+    className="col-lg-12"
+  >
+    <div
       className="form-group property required"
     >
       <label
@@ -1172,29 +1195,6 @@ exports[`renders without crashing 1`] = `
           </div>
         </div>
       </div>
-    </div>
-  </div>
-  <div
-    className="col-lg-12"
-  >
-    <div
-      className="form-check property required"
-    >
-      <input
-        checked={true}
-        className="form-check-input"
-        disabled={undefined}
-        id="checkBoxPropertyInput"
-        onChange={[Function]}
-        required={true}
-        type="checkbox"
-      />
-      <label
-        className="form-check-label"
-        htmlFor="checkBoxField"
-      >
-        CheckBox
-      </label>
     </div>
   </div>
   <div
