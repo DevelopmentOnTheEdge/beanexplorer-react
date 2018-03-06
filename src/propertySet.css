@@ -69,6 +69,14 @@
   margin-bottom: 0.5rem;
 }
 
+/*
+When required is defined in a form field, Firefox 4 automatically shows a red border to this element,
+even BEFORE the user hits the submit button.
+*/
+input:required {
+  box-shadow: none;
+}
+
 /*.form-group.required .form-control-label,
 .form-check.required .form-check-label{
   font-weight: bold;
