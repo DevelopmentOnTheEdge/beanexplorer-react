@@ -1654,7 +1654,7 @@ exports[`validationTest 1`] = `
                     required={true}
                     step={1}
                     type="number"
-                    value="32767"
+                    value={32767}
                   />
                 </div>
               </div>
@@ -1685,7 +1685,7 @@ exports[`validationTest 1`] = `
                     required={true}
                     step={1}
                     type="number"
-                    value="2147483647"
+                    value={2147483647}
                   />
                 </div>
               </div>
@@ -1709,19 +1709,19 @@ exports[`validationTest 1`] = `
                     className="form-control"
                     disabled={undefined}
                     id="longPropertyInput"
-                    max={9223372036854775000}
-                    min={-9223372036854775000}
+                    max={9007199254740991}
+                    min={-9007199254740991}
                     onChange={[Function]}
                     placeholder={undefined}
                     required={true}
                     step={1}
                     type="number"
-                    value="9223372036854775009"
+                    value={9007199254740991}
                   />
                   <span
                     className="form-control-feedback"
                   >
-                    the numbers are rounded off 3 last digits of java Long.MAX_VALUE
+                    use Number.MAX_SAFE_INTEGER and Number.MIN_SAFE_INTEGER
                   </span>
                 </div>
               </div>
@@ -1748,8 +1748,81 @@ exports[`validationTest 1`] = `
                     onChange={[Function]}
                     placeholder={undefined}
                     required={true}
+                    step={1e-12}
                     type="number"
-                    value="100.5"
+                    value={100.1}
+                  />
+                  <span
+                    className="form-control-feedback"
+                  >
+                    have problems in firefox
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div
+              className="col-lg-12"
+            >
+              <div
+                className="form-group property required"
+              >
+                <label
+                  className="form-control-label"
+                  htmlFor="doubleWithStepPropertyInput"
+                >
+                  Double with custom step
+                </label>
+                <div
+                  className="controls"
+                >
+                  <input
+                    className="form-control"
+                    disabled={undefined}
+                    id="doubleWithStepPropertyInput"
+                    max={1000}
+                    min={0}
+                    onChange={[Function]}
+                    placeholder={undefined}
+                    required={true}
+                    step={0.5}
+                    type="number"
+                    value={100.5}
+                  />
+                  <span
+                    className="form-control-feedback"
+                  >
+                    Use also the 'range' for correct work in chrome, firefox, etc
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div
+              className="col-lg-12"
+            >
+              <div
+                className="form-group property"
+              >
+                <label
+                  className="form-control-label"
+                  htmlFor="integerWithRangeAndStepPropertyInput"
+                >
+                  Number input with range and integer step
+                </label>
+                <div
+                  className="controls"
+                >
+                  <input
+                    className="form-control"
+                    disabled={undefined}
+                    id="integerWithRangeAndStepPropertyInput"
+                    max={100}
+                    min={0}
+                    onChange={[Function]}
+                    placeholder={undefined}
+                    required={false}
+                    step={10}
+                    type="number"
+                    value=""
                   />
                 </div>
               </div>

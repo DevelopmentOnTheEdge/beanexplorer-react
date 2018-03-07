@@ -177,17 +177,21 @@ class PropertyInput extends React.Component
         <textarea rows={meta.rows || 3} cols={meta.columns} {...rawTextInputProps} />
       ),
       Short: () => (
-        <input type="number" min={-32768} max={32767} step={1} {...rawTextInputProps} />
+        <input type="number" min={-32768} max={32767} step={validationRulesMap.step || 1} {...rawTextInputProps} />
       ),
       Integer: () => (
-        <input type="number" min={-2147483648} max={2147483647} step={1} {...rawTextInputProps} />
+        <input type="number" min={-2147483648} max={2147483647} step={validationRulesMap.step || 1} {...rawTextInputProps} />
       ),
-      //the numbers are rounded off - 3 last digits
       Long: () => (
-        <input type="number" min={-9223372036854775000} max={9223372036854775000} step={1} {...rawTextInputProps} />
+        <input type="number" min={Number.MIN_SAFE_INTEGER} max={Number.MAX_SAFE_INTEGER} step={validationRulesMap.step || 1} {...rawTextInputProps} />
       ),
+      //default step for prevent validation problems in firefox
       Double: () => (
-        <input type="number" {...rawTextInputProps} />
+        <input type="number" {...rawTextInputProps} step={validationRulesMap.step || 0.000000000001}/>
+      ),
+      numberWithRange: () => (
+        <input type="number" min={validationRulesMap.range.min} max={validationRulesMap.range.max}
+               step={validationRulesMap.step || 1} {...rawTextInputProps} />
       ),
       Boolean: () => (
         <input type="checkbox" checked={value === true || value === "true"} onChange={this.handleChange}
@@ -311,6 +315,11 @@ class PropertyInput extends React.Component
     if(extraAttrsMap.inputType === 'textArea')
     {
       return controls['textArea']();
+    }
+
+    if(validationRulesMap.range !== undefined)
+    {
+      return controls['numberWithRange']();
     }
 
     if(validationRulesMap.mask !== undefined)

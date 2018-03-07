@@ -1,9 +1,11 @@
 {
   "values": {
-    "short": "32767",
-    "integer": "2147483647",
-    "long": "9223372036854775009",
-    "double": "100.5"
+    "short": 32767,
+    "integer": 2147483647,
+    "long": 9007199254740991,
+    "double": 100.1,
+    "doubleWithStep": 100.5,
+    "integerWithRangeAndStep": ""
   },
   "meta": {
     "/short": {
@@ -20,19 +22,35 @@
     "/long": {
       "displayName": "Long",
       "type": "Long",
-      "message": "the numbers are rounded off 3 last digits of java Long.MAX_VALUE",
+      "message": "use Number.MAX_SAFE_INTEGER and Number.MIN_SAFE_INTEGER",
       "groupId": 1
     },
     "/double": {
       "displayName": "Double",
       "type": "Double",
+      "message": "have problems in firefox",
       "groupId": 1
+    },
+    "/doubleWithStep": {
+      "displayName": "Double with custom step",
+      "type": "Double",
+      "validationRules":[{"type":"step","attr":0.5},{"type":"range","attr":{"min":0,"max":1000}}],
+      "message": "Use also the 'range' for correct work in chrome, firefox, etc",
+      "groupId": 1
+    },
+    "/integerWithRangeAndStep": {
+      "displayName": "Number input with range and integer step",
+      "validationRules":[{"type":"step","attr":10},{"type":"range","attr":{"min":0,"max":100}}],
+      "groupId": 1,
+      "canBeNull": true
     }
   },
   "order": [
     "/short",
     "/integer",
     "/long",
-    "/double"
+    "/double",
+    "/doubleWithStep",
+    "/integerWithRangeAndStep"
   ]
 }
