@@ -46,7 +46,8 @@
     },
     "/file": {
       "displayName": "File",
-      "type": "Base64File"
+      "type": "Base64File",
+      "canBeNull": true
     },
     "/select": {
       "displayName": "Select",

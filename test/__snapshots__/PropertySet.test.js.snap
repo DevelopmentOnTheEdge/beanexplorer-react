@@ -620,7 +620,7 @@ exports[`renders without crashing 1`] = `
     className="col-lg-12"
   >
     <div
-      className="form-group property required"
+      className="form-group property"
     >
       <label
         className="form-control-label"
@@ -637,7 +637,7 @@ exports[`renders without crashing 1`] = `
           id="filePropertyInput"
           multiple={undefined}
           onChange={[Function]}
-          required={true}
+          required={false}
           type="file"
         />
       </div>
@@ -1745,7 +1745,7 @@ exports[`validationTest 1`] = `
                   <small
                     className="form-control-feedback"
                   >
-                    use Number.MAX_SAFE_INTEGER and Number.MIN_SAFE_INTEGER
+                    use Number.MAX_SAFE_INTEGER and Number.MIN_SAFE_INTEGER for limits
                   </small>
                 </div>
               </div>
@@ -1776,11 +1776,6 @@ exports[`validationTest 1`] = `
                     type="number"
                     value={100.1}
                   />
-                  <small
-                    className="form-control-feedback"
-                  >
-                    have problems in firefox
-                  </small>
                 </div>
               </div>
             </div>
@@ -1792,9 +1787,9 @@ exports[`validationTest 1`] = `
               >
                 <label
                   className="form-control-label"
-                  htmlFor="doubleWithStepPropertyInput"
+                  htmlFor="doubleWithRangeAndStepPropertyInput"
                 >
-                  Double with custom step
+                  Number input with range and double step
                 </label>
                 <div
                   className="controls"
@@ -1802,7 +1797,7 @@ exports[`validationTest 1`] = `
                   <input
                     className="form-control"
                     disabled={undefined}
-                    id="doubleWithStepPropertyInput"
+                    id="doubleWithRangeAndStepPropertyInput"
                     max={1000}
                     min={0}
                     onChange={[Function]}
@@ -1812,11 +1807,6 @@ exports[`validationTest 1`] = `
                     type="number"
                     value={100.5}
                   />
-                  <small
-                    className="form-control-feedback"
-                  >
-                    Use also the 'range' for correct work in chrome, firefox, etc
-                  </small>
                 </div>
               </div>
             </div>
