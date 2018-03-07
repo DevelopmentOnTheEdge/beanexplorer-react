@@ -4,7 +4,7 @@ import renderer from 'react-test-renderer';
 import {shallow, mount, render} from 'enzyme';
 import bean from '../src/testJson.json';
 import testOuter from '../src/testOuter.json';
-import numbersTest from '../src/numbersTest.json';
+import validationTest from '../src/validationTest.json';
 import layout2 from '../src/layout2.json';
 
 //https://github.com/YouCanBookMe/react-datetime/issues/384
@@ -53,9 +53,9 @@ test('test outer', () => {
   expect(component.toJSON()).toMatchSnapshot();
 });
 
-test('numbersTest', () => {
+test('validationTest', () => {
   const component = renderer.create(
-    <PropertySet bean={numbersTest} />
+    <PropertySet bean={validationTest} />
   );
   expect(component.toJSON()).toMatchSnapshot();
 });

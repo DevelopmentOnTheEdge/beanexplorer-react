@@ -12,7 +12,7 @@ import JsonPointer   from 'json-pointer';
 
 import bean from './testJson.json';
 import testOuter from './testOuter.json';
-import numbersTest from './numbersTest.json';
+import validationTest from './validationTest.json';
 import layout1 from './layout1.json';
 import layout2 from './layout2.json';
 
@@ -108,13 +108,13 @@ class PropertyOuter extends AllPropertyTypes
   }
 }
 
-class Numbers extends AllPropertyTypes
+class Validation extends AllPropertyTypes
 {
   constructor(props) {
     super(props);
 
     this.state = {
-      bean: numbersTest
+      bean: validationTest
     };
   }
 }
@@ -173,15 +173,15 @@ const ExampleApp = () => (
           <ul className="nav nav-pills">
             <li className="nav-item"><NavLink to="/" className="nav-link" exact>All PropertyInput</NavLink></li>
             <li className="nav-item"><NavLink to="/allReadOnly" className="nav-link" >All Read Only</NavLink></li>
-            <li className="nav-item"><NavLink to="/numbers" className="nav-link" >Numbers</NavLink></li>
-            <li className="nav-item"><NavLink to="/propertyOuter" className="nav-link" >Property outer</NavLink></li>
+            <li className="nav-item"><NavLink to="/outer" className="nav-link" >Outer</NavLink></li>
+            <li className="nav-item"><NavLink to="/validation" className="nav-link" >Validation</NavLink></li>
             <li className="nav-item"><NavLink to="/inlineForm" className="nav-link" >Inline form</NavLink></li>
           </ul>
           <br/>
           <Route exact path="/" component={AllPropertyTypes}/>
           <Route path="/allReadOnly" component={AllReadOnly}/>
-          <Route path="/numbers" component={Numbers}/>
-          <Route path="/propertyOuter" component={PropertyOuter}/>
+          <Route path="/outer" component={PropertyOuter}/>
+          <Route path="/validation" component={Validation}/>
           <Route path="/inlineForm" component={InlineForm}/>
           <br/><br/><br/><br/>
         </div>

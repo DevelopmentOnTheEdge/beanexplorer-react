@@ -48,139 +48,6 @@ exports[`inline layout 1`] = `
 </div>
 `;
 
-exports[`numbersTest 1`] = `
-<div
-  className="property-set form-row"
->
-  <div
-    className="col-lg-12"
-  >
-    <div
-      className="form-group property required"
-    >
-      <label
-        className="form-control-label"
-        htmlFor="shortPropertyInput"
-      >
-        Short
-      </label>
-      <div
-        className="controls"
-      >
-        <input
-          className="form-control"
-          disabled={undefined}
-          id="shortPropertyInput"
-          max={32767}
-          min={-32768}
-          onChange={[Function]}
-          placeholder={undefined}
-          required={true}
-          step={1}
-          type="number"
-          value="32767"
-        />
-      </div>
-    </div>
-  </div>
-  <div
-    className="col-lg-12"
-  >
-    <div
-      className="form-group property required"
-    >
-      <label
-        className="form-control-label"
-        htmlFor="integerPropertyInput"
-      >
-        Integer
-      </label>
-      <div
-        className="controls"
-      >
-        <input
-          className="form-control"
-          disabled={undefined}
-          id="integerPropertyInput"
-          max={2147483647}
-          min={-2147483648}
-          onChange={[Function]}
-          placeholder={undefined}
-          required={true}
-          step={1}
-          type="number"
-          value="2147483647"
-        />
-      </div>
-    </div>
-  </div>
-  <div
-    className="col-lg-12"
-  >
-    <div
-      className="form-group property required"
-    >
-      <label
-        className="form-control-label"
-        htmlFor="longPropertyInput"
-      >
-        Long
-      </label>
-      <div
-        className="controls"
-      >
-        <input
-          className="form-control"
-          disabled={undefined}
-          id="longPropertyInput"
-          max={9223372036854775000}
-          min={-9223372036854775000}
-          onChange={[Function]}
-          placeholder={undefined}
-          required={true}
-          step={1}
-          type="number"
-          value="9223372036854775009"
-        />
-        <span
-          className="form-control-feedback"
-        >
-          the numbers are rounded off 3 last digits of java Long.MAX_VALUE
-        </span>
-      </div>
-    </div>
-  </div>
-  <div
-    className="col-lg-12"
-  >
-    <div
-      className="form-group property required"
-    >
-      <label
-        className="form-control-label"
-        htmlFor="doublePropertyInput"
-      >
-        Double
-      </label>
-      <div
-        className="controls"
-      >
-        <input
-          className="form-control"
-          disabled={undefined}
-          id="doublePropertyInput"
-          onChange={[Function]}
-          placeholder={undefined}
-          required={true}
-          type="number"
-          value="100.5"
-        />
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
 exports[`renders without crashing 1`] = `
 <div
   className="property-set form-row"
@@ -1722,6 +1589,167 @@ exports[`test outer 1`] = `
                     required={true}
                     type="text"
                     value=""
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`validationTest 1`] = `
+<div
+  className="property-set form-row"
+>
+  <div
+    className="property-group col-12"
+  >
+    <div
+      className="row property-group__line"
+    />
+    <div
+      className="property-groop-box"
+    >
+      <h4
+        className="property-group__title"
+      >
+        Numbers
+      </h4>
+      <div
+        className="row"
+      >
+        <div
+          className="col-12"
+        >
+          <div
+            className="form-row"
+          >
+            <div
+              className="col-lg-12"
+            >
+              <div
+                className="form-group property required"
+              >
+                <label
+                  className="form-control-label"
+                  htmlFor="shortPropertyInput"
+                >
+                  Short
+                </label>
+                <div
+                  className="controls"
+                >
+                  <input
+                    className="form-control"
+                    disabled={undefined}
+                    id="shortPropertyInput"
+                    max={32767}
+                    min={-32768}
+                    onChange={[Function]}
+                    placeholder={undefined}
+                    required={true}
+                    step={1}
+                    type="number"
+                    value="32767"
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              className="col-lg-12"
+            >
+              <div
+                className="form-group property required"
+              >
+                <label
+                  className="form-control-label"
+                  htmlFor="integerPropertyInput"
+                >
+                  Integer
+                </label>
+                <div
+                  className="controls"
+                >
+                  <input
+                    className="form-control"
+                    disabled={undefined}
+                    id="integerPropertyInput"
+                    max={2147483647}
+                    min={-2147483648}
+                    onChange={[Function]}
+                    placeholder={undefined}
+                    required={true}
+                    step={1}
+                    type="number"
+                    value="2147483647"
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              className="col-lg-12"
+            >
+              <div
+                className="form-group property required"
+              >
+                <label
+                  className="form-control-label"
+                  htmlFor="longPropertyInput"
+                >
+                  Long
+                </label>
+                <div
+                  className="controls"
+                >
+                  <input
+                    className="form-control"
+                    disabled={undefined}
+                    id="longPropertyInput"
+                    max={9223372036854775000}
+                    min={-9223372036854775000}
+                    onChange={[Function]}
+                    placeholder={undefined}
+                    required={true}
+                    step={1}
+                    type="number"
+                    value="9223372036854775009"
+                  />
+                  <span
+                    className="form-control-feedback"
+                  >
+                    the numbers are rounded off 3 last digits of java Long.MAX_VALUE
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div
+              className="col-lg-12"
+            >
+              <div
+                className="form-group property required"
+              >
+                <label
+                  className="form-control-label"
+                  htmlFor="doublePropertyInput"
+                >
+                  Double
+                </label>
+                <div
+                  className="controls"
+                >
+                  <input
+                    className="form-control"
+                    disabled={undefined}
+                    id="doublePropertyInput"
+                    onChange={[Function]}
+                    placeholder={undefined}
+                    required={true}
+                    type="number"
+                    value="100.5"
                   />
                 </div>
               </div>

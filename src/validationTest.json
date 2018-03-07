@@ -8,20 +8,25 @@
   "meta": {
     "/short": {
       "displayName": "Short",
-      "type": "Short"
+      "type": "Short",
+      "groupName": "Numbers",
+      "groupId": 1
     },
     "/integer": {
       "displayName": "Integer",
-      "type": "Integer"
+      "type": "Integer",
+      "groupId": 1
     },
     "/long": {
       "displayName": "Long",
       "type": "Long",
-      "message": "the numbers are rounded off 3 last digits of java Long.MAX_VALUE"
+      "message": "the numbers are rounded off 3 last digits of java Long.MAX_VALUE",
+      "groupId": 1
     },
     "/double": {
       "displayName": "Double",
-      "type": "Double"
+      "type": "Double",
+      "groupId": 1
     }
   },
   "order": [
