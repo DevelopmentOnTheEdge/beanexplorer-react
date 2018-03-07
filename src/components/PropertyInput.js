@@ -168,30 +168,37 @@ class PropertyInput extends React.Component
 
     const controls = {
       textInput: () => (
-        <input type="text" {...rawInputProps} maxLength={meta.columnSize} />
+        <input type="text" {...rawInputProps}
+             maxLength={meta.columnSize} pattern={validationRulesMap.pattern} />
       ),
       passwordField: () => (
-        <input type="password" {...rawInputProps} maxLength={meta.columnSize} />
+        <input type="password" {...rawInputProps}
+             maxLength={meta.columnSize} pattern={validationRulesMap.pattern} />
       ),
       textArea: () => (
-        <textarea rows={meta.rows || 3} cols={meta.columns} {...rawInputProps} maxLength={meta.columnSize} />
+        <textarea rows={meta.rows || 3} cols={meta.columns} {...rawInputProps}
+             maxLength={meta.columnSize} pattern={validationRulesMap.pattern} />
       ),
       Short: () => (
-        <input type="number" min={-32768} max={32767} step={validationRulesMap.step || 1} {...rawInputProps} />
+        <input type="number" min={-32768} max={32767}
+             step={validationRulesMap.step || 1} {...rawInputProps} />
       ),
       Integer: () => (
-        <input type="number" min={-2147483648} max={2147483647} step={validationRulesMap.step || 1} {...rawInputProps} />
+        <input type="number" min={-2147483648} max={2147483647}
+             step={validationRulesMap.step || 1} {...rawInputProps} />
       ),
       Long: () => (
-        <input type="number" min={Number.MIN_SAFE_INTEGER} max={Number.MAX_SAFE_INTEGER} step={validationRulesMap.step || 1} {...rawInputProps} />
+        <input type="number" min={Number.MIN_SAFE_INTEGER} max={Number.MAX_SAFE_INTEGER}
+             step={validationRulesMap.step || 1} {...rawInputProps} />
       ),
       //default step for prevent validation problems in firefox
       Double: () => (
-        <input type="number" {...rawInputProps} step={validationRulesMap.step || 0.000000000001}/>
+        <input type="number"
+             step={validationRulesMap.step || 0.000000000001} {...rawInputProps} />
       ),
       numberWithRange: () => (
         <input type="number" min={validationRulesMap.range.min} max={validationRulesMap.range.max}
-               step={validationRulesMap.step || 1} {...rawInputProps} />
+             step={validationRulesMap.step || 1} {...rawInputProps} />
       ),
       Boolean: () => (
         <input type="checkbox" checked={value === true || value === "true"} onChange={this.handleChange}

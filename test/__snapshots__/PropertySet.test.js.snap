@@ -16,6 +16,7 @@ exports[`inline layout 1`] = `
     id="name2PropertyInput"
     maxLength={undefined}
     onChange={[Function]}
+    pattern={undefined}
     placeholder="Name"
     required={true}
     type="text"
@@ -74,6 +75,7 @@ exports[`renders without crashing 1`] = `
           id="textInputPropertyInput"
           maxLength={undefined}
           onChange={[Function]}
+          pattern={undefined}
           placeholder={undefined}
           required={true}
           type="text"
@@ -556,6 +558,7 @@ exports[`renders without crashing 1`] = `
           id="textAreaPropertyInput"
           maxLength={undefined}
           onChange={[Function]}
+          pattern={undefined}
           placeholder="field for text, max length 256"
           required={true}
           rows={3}
@@ -585,6 +588,7 @@ exports[`renders without crashing 1`] = `
           id="passwordPropertyInput"
           maxLength={undefined}
           onChange={[Function]}
+          pattern={undefined}
           placeholder={undefined}
           required={true}
           type="password"
@@ -1164,6 +1168,7 @@ exports[`simple property set 1`] = `
           id="numberPropertyInput"
           maxLength={undefined}
           onChange={[Function]}
+          pattern={undefined}
           placeholder={undefined}
           required={true}
           type="text"
@@ -1223,6 +1228,7 @@ exports[`test outer 1`] = `
                     id="textInputPropertyInput"
                     maxLength={undefined}
                     onChange={[Function]}
+                    pattern={undefined}
                     placeholder={undefined}
                     required={true}
                     type="text"
@@ -1323,6 +1329,7 @@ exports[`test outer 1`] = `
                     id="textInput2PropertyInput"
                     maxLength={undefined}
                     onChange={[Function]}
+                    pattern={undefined}
                     placeholder={undefined}
                     required={true}
                     type="text"
@@ -1423,6 +1430,7 @@ exports[`test outer 1`] = `
                     id="textInput3PropertyInput"
                     maxLength={undefined}
                     onChange={[Function]}
+                    pattern={undefined}
                     placeholder={undefined}
                     required={true}
                     type="text"
@@ -1523,6 +1531,7 @@ exports[`test outer 1`] = `
                     id="textInput4PropertyInput"
                     maxLength={undefined}
                     onChange={[Function]}
+                    pattern={undefined}
                     placeholder={undefined}
                     required={false}
                     type="text"
@@ -1580,6 +1589,7 @@ exports[`test outer 1`] = `
                     id="namePropertyInput"
                     maxLength={undefined}
                     onChange={[Function]}
+                    pattern={undefined}
                     placeholder={undefined}
                     required={true}
                     type="text"
@@ -1609,6 +1619,7 @@ exports[`test outer 1`] = `
                     id="subjectPropertyInput"
                     maxLength={undefined}
                     onChange={[Function]}
+                    pattern={undefined}
                     placeholder={undefined}
                     required={true}
                     type="text"
@@ -1890,10 +1901,41 @@ exports[`validationTest 1`] = `
                     id="textInputPropertyInput"
                     maxLength={10}
                     onChange={[Function]}
+                    pattern={undefined}
                     placeholder={undefined}
                     required={true}
                     type="text"
                     value="qwerty7890"
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              className="col-lg-12"
+            >
+              <div
+                className="form-group property"
+              >
+                <label
+                  className="form-control-label"
+                  htmlFor="textInputWithPatternPropertyInput"
+                >
+                  Text input with pattern
+                </label>
+                <div
+                  className="controls"
+                >
+                  <input
+                    className="form-control"
+                    disabled={undefined}
+                    id="textInputWithPatternPropertyInput"
+                    maxLength={undefined}
+                    onChange={[Function]}
+                    pattern="^[A-Za-zА-Яа-яЁё]+$"
+                    placeholder={undefined}
+                    required={false}
+                    type="text"
+                    value="AZazАЯаяЁё"
                   />
                 </div>
               </div>

@@ -6,7 +6,8 @@
     "double": 100.1,
     "doubleWithRangeAndStep": 100.5,
     "integerWithRangeAndStep": "",
-    "textInput": "qwerty7890"
+    "textInput": "qwerty7890",
+    "textInputWithPattern": "AZazАЯаяЁё"
   },
   "meta": {
     "/short": {
@@ -47,6 +48,12 @@
       "columnSize": 10,
       "groupName": "Text",
       "groupId": 2
+    },
+    "/textInputWithPattern": {
+      "displayName": "Text input with pattern",
+      "validationRules":[{"type":"pattern","attr":"^[A-Za-zА-Яа-яЁё]+$"}],
+      "groupId": 2,
+      "canBeNull": true
     }
   },
   "order": [
@@ -56,6 +63,7 @@
     "/double",
     "/doubleWithRangeAndStep",
     "/integerWithRangeAndStep",
-    "/textInput"
+    "/textInput",
+    "/textInputWithPattern"
   ]
 }
