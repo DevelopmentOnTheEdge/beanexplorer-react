@@ -137,16 +137,6 @@ var PropertyInput = function (_React$Component) {
       }
     }
   }, {
-    key: 'dateFromISOFormat',
-    value: function dateFromISOFormat(stringDate) {
-      var date = moment(stringDate === undefined ? "" : stringDate, 'YYYY-MM-DD', true);
-      if (date.isValid()) {
-        return date.format('DD.MM.YYYY');
-      } else {
-        return stringDate;
-      }
-    }
-  }, {
     key: 'handleChangeSelect',
     value: function handleChangeSelect(object) {
       if (Array.isArray(object)) {
@@ -159,46 +149,6 @@ var PropertyInput = function (_React$Component) {
         this.callOnChange(object !== null ? object.value : "");
       }
     }
-
-    // static isNumberInput(rules)
-    // {
-    //   for (let i =0 ; i< rules.length; i++)
-    //   {
-    //     if(rules[i].type === "baseRule" &&
-    //       ( rules[i].attr === "digits" || rules[i].attr === "integer" || rules[i].attr === "number" ))return true;
-    //   }
-    //   return false;
-    // }
-    //
-    // static getNumericProps(meta)
-    // {
-    //   let props = {};
-    //   props['maxLength'] = 14;//errors if more
-    //   const rules = meta.validationRules;
-    //   for (let i =0 ; i< rules.length; i++)
-    //   {
-    //     if(rules[i].type === "baseRule" && (rules[i].attr === "number"))
-    //     {
-    //       props['precision'] = 10;
-    //     }
-    //     if(rules[i].type === "baseRule" && (rules[i].attr === "integer"))
-    //     {
-    //       props['min'] = -2147483648;
-    //       props['max'] = 2147483647;
-    //       props['maxLength'] = 9;
-    //       props['precision'] = 0;
-    //     }
-    //     // if(rules[i].type === "digits")
-    //     // {
-    //     //   props['min'] = 0;
-    //     // }
-    //   }
-    //   if(meta.columnSize){
-    //     props['maxLength'] = parseInt(meta.columnSize);
-    //   }
-    //   return props;
-    // }
-
   }, {
     key: 'render',
     value: function render() {
@@ -227,65 +177,26 @@ var PropertyInput = function (_React$Component) {
       });
 
       var controls = {
-        textInput: function textInput() {
+        textInput: function textInput(type) {
           return React.createElement('input', _extends({
-            type: 'text',
-            maxLength: meta.columnSize,
-            pattern: validationRulesMap.pattern
-          }, rawInputProps));
-        },
-        passwordField: function passwordField() {
-          return React.createElement('input', _extends({
-            type: 'password',
+            type: type || "text",
             maxLength: meta.columnSize,
             pattern: validationRulesMap.pattern
           }, rawInputProps));
         },
         textArea: function textArea() {
           return React.createElement('textarea', _extends({
-            rows: meta.rows || 3,
-            cols: meta.columns,
+            rows: extraAttrsMap.rows || 3,
             maxLength: meta.columnSize,
             pattern: validationRulesMap.pattern
           }, rawInputProps));
         },
-        Short: function Short() {
+        number: function number(range, defaultStep) {
           return React.createElement('input', _extends({
             type: 'number',
-            min: -32768,
-            max: 32767,
-            step: validationRulesMap.step || 1
-          }, rawInputProps));
-        },
-        Integer: function Integer() {
-          return React.createElement('input', _extends({
-            type: 'number',
-            min: -2147483648,
-            max: 2147483647,
-            step: validationRulesMap.step || 1
-          }, rawInputProps));
-        },
-        Long: function Long() {
-          return React.createElement('input', _extends({
-            type: 'number',
-            min: Number.MIN_SAFE_INTEGER,
-            max: Number.MAX_SAFE_INTEGER,
-            step: validationRulesMap.step || 1
-          }, rawInputProps));
-        },
-        //default step for prevent validation problems in firefox
-        Double: function Double() {
-          return React.createElement('input', _extends({
-            type: 'number',
-            step: validationRulesMap.step || 0.000000000001
-          }, rawInputProps));
-        },
-        numberWithRange: function numberWithRange() {
-          return React.createElement('input', _extends({
-            type: 'number',
-            min: validationRulesMap.range.min,
-            max: validationRulesMap.range.max,
-            step: validationRulesMap.step || 1
+            min: range.min,
+            max: range.max,
+            step: validationRulesMap.step || defaultStep
           }, rawInputProps));
         },
         Boolean: function Boolean() {
@@ -302,7 +213,7 @@ var PropertyInput = function (_React$Component) {
             key: id + "Datetime",
             onChange: function onChange(v) {
               return _this2.dateToISOFormat(v);
-            }, value: _this2.dateFromISOFormat(value),
+            }, value: PropertyInput.dateFromISOFormat(value),
             timeFormat: false,
             closeOnSelect: true,
             closeOnTab: true,
@@ -435,12 +346,16 @@ var PropertyInput = function (_React$Component) {
         return controls['select']();
       }
 
-      if (meta.passwordField) {
-        return controls['passwordField']();
-      }
-
       if (meta.labelField) {
         return controls['labelField']();
+      }
+
+      if (extraAttrsMap.inputType === 'password' || meta.passwordField) {
+        return controls['textInput']('password');
+      }
+
+      if (extraAttrsMap.inputType === 'email') {
+        return controls['textInput']('email');
       }
 
       if (extraAttrsMap.inputType === 'WYSIWYG') {
@@ -452,11 +367,27 @@ var PropertyInput = function (_React$Component) {
       }
 
       if (validationRulesMap.range !== undefined) {
-        return controls['numberWithRange']();
+        return controls['number'](validationRulesMap.range, 1);
       }
 
       if (validationRulesMap.mask !== undefined) {
         return controls['mask']();
+      }
+
+      if (meta.type === 'Short') {
+        return controls['number']({ min: -32768, max: 32767 }, 1);
+      }
+
+      if (meta.type === 'Integer') {
+        return controls['number']({ min: -2147483648, max: 2147483647 }, 1);
+      }
+
+      if (meta.type === 'Long') {
+        return controls['number']({ min: Number.MIN_SAFE_INTEGER, max: Number.MAX_SAFE_INTEGER }, 1);
+      }
+
+      if (meta.type === 'Double') {
+        return controls['number']({ min: undefined, max: undefined }, 0.000000000001);
       }
 
       if (controls[meta.type] !== undefined) {
@@ -466,6 +397,16 @@ var PropertyInput = function (_React$Component) {
       return controls['textInput']();
     }
   }], [{
+    key: 'dateFromISOFormat',
+    value: function dateFromISOFormat(stringDate) {
+      var date = moment(stringDate === undefined ? "" : stringDate, 'YYYY-MM-DD', true);
+      if (date.isValid()) {
+        return date.format('DD.MM.YYYY');
+      } else {
+        return stringDate;
+      }
+    }
+  }, {
     key: 'getBase64',
     value: function getBase64(file) {
       return new Promise(function (resolve, reject) {
