@@ -157,47 +157,12 @@ class PropertyInput extends React.Component
           {...rawInputProps}
         />
       ),
-      Short: () => (
+      number: (range, defaultStep) => (
         <input
           type="number"
-          min={-32768}
-          max={32767}
-          step={validationRulesMap.step || 1}
-          {...rawInputProps}
-        />
-      ),
-      Integer: () => (
-        <input
-          type="number"
-          min={-2147483648}
-          max={2147483647}
-          step={validationRulesMap.step || 1}
-          {...rawInputProps}
-        />
-      ),
-      Long: () => (
-        <input
-          type="number"
-          min={Number.MIN_SAFE_INTEGER}
-          max={Number.MAX_SAFE_INTEGER}
-          step={validationRulesMap.step || 1}
-          {...rawInputProps}
-        />
-      ),
-      //default step for prevent validation problems in firefox
-      Double: () => (
-        <input
-          type="number"
-          step={validationRulesMap.step || 0.000000000001}
-          {...rawInputProps}
-        />
-      ),
-      numberWithRange: () => (
-        <input
-          type="number"
-          min={validationRulesMap.range.min}
-          max={validationRulesMap.range.max}
-          step={validationRulesMap.step || 1}
+          min={range.min}
+          max={range.max}
+          step={validationRulesMap.step || defaultStep}
           {...rawInputProps}
         />
       ),
@@ -381,12 +346,32 @@ class PropertyInput extends React.Component
 
     if(validationRulesMap.range !== undefined)
     {
-      return controls['numberWithRange']();
+      return controls['number'](validationRulesMap.range, 1);
     }
 
     if(validationRulesMap.mask !== undefined)
     {
       return controls['mask']();
+    }
+
+    if(meta.type === 'Short')
+    {
+      return controls['number']({min: -32768, max: 32767}, 1);
+    }
+
+    if(meta.type === 'Integer')
+    {
+      return controls['number']({min: -2147483648, max: 2147483647}, 1);
+    }
+
+    if(meta.type === 'Long')
+    {
+      return controls['number']({min: Number.MIN_SAFE_INTEGER, max: Number.MAX_SAFE_INTEGER}, 1);
+    }
+
+    if(meta.type === 'Double')
+    {
+      return controls['number']({min: undefined, max: undefined}, 0.000000000001);
     }
 
     if(controls[meta.type] !== undefined)
