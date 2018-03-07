@@ -159,196 +159,6 @@ var PropertyInput = function (_React$Component) {
         this.callOnChange(object !== null ? object.value : "");
       }
     }
-  }, {
-    key: 'render',
-    value: function render() {
-      var _this2 = this;
-
-      var path = this.getPath();
-      var meta = this.props.bean.meta[path];
-      var value = JsonPointer.get(this.props.bean, "/values" + path);
-      var id = path.substring(path.lastIndexOf("/") + 1) + "PropertyInput";
-      var extraAttrsMap = PropertyInput.getExtraAttrsMap(meta.extraAttrs);
-      var required = meta.canBeNull !== true;
-
-      var baseProps = {
-        id: id,
-        key: id,
-        disabled: meta.readOnly,
-        required: required
-      };
-
-      var rawInputProps = Object.assign({}, baseProps, {
-        value: value === undefined ? "" : value,
-        onChange: this.handleChange,
-        placeholder: meta.placeholder,
-        className: classNames("form-control", this.props.controlClassName)
-      });
-
-      var controls = {
-        textInput: function textInput() {
-          return React.createElement('input', _extends({ type: 'text' }, rawInputProps, { maxLength: meta.columnSize }));
-        },
-        passwordField: function passwordField() {
-          return React.createElement('input', _extends({ type: 'password' }, rawInputProps, { maxLength: meta.columnSize }));
-        },
-        textArea: function textArea() {
-          return React.createElement('textarea', _extends({ rows: meta.rows || 3, cols: meta.columns }, rawInputProps, { maxLength: meta.columnSize }));
-        },
-        Short: function Short() {
-          return React.createElement('input', _extends({ type: 'number', min: -32768, max: 32767, step: 1 }, rawInputProps));
-        },
-        Integer: function Integer() {
-          return React.createElement('input', _extends({ type: 'number', min: -2147483648, max: 2147483647, step: 1 }, rawInputProps));
-        },
-        //the numbers are rounded off - 3 last digits
-        Long: function Long() {
-          return React.createElement('input', _extends({ type: 'number', min: -9223372036854775000, max: 9223372036854775000, step: 1 }, rawInputProps));
-        },
-        Double: function Double() {
-          return React.createElement('input', _extends({ type: 'number' }, rawInputProps));
-        },
-        Boolean: function Boolean() {
-          return React.createElement('input', _extends({ type: 'checkbox', checked: value === true || value === "true", onChange: _this2.handleChange,
-            className: classNames("form-check-input", _this2.props.controlClassName) }, baseProps));
-        },
-        Date: function Date() {
-          return React.createElement(Datetime, { dateFormat: 'DD.MM.YYYY', key: id + "Datetime",
-            inputProps: Object.assign({}, baseProps, { pattern: "(^$|\\d{1,2}\\.\\d{1,2}\\.\\d{4})",
-              placeholder: meta.placeholder, className: classNames("form-control", _this2.props.controlClassName) }),
-            onChange: function onChange(v) {
-              return _this2.dateToISOFormat(v);
-            }, value: _this2.dateFromISOFormat(value),
-            timeFormat: false, closeOnSelect: true, closeOnTab: true, locale: _this2.props.localization.locale || "en" });
-        },
-        Base64File: function Base64File() {
-          return React.createElement('input', _extends({ type: 'file', className: classNames("form-control-file", _this2.props.controlClassName) }, baseProps, {
-            multiple: meta.multipleSelectionList,
-            onChange: function onChange(e) {
-              if (e.target.files && e.target.files.length === 1) {
-                var fileName = e.target.files[0].name;
-                PropertyInput.getBase64(e.target.files[0]).then(function (data) {
-                  _this2.callOnChange({ type: "Base64File", name: fileName, data: data });
-                });
-              } else if (e.target.files && e.target.files.length === 0) {
-                _this2.callOnChange("");
-              }
-            } }));
-        },
-        select: function select() {
-          var options = [];
-          for (var i = 0; i < meta.tagList.length; i++) {
-            options.push({ value: meta.tagList[i][0], label: meta.tagList[i][1] });
-          }
-
-          var strValue = void 0;
-          if (Array.isArray(value)) {
-            strValue = [];
-            for (var _i = 0; _i < value.length; _i++) {
-              strValue.push("" + value[_i]);
-            }
-          } else {
-            strValue = "" + value;
-          }
-          var selectAttr = {
-            ref: id, name: id, value: strValue, options: options, onChange: function onChange(v) {
-              return _this2.handleChangeSelect(v);
-            },
-            clearAllText: _this2.props.localization.clearAllText,
-            clearValueText: _this2.props.localization.clearValueText,
-            noResultsText: _this2.props.localization.noResultsText,
-            searchPromptText: _this2.props.localization.searchPromptText,
-            loadingPlaceholder: _this2.props.localization.loadingPlaceholder,
-            placeholder: meta.placeholder || _this2.props.localization.placeholder,
-            backspaceRemoves: false,
-            disabled: meta.readOnly,
-            multi: meta.multipleSelectionList,
-            matchPos: extraAttrsMap.matchPos || "any",
-            required: required
-          };
-
-          if (extraAttrsMap.inputType === "Creatable") {
-            return React.createElement(Creatable, selectAttr);
-          } else if (extraAttrsMap.inputType === "VirtualizedSelect") {
-            return React.createElement(VirtualizedSelect, _extends({}, selectAttr, { clearable: true, searchable: true, labelKey: 'label', valueKey: 'value' }));
-          } else {
-            return React.createElement(Select, selectAttr);
-          }
-        },
-        //      dateTime: {
-        //        normal: () => {
-        //          return ( React.createElement(Datetime, {id: id, key: id, value: value, parent: _this, onChange: handleChange, time: true, className: this.props.controlClassName}) );
-        //        },
-        //        readOnly: () => this.createStatic(value)
-        //      },
-        maskTest: function maskTest() {
-          return React.createElement(MaskedInput, _extends({ mask: PropertyInput.getMaskInput(meta.validationRules), value: value === undefined ? "" : value,
-            onChange: _this2.handleChange, className: classNames("form-control", _this2.props.controlClassName) }, baseProps));
-        },
-        WYSIWYG: function WYSIWYG() {
-          return React.createElement(CKEditor, { activeClass: 'p10', content: value,
-            events: {
-              "change": function change(evt) {
-                _this2.callOnChange(evt.editor.getData());
-              }
-            },
-            config: { language: 'ru', readOnly: meta.readOnly }
-          });
-        },
-        labelField: function labelField() {
-          if (meta.rawValue) {
-            return React.createElement('label', { className: classNames("form-control-label", _this2.props.controlClassName), id: id, key: id,
-              dangerouslySetInnerHTML: { __html: value } });
-          } else {
-            return React.createElement(
-              'label',
-              { className: classNames("form-control-label", _this2.props.controlClassName), id: id, key: id },
-              value
-            );
-          }
-        }
-      };
-
-      if (meta.tagList) {
-        return controls['select']();
-      }
-
-      if (meta.passwordField) {
-        return controls['passwordField']();
-      }
-
-      if (meta.labelField) {
-        return controls['labelField']();
-      }
-
-      if (extraAttrsMap.inputType === 'WYSIWYG') {
-        return controls['WYSIWYG']();
-      }
-
-      if (extraAttrsMap.inputType === 'textArea') {
-        return controls['textArea']();
-      }
-
-      if (meta.validationRules !== undefined && PropertyInput.getMaskInput(meta.validationRules)) {
-        return controls['maskTest']();
-      }
-
-      if (controls[meta.type] !== undefined) {
-        return controls[meta.type]();
-      }
-
-      return controls['textInput']();
-    }
-  }], [{
-    key: 'getMaskInput',
-    value: function getMaskInput(rules) {
-      for (var i = 0; i < rules.length; i++) {
-        if ("mask" in rules[i]) {
-          return rules[i].mask;
-        }
-      }
-      return null;
-    }
 
     // static isNumberInput(rules)
     // {
@@ -390,6 +200,272 @@ var PropertyInput = function (_React$Component) {
     // }
 
   }, {
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      var path = this.getPath();
+      var meta = this.props.bean.meta[path];
+      var value = JsonPointer.get(this.props.bean, "/values" + path);
+      var id = path.substring(path.lastIndexOf("/") + 1) + "PropertyInput";
+      var extraAttrsMap = PropertyInput.getExtraAttrsMap(meta.extraAttrs);
+      var validationRulesMap = PropertyInput.getValidationRulesMap(meta.validationRules);
+      var required = meta.canBeNull !== true;
+
+      var baseProps = {
+        id: id,
+        key: id,
+        disabled: meta.readOnly,
+        required: required
+      };
+
+      var rawInputProps = Object.assign({}, baseProps, {
+        value: value === undefined ? "" : value,
+        onChange: this.handleChange,
+        placeholder: meta.placeholder,
+        className: classNames("form-control", this.props.controlClassName)
+      });
+
+      var controls = {
+        textInput: function textInput() {
+          return React.createElement('input', _extends({
+            type: 'text',
+            maxLength: meta.columnSize,
+            pattern: validationRulesMap.pattern
+          }, rawInputProps));
+        },
+        passwordField: function passwordField() {
+          return React.createElement('input', _extends({
+            type: 'password',
+            maxLength: meta.columnSize,
+            pattern: validationRulesMap.pattern
+          }, rawInputProps));
+        },
+        textArea: function textArea() {
+          return React.createElement('textarea', _extends({
+            rows: meta.rows || 3,
+            cols: meta.columns,
+            maxLength: meta.columnSize,
+            pattern: validationRulesMap.pattern
+          }, rawInputProps));
+        },
+        Short: function Short() {
+          return React.createElement('input', _extends({
+            type: 'number',
+            min: -32768,
+            max: 32767,
+            step: validationRulesMap.step || 1
+          }, rawInputProps));
+        },
+        Integer: function Integer() {
+          return React.createElement('input', _extends({
+            type: 'number',
+            min: -2147483648,
+            max: 2147483647,
+            step: validationRulesMap.step || 1
+          }, rawInputProps));
+        },
+        Long: function Long() {
+          return React.createElement('input', _extends({
+            type: 'number',
+            min: Number.MIN_SAFE_INTEGER,
+            max: Number.MAX_SAFE_INTEGER,
+            step: validationRulesMap.step || 1
+          }, rawInputProps));
+        },
+        //default step for prevent validation problems in firefox
+        Double: function Double() {
+          return React.createElement('input', _extends({
+            type: 'number',
+            step: validationRulesMap.step || 0.000000000001
+          }, rawInputProps));
+        },
+        numberWithRange: function numberWithRange() {
+          return React.createElement('input', _extends({
+            type: 'number',
+            min: validationRulesMap.range.min,
+            max: validationRulesMap.range.max,
+            step: validationRulesMap.step || 1
+          }, rawInputProps));
+        },
+        Boolean: function Boolean() {
+          return React.createElement('input', _extends({
+            type: 'checkbox',
+            checked: value === true || value === "true",
+            onChange: _this2.handleChange,
+            className: classNames("form-check-input", _this2.props.controlClassName)
+          }, baseProps));
+        },
+        Date: function Date() {
+          return React.createElement(Datetime, {
+            dateFormat: 'DD.MM.YYYY',
+            key: id + "Datetime",
+            onChange: function onChange(v) {
+              return _this2.dateToISOFormat(v);
+            }, value: _this2.dateFromISOFormat(value),
+            timeFormat: false,
+            closeOnSelect: true,
+            closeOnTab: true,
+            locale: _this2.props.localization.locale || "en",
+            inputProps: Object.assign({}, baseProps, {
+              pattern: "(^$|\\d{1,2}\\.\\d{1,2}\\.\\d{4})",
+              placeholder: meta.placeholder,
+              className: classNames("form-control", _this2.props.controlClassName)
+            })
+          });
+        },
+        Base64File: function Base64File() {
+          return React.createElement('input', _extends({
+            type: 'file',
+            className: classNames("form-control-file", _this2.props.controlClassName),
+            multiple: meta.multipleSelectionList,
+            onChange: function onChange(e) {
+              if (e.target.files && e.target.files.length === 1) {
+                var fileName = e.target.files[0].name;
+                PropertyInput.getBase64(e.target.files[0]).then(function (data) {
+                  _this2.callOnChange({ type: "Base64File", name: fileName, data: data });
+                });
+              } else if (e.target.files && e.target.files.length === 0) {
+                _this2.callOnChange("");
+              }
+            }
+          }, baseProps));
+        },
+        select: function select() {
+          var options = [];
+          for (var i = 0; i < meta.tagList.length; i++) {
+            options.push({ value: meta.tagList[i][0], label: meta.tagList[i][1] });
+          }
+
+          var strValue = void 0;
+          if (Array.isArray(value)) {
+            strValue = [];
+            for (var _i = 0; _i < value.length; _i++) {
+              strValue.push("" + value[_i]);
+            }
+          } else {
+            strValue = "" + value;
+          }
+          var selectAttr = {
+            ref: id,
+            name: id,
+            value: strValue,
+            options: options,
+            onChange: function onChange(v) {
+              return _this2.handleChangeSelect(v);
+            },
+            clearAllText: _this2.props.localization.clearAllText,
+            clearValueText: _this2.props.localization.clearValueText,
+            noResultsText: _this2.props.localization.noResultsText,
+            searchPromptText: _this2.props.localization.searchPromptText,
+            loadingPlaceholder: _this2.props.localization.loadingPlaceholder,
+            placeholder: meta.placeholder || _this2.props.localization.placeholder,
+            backspaceRemoves: false,
+            disabled: meta.readOnly,
+            multi: meta.multipleSelectionList,
+            matchPos: extraAttrsMap.matchPos || "any",
+            required: required
+          };
+
+          if (extraAttrsMap.inputType === "Creatable") {
+            return React.createElement(Creatable, selectAttr);
+          } else if (extraAttrsMap.inputType === "VirtualizedSelect") {
+            return React.createElement(VirtualizedSelect, _extends({
+              clearable: true,
+              searchable: true,
+              labelKey: 'label',
+              valueKey: 'value'
+            }, selectAttr));
+          } else {
+            return React.createElement(Select, selectAttr);
+          }
+        },
+        //      dateTime: {
+        //        normal: () => {
+        //          return ( React.createElement(Datetime, {id: id, key: id, value: value, parent: _this, onChange: handleChange, time: true, className: this.props.controlClassName}) );
+        //        },
+        //        readOnly: () => this.createStatic(value)
+        //      },
+        mask: function mask() {
+          return React.createElement(MaskedInput, _extends({
+            mask: validationRulesMap.mask,
+            value: value === undefined ? "" : value,
+            onChange: _this2.handleChange,
+            className: classNames("form-control", _this2.props.controlClassName)
+          }, baseProps));
+        },
+        WYSIWYG: function WYSIWYG() {
+          return React.createElement(CKEditor, {
+            activeClass: 'p10',
+            content: value,
+            events: {
+              "change": function change(evt) {
+                _this2.callOnChange(evt.editor.getData());
+              }
+            },
+            config: {
+              language: 'ru',
+              readOnly: meta.readOnly
+            }
+          });
+        },
+        labelField: function labelField() {
+          if (meta.rawValue) {
+            return React.createElement('label', {
+              id: id,
+              key: id,
+              className: classNames("form-control-label", _this2.props.controlClassName),
+              dangerouslySetInnerHTML: { __html: value }
+            });
+          } else {
+            return React.createElement(
+              'label',
+              {
+                className: classNames("form-control-label", _this2.props.controlClassName),
+                id: id,
+                key: id
+              },
+              value
+            );
+          }
+        }
+      };
+
+      if (meta.tagList) {
+        return controls['select']();
+      }
+
+      if (meta.passwordField) {
+        return controls['passwordField']();
+      }
+
+      if (meta.labelField) {
+        return controls['labelField']();
+      }
+
+      if (extraAttrsMap.inputType === 'WYSIWYG') {
+        return controls['WYSIWYG']();
+      }
+
+      if (extraAttrsMap.inputType === 'textArea') {
+        return controls['textArea']();
+      }
+
+      if (validationRulesMap.range !== undefined) {
+        return controls['numberWithRange']();
+      }
+
+      if (validationRulesMap.mask !== undefined) {
+        return controls['mask']();
+      }
+
+      if (controls[meta.type] !== undefined) {
+        return controls[meta.type]();
+      }
+
+      return controls['textInput']();
+    }
+  }], [{
     key: 'getBase64',
     value: function getBase64(file) {
       return new Promise(function (resolve, reject) {
@@ -412,6 +488,22 @@ var PropertyInput = function (_React$Component) {
       for (var i = 0; i < extraAttrs.length; i++) {
         map[extraAttrs[i][0]] = extraAttrs[i][1];
       }
+      return map;
+    }
+  }, {
+    key: 'getValidationRulesMap',
+    value: function getValidationRulesMap(rules) {
+      var map = {};
+      if (rules === undefined) return map;
+
+      if (!Array.isArray(rules)) {
+        map[rules.type] = rules.attr;
+      } else {
+        for (var i = 0; i < rules.length; i++) {
+          map[rules[i].type] = rules[i].attr;
+        }
+      }
+
       return map;
     }
   }]);
