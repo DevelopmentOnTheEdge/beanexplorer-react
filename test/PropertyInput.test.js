@@ -103,3 +103,12 @@ test('handleChangeSelect', () => {
   wrapper.instance().handleChangeSelect([{"value": "test"},{"value": "test2"}]);
   expect(handle.mock.calls[2]).toEqual(["/multiSelect", ["test", "test2"]]);
 });
+
+test('getValidationRulesMap test', () => {
+
+  expect(PropertyInput.getValidationRulesMap([{"type":"step","attr":0.5},{"type":"range","attr":{"min":0,"max":1000}}]))
+    .toEqual({"range": {"max": 1000, "min": 0}, "step": 0.5});
+
+  expect(PropertyInput.getValidationRulesMap({"type":"step","attr":0.5}))
+    .toEqual({"step": 0.5});
+});

@@ -179,7 +179,7 @@ var PropertyInput = function (_React$Component) {
       var controls = {
         textInput: function textInput(type) {
           return React.createElement('input', _extends({
-            type: type || "text",
+            type: type,
             maxLength: meta.columnSize,
             pattern: validationRulesMap.pattern
           }, rawInputProps));
@@ -350,14 +350,6 @@ var PropertyInput = function (_React$Component) {
         return controls['labelField']();
       }
 
-      if (extraAttrsMap.inputType === 'password' || meta.passwordField) {
-        return controls['textInput']('password');
-      }
-
-      if (extraAttrsMap.inputType === 'email') {
-        return controls['textInput']('email');
-      }
-
       if (extraAttrsMap.inputType === 'WYSIWYG') {
         return controls['WYSIWYG']();
       }
@@ -366,35 +358,41 @@ var PropertyInput = function (_React$Component) {
         return controls['textArea']();
       }
 
-      if (validationRulesMap.range !== undefined) {
-        return controls['number'](validationRulesMap.range, 1);
-      }
-
       if (validationRulesMap.mask !== undefined) {
         return controls['mask']();
       }
 
-      if (meta.type === 'Short') {
-        return controls['number']({ min: -32768, max: 32767 }, 1);
-      }
+      if (validationRulesMap.range !== undefined || meta.type === 'Short' || meta.type === 'Integer' || meta.type === 'Long' || meta.type === 'Double') {
+        //use defaultStep for double for prevent validation errors in firefox
+        var defaultStep = meta.type === 'Double' ? 0.000000000001 : 1;
+        var range = void 0;
 
-      if (meta.type === 'Integer') {
-        return controls['number']({ min: -2147483648, max: 2147483647 }, 1);
-      }
+        switch (meta.type) {
+          case 'Short':
+            range = { min: -32768, max: 32767 };
+            break;
+          case 'Integer':
+            range = { min: -2147483648, max: 2147483647 };
+            break;
+          case 'Long':
+            range = { min: Number.MIN_SAFE_INTEGER, max: Number.MAX_SAFE_INTEGER };
+            break;
+          default:
+            range = { min: undefined, max: undefined };
+        }
 
-      if (meta.type === 'Long') {
-        return controls['number']({ min: Number.MIN_SAFE_INTEGER, max: Number.MAX_SAFE_INTEGER }, 1);
-      }
-
-      if (meta.type === 'Double') {
-        return controls['number']({ min: undefined, max: undefined }, 0.000000000001);
+        return controls['number'](validationRulesMap.range || range, defaultStep);
       }
 
       if (controls[meta.type] !== undefined) {
         return controls[meta.type]();
       }
 
-      return controls['textInput']();
+      if (meta.passwordField) {
+        return controls['textInput']('password');
+      }
+
+      return controls['textInput'](extraAttrsMap.inputType || 'text');
     }
   }], [{
     key: 'dateFromISOFormat',
