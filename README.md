@@ -47,7 +47,7 @@ Install dependencies:
 $ npm install
 ```
 
-Run the example app at http://localhost:8887
+Run the example app at http://127.0.0.1:8887/beanexplorer-react/
 ```sh
 $ npm start
 ```
