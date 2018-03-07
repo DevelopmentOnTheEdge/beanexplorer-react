@@ -1,9 +1,4 @@
 {
-  "presets": ["react","es2015"],
-  "plugins": ["add-module-exports", "react-hot-loader/babel"],
-  "env": {
-    "test": {
-      "plugins": ["transform-es2015-modules-commonjs"]
-    }
-  }
+  "presets": ["env", "react"],
+  "plugins": ["add-module-exports", "react-hot-loader/babel"]
 }

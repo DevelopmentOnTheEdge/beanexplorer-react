@@ -14,6 +14,7 @@ exports[`inline layout 1`] = `
     className="form-control mb-2 mr-sm-2"
     disabled={undefined}
     id="name2PropertyInput"
+    maxLength={undefined}
     onChange={[Function]}
     placeholder="Name"
     required={true}
@@ -71,6 +72,7 @@ exports[`renders without crashing 1`] = `
           className="form-control"
           disabled={undefined}
           id="textInputPropertyInput"
+          maxLength={30}
           onChange={[Function]}
           placeholder={undefined}
           required={true}
@@ -101,10 +103,13 @@ exports[`renders without crashing 1`] = `
           <input
             className="form-control"
             disabled={undefined}
+            id="datePropertyInput"
             onChange={[Function]}
             onClick={[Function]}
             onFocus={[Function]}
             onKeyDown={[Function]}
+            pattern="(^$|\\\\d{1,2}\\\\.\\\\d{1,2}\\\\.\\\\d{4})"
+            placeholder={undefined}
             required={true}
             type="text"
             value="20.07.2017"
@@ -549,8 +554,9 @@ exports[`renders without crashing 1`] = `
           cols={undefined}
           disabled={undefined}
           id="textAreaPropertyInput"
+          maxLength={256}
           onChange={[Function]}
-          placeholder="field for text"
+          placeholder="field for text, max length 256"
           required={true}
           rows={3}
           value="test"
@@ -577,6 +583,7 @@ exports[`renders without crashing 1`] = `
           className="form-control"
           disabled={undefined}
           id="passwordPropertyInput"
+          maxLength={undefined}
           onChange={[Function]}
           placeholder={undefined}
           required={true}
@@ -1155,6 +1162,7 @@ exports[`simple property set 1`] = `
           className="form-control"
           disabled={undefined}
           id="numberPropertyInput"
+          maxLength={undefined}
           onChange={[Function]}
           placeholder={undefined}
           required={true}
@@ -1213,12 +1221,18 @@ exports[`test outer 1`] = `
                     className="form-control"
                     disabled={undefined}
                     id="textInputPropertyInput"
+                    maxLength={undefined}
                     onChange={[Function]}
                     placeholder={undefined}
                     required={true}
                     type="text"
                     value="test"
                   />
+                  <small
+                    className="form-control-feedback"
+                  >
+                    Help text
+                  </small>
                 </div>
               </div>
             </div>
@@ -1243,6 +1257,11 @@ exports[`test outer 1`] = `
                 >
                   CheckBox
                 </label>
+                <small
+                  className="form-control-feedback"
+                >
+                  You must check before submitting.
+                </small>
               </div>
             </div>
             <div
@@ -1302,17 +1321,18 @@ exports[`test outer 1`] = `
                     className="form-control"
                     disabled={undefined}
                     id="textInput2PropertyInput"
+                    maxLength={undefined}
                     onChange={[Function]}
                     placeholder={undefined}
                     required={true}
                     type="text"
                     value="test"
                   />
-                  <span
+                  <small
                     className="form-control-feedback"
                   >
                     Error here
-                  </span>
+                  </small>
                 </div>
               </div>
             </div>
@@ -1337,11 +1357,11 @@ exports[`test outer 1`] = `
                 >
                   CheckBox
                 </label>
-                <span
+                <small
                   className="form-control-feedback"
                 >
                   You must check before submitting.
-                </span>
+                </small>
               </div>
             </div>
             <div
@@ -1401,17 +1421,18 @@ exports[`test outer 1`] = `
                     className="form-control"
                     disabled={undefined}
                     id="textInput3PropertyInput"
+                    maxLength={undefined}
                     onChange={[Function]}
                     placeholder={undefined}
                     required={true}
                     type="text"
                     value="test"
                   />
-                  <span
+                  <small
                     className="form-control-feedback"
                   >
                     Ok here
-                  </span>
+                  </small>
                 </div>
               </div>
             </div>
@@ -1436,11 +1457,11 @@ exports[`test outer 1`] = `
                 >
                   CheckBox
                 </label>
-                <span
+                <small
                   className="form-control-feedback"
                 >
                   Ok here
-                </span>
+                </small>
               </div>
             </div>
             <div
@@ -1500,6 +1521,7 @@ exports[`test outer 1`] = `
                     className="form-control"
                     disabled={undefined}
                     id="textInput4PropertyInput"
+                    maxLength={undefined}
                     onChange={[Function]}
                     placeholder={undefined}
                     required={false}
@@ -1556,6 +1578,7 @@ exports[`test outer 1`] = `
                     className="form-control"
                     disabled={undefined}
                     id="namePropertyInput"
+                    maxLength={undefined}
                     onChange={[Function]}
                     placeholder={undefined}
                     required={true}
@@ -1584,6 +1607,7 @@ exports[`test outer 1`] = `
                     className="form-control"
                     disabled={undefined}
                     id="subjectPropertyInput"
+                    maxLength={undefined}
                     onChange={[Function]}
                     placeholder={undefined}
                     required={true}
@@ -1718,11 +1742,11 @@ exports[`validationTest 1`] = `
                     type="number"
                     value={9007199254740991}
                   />
-                  <span
+                  <small
                     className="form-control-feedback"
                   >
                     use Number.MAX_SAFE_INTEGER and Number.MIN_SAFE_INTEGER
-                  </span>
+                  </small>
                 </div>
               </div>
             </div>
@@ -1752,11 +1776,11 @@ exports[`validationTest 1`] = `
                     type="number"
                     value={100.1}
                   />
-                  <span
+                  <small
                     className="form-control-feedback"
                   >
                     have problems in firefox
-                  </span>
+                  </small>
                 </div>
               </div>
             </div>
@@ -1788,11 +1812,11 @@ exports[`validationTest 1`] = `
                     type="number"
                     value={100.5}
                   />
-                  <span
+                  <small
                     className="form-control-feedback"
                   >
                     Use also the 'range' for correct work in chrome, firefox, etc
-                  </span>
+                  </small>
                 </div>
               </div>
             </div>

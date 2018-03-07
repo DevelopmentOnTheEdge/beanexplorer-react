@@ -8,7 +8,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 
 
 module.exports = {
-	entry: __dirname + '/src/example.js',
+  entry: ["babel-polyfill", __dirname + '/src/example.js'],
 	output: {
 		path: __dirname + '/docs',
     filename: 'example.[hash].js'

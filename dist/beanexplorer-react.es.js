@@ -172,7 +172,7 @@ var PropertyInput = function (_React$Component) {
         required: required
       };
 
-      var rawTextInputProps = Object.assign({}, baseProps, {
+      var rawInputProps = Object.assign({}, baseProps, {
         value: value === undefined ? "" : value,
         onChange: this.handleChange,
         placeholder: meta.placeholder,
@@ -181,38 +181,39 @@ var PropertyInput = function (_React$Component) {
 
       var controls = {
         textInput: function textInput() {
-          return React.createElement('input', _extends({ type: 'text' }, rawTextInputProps));
+          return React.createElement('input', _extends({ type: 'text' }, rawInputProps, { maxLength: meta.columnSize }));
         },
         passwordField: function passwordField() {
-          return React.createElement('input', _extends({ type: 'password' }, rawTextInputProps));
+          return React.createElement('input', _extends({ type: 'password' }, rawInputProps, { maxLength: meta.columnSize }));
         },
         textArea: function textArea() {
-          return React.createElement('textarea', _extends({ rows: meta.rows || 3, cols: meta.columns }, rawTextInputProps));
+          return React.createElement('textarea', _extends({ rows: meta.rows || 3, cols: meta.columns }, rawInputProps, { maxLength: meta.columnSize }));
         },
         Short: function Short() {
-          return React.createElement('input', _extends({ type: 'number', min: -32768, max: 32767, step: 1 }, rawTextInputProps));
+          return React.createElement('input', _extends({ type: 'number', min: -32768, max: 32767, step: 1 }, rawInputProps));
         },
         Integer: function Integer() {
-          return React.createElement('input', _extends({ type: 'number', min: -2147483648, max: 2147483647, step: 1 }, rawTextInputProps));
+          return React.createElement('input', _extends({ type: 'number', min: -2147483648, max: 2147483647, step: 1 }, rawInputProps));
         },
         //the numbers are rounded off - 3 last digits
         Long: function Long() {
-          return React.createElement('input', _extends({ type: 'number', min: -9223372036854775000, max: 9223372036854775000, step: 1 }, rawTextInputProps));
+          return React.createElement('input', _extends({ type: 'number', min: -9223372036854775000, max: 9223372036854775000, step: 1 }, rawInputProps));
         },
         Double: function Double() {
-          return React.createElement('input', _extends({ type: 'number' }, rawTextInputProps));
+          return React.createElement('input', _extends({ type: 'number' }, rawInputProps));
         },
         Boolean: function Boolean() {
           return React.createElement('input', _extends({ type: 'checkbox', checked: value === true || value === "true", onChange: _this2.handleChange,
             className: classNames("form-check-input", _this2.props.controlClassName) }, baseProps));
         },
         Date: function Date() {
-          return React.createElement(Datetime, { dateFormat: 'DD.MM.YYYY', id: id, key: id, inputProps: { disabled: meta.readOnly, required: required },
+          return React.createElement(Datetime, { dateFormat: 'DD.MM.YYYY', key: id + "Datetime",
+            inputProps: Object.assign({}, baseProps, { pattern: "(^$|\\d{1,2}\\.\\d{1,2}\\.\\d{4})",
+              placeholder: meta.placeholder, className: classNames("form-control", _this2.props.controlClassName) }),
             onChange: function onChange(v) {
               return _this2.dateToISOFormat(v);
             }, value: _this2.dateFromISOFormat(value),
-            timeFormat: false, closeOnSelect: true, closeOnTab: true, locale: _this2.props.localization.locale || "en",
-            className: classNames(_this2.props.controlClassName) });
+            timeFormat: false, closeOnSelect: true, closeOnTab: true, locale: _this2.props.localization.locale || "en" });
         },
         Base64File: function Base64File() {
           return React.createElement('input', _extends({ type: 'file', className: classNames("form-control-file", _this2.props.controlClassName) }, baseProps, {
@@ -463,7 +464,7 @@ var Property = function (_React$Component) {
       );
 
       var messageElement = meta.message ? React.createElement(
-        'span',
+        'small',
         { className: this.props.messageClassName || "form-control-feedback" },
         meta.message
       ) : undefined;

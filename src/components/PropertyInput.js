@@ -159,7 +159,7 @@ class PropertyInput extends React.Component
       required: required
     };
 
-    const rawTextInputProps = Object.assign({}, baseProps, {
+    const rawInputProps = Object.assign({}, baseProps, {
       value: value === undefined ? "" : value,
       onChange: this.handleChange,
       placeholder: meta.placeholder,
@@ -168,54 +168,55 @@ class PropertyInput extends React.Component
 
     const controls = {
       textInput: () => (
-        <input type="text" {...rawTextInputProps} />
+        <input type="text" {...rawInputProps} maxLength={meta.columnSize} />
       ),
       passwordField: () => (
-        <input type="password" {...rawTextInputProps} />
+        <input type="password" {...rawInputProps} maxLength={meta.columnSize} />
       ),
       textArea: () => (
-        <textarea rows={meta.rows || 3} cols={meta.columns} {...rawTextInputProps} />
+        <textarea rows={meta.rows || 3} cols={meta.columns} {...rawInputProps} maxLength={meta.columnSize} />
       ),
       Short: () => (
-        <input type="number" min={-32768} max={32767} step={validationRulesMap.step || 1} {...rawTextInputProps} />
+        <input type="number" min={-32768} max={32767} step={validationRulesMap.step || 1} {...rawInputProps} />
       ),
       Integer: () => (
-        <input type="number" min={-2147483648} max={2147483647} step={validationRulesMap.step || 1} {...rawTextInputProps} />
+        <input type="number" min={-2147483648} max={2147483647} step={validationRulesMap.step || 1} {...rawInputProps} />
       ),
       Long: () => (
-        <input type="number" min={Number.MIN_SAFE_INTEGER} max={Number.MAX_SAFE_INTEGER} step={validationRulesMap.step || 1} {...rawTextInputProps} />
+        <input type="number" min={Number.MIN_SAFE_INTEGER} max={Number.MAX_SAFE_INTEGER} step={validationRulesMap.step || 1} {...rawInputProps} />
       ),
       //default step for prevent validation problems in firefox
       Double: () => (
-        <input type="number" {...rawTextInputProps} step={validationRulesMap.step || 0.000000000001}/>
+        <input type="number" {...rawInputProps} step={validationRulesMap.step || 0.000000000001}/>
       ),
       numberWithRange: () => (
         <input type="number" min={validationRulesMap.range.min} max={validationRulesMap.range.max}
-               step={validationRulesMap.step || 1} {...rawTextInputProps} />
+               step={validationRulesMap.step || 1} {...rawInputProps} />
       ),
       Boolean: () => (
         <input type="checkbox" checked={value === true || value === "true"} onChange={this.handleChange}
-               className={classNames("form-check-input", this.props.controlClassName)} {...baseProps} />
+             className={classNames("form-check-input", this.props.controlClassName)} {...baseProps} />
       ),
       Date: () => (
-        <Datetime dateFormat="DD.MM.YYYY" id={id} key={id} inputProps={ {disabled: meta.readOnly, required: required} }
-                  onChange={(v) => this.dateToISOFormat(v)} value={this.dateFromISOFormat(value)}
-                  timeFormat={false} closeOnSelect={true} closeOnTab={true} locale={this.props.localization.locale || "en"}
-                  className={classNames(this.props.controlClassName)} />
+        <Datetime dateFormat="DD.MM.YYYY" key={id + "Datetime"}
+            inputProps={ Object.assign({}, baseProps, {pattern: "(^$|\\d{1,2}\\.\\d{1,2}\\.\\d{4})",
+              placeholder: meta.placeholder, className: classNames("form-control", this.props.controlClassName)}) }
+            onChange={(v) => this.dateToISOFormat(v)} value={this.dateFromISOFormat(value)}
+            timeFormat={false} closeOnSelect={true} closeOnTab={true} locale={this.props.localization.locale || "en"} />
       ),
       Base64File: () => (
         <input type="file" className={classNames("form-control-file", this.props.controlClassName)} {...baseProps}
-                      multiple={meta.multipleSelectionList}
-                      onChange={(e) => {
-                        if(e.target.files && e.target.files.length === 1) {
-                          const fileName = e.target.files[0].name;
-                          PropertyInput.getBase64(e.target.files[0]).then(data => {
-                            this.callOnChange({type: "Base64File", name: fileName, data: data})
-                          });
-                        }else if(e.target.files && e.target.files.length === 0) {
-                          this.callOnChange("")
-                        }
-                      }} />
+            multiple={meta.multipleSelectionList}
+            onChange={(e) => {
+              if(e.target.files && e.target.files.length === 1) {
+                const fileName = e.target.files[0].name;
+                PropertyInput.getBase64(e.target.files[0]).then(data => {
+                  this.callOnChange({type: "Base64File", name: fileName, data: data})
+                });
+              }else if(e.target.files && e.target.files.length === 0) {
+                this.callOnChange("")
+              }
+            }} />
       ),
       select: () => {
         let options = [];

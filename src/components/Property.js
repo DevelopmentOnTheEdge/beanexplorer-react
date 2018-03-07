@@ -22,7 +22,7 @@ class Property extends React.Component
     const label = <label htmlFor={id} className={meta.type === "Boolean" ? 'form-check-label' : 'form-control-label'}>
                          {meta.displayName || id}</label>;
 
-    const messageElement = meta.message ? <span className={this.props.messageClassName || "form-control-feedback"}>{meta.message}</span> : undefined;
+    const messageElement = meta.message ? <small className={this.props.messageClassName || "form-control-feedback"}>{meta.message}</small> : undefined;
 
     let hasStatusClasses = classNames(
       {'has-error' : meta.status === 'error'},
