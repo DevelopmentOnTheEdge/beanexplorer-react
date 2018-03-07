@@ -5,7 +5,8 @@
     "long": 9007199254740991,
     "double": 100.1,
     "doubleWithStep": 100.5,
-    "integerWithRangeAndStep": ""
+    "integerWithRangeAndStep": "",
+    "textInput": "qwerty7890"
   },
   "meta": {
     "/short": {
@@ -43,6 +44,12 @@
       "validationRules":[{"type":"step","attr":10},{"type":"range","attr":{"min":0,"max":100}}],
       "groupId": 1,
       "canBeNull": true
+    },
+    "/textInput": {
+      "displayName": "Text input with columnSize",
+      "columnSize": 10,
+      "groupName": "Text",
+      "groupId": 2
     }
   },
   "order": [
@@ -51,6 +58,7 @@
     "/long",
     "/double",
     "/doubleWithStep",
-    "/integerWithRangeAndStep"
+    "/integerWithRangeAndStep",
+    "/textInput"
   ]
 }

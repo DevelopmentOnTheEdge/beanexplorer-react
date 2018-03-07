@@ -72,7 +72,7 @@ exports[`renders without crashing 1`] = `
           className="form-control"
           disabled={undefined}
           id="textInputPropertyInput"
-          maxLength={30}
+          maxLength={undefined}
           onChange={[Function]}
           placeholder={undefined}
           required={true}
@@ -554,7 +554,7 @@ exports[`renders without crashing 1`] = `
           cols={undefined}
           disabled={undefined}
           id="textAreaPropertyInput"
-          maxLength={256}
+          maxLength={undefined}
           onChange={[Function]}
           placeholder="field for text, max length 256"
           required={true}
@@ -1847,6 +1847,63 @@ exports[`validationTest 1`] = `
                     step={10}
                     type="number"
                     value=""
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="property-group col-12"
+  >
+    <div
+      className="row property-group__line"
+    />
+    <div
+      className="property-groop-box"
+    >
+      <h4
+        className="property-group__title"
+      >
+        Text
+      </h4>
+      <div
+        className="row"
+      >
+        <div
+          className="col-12"
+        >
+          <div
+            className="form-row"
+          >
+            <div
+              className="col-lg-12"
+            >
+              <div
+                className="form-group property required"
+              >
+                <label
+                  className="form-control-label"
+                  htmlFor="textInputPropertyInput"
+                >
+                  Text input with columnSize
+                </label>
+                <div
+                  className="controls"
+                >
+                  <input
+                    className="form-control"
+                    disabled={undefined}
+                    id="textInputPropertyInput"
+                    maxLength={10}
+                    onChange={[Function]}
+                    placeholder={undefined}
+                    required={true}
+                    type="text"
+                    value="qwerty7890"
                   />
                 </div>
               </div>
