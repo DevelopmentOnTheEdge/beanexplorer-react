@@ -29,7 +29,7 @@
     },
     "/mask": {
       "displayName": "Mask",
-      "validationRules":[{"mask":"11111"}]
+      "validationRules":[{"type":"mask","attr":"11111"}]
     },
     "/textArea": {
       "displayName": "TextArea",

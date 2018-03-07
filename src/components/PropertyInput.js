@@ -64,17 +64,6 @@ class PropertyInput extends React.Component
     }
   }
 
-  static getMaskInput(rules)
-  {
-    for (let i = 0; i < rules.length; i++)
-    {
-      if ("mask" in rules[i]) {
-        return rules[i].mask
-      }
-    }
-    return null;
-  }
-
   // static isNumberInput(rules)
   // {
   //   for (let i =0 ; i< rules.length; i++)
@@ -126,12 +115,31 @@ class PropertyInput extends React.Component
     });
   }
 
-  static getExtraAttrsMap(extraAttrs){
+  static getExtraAttrsMap(extraAttrs) {
     let map = {};
     if(extraAttrs === undefined)return map;
     for (let i=0 ;i< extraAttrs.length; i++){
       map[extraAttrs[i][0]] = extraAttrs[i][1];
     }
+    return map;
+  }
+
+  static getValidationRulesMap(rules) {
+    let map = {};
+    if(rules === undefined)return map;
+
+    if(!Array.isArray(rules))
+    {
+      map[rules.type] = rules.attr;
+    }
+    else
+    {
+      for (let i=0 ;i< rules.length; i++)
+      {
+        map[rules[i].type] = rules[i].attr;
+      }
+    }
+
     return map;
   }
 
@@ -141,6 +149,7 @@ class PropertyInput extends React.Component
     const value = JsonPointer.get(this.props.bean, "/values" + path);
     const id    = path.substring(path.lastIndexOf("/")+1) + "PropertyInput";
     const extraAttrsMap = PropertyInput.getExtraAttrsMap(meta.extraAttrs);
+    const validationRulesMap = PropertyInput.getValidationRulesMap(meta.validationRules);
     const required = meta.canBeNull !== true;
 
     const baseProps = {
@@ -253,9 +262,9 @@ class PropertyInput extends React.Component
 //        },
 //        readOnly: () => this.createStatic(value)
 //      },
-      maskTest: () => (
-        <MaskedInput mask={PropertyInput.getMaskInput(meta.validationRules)} value={value === undefined ? "" : value}
-                            onChange={this.handleChange} className={classNames("form-control", this.props.controlClassName)} {...baseProps} />
+      mask: () => (
+        <MaskedInput mask={validationRulesMap.mask} value={value === undefined ? "" : value} onChange={this.handleChange}
+             className={classNames("form-control", this.props.controlClassName)} {...baseProps} />
       ),
       WYSIWYG: () => (
         <CKEditor activeClass="p10" content={value}
@@ -304,9 +313,9 @@ class PropertyInput extends React.Component
       return controls['textArea']();
     }
 
-    if(meta.validationRules !== undefined && PropertyInput.getMaskInput(meta.validationRules))
+    if(validationRulesMap.mask !== undefined)
     {
-      return controls['maskTest']();
+      return controls['mask']();
     }
 
     if(controls[meta.type] !== undefined)
