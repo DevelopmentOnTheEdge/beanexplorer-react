@@ -159,71 +159,134 @@ class PropertyInput extends React.Component
       required: required
     };
 
-    const rawInputProps = Object.assign({}, baseProps, {
-      value: value === undefined ? "" : value,
-      onChange: this.handleChange,
-      placeholder: meta.placeholder,
-      className: classNames("form-control", this.props.controlClassName)
-    });
+    const rawInputProps = Object.assign({},
+      baseProps,
+      {
+        value: value === undefined ? "" : value,
+        onChange: this.handleChange,
+        placeholder: meta.placeholder,
+        className: classNames("form-control", this.props.controlClassName)
+      }
+    );
 
     const controls = {
       textInput: () => (
-        <input type="text" {...rawInputProps}
-             maxLength={meta.columnSize} pattern={validationRulesMap.pattern} />
+        <input
+          type="text"
+          maxLength={meta.columnSize}
+          pattern={validationRulesMap.pattern}
+          {...rawInputProps}
+        />
       ),
       passwordField: () => (
-        <input type="password" {...rawInputProps}
-             maxLength={meta.columnSize} pattern={validationRulesMap.pattern} />
+        <input
+          type="password"
+          maxLength={meta.columnSize}
+          pattern={validationRulesMap.pattern}
+          {...rawInputProps}
+        />
       ),
       textArea: () => (
-        <textarea rows={meta.rows || 3} cols={meta.columns} {...rawInputProps}
-             maxLength={meta.columnSize} pattern={validationRulesMap.pattern} />
+        <textarea
+          rows={meta.rows || 3}
+          cols={meta.columns}
+          maxLength={meta.columnSize}
+          pattern={validationRulesMap.pattern}
+          {...rawInputProps}
+        />
       ),
       Short: () => (
-        <input type="number" min={-32768} max={32767}
-             step={validationRulesMap.step || 1} {...rawInputProps} />
+        <input
+          type="number"
+          min={-32768}
+          max={32767}
+          step={validationRulesMap.step || 1}
+          {...rawInputProps}
+        />
       ),
       Integer: () => (
-        <input type="number" min={-2147483648} max={2147483647}
-             step={validationRulesMap.step || 1} {...rawInputProps} />
+        <input
+          type="number"
+          min={-2147483648}
+          max={2147483647}
+          step={validationRulesMap.step || 1}
+          {...rawInputProps}
+        />
       ),
       Long: () => (
-        <input type="number" min={Number.MIN_SAFE_INTEGER} max={Number.MAX_SAFE_INTEGER}
-             step={validationRulesMap.step || 1} {...rawInputProps} />
+        <input
+          type="number"
+          min={Number.MIN_SAFE_INTEGER}
+          max={Number.MAX_SAFE_INTEGER}
+          step={validationRulesMap.step || 1}
+          {...rawInputProps}
+        />
       ),
       //default step for prevent validation problems in firefox
       Double: () => (
-        <input type="number"
-             step={validationRulesMap.step || 0.000000000001} {...rawInputProps} />
+        <input
+          type="number"
+          step={validationRulesMap.step || 0.000000000001}
+          {...rawInputProps}
+        />
       ),
       numberWithRange: () => (
-        <input type="number" min={validationRulesMap.range.min} max={validationRulesMap.range.max}
-             step={validationRulesMap.step || 1} {...rawInputProps} />
+        <input
+          type="number"
+          min={validationRulesMap.range.min}
+          max={validationRulesMap.range.max}
+          step={validationRulesMap.step || 1}
+          {...rawInputProps}
+        />
       ),
       Boolean: () => (
-        <input type="checkbox" checked={value === true || value === "true"} onChange={this.handleChange}
-             className={classNames("form-check-input", this.props.controlClassName)} {...baseProps} />
+        <input
+          type="checkbox"
+          checked={value === true || value === "true"}
+          onChange={this.handleChange}
+          className={classNames("form-check-input", this.props.controlClassName)}
+          {...baseProps}
+        />
       ),
       Date: () => (
-        <Datetime dateFormat="DD.MM.YYYY" key={id + "Datetime"}
-            inputProps={ Object.assign({}, baseProps, {pattern: "(^$|\\d{1,2}\\.\\d{1,2}\\.\\d{4})",
-              placeholder: meta.placeholder, className: classNames("form-control", this.props.controlClassName)}) }
-            onChange={(v) => this.dateToISOFormat(v)} value={this.dateFromISOFormat(value)}
-            timeFormat={false} closeOnSelect={true} closeOnTab={true} locale={this.props.localization.locale || "en"} />
+        <Datetime
+          dateFormat="DD.MM.YYYY"
+          key={id + "Datetime"}
+          onChange={(v) => this.dateToISOFormat(v)} value={this.dateFromISOFormat(value)}
+          timeFormat={false}
+          closeOnSelect={true}
+          closeOnTab={true}
+          locale={this.props.localization.locale || "en"}
+          inputProps={ Object.assign({},
+            baseProps,
+            {
+              pattern: "(^$|\\d{1,2}\\.\\d{1,2}\\.\\d{4})",
+              placeholder: meta.placeholder,
+              className: classNames("form-control", this.props.controlClassName)
+            }
+          )}
+        />
       ),
       Base64File: () => (
-        <input type="file" className={classNames("form-control-file", this.props.controlClassName)} {...baseProps}
-            multiple={meta.multipleSelectionList}
-            onChange={(e) => {
-              if(e.target.files && e.target.files.length === 1) {
-                const fileName = e.target.files[0].name;
-                PropertyInput.getBase64(e.target.files[0]).then(data => {
-                  this.callOnChange({type: "Base64File", name: fileName, data: data})
-                });
-              }else if(e.target.files && e.target.files.length === 0) {
-                this.callOnChange("")
-              }
-            }} />
+        <input
+          type="file"
+          className={classNames("form-control-file", this.props.controlClassName)}
+          multiple={meta.multipleSelectionList}
+          onChange={(e) => {
+            if(e.target.files && e.target.files.length === 1)
+            {
+              const fileName = e.target.files[0].name;
+              PropertyInput.getBase64(e.target.files[0]).then(data => {
+                this.callOnChange({type: "Base64File", name: fileName, data: data})
+              });
+            }
+            else if(e.target.files && e.target.files.length === 0)
+            {
+              this.callOnChange("")
+            }
+          }}
+          {...baseProps}
+        />
       ),
       select: () => {
         let options = [];
@@ -241,7 +304,11 @@ class PropertyInput extends React.Component
           strValue = "" + value;
         }
         const selectAttr = {
-          ref: id, name: id, value: strValue, options: options, onChange: (v) => this.handleChangeSelect(v),
+          ref: id,
+          name: id,
+          value: strValue,
+          options: options,
+          onChange: (v) => this.handleChangeSelect(v),
           clearAllText: this.props.localization.clearAllText,
           clearValueText: this.props.localization.clearValueText,
           noResultsText: this.props.localization.noResultsText,
@@ -261,7 +328,13 @@ class PropertyInput extends React.Component
         }
         else if(extraAttrsMap.inputType === "VirtualizedSelect")
         {
-          return <VirtualizedSelect {...selectAttr} clearable searchable labelKey="label" valueKey="value" />
+          return <VirtualizedSelect
+            clearable
+            searchable
+            labelKey="label"
+            valueKey="value"
+            {...selectAttr}
+          />
         }
         else
         {
@@ -275,27 +348,46 @@ class PropertyInput extends React.Component
 //        readOnly: () => this.createStatic(value)
 //      },
       mask: () => (
-        <MaskedInput mask={validationRulesMap.mask} value={value === undefined ? "" : value} onChange={this.handleChange}
-             className={classNames("form-control", this.props.controlClassName)} {...baseProps} />
+        <MaskedInput
+          mask={validationRulesMap.mask}
+          value={value === undefined ? "" : value}
+          onChange={this.handleChange}
+          className={classNames("form-control", this.props.controlClassName)}
+          {...baseProps}
+        />
       ),
       WYSIWYG: () => (
-        <CKEditor activeClass="p10" content={value}
-                         events={{
-                           "change": (evt) => { this.callOnChange(evt.editor.getData()) }
-                         }}
-                         config={{language: 'ru', readOnly: meta.readOnly}}
+        <CKEditor
+          activeClass="p10"
+          content={value}
+          events={{
+            "change": (evt) => { this.callOnChange(evt.editor.getData()) }
+          }}
+          config={{
+            language: 'ru',
+            readOnly: meta.readOnly
+          }}
         />
       ),
       labelField: () => {
         if(meta.rawValue)
         {
-          return <label className={classNames("form-control-label", this.props.controlClassName)} id={id} key={id}
-                      dangerouslySetInnerHTML={{__html: value}} />
+          return <label
+            id={id}
+            key={id}
+            className={classNames("form-control-label", this.props.controlClassName)}
+            dangerouslySetInnerHTML={{__html: value}}
+          />
         }
         else
         {
-          return <label className={classNames("form-control-label", this.props.controlClassName)} id={id} key={id}>
-                      {value}</label>
+          return <label
+            className={classNames("form-control-label", this.props.controlClassName)}
+            id={id}
+            key={id}
+          >
+            {value}
+          </label>
         }
       },
     };
