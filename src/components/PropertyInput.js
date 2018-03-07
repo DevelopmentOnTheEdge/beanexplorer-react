@@ -132,17 +132,9 @@ class PropertyInput extends React.Component
     );
 
     const controls = {
-      textInput: () => (
+      textInput: (type) => (
         <input
-          type="text"
-          maxLength={meta.columnSize}
-          pattern={validationRulesMap.pattern}
-          {...rawInputProps}
-        />
-      ),
-      passwordField: () => (
-        <input
-          type="password"
+          type={type || "text"}
           maxLength={meta.columnSize}
           pattern={validationRulesMap.pattern}
           {...rawInputProps}
@@ -324,14 +316,19 @@ class PropertyInput extends React.Component
       return controls['select']();
     }
 
-    if(meta.passwordField)
-    {
-      return controls['passwordField']();
-    }
-
     if(meta.labelField)
     {
       return controls['labelField']();
+    }
+
+    if(extraAttrsMap.inputType === 'password' || meta.passwordField)
+    {
+      return controls['textInput']('password');
+    }
+
+    if(extraAttrsMap.inputType === 'email')
+    {
+      return controls['textInput']('email');
     }
 
     if(extraAttrsMap.inputType === 'WYSIWYG')

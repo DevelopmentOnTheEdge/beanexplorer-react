@@ -7,7 +7,10 @@
     "doubleWithRangeAndStep": 100.5,
     "integerWithRangeAndStep": "",
     "textInput": "qwerty7890",
-    "textInputWithPattern": "AZazАЯаяЁё"
+    "textInputWithPattern": "AZazАЯаяЁё",
+    "password": "123",
+    "passwordInValidationRules": "123",
+    "email": "test@mail.ru"
   },
   "meta": {
     "/short": {
@@ -52,8 +55,23 @@
     "/textInputWithPattern": {
       "displayName": "Text input with pattern",
       "validationRules":[{"type":"pattern","attr":"^[A-Za-zА-Яа-яЁё]+$"}],
-      "groupId": 2,
-      "canBeNull": true
+      "canBeNull": true,
+      "groupId": 2
+    },
+    "/password": {
+      "displayName": "Password",
+      "passwordField": true,
+      "groupId": 2
+    },
+    "/passwordInValidationRules": {
+      "displayName": "Password in extraAttrs",
+      "extraAttrs": [["inputType", "password"]],
+      "groupId": 2
+    },
+    "/email": {
+      "displayName": "Email type",
+      "extraAttrs": [["inputType", "email"]],
+      "groupId": 2
     }
   },
   "order": [
@@ -64,6 +82,9 @@
     "/doubleWithRangeAndStep",
     "/integerWithRangeAndStep",
     "/textInput",
-    "/textInputWithPattern"
+    "/textInputWithPattern",
+    "/password",
+    "/passwordInValidationRules",
+    "/email"
   ]
 }

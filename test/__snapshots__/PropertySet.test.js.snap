@@ -571,36 +571,6 @@ exports[`renders without crashing 1`] = `
     className="col-lg-12"
   >
     <div
-      className="form-group property required"
-    >
-      <label
-        className="form-control-label"
-        htmlFor="passwordPropertyInput"
-      >
-        Password
-      </label>
-      <div
-        className="controls"
-      >
-        <input
-          className="form-control"
-          disabled={undefined}
-          id="passwordPropertyInput"
-          maxLength={undefined}
-          onChange={[Function]}
-          pattern={undefined}
-          placeholder={undefined}
-          required={true}
-          type="password"
-          value="password"
-        />
-      </div>
-    </div>
-  </div>
-  <div
-    className="col-lg-12"
-  >
-    <div
       className="form-check property required"
     >
       <input
@@ -1938,6 +1908,96 @@ exports[`validationTest 1`] = `
                     required={false}
                     type="text"
                     value="AZazАЯаяЁё"
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              className="col-lg-12"
+            >
+              <div
+                className="form-group property required"
+              >
+                <label
+                  className="form-control-label"
+                  htmlFor="passwordPropertyInput"
+                >
+                  Password
+                </label>
+                <div
+                  className="controls"
+                >
+                  <input
+                    className="form-control"
+                    disabled={undefined}
+                    id="passwordPropertyInput"
+                    maxLength={undefined}
+                    onChange={[Function]}
+                    pattern={undefined}
+                    placeholder={undefined}
+                    required={true}
+                    type="password"
+                    value="123"
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              className="col-lg-12"
+            >
+              <div
+                className="form-group property required"
+              >
+                <label
+                  className="form-control-label"
+                  htmlFor="passwordInValidationRulesPropertyInput"
+                >
+                  Password in extraAttrs
+                </label>
+                <div
+                  className="controls"
+                >
+                  <input
+                    className="form-control"
+                    disabled={undefined}
+                    id="passwordInValidationRulesPropertyInput"
+                    maxLength={undefined}
+                    onChange={[Function]}
+                    pattern={undefined}
+                    placeholder={undefined}
+                    required={true}
+                    type="password"
+                    value="123"
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              className="col-lg-12"
+            >
+              <div
+                className="form-group property required"
+              >
+                <label
+                  className="form-control-label"
+                  htmlFor="emailPropertyInput"
+                >
+                  Email type
+                </label>
+                <div
+                  className="controls"
+                >
+                  <input
+                    className="form-control"
+                    disabled={undefined}
+                    id="emailPropertyInput"
+                    maxLength={undefined}
+                    onChange={[Function]}
+                    pattern={undefined}
+                    placeholder={undefined}
+                    required={true}
+                    type="email"
+                    value="test@mail.ru"
                   />
                 </div>
               </div>
