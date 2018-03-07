@@ -32,8 +32,7 @@
     },
     "/textArea": {
       "displayName": "TextArea",
-      "extraAttrs": [["inputType", "textArea"]],
-      "placeholder": "field for text, max length 256"
+      "extraAttrs": [["inputType", "textArea"]]
     },
     "/checkBox": {
       "displayName": "CheckBox",

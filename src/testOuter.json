@@ -10,6 +10,7 @@
     "checkBox3": true,
     "labelField3": "Pellentesque habitant morbi tristique senectus...",
     "textInput4": "",
+    "customSizeTextArea": "",
     "name": "",
     "subject": ""
   },
@@ -74,15 +75,21 @@
       "groupId": 4,
       "canBeNull": true
     },
+    "/customSizeTextArea": {
+      "displayName": "Custom size textArea",
+      "extraAttrs": [["inputType", "textArea"], ["rows", "2"]],
+      "cssClasses": "col-lg-8",
+      "groupName": "Group 5 - use cssClasses",
+      "groupId": 5
+    },
     "/name": {
       "displayName": "Name",
-      "cssClasses": "col-lg-6",
-      "groupName": "Group 5 - use cssClasses",
+      "cssClasses": "col-lg-4",
       "groupId": 5
     },
     "/subject": {
       "displayName": "Subject",
-      "cssClasses": "col-lg-6",
+      "cssClasses": "col-lg-12",
       "groupId": 5
     }
   },
@@ -97,6 +104,7 @@
     "/checkBox3",
     "/labelField3",
     "/textInput4",
+    "/customSizeTextArea",
     "/name",
     "/subject"
   ]

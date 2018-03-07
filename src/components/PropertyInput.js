@@ -142,8 +142,7 @@ class PropertyInput extends React.Component
       ),
       textArea: () => (
         <textarea
-          rows={meta.rows || 3}
-          cols={meta.columns}
+          rows={extraAttrsMap.rows || 3}
           maxLength={meta.columnSize}
           pattern={validationRulesMap.pattern}
           {...rawInputProps}

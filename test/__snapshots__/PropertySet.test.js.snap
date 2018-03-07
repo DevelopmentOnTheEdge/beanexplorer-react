@@ -553,13 +553,12 @@ exports[`renders without crashing 1`] = `
       >
         <textarea
           className="form-control"
-          cols={undefined}
           disabled={undefined}
           id="textAreaPropertyInput"
           maxLength={undefined}
           onChange={[Function]}
           pattern={undefined}
-          placeholder="field for text, max length 256"
+          placeholder={undefined}
           required={true}
           rows={3}
           value="test"
@@ -1539,7 +1538,37 @@ exports[`test outer 1`] = `
             className="form-row"
           >
             <div
-              className="col-lg-6"
+              className="col-lg-8"
+            >
+              <div
+                className="form-group property required"
+              >
+                <label
+                  className="form-control-label"
+                  htmlFor="customSizeTextAreaPropertyInput"
+                >
+                  Custom size textArea
+                </label>
+                <div
+                  className="controls"
+                >
+                  <textarea
+                    className="form-control"
+                    disabled={undefined}
+                    id="customSizeTextAreaPropertyInput"
+                    maxLength={undefined}
+                    onChange={[Function]}
+                    pattern={undefined}
+                    placeholder={undefined}
+                    required={true}
+                    rows="2"
+                    value=""
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              className="col-lg-4"
             >
               <div
                 className="form-group property required"
@@ -1569,7 +1598,7 @@ exports[`test outer 1`] = `
               </div>
             </div>
             <div
-              className="col-lg-6"
+              className="col-lg-12"
             >
               <div
                 className="form-group property required"
