@@ -43,7 +43,7 @@ class PropertyInput extends React.Component
     }
   }
 
-  dateFromISOFormat(stringDate) {
+  static dateFromISOFormat(stringDate) {
     const date = moment(stringDate === undefined ? "" : stringDate, 'YYYY-MM-DD', true);
     if (date.isValid()) {
       return date.format('DD.MM.YYYY');
@@ -64,45 +64,6 @@ class PropertyInput extends React.Component
     }
   }
 
-  // static isNumberInput(rules)
-  // {
-  //   for (let i =0 ; i< rules.length; i++)
-  //   {
-  //     if(rules[i].type === "baseRule" &&
-  //       ( rules[i].attr === "digits" || rules[i].attr === "integer" || rules[i].attr === "number" ))return true;
-  //   }
-  //   return false;
-  // }
-  //
-  // static getNumericProps(meta)
-  // {
-  //   let props = {};
-  //   props['maxLength'] = 14;//errors if more
-  //   const rules = meta.validationRules;
-  //   for (let i =0 ; i< rules.length; i++)
-  //   {
-  //     if(rules[i].type === "baseRule" && (rules[i].attr === "number"))
-  //     {
-  //       props['precision'] = 10;
-  //     }
-  //     if(rules[i].type === "baseRule" && (rules[i].attr === "integer"))
-  //     {
-  //       props['min'] = -2147483648;
-  //       props['max'] = 2147483647;
-  //       props['maxLength'] = 9;
-  //       props['precision'] = 0;
-  //     }
-  //     // if(rules[i].type === "digits")
-  //     // {
-  //     //   props['min'] = 0;
-  //     // }
-  //   }
-  //   if(meta.columnSize){
-  //     props['maxLength'] = parseInt(meta.columnSize);
-  //   }
-  //   return props;
-  // }
-
   static getBase64(file) {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -118,7 +79,8 @@ class PropertyInput extends React.Component
   static getExtraAttrsMap(extraAttrs) {
     let map = {};
     if(extraAttrs === undefined)return map;
-    for (let i=0 ;i< extraAttrs.length; i++){
+    for (let i=0 ;i< extraAttrs.length; i++)
+    {
       map[extraAttrs[i][0]] = extraAttrs[i][1];
     }
     return map;
@@ -252,7 +214,7 @@ class PropertyInput extends React.Component
         <Datetime
           dateFormat="DD.MM.YYYY"
           key={id + "Datetime"}
-          onChange={(v) => this.dateToISOFormat(v)} value={this.dateFromISOFormat(value)}
+          onChange={(v) => this.dateToISOFormat(v)} value={PropertyInput.dateFromISOFormat(value)}
           timeFormat={false}
           closeOnSelect={true}
           closeOnTab={true}
