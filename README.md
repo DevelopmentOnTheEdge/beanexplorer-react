@@ -1,5 +1,6 @@
 # beanexplorer-react 
-React component for [BeanExplorer](https://github.com/DevelopmentOnTheEdge/beanexplorer) beans
+React component for [BeanExplorer](https://github.com/DevelopmentOnTheEdge/beanexplorer) beans, 
+serialized in [beans-json](https://github.com/DevelopmentOnTheEdge/beanexplorer/tree/master/json) 
 
 [![NPM Version](https://img.shields.io/npm/v/beanexplorer-react.svg?branch=master)](https://www.npmjs.com/package/beanexplorer-react)
 [![Build Status](https://travis-ci.org/DevelopmentOnTheEdge/beanexplorer-react.svg?branch=master)](https://travis-ci.org/DevelopmentOnTheEdge/beanexplorer-react)
