@@ -170,7 +170,8 @@ class PropertyInput extends React.Component
         <Datetime
           dateFormat="DD.MM.YYYY"
           key={id + "Datetime"}
-          onChange={(v) => this.dateToISOFormat(v)} value={PropertyInput.dateFromISOFormat(value)}
+          value={PropertyInput.dateFromISOFormat(value)}
+          onChange={(v) => this.dateToISOFormat(v)}
           timeFormat={false}
           closeOnSelect={true}
           closeOnTab={true}
@@ -274,19 +275,31 @@ class PropertyInput extends React.Component
           {...baseProps}
         />
       ),
-      WYSIWYG: () => (
-        <CKEditor
+      WYSIWYG: () => {
+        if(this.ckeditor){
+          if(this.ckeditor.editorInstance.getData() !== value)
+          {
+            this.ckeditor.editorInstance.setData(value);
+          }
+          this.ckeditor.editorInstance.setReadOnly(meta.readOnly === true);
+        }
+        return <CKEditor
+          ref={instance => {
+            this.ckeditor = instance;
+          }}
           activeClass="p10"
           content={value}
           events={{
-            "change": (evt) => { this.callOnChange(evt.editor.getData()) }
+            "change": (evt) => {
+              this.callOnChange(evt.editor.getData())
+            }
           }}
           config={{
-            language: 'ru',
+            language: this.props.localization.locale || "en",
             readOnly: meta.readOnly
           }}
         />
-      ),
+      },
       labelField: () => {
         if(meta.rawValue)
         {
