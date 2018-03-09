@@ -22,17 +22,23 @@ class Property extends React.Component
     const label = <label htmlFor={id} className={meta.type === "Boolean" ? 'form-check-label' : 'form-control-label'}>
                          {meta.displayName || id}</label>;
 
-    const messageElement = meta.message ? <small className={this.props.messageClassName || "form-control-feedback"}>{meta.message}</small> : undefined;
+    let messageElement;
+    if(meta.message)
+    {
+      let validationClasses = classNames(
+        {'invalid-feedback' : meta.status === 'error'},
+        {'valid-feedback' : meta.status === 'success'},
+      );
 
-    let hasStatusClasses = classNames(
-      {'has-error' : meta.status === 'error'},
-      {'has-warning' : meta.status === 'warning'},
-      {'has-success' : meta.status === 'success'},
-    );
-
-    const classNameForm = (meta.type === "Boolean")
-      ? this.props.classNameFormCheck || 'form-check property'
-      : this.props.classNameFormGroup || 'form-group property';
+      if(validationClasses)
+      {
+        messageElement = <div className={validationClasses}>{meta.message}</div>
+      }
+      else
+      {
+        messageElement = <small className="form-control-feedback">{meta.message}</small>;
+      }
+    }
 
     const cssClasses = meta.cssClasses || 'col-lg-12';
 
@@ -41,9 +47,10 @@ class Property extends React.Component
       {'display-none' : meta.hidden}
     );
 
-    const classes = classNames(
-      classNameForm,
-      hasStatusClasses,
+    const formGroupClasses = classNames(
+      'property',
+      {'form-group': meta.type !== 'Boolean'},
+      {'form-check': meta.type === 'Boolean'},
       {'required' : meta.canBeNull !== true}
     );
 
@@ -52,7 +59,7 @@ class Property extends React.Component
       if(meta.type === "Boolean")
       {
         return (
-          <div className="form-check mb-2 mr-sm-2">
+          <div className="property form-check mb-2 mr-sm-2">
             <PropertyInput {...this.props} />
             {label}
           </div>
@@ -71,7 +78,7 @@ class Property extends React.Component
       {
         return (
           <div className={outerClasses}>
-            <div className={classes}>
+            <div className={formGroupClasses}>
               <PropertyInput {...this.props} />
               {label}
               {messageElement}
@@ -82,7 +89,7 @@ class Property extends React.Component
       else if(meta.labelField)
       {
         return (
-          <div className={classNames('form-group property property-label', meta.cssClasses || 'col-lg-12', hasStatusClasses)}>
+          <div className={classNames('form-group property property-label', meta.cssClasses || 'col-lg-12')}>
             <PropertyInput {...this.props} />
           </div>
         );
@@ -91,7 +98,7 @@ class Property extends React.Component
       {
         return (
           <div className={outerClasses}>
-            <div className={classes}>
+            <div className={formGroupClasses}>
               {label}
               <div className="controls">
                 <PropertyInput {...this.props} />

@@ -62,7 +62,8 @@
       "rawValue": true
     },
     "/labelField": {
-      "labelField": true
+      "labelField": true,
+      "status": "warning"
     },
     "/WYSIWYG": {
       "displayName": "WYSIWYG",

@@ -114,11 +114,24 @@ class PropertyInput extends React.Component
     const validationRulesMap = PropertyInput.getValidationRulesMap(meta.validationRules);
     const required = meta.canBeNull !== true;
 
+    let inputTypeClass;
+    switch (meta.type){
+      case "Boolean":    inputTypeClass = 'form-check-input'; break;
+      case "Base64File": inputTypeClass = 'form-control-file'; break;
+      default: inputTypeClass = 'form-control';
+    }
+
+    let validationClasses = classNames(
+      {'is-invalid' : meta.status === 'error'},
+      {'is-valid' : meta.status === 'success'},
+    );
+
     const baseProps = {
       id: id,
       key: id,
       disabled: meta.readOnly,
-      required: required
+      required: required,
+      className: classNames('property-input', inputTypeClass, validationClasses, this.props.controlClassName)
     };
 
     const rawInputProps = Object.assign({},
@@ -126,8 +139,7 @@ class PropertyInput extends React.Component
       {
         value: value === undefined ? "" : value,
         onChange: this.handleChange,
-        placeholder: meta.placeholder,
-        className: classNames("form-control", this.props.controlClassName)
+        placeholder: meta.placeholder
       }
     );
 
@@ -162,7 +174,6 @@ class PropertyInput extends React.Component
           type="checkbox"
           checked={value === true || value === "true"}
           onChange={this.handleChange}
-          className={classNames("form-check-input", this.props.controlClassName)}
           {...baseProps}
         />
       ),
@@ -180,8 +191,7 @@ class PropertyInput extends React.Component
             baseProps,
             {
               pattern: "(^$|\\d{1,2}\\.\\d{1,2}\\.\\d{4})",
-              placeholder: meta.placeholder,
-              className: classNames("form-control", this.props.controlClassName)
+              placeholder: meta.placeholder
             }
           )}
         />
@@ -189,7 +199,6 @@ class PropertyInput extends React.Component
       Base64File: () => (
         <input
           type="file"
-          className={classNames("form-control-file", this.props.controlClassName)}
           multiple={meta.multipleSelectionList}
           onChange={(e) => {
             if(e.target.files && e.target.files.length === 1)
@@ -271,7 +280,6 @@ class PropertyInput extends React.Component
           mask={validationRulesMap.mask}
           value={value === undefined ? "" : value}
           onChange={this.handleChange}
-          className={classNames("form-control", this.props.controlClassName)}
           {...baseProps}
         />
       ),
@@ -301,19 +309,26 @@ class PropertyInput extends React.Component
         />
       },
       labelField: () => {
+        let labelPropertyClasses = classNames(
+          'property-input',
+          this.props.controlClassName,
+          {'text-danger' : meta.status === 'error'},
+          {'text-success' : meta.status === 'success'},
+          {'text-warning' : meta.status === 'warning'},
+        );
         if(meta.rawValue)
         {
           return <label
             id={id}
             key={id}
-            className={classNames("form-control-label", this.props.controlClassName)}
+            className={labelPropertyClasses}
             dangerouslySetInnerHTML={{__html: value}}
           />
         }
         else
         {
           return <label
-            className={classNames("form-control-label", this.props.controlClassName)}
+            className={labelPropertyClasses}
             id={id}
             key={id}
           >

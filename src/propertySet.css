@@ -21,32 +21,8 @@
   margin: 0 0 0 -3px;
 }
 
-.form-control-feedback {
-  display: block;
-}
-
-.form-control-feedback{
-  color: #2b2b2b;
-}
-
-.has-error .form-control-feedback,
-.has-error .form-check-label,
-.has-error .form-control-label{
-  color: #b90000;
-}
-
-.has-error input{
-  border-color: #dc3545;
-}
-
-.has-success .form-control-feedback,
-.has-success .form-check-label,
-.has-success .form-control-label{
-  color: #28a745;
-}
-
-.has-success input{
-  border-color: #28a745;
+.property .text-muted{
+  color: #2b2b2b !important;
 }
 
 .form-group.required .form-control-label:after,
@@ -54,10 +30,6 @@
   content:"*";
   color:#b90000;
   margin-left: 2px;
-}
-
-.property-label .form-control-label {
-  margin: 0;
 }
 
 .display-none{
@@ -75,11 +47,6 @@ even BEFORE the user hits the submit button.
 input:required, textarea:required {
   box-shadow: none;
 }
-
-/*.form-group.required .form-control-label,
-.form-check.required .form-check-label{
-  font-weight: bold;
-}*/
 
 .Select.is-disabled > .Select-control {
   background-color: #eaedf0;

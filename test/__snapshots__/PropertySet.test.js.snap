@@ -11,7 +11,7 @@ exports[`inline layout 1`] = `
   className="property-set"
 >
   <input
-    className="form-control mb-2 mr-sm-2"
+    className="property-input form-control mb-2 mr-sm-2"
     disabled={undefined}
     id="name2PropertyInput"
     maxLength={undefined}
@@ -23,11 +23,11 @@ exports[`inline layout 1`] = `
     value="value"
   />
   <div
-    className="form-check mb-2 mr-sm-2"
+    className="property form-check mb-2 mr-sm-2"
   >
     <input
       checked={false}
-      className="form-check-input"
+      className="property-input form-check-input"
       disabled={undefined}
       id="subject2PropertyInput"
       onChange={[Function]}
@@ -42,7 +42,7 @@ exports[`inline layout 1`] = `
     </label>
   </div>
   <label
-    className="form-control-label mb-2 mr-sm-2"
+    className="property-input mb-2 mr-sm-2"
     id="labelFieldPropertyInput"
   >
     Text label
@@ -58,7 +58,7 @@ exports[`renders without crashing 1`] = `
     className="col-lg-12"
   >
     <div
-      className="form-group property required"
+      className="property form-group required"
     >
       <label
         className="form-control-label"
@@ -70,7 +70,7 @@ exports[`renders without crashing 1`] = `
         className="controls"
       >
         <input
-          className="form-control"
+          className="property-input form-control"
           disabled={undefined}
           id="textInputPropertyInput"
           maxLength={undefined}
@@ -88,7 +88,7 @@ exports[`renders without crashing 1`] = `
     className="col-lg-12"
   >
     <div
-      className="form-group property required"
+      className="property form-group required"
     >
       <label
         className="form-control-label"
@@ -103,7 +103,7 @@ exports[`renders without crashing 1`] = `
           className="rdt"
         >
           <input
-            className="form-control"
+            className="property-input form-control"
             disabled={undefined}
             id="datePropertyInput"
             onChange={[Function]}
@@ -507,7 +507,7 @@ exports[`renders without crashing 1`] = `
     className="col-lg-12"
   >
     <div
-      className="form-group property required"
+      className="property form-group required"
     >
       <label
         className="form-control-label"
@@ -519,7 +519,7 @@ exports[`renders without crashing 1`] = `
         className="controls"
       >
         <input
-          className="form-control"
+          className="property-input form-control"
           disabled={undefined}
           id="maskPropertyInput"
           mask="11111"
@@ -540,7 +540,7 @@ exports[`renders without crashing 1`] = `
     className="col-lg-12"
   >
     <div
-      className="form-group property required"
+      className="property form-group required"
     >
       <label
         className="form-control-label"
@@ -552,7 +552,7 @@ exports[`renders without crashing 1`] = `
         className="controls"
       >
         <textarea
-          className="form-control"
+          className="property-input form-control"
           disabled={undefined}
           id="textAreaPropertyInput"
           maxLength={undefined}
@@ -570,11 +570,11 @@ exports[`renders without crashing 1`] = `
     className="col-lg-12"
   >
     <div
-      className="form-check property required"
+      className="property form-check required"
     >
       <input
         checked={true}
-        className="form-check-input"
+        className="property-input form-check-input"
         disabled={undefined}
         id="checkBoxPropertyInput"
         onChange={[Function]}
@@ -593,7 +593,7 @@ exports[`renders without crashing 1`] = `
     className="col-lg-12"
   >
     <div
-      className="form-group property"
+      className="property form-group"
     >
       <label
         className="form-control-label"
@@ -605,7 +605,7 @@ exports[`renders without crashing 1`] = `
         className="controls"
       >
         <input
-          className="form-control-file"
+          className="property-input form-control-file"
           disabled={undefined}
           id="filePropertyInput"
           multiple={undefined}
@@ -620,7 +620,7 @@ exports[`renders without crashing 1`] = `
     className="col-lg-12"
   >
     <div
-      className="form-group property required"
+      className="property form-group required"
     >
       <label
         className="form-control-label"
@@ -753,7 +753,7 @@ exports[`renders without crashing 1`] = `
     className="col-lg-12"
   >
     <div
-      className="form-group property required"
+      className="property form-group required"
     >
       <label
         className="form-control-label"
@@ -886,7 +886,7 @@ exports[`renders without crashing 1`] = `
     className="col-lg-12"
   >
     <div
-      className="form-group property required"
+      className="property form-group required"
     >
       <label
         className="form-control-label"
@@ -1069,7 +1069,7 @@ exports[`renders without crashing 1`] = `
     className="form-group property property-label col-lg-12"
   >
     <label
-      className="form-control-label"
+      className="property-input"
       dangerouslySetInnerHTML={
         Object {
           "__html": "<p>Pellentesque habitant morbi tristique senectus et netus et <a href=\\"#test\\">Link</a> malesuada fames ac <b>turpis</b> egestas.</p>",
@@ -1082,7 +1082,7 @@ exports[`renders without crashing 1`] = `
     className="form-group property property-label col-lg-12"
   >
     <label
-      className="form-control-label"
+      className="property-input text-warning"
       id="labelFieldPropertyInput"
     >
       Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
@@ -1092,7 +1092,7 @@ exports[`renders without crashing 1`] = `
     className="col-lg-12"
   >
     <div
-      className="form-group property required"
+      className="property form-group required"
     >
       <label
         className="form-control-label"
@@ -1120,7 +1120,7 @@ exports[`simple property set 1`] = `
     className="col-lg-12"
   >
     <div
-      className="form-group property required"
+      className="property form-group required"
     >
       <label
         className="form-control-label"
@@ -1132,7 +1132,7 @@ exports[`simple property set 1`] = `
         className="controls"
       >
         <input
-          className="form-control"
+          className="property-input form-control"
           disabled={undefined}
           id="numberPropertyInput"
           maxLength={undefined}
@@ -1180,7 +1180,7 @@ exports[`test outer 1`] = `
               className="col-lg-12"
             >
               <div
-                className="form-group property required"
+                className="property form-group required"
               >
                 <label
                   className="form-control-label"
@@ -1192,7 +1192,7 @@ exports[`test outer 1`] = `
                   className="controls"
                 >
                   <input
-                    className="form-control"
+                    className="property-input form-control"
                     disabled={undefined}
                     id="textInputPropertyInput"
                     maxLength={undefined}
@@ -1215,11 +1215,11 @@ exports[`test outer 1`] = `
               className="col-lg-12"
             >
               <div
-                className="form-check property required"
+                className="property form-check required"
               >
                 <input
                   checked={true}
-                  className="form-check-input"
+                  className="property-input form-check-input"
                   disabled={undefined}
                   id="checkBoxPropertyInput"
                   onChange={[Function]}
@@ -1243,7 +1243,7 @@ exports[`test outer 1`] = `
               className="form-group property property-label col-lg-12"
             >
               <label
-                className="form-control-label"
+                className="property-input"
                 id="labelFieldPropertyInput"
               >
                 Pellentesque habitant morbi tristique senectus...
@@ -1281,7 +1281,7 @@ exports[`test outer 1`] = `
               className="col-lg-12"
             >
               <div
-                className="form-group property has-error required"
+                className="property form-group required"
               >
                 <label
                   className="form-control-label"
@@ -1293,7 +1293,7 @@ exports[`test outer 1`] = `
                   className="controls"
                 >
                   <input
-                    className="form-control"
+                    className="property-input form-control is-invalid"
                     disabled={undefined}
                     id="textInput2PropertyInput"
                     maxLength={undefined}
@@ -1304,11 +1304,11 @@ exports[`test outer 1`] = `
                     type="text"
                     value="test"
                   />
-                  <small
-                    className="form-control-feedback"
+                  <div
+                    className="invalid-feedback"
                   >
                     Error here
-                  </small>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1316,11 +1316,11 @@ exports[`test outer 1`] = `
               className="col-lg-12"
             >
               <div
-                className="form-check property has-error required"
+                className="property form-check required"
               >
                 <input
                   checked={false}
-                  className="form-check-input"
+                  className="property-input form-check-input is-invalid"
                   disabled={undefined}
                   id="checkBox2PropertyInput"
                   onChange={[Function]}
@@ -1333,18 +1333,18 @@ exports[`test outer 1`] = `
                 >
                   CheckBox
                 </label>
-                <small
-                  className="form-control-feedback"
+                <div
+                  className="invalid-feedback"
                 >
                   You must check before submitting.
-                </small>
+                </div>
               </div>
             </div>
             <div
-              className="form-group property property-label col-lg-12 has-error"
+              className="form-group property property-label col-lg-12"
             >
               <label
-                className="form-control-label"
+                className="property-input text-danger"
                 id="labelField2PropertyInput"
               >
                 Pellentesque habitant morbi tristique senectus...
@@ -1382,7 +1382,7 @@ exports[`test outer 1`] = `
               className="col-lg-12"
             >
               <div
-                className="form-group property has-success required"
+                className="property form-group required"
               >
                 <label
                   className="form-control-label"
@@ -1394,7 +1394,7 @@ exports[`test outer 1`] = `
                   className="controls"
                 >
                   <input
-                    className="form-control"
+                    className="property-input form-control is-valid"
                     disabled={undefined}
                     id="textInput3PropertyInput"
                     maxLength={undefined}
@@ -1405,11 +1405,11 @@ exports[`test outer 1`] = `
                     type="text"
                     value="test"
                   />
-                  <small
-                    className="form-control-feedback"
+                  <div
+                    className="valid-feedback"
                   >
                     Ok here
-                  </small>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1417,11 +1417,11 @@ exports[`test outer 1`] = `
               className="col-lg-12"
             >
               <div
-                className="form-check property has-success required"
+                className="property form-check required"
               >
                 <input
                   checked={true}
-                  className="form-check-input"
+                  className="property-input form-check-input is-valid"
                   disabled={undefined}
                   id="checkBox3PropertyInput"
                   onChange={[Function]}
@@ -1434,18 +1434,18 @@ exports[`test outer 1`] = `
                 >
                   CheckBox
                 </label>
-                <small
-                  className="form-control-feedback"
+                <div
+                  className="valid-feedback"
                 >
                   Ok here
-                </small>
+                </div>
               </div>
             </div>
             <div
-              className="form-group property property-label col-lg-12 has-success"
+              className="form-group property property-label col-lg-12"
             >
               <label
-                className="form-control-label"
+                className="property-input text-success"
                 id="labelField3PropertyInput"
               >
                 Pellentesque habitant morbi tristique senectus...
@@ -1483,7 +1483,7 @@ exports[`test outer 1`] = `
               className="col-lg-12"
             >
               <div
-                className="form-group property"
+                className="property form-group"
               >
                 <label
                   className="form-control-label"
@@ -1495,7 +1495,7 @@ exports[`test outer 1`] = `
                   className="controls"
                 >
                   <input
-                    className="form-control"
+                    className="property-input form-control"
                     disabled={undefined}
                     id="textInput4PropertyInput"
                     maxLength={undefined}
@@ -1541,7 +1541,7 @@ exports[`test outer 1`] = `
               className="col-lg-8"
             >
               <div
-                className="form-group property required"
+                className="property form-group required"
               >
                 <label
                   className="form-control-label"
@@ -1553,7 +1553,7 @@ exports[`test outer 1`] = `
                   className="controls"
                 >
                   <textarea
-                    className="form-control"
+                    className="property-input form-control"
                     disabled={undefined}
                     id="customSizeTextAreaPropertyInput"
                     maxLength={undefined}
@@ -1571,7 +1571,7 @@ exports[`test outer 1`] = `
               className="col-lg-4"
             >
               <div
-                className="form-group property required"
+                className="property form-group required"
               >
                 <label
                   className="form-control-label"
@@ -1583,7 +1583,7 @@ exports[`test outer 1`] = `
                   className="controls"
                 >
                   <input
-                    className="form-control"
+                    className="property-input form-control"
                     disabled={undefined}
                     id="namePropertyInput"
                     maxLength={undefined}
@@ -1601,7 +1601,7 @@ exports[`test outer 1`] = `
               className="col-lg-12"
             >
               <div
-                className="form-group property required"
+                className="property form-group required"
               >
                 <label
                   className="form-control-label"
@@ -1613,7 +1613,7 @@ exports[`test outer 1`] = `
                   className="controls"
                 >
                   <input
-                    className="form-control"
+                    className="property-input form-control"
                     disabled={undefined}
                     id="subjectPropertyInput"
                     maxLength={undefined}
@@ -1666,7 +1666,7 @@ exports[`validationTest 1`] = `
               className="col-lg-12"
             >
               <div
-                className="form-group property required"
+                className="property form-group required"
               >
                 <label
                   className="form-control-label"
@@ -1678,7 +1678,7 @@ exports[`validationTest 1`] = `
                   className="controls"
                 >
                   <input
-                    className="form-control"
+                    className="property-input form-control"
                     disabled={undefined}
                     id="shortPropertyInput"
                     max={32767}
@@ -1697,7 +1697,7 @@ exports[`validationTest 1`] = `
               className="col-lg-12"
             >
               <div
-                className="form-group property required"
+                className="property form-group required"
               >
                 <label
                   className="form-control-label"
@@ -1709,7 +1709,7 @@ exports[`validationTest 1`] = `
                   className="controls"
                 >
                   <input
-                    className="form-control"
+                    className="property-input form-control"
                     disabled={undefined}
                     id="integerPropertyInput"
                     max={2147483647}
@@ -1728,7 +1728,7 @@ exports[`validationTest 1`] = `
               className="col-lg-12"
             >
               <div
-                className="form-group property required"
+                className="property form-group required"
               >
                 <label
                   className="form-control-label"
@@ -1740,7 +1740,7 @@ exports[`validationTest 1`] = `
                   className="controls"
                 >
                   <input
-                    className="form-control"
+                    className="property-input form-control"
                     disabled={undefined}
                     id="longPropertyInput"
                     max={9007199254740991}
@@ -1764,7 +1764,7 @@ exports[`validationTest 1`] = `
               className="col-lg-12"
             >
               <div
-                className="form-group property required"
+                className="property form-group required"
               >
                 <label
                   className="form-control-label"
@@ -1776,7 +1776,7 @@ exports[`validationTest 1`] = `
                   className="controls"
                 >
                   <input
-                    className="form-control"
+                    className="property-input form-control"
                     disabled={undefined}
                     id="doublePropertyInput"
                     max={undefined}
@@ -1795,7 +1795,7 @@ exports[`validationTest 1`] = `
               className="col-lg-12"
             >
               <div
-                className="form-group property required"
+                className="property form-group required"
               >
                 <label
                   className="form-control-label"
@@ -1807,7 +1807,7 @@ exports[`validationTest 1`] = `
                   className="controls"
                 >
                   <input
-                    className="form-control"
+                    className="property-input form-control"
                     disabled={undefined}
                     id="doubleWithRangeAndStepPropertyInput"
                     max={1000}
@@ -1826,7 +1826,7 @@ exports[`validationTest 1`] = `
               className="col-lg-12"
             >
               <div
-                className="form-group property"
+                className="property form-group"
               >
                 <label
                   className="form-control-label"
@@ -1838,7 +1838,7 @@ exports[`validationTest 1`] = `
                   className="controls"
                 >
                   <input
-                    className="form-control"
+                    className="property-input form-control"
                     disabled={undefined}
                     id="integerWithRangeAndStepPropertyInput"
                     max={100}
@@ -1885,7 +1885,7 @@ exports[`validationTest 1`] = `
               className="col-lg-12"
             >
               <div
-                className="form-group property required"
+                className="property form-group required"
               >
                 <label
                   className="form-control-label"
@@ -1897,7 +1897,7 @@ exports[`validationTest 1`] = `
                   className="controls"
                 >
                   <input
-                    className="form-control"
+                    className="property-input form-control"
                     disabled={undefined}
                     id="textInputPropertyInput"
                     maxLength={10}
@@ -1915,7 +1915,7 @@ exports[`validationTest 1`] = `
               className="col-lg-12"
             >
               <div
-                className="form-group property"
+                className="property form-group"
               >
                 <label
                   className="form-control-label"
@@ -1927,7 +1927,7 @@ exports[`validationTest 1`] = `
                   className="controls"
                 >
                   <input
-                    className="form-control"
+                    className="property-input form-control"
                     disabled={undefined}
                     id="textInputWithPatternPropertyInput"
                     maxLength={undefined}
@@ -1945,7 +1945,7 @@ exports[`validationTest 1`] = `
               className="col-lg-12"
             >
               <div
-                className="form-group property required"
+                className="property form-group required"
               >
                 <label
                   className="form-control-label"
@@ -1957,7 +1957,7 @@ exports[`validationTest 1`] = `
                   className="controls"
                 >
                   <input
-                    className="form-control"
+                    className="property-input form-control"
                     disabled={undefined}
                     id="passwordPropertyInput"
                     maxLength={undefined}
@@ -1975,7 +1975,7 @@ exports[`validationTest 1`] = `
               className="col-lg-12"
             >
               <div
-                className="form-group property required"
+                className="property form-group required"
               >
                 <label
                   className="form-control-label"
@@ -1987,7 +1987,7 @@ exports[`validationTest 1`] = `
                   className="controls"
                 >
                   <input
-                    className="form-control"
+                    className="property-input form-control"
                     disabled={undefined}
                     id="passwordInValidationRulesPropertyInput"
                     maxLength={undefined}
@@ -2005,7 +2005,7 @@ exports[`validationTest 1`] = `
               className="col-lg-12"
             >
               <div
-                className="form-group property required"
+                className="property form-group required"
               >
                 <label
                   className="form-control-label"
@@ -2017,7 +2017,7 @@ exports[`validationTest 1`] = `
                   className="controls"
                 >
                   <input
-                    className="form-control"
+                    className="property-input form-control"
                     disabled={undefined}
                     id="emailPropertyInput"
                     maxLength={undefined}
