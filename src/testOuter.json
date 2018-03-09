@@ -4,7 +4,7 @@
     "checkBox": true,
     "labelField": "Pellentesque habitant morbi tristique senectus...",
     "textInput2": "test",
-    "checkBox2": false,
+    "checkBox2": true,
     "labelField2": "Pellentesque habitant morbi tristique senectus...",
     "textInput3": "test",
     "checkBox3": true,
@@ -33,7 +33,7 @@
     },
     "/textInput2": {
       "displayName": "Name",
-      "groupName": "Group 2 - Error",
+      "groupName": "Server side validation - error",
       "groupId": 2,
       "message": "The name is already in use.",
       "status": "error"
@@ -42,6 +42,7 @@
       "displayName": "CheckBox",
       "type": "Boolean",
       "groupId": 2,
+      "canBeNull": true,
       "message": "This option is not available in the current state.",
       "status": "error"
     },
@@ -52,7 +53,7 @@
     },
     "/textInput3": {
       "displayName": "Name",
-      "groupName": "Group 3 - Success",
+      "groupName": "Server side validation - success",
       "groupId": 3,
       "message": "Ok here",
       "status": "success"

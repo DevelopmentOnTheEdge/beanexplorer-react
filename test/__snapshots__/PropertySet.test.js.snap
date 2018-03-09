@@ -1266,7 +1266,7 @@ exports[`test outer 1`] = `
       <h4
         className="property-group__title"
       >
-        Group 2 - Error
+        Server side validation - error
       </h4>
       <div
         className="row"
@@ -1316,15 +1316,15 @@ exports[`test outer 1`] = `
               className="col-lg-12"
             >
               <div
-                className="property form-check required"
+                className="property form-check"
               >
                 <input
-                  checked={false}
+                  checked={true}
                   className="property-input form-check-input is-invalid"
                   disabled={undefined}
                   id="checkBox2PropertyInput"
                   onChange={[Function]}
-                  required={true}
+                  required={false}
                   type="checkbox"
                 />
                 <label
@@ -1367,7 +1367,7 @@ exports[`test outer 1`] = `
       <h4
         className="property-group__title"
       >
-        Group 3 - Success
+        Server side validation - success
       </h4>
       <div
         className="row"
