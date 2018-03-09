@@ -80,3 +80,10 @@ input:required {
 .form-check.required .form-check-label{
   font-weight: bold;
 }*/
+
+.Select.is-disabled > .Select-control {
+  background-color: #eaedf0;
+}
+.Select-control {
+  border: 1px solid #ced4da;
+}
