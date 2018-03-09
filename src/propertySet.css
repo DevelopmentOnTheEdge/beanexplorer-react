@@ -85,5 +85,8 @@ input:required {
   background-color: #eaedf0;
 }
 .Select-control {
-  border: 1px solid #ced4da;
+  border-color: #ced4da;
+}
+.Select--multi.is-disabled .Select-value {
+  border-color: #d5d8dc;
 }
