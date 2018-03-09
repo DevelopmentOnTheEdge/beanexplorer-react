@@ -90,3 +90,31 @@ input:required {
 .Select--multi.is-disabled .Select-value {
   border-color: #d5d8dc;
 }
+
+.form-control-file {
+  border-radius: .25rem;
+  padding: 3px 12px 3px 3px;
+  border: 1px solid #ced4da;
+}
+
+.was-validated .required .Select-control:focus,
+.was-validated .form-control-file:invalid:focus{
+  border-color: #dc3545;
+  box-shadow: 0 0 0 0.2rem rgba(220,53,69,.25);
+}
+
+.was-validated .required .Select-control,
+.was-validated .form-control-file:invalid{
+  border-color: #dc3545;
+}
+
+.was-validated .required .has-value .Select-control:focus,
+.was-validated .form-control-file:valid:focus{
+  border-color: #28a745;
+  box-shadow: 0 0 0 0.2rem rgba(40,167,69,.25);
+}
+
+.was-validated .required .has-value .Select-control,
+.was-validated .form-control-file:valid{
+  border-color: #28a745;
+}
