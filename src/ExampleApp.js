@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  BrowserRouter as Router,
+  HashRouter,
   Route,
   NavLink
 } from 'react-router-dom'
@@ -81,7 +81,7 @@ class AllPropertyTypes extends Component
     return (
       <div className="row">
         <div className="col-lg-8">
-          <div className="alert alert-light">
+          <div className="alert alert-secondary">
             <form className="form-inline">
               <div className="form-check mr-sm-2">
                 <label htmlFor="readOnly" className="form-check-label">
@@ -176,7 +176,7 @@ class InlineForm extends AllPropertyTypes
 }
 
 const ExampleApp = () => (
-  <Router basename="/beanexplorer-react">
+  <HashRouter basename="/">
     <div className="app">
       <nav className="app-header navbar navbar-expand-md navbar-dark">
         <div className="container">
@@ -212,7 +212,7 @@ const ExampleApp = () => (
         </div>
       </div>
     </div>
-  </Router>
+  </HashRouter>
 );
 
 export default ExampleApp;
