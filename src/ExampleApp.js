@@ -9,6 +9,7 @@ import Property      from './components/Property';
 import PropertyInput from './components/PropertyInput';
 import Properties    from './components/Properties';
 import JsonPointer   from 'json-pointer';
+import classNames    from 'classnames';
 
 import bean from './testJson.json';
 import testOuter from './testOuter.json';
@@ -69,7 +70,7 @@ class AllPropertyTypes extends Component
 
   getForm(){
     return (
-      <form onSubmit={this.handleSubmit} className="bs-example">
+      <form onSubmit={this.handleSubmit} className={classNames("bs-example", {"was-validated" : this.state.wasValidated})}>
         <PropertySet bean={this.getBean()} onChange={this.handleFieldChange} />
         <button type="submit" className="btn btn-primary mb-2">Submit</button>
       </form>
@@ -81,17 +82,30 @@ class AllPropertyTypes extends Component
       <div className="row">
         <div className="col-lg-8">
           <div className="alert alert-light">
-            <div className="form-check">
-              <label htmlFor="readOnly" className="form-check-label">
-                <input
-                  id="readOnly"
-                  type="checkbox"
-                  className="form-check-input"
-                  onChange={()=>{this.setState({readOnly: !this.state.readOnly})}}
-                />
-                read only
-              </label>
-            </div>
+            <form className="form-inline">
+              <div className="form-check mr-sm-2">
+                <label htmlFor="readOnly" className="form-check-label">
+                  <input
+                    id="readOnly"
+                    type="checkbox"
+                    className="form-check-input"
+                    onChange={()=>{this.setState({readOnly: !this.state.readOnly})}}
+                  />
+                  read only
+                </label>
+              </div>
+              <div className="form-check mr-sm-2">
+                <label htmlFor="wasValidated" className="form-check-label">
+                  <input
+                    id="wasValidated"
+                    type="checkbox"
+                    className="form-check-input"
+                    onChange={()=>{this.setState({wasValidated: !this.state.wasValidated})}}
+                  />
+                  .was-validated
+                </label>
+              </div>
+            </form>
           </div>
         </div>
         <div className="col-lg-4">
@@ -145,7 +159,7 @@ class InlineForm extends AllPropertyTypes
   getForm() {
     return (
       <div>
-        <form onSubmit={this.handleSubmit} className="bs-example form-inline">
+        <form onSubmit={this.handleSubmit} className={classNames("bs-example form-inline", {"was-validated" : this.state.wasValidated})}>
           <PropertySet bean={this.getBean()} onChange={this.handleFieldChange}
                        inline rowClass="d-flex" />
           <button type="submit" className="btn btn-primary mb-2">Submit</button>
