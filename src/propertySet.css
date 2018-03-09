@@ -70,23 +70,27 @@ input:required, textarea:required {
 }
 
 .was-validated .required .Select:not(.is-disabled) .Select-control:focus,
+.Select.is-invalid .Select-control:focus,
 .was-validated .form-control-file:invalid:focus{
   border-color: #dc3545;
   box-shadow: 0 0 0 0.2rem rgba(220,53,69,.25);
 }
 
 .was-validated .required .Select:not(.is-disabled) .Select-control,
+.Select.is-invalid .Select-control,
 .was-validated .form-control-file:invalid{
   border-color: #dc3545;
 }
 
 .was-validated .required .Select.has-value:not(.is-disabled) .Select-control:focus,
+.Select.is-valid .Select-control:focus,
 .was-validated .form-control-file:valid:focus{
   border-color: #28a745;
   box-shadow: 0 0 0 0.2rem rgba(40,167,69,.25);
 }
 
 .was-validated .required .Select.has-value:not(.is-disabled) .Select-control,
+.Select.is-valid .Select-control,
 .was-validated .form-control-file:valid{
   border-color: #28a745;
 }

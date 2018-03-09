@@ -247,6 +247,7 @@ class PropertyInput extends React.Component
           disabled: meta.readOnly,
           multi: meta.multipleSelectionList,
           matchPos: extraAttrsMap.matchPos || "any",
+          className: classNames('property-input', validationClasses),
           required: required
         };
 

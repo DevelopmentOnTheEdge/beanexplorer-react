@@ -4,9 +4,11 @@
     "checkBox": true,
     "labelField": "Pellentesque habitant morbi tristique senectus...",
     "textInput2": "test",
+    "select2": "vanilla",
     "checkBox2": true,
     "labelField2": "Pellentesque habitant morbi tristique senectus...",
     "textInput3": "test",
+    "select3": "vanilla",
     "checkBox3": true,
     "labelField3": "Pellentesque habitant morbi tristique senectus...",
     "textInput4": "",
@@ -38,6 +40,12 @@
       "message": "The name is already in use.",
       "status": "error"
     },
+    "/select2": {
+      "displayName": "Select",
+      "tagList": [["vanilla","Vanilla"],["chocolate","Chocolate"]],
+      "groupId": 2,
+      "status": "error"
+    },
     "/checkBox2": {
       "displayName": "CheckBox",
       "type": "Boolean",
@@ -56,6 +64,12 @@
       "groupName": "Server side validation - success",
       "groupId": 3,
       "message": "Ok here",
+      "status": "success"
+    },
+    "/select3": {
+      "displayName": "Select",
+      "tagList": [["vanilla","Vanilla"],["chocolate","Chocolate"]],
+      "groupId": 3,
       "status": "success"
     },
     "/checkBox3": {
@@ -99,9 +113,11 @@
     "/checkBox",
     "/labelField",
     "/textInput2",
+    "/select2",
     "/checkBox2",
     "/labelField2",
     "/textInput3",
+    "/select3",
     "/checkBox3",
     "/labelField3",
     "/textInput4",

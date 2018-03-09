@@ -632,7 +632,7 @@ exports[`renders without crashing 1`] = `
         className="controls"
       >
         <div
-          className="Select has-value is-clearable is-searchable Select--single"
+          className="Select property-input has-value is-clearable is-searchable Select--single"
           style={undefined}
         >
           <input
@@ -765,7 +765,7 @@ exports[`renders without crashing 1`] = `
         className="controls"
       >
         <div
-          className="Select has-value is-clearable is-searchable Select--single"
+          className="Select property-input has-value is-clearable is-searchable Select--single"
           style={undefined}
         >
           <input
@@ -898,7 +898,7 @@ exports[`renders without crashing 1`] = `
         className="controls"
       >
         <div
-          className="Select has-value is-clearable is-searchable Select--multi"
+          className="Select property-input has-value is-clearable is-searchable Select--multi"
           style={undefined}
         >
           <input
@@ -1316,6 +1316,139 @@ exports[`test outer 1`] = `
               className="col-lg-12"
             >
               <div
+                className="property form-group required"
+              >
+                <label
+                  className="form-control-label"
+                  htmlFor="select2PropertyInput"
+                >
+                  Select
+                </label>
+                <div
+                  className="controls"
+                >
+                  <div
+                    className="Select property-input is-invalid has-value is-clearable is-searchable Select--single"
+                    style={undefined}
+                  >
+                    <input
+                      disabled={false}
+                      name="select2PropertyInput"
+                      type="hidden"
+                      value="vanilla"
+                    />
+                    <div
+                      className="Select-control"
+                      onKeyDown={[Function]}
+                      onMouseDown={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchMove={[Function]}
+                      onTouchStart={[Function]}
+                      style={undefined}
+                    >
+                      <span
+                        className="Select-multi-value-wrapper"
+                        id="react-select-14--value"
+                      >
+                        <div
+                          className="Select-value"
+                          style={undefined}
+                          title={undefined}
+                        >
+                          <span
+                            aria-selected="true"
+                            className="Select-value-label"
+                            id="react-select-14--value-item"
+                            role="option"
+                          >
+                            Vanilla
+                          </span>
+                        </div>
+                        <div
+                          className="Select-input"
+                          style={
+                            Object {
+                              "display": "inline-block",
+                            }
+                          }
+                        >
+                          <input
+                            aria-activedescendant="react-select-14--value"
+                            aria-describedby={undefined}
+                            aria-expanded="false"
+                            aria-haspopup="false"
+                            aria-label={undefined}
+                            aria-labelledby={undefined}
+                            aria-owns=""
+                            className={undefined}
+                            id={undefined}
+                            onBlur={[Function]}
+                            onChange={[Function]}
+                            onFocus={[Function]}
+                            required={false}
+                            role="combobox"
+                            style={
+                              Object {
+                                "boxSizing": "content-box",
+                                "width": "5px",
+                              }
+                            }
+                            tabIndex={undefined}
+                            value=""
+                          />
+                          <div
+                            style={
+                              Object {
+                                "height": 0,
+                                "left": 0,
+                                "overflow": "scroll",
+                                "position": "absolute",
+                                "top": 0,
+                                "visibility": "hidden",
+                                "whiteSpace": "pre",
+                              }
+                            }
+                          >
+                            
+                          </div>
+                        </div>
+                      </span>
+                      <span
+                        aria-label="Clear value"
+                        className="Select-clear-zone"
+                        onMouseDown={[Function]}
+                        onTouchEnd={[Function]}
+                        onTouchMove={[Function]}
+                        onTouchStart={[Function]}
+                        title="Clear value"
+                      >
+                        <span
+                          className="Select-clear"
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "&times;",
+                            }
+                          }
+                        />
+                      </span>
+                      <span
+                        className="Select-arrow-zone"
+                        onMouseDown={[Function]}
+                      >
+                        <span
+                          className="Select-arrow"
+                          onMouseDown={[Function]}
+                        />
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              className="col-lg-12"
+            >
+              <div
                 className="property form-check"
               >
                 <input
@@ -1409,6 +1542,139 @@ exports[`test outer 1`] = `
                     className="valid-feedback"
                   >
                     Ok here
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              className="col-lg-12"
+            >
+              <div
+                className="property form-group required"
+              >
+                <label
+                  className="form-control-label"
+                  htmlFor="select3PropertyInput"
+                >
+                  Select
+                </label>
+                <div
+                  className="controls"
+                >
+                  <div
+                    className="Select property-input is-valid has-value is-clearable is-searchable Select--single"
+                    style={undefined}
+                  >
+                    <input
+                      disabled={false}
+                      name="select3PropertyInput"
+                      type="hidden"
+                      value="vanilla"
+                    />
+                    <div
+                      className="Select-control"
+                      onKeyDown={[Function]}
+                      onMouseDown={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchMove={[Function]}
+                      onTouchStart={[Function]}
+                      style={undefined}
+                    >
+                      <span
+                        className="Select-multi-value-wrapper"
+                        id="react-select-15--value"
+                      >
+                        <div
+                          className="Select-value"
+                          style={undefined}
+                          title={undefined}
+                        >
+                          <span
+                            aria-selected="true"
+                            className="Select-value-label"
+                            id="react-select-15--value-item"
+                            role="option"
+                          >
+                            Vanilla
+                          </span>
+                        </div>
+                        <div
+                          className="Select-input"
+                          style={
+                            Object {
+                              "display": "inline-block",
+                            }
+                          }
+                        >
+                          <input
+                            aria-activedescendant="react-select-15--value"
+                            aria-describedby={undefined}
+                            aria-expanded="false"
+                            aria-haspopup="false"
+                            aria-label={undefined}
+                            aria-labelledby={undefined}
+                            aria-owns=""
+                            className={undefined}
+                            id={undefined}
+                            onBlur={[Function]}
+                            onChange={[Function]}
+                            onFocus={[Function]}
+                            required={false}
+                            role="combobox"
+                            style={
+                              Object {
+                                "boxSizing": "content-box",
+                                "width": "5px",
+                              }
+                            }
+                            tabIndex={undefined}
+                            value=""
+                          />
+                          <div
+                            style={
+                              Object {
+                                "height": 0,
+                                "left": 0,
+                                "overflow": "scroll",
+                                "position": "absolute",
+                                "top": 0,
+                                "visibility": "hidden",
+                                "whiteSpace": "pre",
+                              }
+                            }
+                          >
+                            
+                          </div>
+                        </div>
+                      </span>
+                      <span
+                        aria-label="Clear value"
+                        className="Select-clear-zone"
+                        onMouseDown={[Function]}
+                        onTouchEnd={[Function]}
+                        onTouchMove={[Function]}
+                        onTouchStart={[Function]}
+                        title="Clear value"
+                      >
+                        <span
+                          className="Select-clear"
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "&times;",
+                            }
+                          }
+                        />
+                      </span>
+                      <span
+                        className="Select-arrow-zone"
+                        onMouseDown={[Function]}
+                      >
+                        <span
+                          className="Select-arrow"
+                          onMouseDown={[Function]}
+                        />
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
