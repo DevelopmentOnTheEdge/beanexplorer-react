@@ -97,6 +97,11 @@ input:required {
   border: 1px solid #ced4da;
 }
 
+.form-control-file:disabled, .form-control-file[readonly] {
+  background-color: #e9ecef;
+  opacity: 1;
+}
+
 .was-validated .required .Select-control:focus,
 .was-validated .form-control-file:invalid:focus{
   border-color: #dc3545;
