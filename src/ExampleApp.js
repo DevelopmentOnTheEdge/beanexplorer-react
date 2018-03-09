@@ -53,10 +53,24 @@ class AllPropertyTypes extends Component
     this.forceUpdate();
   }
 
+  getBean(){
+    if(this.state.readOnly){
+      let beanJson = JSON.stringify(this.state.bean);
+      const readOnlyBean = JSON.parse(beanJson);
+
+      for(let item in readOnlyBean.meta) {
+        readOnlyBean.meta[item]['readOnly'] = true;
+      }
+      console.log(readOnlyBean);
+      return readOnlyBean;
+    }
+    return this.state.bean;
+  }
+
   getForm(){
     return (
       <form onSubmit={this.handleSubmit} className="bs-example">
-        <PropertySet bean={this.state.bean} onChange={this.handleFieldChange} />
+        <PropertySet bean={this.getBean()} onChange={this.handleFieldChange} />
         <button type="submit" className="btn btn-primary mb-2">Submit</button>
       </form>
     )
@@ -66,34 +80,33 @@ class AllPropertyTypes extends Component
     return (
       <div className="row">
         <div className="col-lg-8">
+          <div className="alert alert-light">
+            <div className="form-check">
+              <label htmlFor="readOnly" className="form-check-label">
+                <input
+                  id="readOnly"
+                  type="checkbox"
+                  className="form-check-input"
+                  onChange={()=>{this.setState({readOnly: !this.state.readOnly})}}
+                />
+                read only
+              </label>
+            </div>
+          </div>
+        </div>
+        <div className="col-lg-4">
+          <div className="alert alert-info" role="alert">onChange in the console [Chrome <b>F12</b>]</div>
+        </div>
+        <div className="col-lg-8">
           {this.getForm()}
         </div>
         <div className="col-lg-4">
           <textarea rows="200" name="inputJson" className="inputJson form-control" defaultValue={JSON.stringify(this.state.bean, null, 4)}
                     onChange={this.handleJsonChange} />
           <br/>
-          <div className="alert alert-info" role="alert">onChange calls displayed in the console [Chrome <b>F12</b>]</div>
         </div>
       </div>
     );
-  }
-}
-
-class AllReadOnly extends AllPropertyTypes
-{
-  constructor(props) {
-    super(props);
-
-    let beanJson = JSON.stringify(bean);
-    const readOnlyBean = JSON.parse(beanJson);
-
-    for(let item in readOnlyBean.meta) {
-      readOnlyBean.meta[item]['readOnly'] = true;
-    }
-
-    this.state = {
-      bean: readOnlyBean
-    };
   }
 }
 
@@ -133,7 +146,7 @@ class InlineForm extends AllPropertyTypes
     return (
       <div>
         <form onSubmit={this.handleSubmit} className="bs-example form-inline">
-          <PropertySet bean={this.state.bean} onChange={this.handleFieldChange}
+          <PropertySet bean={this.getBean()} onChange={this.handleFieldChange}
                        inline rowClass="d-flex" />
           <button type="submit" className="btn btn-primary mb-2">Submit</button>
         </form>
@@ -172,14 +185,12 @@ const ExampleApp = () => (
           <br/>
           <ul className="nav nav-pills">
             <li className="nav-item"><NavLink to="/" className="nav-link" exact>All PropertyInput</NavLink></li>
-            <li className="nav-item"><NavLink to="/allReadOnly" className="nav-link" >All Read Only</NavLink></li>
             <li className="nav-item"><NavLink to="/outer" className="nav-link" >Outer</NavLink></li>
             <li className="nav-item"><NavLink to="/validation" className="nav-link" >Validation</NavLink></li>
             <li className="nav-item"><NavLink to="/inlineForm" className="nav-link" >Inline form</NavLink></li>
           </ul>
           <br/>
           <Route exact path="/" component={AllPropertyTypes}/>
-          <Route path="/allReadOnly" component={AllReadOnly}/>
           <Route path="/outer" component={PropertyOuter}/>
           <Route path="/validation" component={Validation}/>
           <Route path="/inlineForm" component={InlineForm}/>
