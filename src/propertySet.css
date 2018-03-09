@@ -72,7 +72,7 @@
 When required is defined in a form field, Firefox 4 automatically shows a red border to this element,
 even BEFORE the user hits the submit button.
 */
-input:required {
+input:required, textarea:required {
   box-shadow: none;
 }
 
@@ -102,24 +102,24 @@ input:required {
   opacity: 1;
 }
 
-.was-validated .required .Select-control:focus,
+.was-validated .required .Select:not(.is-disabled) .Select-control:focus,
 .was-validated .form-control-file:invalid:focus{
   border-color: #dc3545;
   box-shadow: 0 0 0 0.2rem rgba(220,53,69,.25);
 }
 
-.was-validated .required .Select-control,
+.was-validated .required .Select:not(.is-disabled) .Select-control,
 .was-validated .form-control-file:invalid{
   border-color: #dc3545;
 }
 
-.was-validated .required .has-value .Select-control:focus,
+.was-validated .required .Select.has-value:not(.is-disabled) .Select-control:focus,
 .was-validated .form-control-file:valid:focus{
   border-color: #28a745;
   box-shadow: 0 0 0 0.2rem rgba(40,167,69,.25);
 }
 
-.was-validated .required .has-value .Select-control,
+.was-validated .required .Select.has-value:not(.is-disabled) .Select-control,
 .was-validated .form-control-file:valid{
   border-color: #28a745;
 }
