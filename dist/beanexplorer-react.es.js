@@ -156,18 +156,30 @@ var PropertyInput = function (_React$Component) {
       var validationRulesMap = PropertyInput.getValidationRulesMap(meta.validationRules);
       var required = meta.canBeNull !== true;
 
+      var inputTypeClass = void 0;
+      switch (meta.type) {
+        case "Boolean":
+          inputTypeClass = 'form-check-input';break;
+        case "Base64File":
+          inputTypeClass = 'form-control-file';break;
+        default:
+          inputTypeClass = 'form-control';
+      }
+
+      var validationClasses = classNames({ 'is-invalid': meta.status === 'error' }, { 'is-valid': meta.status === 'success' });
+
       var baseProps = {
         id: id,
         key: id,
         disabled: meta.readOnly,
-        required: required
+        required: required,
+        className: classNames('property-input', inputTypeClass, validationClasses, this.props.controlClassName)
       };
 
       var rawInputProps = Object.assign({}, baseProps, {
         value: value === undefined ? "" : value,
         onChange: this.handleChange,
-        placeholder: meta.placeholder,
-        className: classNames("form-control", this.props.controlClassName)
+        placeholder: meta.placeholder
       });
 
       var controls = {
@@ -197,32 +209,30 @@ var PropertyInput = function (_React$Component) {
           return React.createElement('input', _extends({
             type: 'checkbox',
             checked: value === true || value === "true",
-            onChange: _this2.handleChange,
-            className: classNames("form-check-input", _this2.props.controlClassName)
+            onChange: _this2.handleChange
           }, baseProps));
         },
         Date: function Date() {
           return React.createElement(Datetime, {
             dateFormat: 'DD.MM.YYYY',
             key: id + "Datetime",
+            value: PropertyInput.dateFromISOFormat(value),
             onChange: function onChange(v) {
               return _this2.dateToISOFormat(v);
-            }, value: PropertyInput.dateFromISOFormat(value),
+            },
             timeFormat: false,
             closeOnSelect: true,
             closeOnTab: true,
             locale: _this2.props.localization.locale || "en",
             inputProps: Object.assign({}, baseProps, {
               pattern: "(^$|\\d{1,2}\\.\\d{1,2}\\.\\d{4})",
-              placeholder: meta.placeholder,
-              className: classNames("form-control", _this2.props.controlClassName)
+              placeholder: meta.placeholder
             })
           });
         },
         Base64File: function Base64File() {
           return React.createElement('input', _extends({
             type: 'file',
-            className: classNames("form-control-file", _this2.props.controlClassName),
             multiple: meta.multipleSelectionList,
             onChange: function onChange(e) {
               if (e.target.files && e.target.files.length === 1) {
@@ -269,6 +279,7 @@ var PropertyInput = function (_React$Component) {
             disabled: meta.readOnly,
             multi: meta.multipleSelectionList,
             matchPos: extraAttrsMap.matchPos || "any",
+            className: classNames('property-input', validationClasses),
             required: required
           };
 
@@ -295,12 +306,20 @@ var PropertyInput = function (_React$Component) {
           return React.createElement(MaskedInput, _extends({
             mask: validationRulesMap.mask,
             value: value === undefined ? "" : value,
-            onChange: _this2.handleChange,
-            className: classNames("form-control", _this2.props.controlClassName)
+            onChange: _this2.handleChange
           }, baseProps));
         },
         WYSIWYG: function WYSIWYG() {
+          if (_this2.ckeditor) {
+            if (_this2.ckeditor.editorInstance.getData() !== value) {
+              _this2.ckeditor.editorInstance.setData(value);
+            }
+            _this2.ckeditor.editorInstance.setReadOnly(meta.readOnly === true);
+          }
           return React.createElement(CKEditor, {
+            ref: function ref(instance) {
+              _this2.ckeditor = instance;
+            },
             activeClass: 'p10',
             content: value,
             events: {
@@ -309,24 +328,25 @@ var PropertyInput = function (_React$Component) {
               }
             },
             config: {
-              language: 'ru',
+              language: _this2.props.localization.locale || "en",
               readOnly: meta.readOnly
             }
           });
         },
         labelField: function labelField() {
+          var labelPropertyClasses = classNames('property-input', _this2.props.controlClassName, { 'text-danger': meta.status === 'error' }, { 'text-success': meta.status === 'success' }, { 'text-warning': meta.status === 'warning' });
           if (meta.rawValue) {
             return React.createElement('label', {
               id: id,
               key: id,
-              className: classNames("form-control-label", _this2.props.controlClassName),
+              className: labelPropertyClasses,
               dangerouslySetInnerHTML: { __html: value }
             });
           } else {
             return React.createElement(
               'label',
               {
-                className: classNames("form-control-label", _this2.props.controlClassName),
+                className: labelPropertyClasses,
                 id: id,
                 key: id
               },
@@ -494,27 +514,36 @@ var Property = function (_React$Component) {
         meta.displayName || id
       );
 
-      var messageElement = meta.message ? React.createElement(
-        'small',
-        { className: this.props.messageClassName || "form-control-feedback" },
-        meta.message
-      ) : undefined;
+      var messageElement = void 0;
+      if (meta.message) {
+        var validationClasses = classNames({ 'invalid-feedback': meta.status === 'error' }, { 'valid-feedback': meta.status === 'success' });
 
-      var hasStatusClasses = classNames({ 'has-error': meta.status === 'error' }, { 'has-warning': meta.status === 'warning' }, { 'has-success': meta.status === 'success' });
-
-      var classNameForm = meta.type === "Boolean" ? this.props.classNameFormCheck || 'form-check property' : this.props.classNameFormGroup || 'form-group property';
+        if (validationClasses) {
+          messageElement = React.createElement(
+            'div',
+            { className: validationClasses },
+            meta.message
+          );
+        } else {
+          messageElement = React.createElement(
+            'small',
+            { className: 'form-text text-muted' },
+            meta.message
+          );
+        }
+      }
 
       var cssClasses = meta.cssClasses || 'col-lg-12';
 
       var outerClasses = classNames(cssClasses, { 'display-none': meta.hidden });
 
-      var classes = classNames(classNameForm, hasStatusClasses, { 'required': meta.canBeNull !== true });
+      var formGroupClasses = classNames('property', { 'form-group': meta.type !== 'Boolean' }, { 'form-check': meta.type === 'Boolean' }, { 'required': meta.canBeNull !== true });
 
       if (this.props.inline) {
         if (meta.type === "Boolean") {
           return React.createElement(
             'div',
-            { className: 'form-check mb-2 mr-sm-2' },
+            { className: 'property form-check mb-2 mr-sm-2' },
             React.createElement(PropertyInput, this.props),
             label
           );
@@ -528,7 +557,7 @@ var Property = function (_React$Component) {
             { className: outerClasses },
             React.createElement(
               'div',
-              { className: classes },
+              { className: formGroupClasses },
               React.createElement(PropertyInput, this.props),
               label,
               messageElement
@@ -537,7 +566,7 @@ var Property = function (_React$Component) {
         } else if (meta.labelField) {
           return React.createElement(
             'div',
-            { className: classNames('form-group property property-label', meta.cssClasses || 'col-lg-12', hasStatusClasses) },
+            { className: classNames('form-group property property-label', meta.cssClasses || 'col-lg-12') },
             React.createElement(PropertyInput, this.props)
           );
         } else {
@@ -546,7 +575,7 @@ var Property = function (_React$Component) {
             { className: outerClasses },
             React.createElement(
               'div',
-              { className: classes },
+              { className: formGroupClasses },
               label,
               React.createElement(
                 'div',
