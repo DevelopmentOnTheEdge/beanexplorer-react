@@ -36,7 +36,7 @@ class Property extends React.Component
       }
       else
       {
-        messageElement = <small className="form-control-feedback">{meta.message}</small>;
+        messageElement = <small className="form-text text-muted">{meta.message}</small>;
       }
     }
 

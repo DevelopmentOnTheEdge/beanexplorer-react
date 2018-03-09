@@ -35,14 +35,14 @@
       "displayName": "Name",
       "groupName": "Group 2 - Error",
       "groupId": 2,
-      "message": "Error here",
+      "message": "The name is already in use.",
       "status": "error"
     },
     "/checkBox2": {
       "displayName": "CheckBox",
       "type": "Boolean",
       "groupId": 2,
-      "message": "You must check before submitting.",
+      "message": "This option is not available in the current state.",
       "status": "error"
     },
     "/labelField2": {

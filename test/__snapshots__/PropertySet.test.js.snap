@@ -1204,7 +1204,7 @@ exports[`test outer 1`] = `
                     value="test"
                   />
                   <small
-                    className="form-control-feedback"
+                    className="form-text text-muted"
                   >
                     Help text
                   </small>
@@ -1233,7 +1233,7 @@ exports[`test outer 1`] = `
                   CheckBox
                 </label>
                 <small
-                  className="form-control-feedback"
+                  className="form-text text-muted"
                 >
                   You must check before submitting.
                 </small>
@@ -1307,7 +1307,7 @@ exports[`test outer 1`] = `
                   <div
                     className="invalid-feedback"
                   >
-                    Error here
+                    The name is already in use.
                   </div>
                 </div>
               </div>
@@ -1336,7 +1336,7 @@ exports[`test outer 1`] = `
                 <div
                   className="invalid-feedback"
                 >
-                  You must check before submitting.
+                  This option is not available in the current state.
                 </div>
               </div>
             </div>
@@ -1753,7 +1753,7 @@ exports[`validationTest 1`] = `
                     value={9007199254740991}
                   />
                   <small
-                    className="form-control-feedback"
+                    className="form-text text-muted"
                   >
                     use Number.MAX_SAFE_INTEGER and Number.MIN_SAFE_INTEGER for limits
                   </small>
