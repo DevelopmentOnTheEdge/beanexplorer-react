@@ -40,7 +40,7 @@ class AllPropertyTypes extends Component
   }
 
   handleSubmit(event) {
-    console.log('submit', this.state.bean.values);
+    console.log('submit:', this.state.bean.values);
     event.preventDefault();
   }
 
@@ -49,7 +49,7 @@ class AllPropertyTypes extends Component
   }
 
   handleFieldChange(path, value) {
-    console.log("call handleFieldChange: ", path, value);
+    console.log("onChange: ", path, value);
     JsonPointer.set(this.state.bean, "/values" + path, value);
     this.forceUpdate();
   }
@@ -62,7 +62,6 @@ class AllPropertyTypes extends Component
       for(let item in readOnlyBean.meta) {
         readOnlyBean.meta[item]['readOnly'] = true;
       }
-      console.log(readOnlyBean);
       return readOnlyBean;
     }
     return this.state.bean;

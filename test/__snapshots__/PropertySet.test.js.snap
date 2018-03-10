@@ -10,20 +10,30 @@ exports[`inline layout 1`] = `
 <div
   className="property-set"
 >
-  <input
-    className="property-input form-control mb-2 mr-sm-2"
-    disabled={undefined}
-    id="name2PropertyInput"
-    maxLength={undefined}
-    onChange={[Function]}
-    pattern={undefined}
-    placeholder="Name"
-    required={true}
-    type="text"
-    value="value"
-  />
   <div
-    className="property form-check mb-2 mr-sm-2"
+    className="property form-group required mb-2 mr-sm-2"
+  >
+    <label
+      className="form-control-label mr-sm-2"
+      htmlFor="name2PropertyInput"
+    >
+      Name
+    </label>
+    <input
+      className="property-input form-control"
+      disabled={undefined}
+      id="name2PropertyInput"
+      maxLength={undefined}
+      onChange={[Function]}
+      pattern={undefined}
+      placeholder={undefined}
+      required={true}
+      type="text"
+      value="value"
+    />
+  </div>
+  <div
+    className="property form-check required mb-2 mr-sm-2"
   >
     <input
       checked={false}
@@ -41,12 +51,16 @@ exports[`inline layout 1`] = `
       Remember me
     </label>
   </div>
-  <label
-    className="property-input mb-2 mr-sm-2"
-    id="labelFieldPropertyInput"
+  <div
+    className="property form-group required mb-2 mr-sm-2"
   >
-    Text label
-  </label>
+    <label
+      className="property-input"
+      id="labelFieldPropertyInput"
+    >
+      Text label
+    </label>
+  </div>
 </div>
 `;
 
@@ -1122,12 +1136,6 @@ exports[`simple property set 1`] = `
     <div
       className="property form-group required"
     >
-      <label
-        className="form-control-label"
-        htmlFor="numberPropertyInput"
-      >
-        numberPropertyInput
-      </label>
       <div
         className="controls"
       >

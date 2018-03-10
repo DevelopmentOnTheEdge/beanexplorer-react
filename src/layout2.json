@@ -6,7 +6,7 @@
   },
   "meta": {
     "/name2": {
-      "placeholder": "Name"
+      "displayName": "Name"
     },
     "/subject2": {
       "displayName": "Remember me",

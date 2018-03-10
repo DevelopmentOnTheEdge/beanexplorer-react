@@ -508,11 +508,17 @@ var Property = function (_React$Component) {
       var meta = this.props.bean.meta[path];
       var id = path.substring(path.lastIndexOf("/") + 1) + "PropertyInput";
 
-      var label = React.createElement(
-        'label',
-        { htmlFor: id, className: meta.type === "Boolean" ? 'form-check-label' : 'form-control-label' },
-        meta.displayName || id
-      );
+      var label = void 0;
+      if (meta.displayName) {
+        label = React.createElement(
+          'label',
+          {
+            htmlFor: id,
+            className: classNames(meta.type === 'Boolean' ? 'form-check-label' : 'form-control-label', { 'mr-sm-2': this.props.inline && meta.type !== 'Boolean' })
+          },
+          meta.displayName
+        );
+      }
 
       var messageElement = void 0;
       if (meta.message) {
@@ -543,12 +549,17 @@ var Property = function (_React$Component) {
         if (meta.type === "Boolean") {
           return React.createElement(
             'div',
-            { className: 'property form-check mb-2 mr-sm-2' },
+            { className: classNames(formGroupClasses, "mb-2 mr-sm-2") },
             React.createElement(PropertyInput, this.props),
             label
           );
         } else {
-          return React.createElement(PropertyInput, _extends({}, this.props, { controlClassName: 'mb-2 mr-sm-2' }));
+          return React.createElement(
+            'div',
+            { className: classNames(formGroupClasses, "mb-2 mr-sm-2") },
+            label,
+            React.createElement(PropertyInput, this.props)
+          );
         }
       } else {
         if (meta.type === "Boolean") {

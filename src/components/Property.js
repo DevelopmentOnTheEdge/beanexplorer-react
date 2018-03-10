@@ -16,11 +16,21 @@ class Property extends React.Component
 
   render() {
     const path = this.getPath();
-    const meta  = this.props.bean.meta[path];
-    const id    = path.substring(path.lastIndexOf("/")+1) + "PropertyInput";
+    const meta = this.props.bean.meta[path];
+    const id = path.substring(path.lastIndexOf("/") + 1) + "PropertyInput";
 
-    const label = <label htmlFor={id} className={meta.type === "Boolean" ? 'form-check-label' : 'form-control-label'}>
-                         {meta.displayName || id}</label>;
+    let label;
+    if (meta.displayName){
+      label = <label
+        htmlFor={id}
+        className={classNames(
+            meta.type === 'Boolean' ? 'form-check-label' : 'form-control-label',
+            {'mr-sm-2' : this.props.inline && meta.type !== 'Boolean'}
+        )}
+      >
+        {meta.displayName}
+      </label>;
+    }
 
     let messageElement;
     if(meta.message)
@@ -59,7 +69,7 @@ class Property extends React.Component
       if(meta.type === "Boolean")
       {
         return (
-          <div className="property form-check mb-2 mr-sm-2">
+          <div className={classNames(formGroupClasses, "mb-2 mr-sm-2")} >
             <PropertyInput {...this.props} />
             {label}
           </div>
@@ -68,7 +78,10 @@ class Property extends React.Component
       else
       {
         return (
-          <PropertyInput {...this.props} controlClassName="mb-2 mr-sm-2"/>
+          <div className={classNames(formGroupClasses, "mb-2 mr-sm-2")} >
+            {label}
+            <PropertyInput {...this.props}/>
+          </div>
         );
       }
     }
