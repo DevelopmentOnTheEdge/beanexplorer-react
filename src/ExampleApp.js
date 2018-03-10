@@ -156,6 +156,27 @@ class InlineForm extends AllPropertyTypes
   }
 
   getForm() {
+    const namePatternMismatch = 'Minimum length is 6 characters';
+    const validationUser = function (e) {
+      if(namePatternMismatch) {
+        if (e.target.validity.patternMismatch) {
+          e.target.setCustomValidity(namePatternMismatch)
+        } else {
+          e.target.setCustomValidity('')
+        }
+      }
+    };
+
+    const number1ErrorRange = 'Введите 3 цифры';
+    const validationNumber1 = function (e) {
+      if(number1ErrorRange) {
+        if (e.target.validity.rangeOverflow || e.target.validity.rangeUnderflow) {
+          e.target.setCustomValidity(number1ErrorRange)
+        } else {
+          e.target.setCustomValidity('')
+        }
+      }
+    };
     return (
       <div>
         <form onSubmit={this.handleSubmit} className={classNames("bs-example form-inline", {"was-validated" : this.state.wasValidated})}>
@@ -166,6 +187,30 @@ class InlineForm extends AllPropertyTypes
         <form className="bs-example form-inline">
           <PropertySet bean={layout2} onChange={this.handleFieldChange}
                        inline rowClass="d-flex" />
+          <button type="submit" className="btn btn-primary mb-2">Submit</button>
+        </form>
+
+        <h5>Test setCustomValidity()</h5>
+        <form className="bs-example needs-validation form-inline" onSubmit={this.handleSubmit}>
+          <input
+            type="text"
+            name="user"
+            className="form-control mb-2 mr-sm-2"
+            pattern=".{6,}"
+            onInvalid={validationUser}
+            onInput={validationUser}
+            required
+          />
+          <input
+            type="number"
+            name="number1"
+            className="form-control mb-2 mr-sm-2"
+            min={100}
+            max={999}
+            onInvalid={validationNumber1}
+            onInput={validationNumber1}
+            required
+          />
           <button type="submit" className="btn btn-primary mb-2">Submit</button>
         </form>
       </div>
