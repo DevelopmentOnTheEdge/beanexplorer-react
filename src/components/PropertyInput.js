@@ -54,7 +54,7 @@ class PropertyInput extends React.Component
 
   validationDate(e) {
     if (e.target.validity.patternMismatch) {
-      e.target.setCustomValidity(this.props.localization.datePatternError || 'Please enter a valid date in the format dd.mm.yyyy')
+      e.target.setCustomValidity(this.props.localization.datePatternError)
     } else {
       e.target.setCustomValidity('')
     }
@@ -426,7 +426,8 @@ PropertyInput.defaultProps = {
     noResultsText: 'No results found',
     searchPromptText: 'Type to search',
     placeholder: 'Select ...',
-    loadingPlaceholder: 'Loading...'
+    loadingPlaceholder: 'Loading...',
+    datePatternError: 'Please enter a valid date in the format dd.mm.yyyy'
   },
 };
 

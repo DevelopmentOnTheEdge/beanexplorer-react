@@ -127,18 +127,6 @@ class Property extends React.Component
 
 }
 
-Property.defaultProps = {
-  localization: {
-    locale: 'en',
-    clearAllText: 'Clear all',
-    clearValueText: 'Clear value',
-    noResultsText: 'No results found',
-    searchPromptText: 'Type to search',
-    placeholder: 'Select ...',
-    loadingPlaceholder: 'Loading...'
-  },
-};
-
 Property.propTypes = {
   bean: PropTypes.object.isRequired,
   path: PropTypes.string,
