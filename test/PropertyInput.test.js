@@ -118,3 +118,24 @@ test('getValidationRulesMap test', () => {
   expect(PropertyInput.getValidationRulesMap({"type":"step","attr":0.5}))
     .toEqual({"step": 0.5});
 });
+
+test('updateCkeditor', () => {
+  const setData = jest.fn();
+  const setReadOnly = jest.fn();
+
+  PropertyInput.updateCkeditor({editorInstance: {
+    setReadOnly: setReadOnly,
+    setData: setData,
+    getData: () => {return 'test'}}}, "test2", true);
+
+  expect(setData.mock.calls[0]).toEqual(["test2"]);
+  expect(setReadOnly.mock.calls[0]).toEqual([true]);
+
+  PropertyInput.updateCkeditor({editorInstance: {
+    setReadOnly: setReadOnly,
+    setData: setData,
+    getData: () => {return 'test'}}}, "test", true);
+
+  expect(setData.mock.calls.length).toEqual(1);
+  expect(setReadOnly.mock.calls[1]).toEqual([true]);
+});

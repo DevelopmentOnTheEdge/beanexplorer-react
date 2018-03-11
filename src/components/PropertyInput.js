@@ -113,6 +113,14 @@ class PropertyInput extends React.Component
     return map;
   }
 
+  static updateCkeditor(ckeditor, value, readOnly) {
+    if(ckeditor.editorInstance.getData() !== value)
+    {
+      ckeditor.editorInstance.setData(value);
+    }
+    ckeditor.editorInstance.setReadOnly(readOnly);
+  }
+
   render() {
     const path  = this.getPath();
     const meta  = this.props.bean.meta[path];
@@ -295,12 +303,8 @@ class PropertyInput extends React.Component
         />
       ),
       WYSIWYG: () => {
-        if(this.ckeditor){
-          if(this.ckeditor.editorInstance.getData() !== value)
-          {
-            this.ckeditor.editorInstance.setData(value);
-          }
-          this.ckeditor.editorInstance.setReadOnly(meta.readOnly === true);
+        if(this.ckeditor) {
+          PropertyInput.updateCkeditor(this.ckeditor, value, meta.readOnly === true);
         }
         return <CKEditor
           ref={instance => {
