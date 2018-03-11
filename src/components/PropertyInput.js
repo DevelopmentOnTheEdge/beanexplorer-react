@@ -52,6 +52,14 @@ class PropertyInput extends React.Component
     }
   }
 
+  validationDate(e) {
+    if (e.target.validity.patternMismatch) {
+      e.target.setCustomValidity(this.props.localization.datePatternError || 'Please enter a valid date in the format dd.mm.yyyy')
+    } else {
+      e.target.setCustomValidity('')
+    }
+  };
+
   handleChangeSelect(object) {
     if(Array.isArray(object)) {
       let selectArray = [];
@@ -186,11 +194,13 @@ class PropertyInput extends React.Component
           timeFormat={false}
           closeOnSelect={true}
           closeOnTab={true}
-          locale={this.props.localization.locale || "en"}
+          locale={this.props.localization.locale}
           inputProps={ Object.assign({},
             baseProps,
             {
               pattern: "(^$|\\d{1,2}\\.\\d{1,2}\\.\\d{4})",
+              onInvalid: (v) => this.validationDate(v),
+              onInput: (v) => this.validationDate(v),
               placeholder: meta.placeholder
             }
           )}
@@ -304,7 +314,7 @@ class PropertyInput extends React.Component
             }
           }}
           config={{
-            language: this.props.localization.locale || "en",
+            language: this.props.localization.locale,
             readOnly: meta.readOnly
           }}
         />

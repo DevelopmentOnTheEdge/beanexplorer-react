@@ -50,6 +50,12 @@ test('date', () => {
   expect(handle.mock.calls[2]).toEqual(["/date", "20.07.20"]);
 
   expect(handle.mock.calls.length).toEqual(3);
+
+  wrapper.instance().validationDate({target:{setCustomValidity: handle, validity: {patternMismatch: true}}});
+  expect(handle.mock.calls[3]).toEqual(["Please enter a valid date in the format dd.mm.yyyy"]);
+
+  wrapper.instance().validationDate({target:{setCustomValidity: handle, validity: {patternMismatch: false}}});
+  expect(handle.mock.calls[4]).toEqual([""]);
 });
 
 test('date init with no valid date', () => {
