@@ -44,6 +44,10 @@
   margin-bottom: 0.5rem;
 }
 
+label.property-input {
+  margin-bottom: 0;
+}
+
 /*
 When required is defined in a form field, Firefox 4 automatically shows a red border to this element,
 even BEFORE the user hits the submit button.
