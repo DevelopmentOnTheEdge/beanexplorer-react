@@ -2,7 +2,8 @@
   "values": {
     "name2": "value",
     "subject2": "",
-    "labelField": "Text label"
+    "labelField": "Text label",
+    "hiddenInput": ""
   },
   "meta": {
     "/name2": {
@@ -14,11 +15,16 @@
     },
     "/labelField": {
       "labelField": true
+    },
+    "/hiddenInput": {
+      "placeholder": "hidden",
+      "hidden": true
     }
   },
   "order": [
     "/name2",
     "/subject2",
-    "/labelField"
+    "/labelField",
+    "/hiddenInput"
   ]
 }

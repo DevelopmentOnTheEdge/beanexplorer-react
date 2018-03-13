@@ -61,6 +61,22 @@ exports[`inline layout 1`] = `
       Text label
     </label>
   </div>
+  <div
+    className="property form-group required mb-2 mr-sm-2 display-none"
+  >
+    <input
+      className="property-input form-control"
+      disabled={undefined}
+      id="hiddenInputPropertyInput"
+      maxLength={undefined}
+      onChange={[Function]}
+      pattern={undefined}
+      placeholder="hidden"
+      required={true}
+      type="text"
+      value=""
+    />
+  </div>
 </div>
 `;
 

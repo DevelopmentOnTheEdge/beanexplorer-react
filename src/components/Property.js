@@ -69,7 +69,7 @@ class Property extends React.Component
       if(meta.type === "Boolean")
       {
         return (
-          <div className={classNames(formGroupClasses, "mb-2 mr-sm-2")} >
+          <div className={classNames(formGroupClasses, "mb-2 mr-sm-2", {'display-none' : meta.hidden})} >
             <PropertyInput {...this.props} />
             {label}
           </div>
@@ -78,7 +78,7 @@ class Property extends React.Component
       else
       {
         return (
-          <div className={classNames(formGroupClasses, "mb-2 mr-sm-2")} >
+          <div className={classNames(formGroupClasses, "mb-2 mr-sm-2", {'display-none' : meta.hidden})} >
             {label}
             <PropertyInput {...this.props}/>
           </div>
