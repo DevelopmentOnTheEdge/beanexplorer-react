@@ -8,7 +8,8 @@
       "placeholder": "Name"
     },
     "/subject": {
-      "placeholder": "Subject"
+      "placeholder": "Subject",
+      "tagList": [["vanilla","Vanilla"],["chocolate","Chocolate"]]
     }
   },
   "order": [

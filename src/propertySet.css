@@ -48,6 +48,7 @@ input:required, textarea:required {
   box-shadow: none;
 }
 
+
 .Select.is-disabled > .Select-control {
   background-color: #eaedf0;
 }
@@ -57,6 +58,17 @@ input:required, textarea:required {
 .Select--multi.is-disabled .Select-value {
   border-color: #d5d8dc;
 }
+.Select-placeholder, .Select--single > .Select-control .Select-value{
+  line-height: 36px;
+}
+.Select-control, .Select-input{
+  height: 36px;
+}
+.Select-input > input{
+  line-height: 36px;
+  padding: 0;
+}
+
 
 .form-control-file {
   border-radius: .25rem;
