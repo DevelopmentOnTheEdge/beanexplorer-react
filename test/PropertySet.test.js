@@ -5,6 +5,7 @@ import {shallow, mount, render} from 'enzyme';
 import bean from '../src/testJson.json';
 import testOuter from '../src/testOuter.json';
 import validationTest from '../src/validationTest.json';
+import layout1 from '../src/layout1.json';
 import layout2 from '../src/layout2.json';
 
 //https://github.com/YouCanBookMe/react-datetime/issues/384
@@ -60,7 +61,14 @@ test('validationTest', () => {
   expect(component.toJSON()).toMatchSnapshot();
 });
 
-test('inline layout', () => {
+test('inline layout1', () => {
+  const component = renderer.create(
+    <PropertySet bean={layout1} inline rowClass="" />
+  );
+  expect(component.toJSON()).toMatchSnapshot();
+});
+
+test('inline layout2', () => {
   const component = renderer.create(
     <PropertySet bean={layout2} inline rowClass="" />
   );

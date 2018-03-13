@@ -28,6 +28,7 @@ exports[`contain property 1`] = `
           pattern={undefined}
           placeholder={undefined}
           required={true}
+          size={undefined}
           type="text"
           value="test"
         />

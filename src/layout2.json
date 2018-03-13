@@ -7,7 +7,8 @@
   },
   "meta": {
     "/name2": {
-      "displayName": "Name"
+      "displayName": "Name",
+      "inputSize": 10
     },
     "/subject2": {
       "displayName": "Remember me",

@@ -147,6 +147,7 @@ class PropertyInput extends React.Component
       key: id,
       disabled: meta.readOnly,
       required: required,
+      size: meta.inputSize,
       className: classNames('property-input', inputTypeClass, validationClasses, this.props.controlClassName)
     };
 
@@ -249,6 +250,16 @@ class PropertyInput extends React.Component
         {
           strValue = "" + value;
         }
+
+        let style;
+        if(this.props.inline)
+        {
+          style = {
+            width: 11*(meta.inputSize || 16) + 68 + 'px',
+            maxWidth: '100%'
+          }
+        }
+
         const selectAttr = {
           ref: id,
           name: id,
@@ -269,13 +280,14 @@ class PropertyInput extends React.Component
           required: required
         };
 
+        let select;
         if(extraAttrsMap.inputType === "Creatable")
         {
-          return <Creatable {...selectAttr} />
+          select = <Creatable {...selectAttr} />
         }
         else if(extraAttrsMap.inputType === "VirtualizedSelect")
         {
-          return <VirtualizedSelect
+          select = <VirtualizedSelect
             clearable
             searchable
             labelKey="label"
@@ -285,8 +297,10 @@ class PropertyInput extends React.Component
         }
         else
         {
-          return <Select {...selectAttr} />
+          select = <Select {...selectAttr} />;
         }
+
+        return <div style={style} >{select}</div>
       },
 //      dateTime: {
 //        normal: () => {
@@ -435,6 +449,7 @@ PropertyInput.propTypes = {
   bean: PropTypes.object.isRequired,
   path: PropTypes.string,
   id: PropTypes.number,
+  inline: PropTypes.bool,
   onChange: PropTypes.func,
   localization: PropTypes.object,
   controlClassName: PropTypes.string, 
