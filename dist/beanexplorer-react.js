@@ -137,6 +137,15 @@ var PropertyInput = function (_React$Component) {
       }
     }
   }, {
+    key: 'validationDate',
+    value: function validationDate(e) {
+      if (e.target.validity.patternMismatch) {
+        e.target.setCustomValidity(this.props.localization.datePatternError);
+      } else {
+        e.target.setCustomValidity('');
+      }
+    }
+  }, {
     key: 'handleChangeSelect',
     value: function handleChangeSelect(object) {
       if (Array.isArray(object)) {
@@ -179,6 +188,7 @@ var PropertyInput = function (_React$Component) {
         key: id,
         disabled: meta.readOnly,
         required: required,
+        size: meta.inputSize,
         className: classNames('property-input', inputTypeClass, validationClasses, this.props.controlClassName)
       };
 
@@ -229,9 +239,15 @@ var PropertyInput = function (_React$Component) {
             timeFormat: false,
             closeOnSelect: true,
             closeOnTab: true,
-            locale: _this2.props.localization.locale || "en",
+            locale: _this2.props.localization.locale,
             inputProps: Object.assign({}, baseProps, {
               pattern: "(^$|\\d{1,2}\\.\\d{1,2}\\.\\d{4})",
+              onInvalid: function onInvalid(v) {
+                return _this2.validationDate(v);
+              },
+              onInput: function onInput(v) {
+                return _this2.validationDate(v);
+              },
               placeholder: meta.placeholder
             })
           });
@@ -267,6 +283,15 @@ var PropertyInput = function (_React$Component) {
           } else {
             strValue = "" + value;
           }
+
+          var style = void 0;
+          if (_this2.props.inline) {
+            style = {
+              width: 11 * (meta.inputSize || 16) + 68 + 'px',
+              maxWidth: '100%'
+            };
+          }
+
           var selectAttr = {
             ref: id,
             name: id,
@@ -289,18 +314,25 @@ var PropertyInput = function (_React$Component) {
             required: required
           };
 
+          var select = void 0;
           if (extraAttrsMap.inputType === "Creatable") {
-            return React.createElement(Creatable, selectAttr);
+            select = React.createElement(Creatable, selectAttr);
           } else if (extraAttrsMap.inputType === "VirtualizedSelect") {
-            return React.createElement(VirtualizedSelect, _extends({
+            select = React.createElement(VirtualizedSelect, _extends({
               clearable: true,
               searchable: true,
               labelKey: 'label',
               valueKey: 'value'
             }, selectAttr));
           } else {
-            return React.createElement(Select, selectAttr);
+            select = React.createElement(Select, selectAttr);
           }
+
+          return React.createElement(
+            'div',
+            { style: style },
+            select
+          );
         },
         //      dateTime: {
         //        normal: () => {
@@ -317,10 +349,7 @@ var PropertyInput = function (_React$Component) {
         },
         WYSIWYG: function WYSIWYG() {
           if (_this2.ckeditor) {
-            if (_this2.ckeditor.editorInstance.getData() !== value) {
-              _this2.ckeditor.editorInstance.setData(value);
-            }
-            _this2.ckeditor.editorInstance.setReadOnly(meta.readOnly === true);
+            PropertyInput.updateCkeditor(_this2.ckeditor, value, meta.readOnly === true);
           }
           return React.createElement(CKEditor, {
             ref: function ref(instance) {
@@ -334,7 +363,7 @@ var PropertyInput = function (_React$Component) {
               }
             },
             config: {
-              language: _this2.props.localization.locale || "en",
+              language: _this2.props.localization.locale,
               readOnly: meta.readOnly
             }
           });
@@ -465,6 +494,14 @@ var PropertyInput = function (_React$Component) {
 
       return map;
     }
+  }, {
+    key: 'updateCkeditor',
+    value: function updateCkeditor(ckeditor, value, readOnly) {
+      if (ckeditor.editorInstance.getData() !== value) {
+        ckeditor.editorInstance.setData(value);
+      }
+      ckeditor.editorInstance.setReadOnly(readOnly);
+    }
   }]);
   return PropertyInput;
 }(React.Component);
@@ -477,7 +514,8 @@ PropertyInput.defaultProps = {
     noResultsText: 'No results found',
     searchPromptText: 'Type to search',
     placeholder: 'Select ...',
-    loadingPlaceholder: 'Loading...'
+    loadingPlaceholder: 'Loading...',
+    datePatternError: 'Please enter a valid date in the format dd.mm.yyyy'
   }
 };
 
@@ -485,6 +523,7 @@ PropertyInput.propTypes = {
   bean: PropTypes.object.isRequired,
   path: PropTypes.string,
   id: PropTypes.number,
+  inline: PropTypes.bool,
   onChange: PropTypes.func,
   localization: PropTypes.object,
   controlClassName: PropTypes.string
@@ -555,14 +594,14 @@ var Property = function (_React$Component) {
         if (meta.type === "Boolean") {
           return React.createElement(
             'div',
-            { className: classNames(formGroupClasses, "mb-2 mr-sm-2") },
+            { className: classNames(formGroupClasses, "mb-2 mr-sm-2", { 'display-none': meta.hidden }) },
             React.createElement(PropertyInput, this.props),
             label
           );
         } else {
           return React.createElement(
             'div',
-            { className: classNames(formGroupClasses, "mb-2 mr-sm-2") },
+            { className: classNames(formGroupClasses, "mb-2 mr-sm-2", { 'display-none': meta.hidden }) },
             label,
             React.createElement(PropertyInput, this.props)
           );
@@ -608,18 +647,6 @@ var Property = function (_React$Component) {
   }]);
   return Property;
 }(React.Component);
-
-Property.defaultProps = {
-  localization: {
-    locale: 'en',
-    clearAllText: 'Clear all',
-    clearValueText: 'Clear value',
-    noResultsText: 'No results found',
-    searchPromptText: 'Type to search',
-    placeholder: 'Select ...',
-    loadingPlaceholder: 'Loading...'
-  }
-};
 
 Property.propTypes = {
   bean: PropTypes.object.isRequired,

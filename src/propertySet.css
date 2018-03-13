@@ -89,6 +89,10 @@ input:required, textarea:required {
   opacity: 1;
 }
 
+.Select .Select-control{
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
 .was-validated .required .Select:not(.is-disabled) .Select-control:focus,
 .Select.is-invalid .Select-control:focus,
 .was-validated .form-control-file:invalid:focus{

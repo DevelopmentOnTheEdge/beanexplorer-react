@@ -801,6 +801,10 @@ td.rdtYear:hover {
   letter-spacing: 1px;
   content: "Example";
 }
+.property{
+  max-width: 100%;
+}
+
 .property-group {
   margin-top: 1.2em;
   position: relative;
@@ -836,7 +840,7 @@ td.rdtYear:hover {
 }
 
 .display-none{
-  display: none;
+  display: none!important;
 }
 
 .form-check.property {
@@ -851,6 +855,7 @@ input:required, textarea:required {
   box-shadow: none;
 }
 
+
 .Select.is-disabled > .Select-control {
   background-color: #eaedf0;
 }
@@ -860,6 +865,21 @@ input:required, textarea:required {
 .Select--multi.is-disabled .Select-value {
   border-color: #d5d8dc;
 }
+.Select.has-value.Select--single > .Select-control .Select-value .Select-value-label, .Select.has-value.is-pseudo-focused.Select--single > .Select-control .Select-value .Select-value-label {
+  color: #495057;
+}
+
+.Select-placeholder, .Select--single > .Select-control .Select-value{
+  line-height: 36px;
+}
+.Select-control, .Select-input{
+  height: 36px;
+}
+.Select-input > input{
+  line-height: 36px;
+  padding: 0;
+}
+
 
 .form-control-file {
   border-radius: .25rem;
@@ -870,6 +890,10 @@ input:required, textarea:required {
 .form-control-file:disabled, .form-control-file[readonly] {
   background-color: #e9ecef;
   opacity: 1;
+}
+
+.Select .Select-control{
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
 .was-validated .required .Select:not(.is-disabled) .Select-control:focus,
