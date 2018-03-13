@@ -177,16 +177,37 @@ class InlineForm extends AllPropertyTypes
         }
       }
     };
+
+    const commonProps = {
+      bean: this.getBean(),
+      onChange: this.handleFieldChange,
+      inline: true,
+      rowClass:"d-flex",
+    };
+
+    const properties = commonProps.bean.order.map(p => (
+      <Property key={p} path={p} {...commonProps} />
+    ));
+
+    const commonProps2 = {
+      bean: layout2,
+      onChange: this.handleFieldChange,
+      inline: true,
+      rowClass:"d-flex",
+    };
+
+    const properties2 = commonProps2.bean.order.map(p => (
+      <Property key={p} path={p} {...commonProps2} />
+    ));
+
     return (
       <div>
         <form onSubmit={this.handleSubmit} className={classNames("bs-example form-inline", {"was-validated" : this.state.wasValidated})}>
-          <PropertySet bean={this.getBean()} onChange={this.handleFieldChange}
-                       inline rowClass="d-flex" />
+          {properties}
           <button type="submit" className="btn btn-primary mb-2">Submit</button>
         </form>
         <form className="bs-example form-inline">
-          <PropertySet bean={layout2} onChange={this.handleFieldChange}
-                       inline rowClass="d-flex" />
+          {properties2}
           <button type="submit" className="btn btn-primary mb-2">Submit</button>
         </form>
 
