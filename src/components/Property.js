@@ -25,7 +25,9 @@ class Property extends React.Component
         htmlFor={id}
         className={classNames(
             meta.type === 'Boolean' ? 'form-check-label' : 'form-control-label',
-            {'mr-sm-2' : this.props.inline && meta.type !== 'Boolean'}
+            {'mr-sm-2' : this.props.inline && meta.type !== 'Boolean'},
+            {'col-form-label-sm' : this.props.bsSize === "sm"},
+            {'col-form-label-lg' : this.props.bsSize === "lg"}
         )}
       >
         {meta.displayName}
@@ -53,6 +55,9 @@ class Property extends React.Component
     const cssClasses = meta.cssClasses || 'col-lg-12';
 
     const outerClasses = classNames(
+      'vertical-input',
+      {'vertical-input--sm': this.props.bsSize === "sm"},
+      {'vertical-input--lg': this.props.bsSize === "lg"},
       cssClasses,
       {'display-none' : meta.hidden}
     );
@@ -69,7 +74,7 @@ class Property extends React.Component
       if(meta.type === "Boolean")
       {
         return (
-          <div className={classNames(formGroupClasses, "mb-2 mr-sm-2", {'display-none' : meta.hidden})} >
+          <div className={classNames(meta.cssClasses, formGroupClasses, "mb-2 mr-sm-2", {'display-none' : meta.hidden})} >
             <PropertyInput {...this.props} />
             {label}
           </div>
@@ -78,7 +83,7 @@ class Property extends React.Component
       else
       {
         return (
-          <div className={classNames(formGroupClasses, "mb-2 mr-sm-2", {'display-none' : meta.hidden})} >
+          <div className={classNames(meta.cssClasses, formGroupClasses, "mb-2 mr-sm-2", {'display-none' : meta.hidden})} >
             {label}
             <PropertyInput {...this.props}/>
           </div>
@@ -132,6 +137,7 @@ Property.propTypes = {
   path: PropTypes.string,
   id: PropTypes.number,
   inline: PropTypes.bool,
+  bsSize: PropTypes.string,
   onChange: PropTypes.func,
   localization: PropTypes.object
 };

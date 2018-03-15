@@ -56,6 +56,24 @@ input:required, textarea:required {
   box-shadow: none;
 }
 
+.vertical-input .col-form-label-sm,
+.vertical-input .col-form-label-lg{
+  margin-bottom: 0;
+}
+
+.vertical-input--sm .form-group {
+  margin-bottom: 0.4rem;
+}
+
+.vertical-input--sm .form-check.property{
+  margin-bottom: 0.3rem;
+}
+.vertical-input--sm .form-check-input {
+  margin-top: 0.55rem;
+}
+.vertical-input--lg .form-check-input {
+  margin-top: 1.1rem;
+}
 
 .Select.is-disabled > .Select-control {
   background-color: #eaedf0;
@@ -70,17 +88,61 @@ input:required, textarea:required {
   color: #495057;
 }
 
-.Select-placeholder, .Select--single > .Select-control .Select-value{
+.Select-placeholder,
+.Select--single > .Select-control .Select-value,
+.Select-input > input{
   line-height: 36px;
 }
-.Select-control, .Select-input{
+.Select-control,
+.Select-input{
   height: 36px;
 }
 .Select-input > input{
-  line-height: 36px;
   padding: 0;
 }
 
+.Select--sm .Select-placeholder,
+.Select--sm.Select--single > .Select-control .Select-value,
+.Select--sm .Select-input > input{
+  line-height: 29px;
+}
+.Select--sm .Select-control,
+.Select--sm .Select-input{
+  border-radius: 0.2rem;
+  height: 29px;
+}
+.Select--sm .Select-control,
+.Select--sm .Select-input,
+.Select--sm .Select-clear,
+.Select--sm .Select-option {
+  font-size: 0.875rem;
+}
+.Select--sm .Select-option {
+  padding: 4px 10px;
+}
+.Select--sm.Select--multi .Select-value {
+  margin-top: 3px;
+}
+
+.Select--lg .Select-placeholder,
+.Select--lg.Select--single > .Select-control .Select-value,
+.Select--lg .Select-input > input{
+  line-height: 46px;
+}
+.Select--lg .Select-control,
+.Select--lg .Select-input{
+  border-radius: 0.3rem;
+  height: 46px;
+}
+.Select--lg .Select-control,
+.Select--lg .Select-input,
+.Select--lg .Select-clear,
+.Select--lg .Select-option {
+  font-size: 1.25rem;
+}
+.Select--lg.Select--multi .Select-value {
+  margin-top: 7px;
+}
 
 .form-control-file {
   border-radius: .25rem;

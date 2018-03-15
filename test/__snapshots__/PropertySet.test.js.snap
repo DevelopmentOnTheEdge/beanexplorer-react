@@ -207,7 +207,7 @@ exports[`renders without crashing 1`] = `
   className="property-set form-row"
 >
   <div
-    className="col-lg-12"
+    className="vertical-input col-lg-12"
   >
     <div
       className="property form-group required"
@@ -238,7 +238,7 @@ exports[`renders without crashing 1`] = `
     </div>
   </div>
   <div
-    className="col-lg-12"
+    className="vertical-input col-lg-12"
   >
     <div
       className="property form-group required"
@@ -660,7 +660,7 @@ exports[`renders without crashing 1`] = `
     </div>
   </div>
   <div
-    className="col-lg-12"
+    className="vertical-input col-lg-12"
   >
     <div
       className="property form-group required"
@@ -693,7 +693,7 @@ exports[`renders without crashing 1`] = `
     </div>
   </div>
   <div
-    className="col-lg-12"
+    className="vertical-input col-lg-12"
   >
     <div
       className="property form-group required"
@@ -724,7 +724,7 @@ exports[`renders without crashing 1`] = `
     </div>
   </div>
   <div
-    className="col-lg-12"
+    className="vertical-input col-lg-12"
   >
     <div
       className="property form-check required"
@@ -748,7 +748,7 @@ exports[`renders without crashing 1`] = `
     </div>
   </div>
   <div
-    className="col-lg-12"
+    className="vertical-input col-lg-12"
   >
     <div
       className="property form-group"
@@ -776,7 +776,7 @@ exports[`renders without crashing 1`] = `
     </div>
   </div>
   <div
-    className="col-lg-12"
+    className="vertical-input col-lg-12"
   >
     <div
       className="property form-group required"
@@ -913,7 +913,7 @@ exports[`renders without crashing 1`] = `
     </div>
   </div>
   <div
-    className="col-lg-12"
+    className="vertical-input col-lg-12"
   >
     <div
       className="property form-group required"
@@ -1050,7 +1050,7 @@ exports[`renders without crashing 1`] = `
     </div>
   </div>
   <div
-    className="col-lg-12"
+    className="vertical-input col-lg-12"
   >
     <div
       className="property form-group required"
@@ -1260,7 +1260,7 @@ exports[`renders without crashing 1`] = `
     </label>
   </div>
   <div
-    className="col-lg-12"
+    className="vertical-input col-lg-12"
   >
     <div
       className="property form-group required"
@@ -1288,7 +1288,7 @@ exports[`simple property set 1`] = `
   className="property-set form-row"
 >
   <div
-    className="col-lg-12"
+    className="vertical-input col-lg-12"
   >
     <div
       className="property form-group required"
@@ -1343,7 +1343,7 @@ exports[`test outer 1`] = `
             className="form-row"
           >
             <div
-              className="col-lg-12"
+              className="vertical-input col-lg-12"
             >
               <div
                 className="property form-group required"
@@ -1379,7 +1379,7 @@ exports[`test outer 1`] = `
               </div>
             </div>
             <div
-              className="col-lg-12"
+              className="vertical-input col-lg-12"
             >
               <div
                 className="property form-check required"
@@ -1446,7 +1446,7 @@ exports[`test outer 1`] = `
             className="form-row"
           >
             <div
-              className="col-lg-12"
+              className="vertical-input col-lg-12"
             >
               <div
                 className="property form-group required"
@@ -1482,7 +1482,7 @@ exports[`test outer 1`] = `
               </div>
             </div>
             <div
-              className="col-lg-12"
+              className="vertical-input col-lg-12"
             >
               <div
                 className="property form-group required"
@@ -1619,7 +1619,7 @@ exports[`test outer 1`] = `
               </div>
             </div>
             <div
-              className="col-lg-12"
+              className="vertical-input col-lg-12"
             >
               <div
                 className="property form-check"
@@ -1686,7 +1686,7 @@ exports[`test outer 1`] = `
             className="form-row"
           >
             <div
-              className="col-lg-12"
+              className="vertical-input col-lg-12"
             >
               <div
                 className="property form-group required"
@@ -1722,7 +1722,7 @@ exports[`test outer 1`] = `
               </div>
             </div>
             <div
-              className="col-lg-12"
+              className="vertical-input col-lg-12"
             >
               <div
                 className="property form-group required"
@@ -1859,7 +1859,7 @@ exports[`test outer 1`] = `
               </div>
             </div>
             <div
-              className="col-lg-12"
+              className="vertical-input col-lg-12"
             >
               <div
                 className="property form-check required"
@@ -1926,7 +1926,7 @@ exports[`test outer 1`] = `
             className="form-row"
           >
             <div
-              className="col-lg-12"
+              className="vertical-input col-lg-12"
             >
               <div
                 className="property form-group"
@@ -1985,7 +1985,7 @@ exports[`test outer 1`] = `
             className="form-row"
           >
             <div
-              className="col-lg-8"
+              className="vertical-input col-lg-8"
             >
               <div
                 className="property form-group required"
@@ -2016,7 +2016,7 @@ exports[`test outer 1`] = `
               </div>
             </div>
             <div
-              className="col-lg-4"
+              className="vertical-input col-lg-4"
             >
               <div
                 className="property form-group required"
@@ -2047,7 +2047,7 @@ exports[`test outer 1`] = `
               </div>
             </div>
             <div
-              className="col-lg-12"
+              className="vertical-input col-lg-12"
             >
               <div
                 className="property form-group required"
@@ -2113,7 +2113,7 @@ exports[`validationTest 1`] = `
             className="form-row"
           >
             <div
-              className="col-lg-12"
+              className="vertical-input col-lg-12"
             >
               <div
                 className="property form-group required"
@@ -2145,7 +2145,7 @@ exports[`validationTest 1`] = `
               </div>
             </div>
             <div
-              className="col-lg-12"
+              className="vertical-input col-lg-12"
             >
               <div
                 className="property form-group required"
@@ -2177,7 +2177,7 @@ exports[`validationTest 1`] = `
               </div>
             </div>
             <div
-              className="col-lg-12"
+              className="vertical-input col-lg-12"
             >
               <div
                 className="property form-group required"
@@ -2214,7 +2214,7 @@ exports[`validationTest 1`] = `
               </div>
             </div>
             <div
-              className="col-lg-12"
+              className="vertical-input col-lg-12"
             >
               <div
                 className="property form-group required"
@@ -2246,7 +2246,7 @@ exports[`validationTest 1`] = `
               </div>
             </div>
             <div
-              className="col-lg-12"
+              className="vertical-input col-lg-12"
             >
               <div
                 className="property form-group required"
@@ -2278,7 +2278,7 @@ exports[`validationTest 1`] = `
               </div>
             </div>
             <div
-              className="col-lg-12"
+              className="vertical-input col-lg-12"
             >
               <div
                 className="property form-group"
@@ -2338,7 +2338,7 @@ exports[`validationTest 1`] = `
             className="form-row"
           >
             <div
-              className="col-lg-12"
+              className="vertical-input col-lg-12"
             >
               <div
                 className="property form-group required"
@@ -2369,7 +2369,7 @@ exports[`validationTest 1`] = `
               </div>
             </div>
             <div
-              className="col-lg-12"
+              className="vertical-input col-lg-12"
             >
               <div
                 className="property form-group"
@@ -2400,7 +2400,7 @@ exports[`validationTest 1`] = `
               </div>
             </div>
             <div
-              className="col-lg-12"
+              className="vertical-input col-lg-12"
             >
               <div
                 className="property form-group required"
@@ -2431,7 +2431,7 @@ exports[`validationTest 1`] = `
               </div>
             </div>
             <div
-              className="col-lg-12"
+              className="vertical-input col-lg-12"
             >
               <div
                 className="property form-group required"
@@ -2462,7 +2462,7 @@ exports[`validationTest 1`] = `
               </div>
             </div>
             <div
-              className="col-lg-12"
+              className="vertical-input col-lg-12"
             >
               <div
                 className="property form-group required"

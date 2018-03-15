@@ -142,13 +142,22 @@ class PropertyInput extends React.Component
       {'is-valid' : meta.status === 'success'},
     );
 
+    const basePropsClasses = classNames(
+      'property-input',
+      inputTypeClass,
+      validationClasses,
+      this.props.controlClassName,
+      {'form-control-sm': this.props.bsSize === "sm" && meta.type !== "Boolean"},
+      {'form-control-lg': this.props.bsSize === "lg" && meta.type !== "Boolean"}
+    );
+
     const baseProps = {
       id: id,
       key: id,
       disabled: meta.readOnly,
       required: required,
       size: meta.inputSize,
-      className: classNames('property-input', inputTypeClass, validationClasses, this.props.controlClassName)
+      className: basePropsClasses
     };
 
     const rawInputProps = Object.assign({},
@@ -276,7 +285,12 @@ class PropertyInput extends React.Component
           disabled: meta.readOnly,
           multi: meta.multipleSelectionList,
           matchPos: extraAttrsMap.matchPos || "any",
-          className: classNames('property-input', validationClasses),
+          className: classNames(
+            'property-input',
+            validationClasses,
+            {'Select--sm': this.props.bsSize === "sm"},
+            {'Select--lg': this.props.bsSize === "lg"}
+          ),
           required: required
         };
 
@@ -344,6 +358,8 @@ class PropertyInput extends React.Component
           {'text-danger' : meta.status === 'error'},
           {'text-success' : meta.status === 'success'},
           {'text-warning' : meta.status === 'warning'},
+          {'col-form-label-sm' : this.props.bsSize === "sm"},
+          {'col-form-label-lg' : this.props.bsSize === "lg"}
         );
         if(meta.rawValue)
         {
@@ -450,6 +466,7 @@ PropertyInput.propTypes = {
   path: PropTypes.string,
   id: PropTypes.number,
   inline: PropTypes.bool,
+  bsSize: PropTypes.string,
   onChange: PropTypes.func,
   localization: PropTypes.object,
   controlClassName: PropTypes.string, 

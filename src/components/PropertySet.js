@@ -72,6 +72,7 @@ PropertySet.propTypes = {
   bean: PropTypes.object.isRequired,
   onChange: PropTypes.func,
   inline: PropTypes.bool,
+  bsSize: PropTypes.string,
   localization: PropTypes.object,
   rowClass: PropTypes.string
 };

@@ -5,7 +5,7 @@ exports[`contain property 1`] = `
   className="form-row"
 >
   <div
-    className="col-lg-12"
+    className="vertical-input col-lg-12"
   >
     <div
       className="property form-group required"

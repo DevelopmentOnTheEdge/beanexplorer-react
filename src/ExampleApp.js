@@ -70,11 +70,22 @@ class AllPropertyTypes extends Component
   getForm(){
     return (
       <form onSubmit={this.handleSubmit} className={classNames("bs-example", {"was-validated" : this.state.wasValidated})}>
-        <PropertySet bean={this.getBean()} onChange={this.handleFieldChange} />
-        <button type="submit" className="btn btn-primary mb-2">Submit</button>
+        <PropertySet bean={this.getBean()} onChange={this.handleFieldChange} bsSize={this.state.bsSize}/>
+        {this.getSubmitBtn()}
       </form>
     )
   }
+
+  getSubmitBtn(){
+    return (
+      <button type="submit" className={classNames(
+        "btn btn-primary mb-2",
+        {'btn-sm' : this.state.bsSize === 'sm'},
+        {'btn-lg' : this.state.bsSize === 'lg'}
+      )}>Submit</button>
+    )
+  }
+  //btn-sm
 
   render() {
     return (
@@ -102,6 +113,30 @@ class AllPropertyTypes extends Component
                     onChange={()=>{this.setState({wasValidated: !this.state.wasValidated})}}
                   />
                   .was-validated
+                </label>
+              </div>
+              <div className="form-check mr-sm-2">
+                <label htmlFor="bsSize-sm" className="form-check-label">
+                  <input
+                    id="bsSize-sm"
+                    type="checkbox"
+                    className="form-check-input"
+                    onChange={()=>{this.setState({bsSize: this.state.bsSize !== "sm" ? "sm" : ""})}}
+                    checked={this.state.bsSize === "sm"}
+                  />
+                  sm size
+                </label>
+              </div>
+              <div className="form-check mr-sm-2">
+                <label htmlFor="bsSize-lg" className="form-check-label">
+                  <input
+                    id="bsSize-lg"
+                    type="checkbox"
+                    className="form-check-input"
+                    onChange={()=>{this.setState({bsSize: this.state.bsSize !== "lg" ? "lg" : ""})}}
+                    checked={this.state.bsSize === "lg"}
+                  />
+                  lg size
                 </label>
               </div>
             </form>
@@ -186,7 +221,7 @@ class InlineForm extends AllPropertyTypes
     };
 
     const properties = commonProps.bean.order.map(p => (
-      <Property key={p} path={p} {...commonProps} />
+      <Property key={p} path={p} {...commonProps} bsSize={this.state.bsSize}/>
     ));
 
     const commonProps2 = {
@@ -197,18 +232,18 @@ class InlineForm extends AllPropertyTypes
     };
 
     const properties2 = commonProps2.bean.order.map(p => (
-      <Property key={p} path={p} {...commonProps2} />
+      <Property key={p} path={p} {...commonProps2} bsSize={this.state.bsSize}/>
     ));
 
     return (
       <div>
         <form onSubmit={this.handleSubmit} className={classNames("bs-example form-inline", {"was-validated" : this.state.wasValidated})}>
           {properties}
-          <button type="submit" className="btn btn-primary mb-2">Submit</button>
+          {this.getSubmitBtn()}
         </form>
         <form className="bs-example form-inline">
           {properties2}
-          <button type="submit" className="btn btn-primary mb-2">Submit</button>
+          {this.getSubmitBtn()}
         </form>
 
         <h5>Test setCustomValidity()</h5>

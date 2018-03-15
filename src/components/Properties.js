@@ -31,6 +31,7 @@ Properties.propTypes = {
   bean: PropTypes.object.isRequired,
   ids: PropTypes.array,
   inline: PropTypes.bool,
+  bsSize: PropTypes.string,
   onChange: PropTypes.func,
   localization: PropTypes.object
 };
