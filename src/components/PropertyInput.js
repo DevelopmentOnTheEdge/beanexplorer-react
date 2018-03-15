@@ -263,8 +263,12 @@ class PropertyInput extends React.Component
         let style;
         if(this.props.inline)
         {
+          //константы подобраны для совпадения с длиной стандартного input
+          let k = 11;
+          if(this.props.bsSize === "sm")k = 8.95;
+          if(this.props.bsSize === "lg")k = 14.65;
           style = {
-            width: 11*(meta.inputSize || 16) + 68 + 'px',
+            width: k*(meta.inputSize || 16) + 68 + 'px',
             maxWidth: '100%'
           }
         }
