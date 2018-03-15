@@ -87,6 +87,10 @@ input:required, textarea:required {
 .Select.has-value.Select--single > .Select-control .Select-value .Select-value-label, .Select.has-value.is-pseudo-focused.Select--single > .Select-control .Select-value .Select-value-label {
   color: #495057;
 }
+.Select.is-focused:not(.is-open) > .Select-control {
+  border-color: #80bdff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
 
 .Select-placeholder,
 .Select--single > .Select-control .Select-value,
@@ -160,6 +164,8 @@ input:required, textarea:required {
 }
 
 .was-validated .required .Select:not(.is-disabled) .Select-control:focus,
+.Select.is-invalid.is-focused:not(.is-open) > .Select-control,
+.was-validated .required .Select.is-focused:not(.is-open) > .Select-control,
 .Select.is-invalid .Select-control:focus,
 .was-validated .form-control-file:invalid:focus{
   border-color: #dc3545;
@@ -173,6 +179,8 @@ input:required, textarea:required {
 }
 
 .was-validated .required .Select.has-value:not(.is-disabled) .Select-control:focus,
+.Select.is-valid.is-focused:not(.is-open) > .Select-control,
+.was-validated .Select.has-value.is-focused:not(.is-open) > .Select-control,
 .Select.is-valid .Select-control:focus,
 .was-validated .form-control-file:valid:focus{
   border-color: #28a745;
