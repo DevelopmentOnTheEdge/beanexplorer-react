@@ -177,13 +177,15 @@ var PropertyInput = function (_React$Component) {
 
       var validationClasses = classNames({ 'is-invalid': meta.status === 'error' }, { 'is-valid': meta.status === 'success' });
 
+      var basePropsClasses = classNames('property-input', inputTypeClass, validationClasses, this.props.controlClassName, { 'form-control-sm': this.props.bsSize === "sm" && meta.type !== "Boolean" }, { 'form-control-lg': this.props.bsSize === "lg" && meta.type !== "Boolean" });
+
       var baseProps = {
         id: id,
         key: id,
         disabled: meta.readOnly,
         required: required,
         size: meta.inputSize,
-        className: classNames('property-input', inputTypeClass, validationClasses, this.props.controlClassName)
+        className: basePropsClasses
       };
 
       var rawInputProps = Object.assign({}, baseProps, {
@@ -280,8 +282,12 @@ var PropertyInput = function (_React$Component) {
 
           var style = void 0;
           if (_this2.props.inline) {
+            //константы подобраны для совпадения с длиной стандартного input
+            var k = 11;
+            if (_this2.props.bsSize === "sm") k = 8.95;
+            if (_this2.props.bsSize === "lg") k = 14.65;
             style = {
-              width: 11 * (meta.inputSize || 16) + 68 + 'px',
+              width: k * (meta.inputSize || 16) + 68 + 'px',
               maxWidth: '100%'
             };
           }
@@ -304,7 +310,7 @@ var PropertyInput = function (_React$Component) {
             disabled: meta.readOnly,
             multi: meta.multipleSelectionList,
             matchPos: extraAttrsMap.matchPos || "any",
-            className: classNames('property-input', validationClasses),
+            className: classNames('property-input', validationClasses, { 'Select--sm': _this2.props.bsSize === "sm" }, { 'Select--lg': _this2.props.bsSize === "lg" }),
             required: required
           };
 
@@ -363,7 +369,7 @@ var PropertyInput = function (_React$Component) {
           });
         },
         labelField: function labelField() {
-          var labelPropertyClasses = classNames('property-input', _this2.props.controlClassName, { 'text-danger': meta.status === 'error' }, { 'text-success': meta.status === 'success' }, { 'text-warning': meta.status === 'warning' });
+          var labelPropertyClasses = classNames('property-input', _this2.props.controlClassName, { 'text-danger': meta.status === 'error' }, { 'text-success': meta.status === 'success' }, { 'text-warning': meta.status === 'warning' }, { 'col-form-label-sm': _this2.props.bsSize === "sm" }, { 'col-form-label-lg': _this2.props.bsSize === "lg" });
           if (meta.rawValue) {
             return React.createElement('label', {
               id: id,
@@ -518,6 +524,7 @@ PropertyInput.propTypes = {
   path: PropTypes.string,
   id: PropTypes.number,
   inline: PropTypes.bool,
+  bsSize: PropTypes.string,
   onChange: PropTypes.func,
   localization: PropTypes.object,
   controlClassName: PropTypes.string
@@ -553,7 +560,7 @@ var Property = function (_React$Component) {
           'label',
           {
             htmlFor: id,
-            className: classNames(meta.type === 'Boolean' ? 'form-check-label' : 'form-control-label', { 'mr-sm-2': this.props.inline && meta.type !== 'Boolean' })
+            className: classNames(meta.type === 'Boolean' ? 'form-check-label' : 'form-control-label', { 'mr-sm-2': this.props.inline && meta.type !== 'Boolean' }, { 'col-form-label-sm': this.props.bsSize === "sm" }, { 'col-form-label-lg': this.props.bsSize === "lg" })
           },
           meta.displayName
         );
@@ -580,7 +587,7 @@ var Property = function (_React$Component) {
 
       var cssClasses = meta.cssClasses || 'col-lg-12';
 
-      var outerClasses = classNames(cssClasses, { 'display-none': meta.hidden });
+      var outerClasses = classNames('vertical-input', { 'vertical-input--sm': this.props.bsSize === "sm" }, { 'vertical-input--lg': this.props.bsSize === "lg" }, cssClasses, { 'display-none': meta.hidden });
 
       var formGroupClasses = classNames('property', { 'form-group': meta.type !== 'Boolean' }, { 'form-check': meta.type === 'Boolean' }, { 'required': meta.canBeNull !== true });
 
@@ -588,14 +595,14 @@ var Property = function (_React$Component) {
         if (meta.type === "Boolean") {
           return React.createElement(
             'div',
-            { className: classNames(formGroupClasses, "mb-2 mr-sm-2", { 'display-none': meta.hidden }) },
+            { className: classNames(meta.cssClasses, formGroupClasses, "mb-2 mr-sm-2", { 'display-none': meta.hidden }) },
             React.createElement(PropertyInput, this.props),
             label
           );
         } else {
           return React.createElement(
             'div',
-            { className: classNames(formGroupClasses, "mb-2 mr-sm-2", { 'display-none': meta.hidden }) },
+            { className: classNames(meta.cssClasses, formGroupClasses, "mb-2 mr-sm-2", { 'display-none': meta.hidden }) },
             label,
             React.createElement(PropertyInput, this.props)
           );
@@ -647,6 +654,7 @@ Property.propTypes = {
   path: PropTypes.string,
   id: PropTypes.number,
   inline: PropTypes.bool,
+  bsSize: PropTypes.string,
   onChange: PropTypes.func,
   localization: PropTypes.object
 };
@@ -692,6 +700,7 @@ Properties.propTypes = {
   bean: PropTypes.object.isRequired,
   ids: PropTypes.array,
   inline: PropTypes.bool,
+  bsSize: PropTypes.string,
   onChange: PropTypes.func,
   localization: PropTypes.object
 };
@@ -705,33 +714,30 @@ var PropertySet$1 = function (_React$Component) {
   }
 
   createClass(PropertySet, [{
+    key: 'getName',
+    value: function getName(name) {
+      if (name) {
+        return React.createElement(
+          'h4',
+          { className: 'property-group__title' },
+          name
+        );
+      } else {
+        return null;
+      }
+    }
+  }, {
     key: 'createGroup',
-    value: function createGroup(curGroup, curGroupId, curGroupName) {
+    value: function createGroup(curGroup, curGroupId, curGroupName, curGroupClasses) {
       return React.createElement(
         'div',
-        { className: 'property-group col-12', key: curGroupId, ref: curGroupId },
-        React.createElement('div', { className: 'row property-group__line' }),
+        { className: classNames('property-group', curGroupClasses || 'property-group__top-line col-12'), key: curGroupId, ref: curGroupId },
+        React.createElement('div', { className: 'property-group__top-line-block row' }),
+        this.getName(curGroupName),
         React.createElement(
           'div',
-          { className: 'property-groop-box' },
-          React.createElement(
-            'h4',
-            { className: 'property-group__title' },
-            curGroupName
-          ),
-          React.createElement(
-            'div',
-            { className: 'row' },
-            React.createElement(
-              'div',
-              { className: 'col-12' },
-              React.createElement(
-                'div',
-                { className: this.props.rowClass },
-                curGroup
-              )
-            )
-          )
+          { className: this.props.rowClass },
+          curGroup
         )
       );
     }
@@ -742,13 +748,14 @@ var PropertySet$1 = function (_React$Component) {
 
       var curGroup = [];
       var curGroupName = null,
-          curGroupId = null;
+          curGroupId = null,
+          curGroupClasses = null;
       var fields = [];
 
       var finishGroup = function finishGroup() {
         if (curGroup.length > 0) {
           if (curGroupId) {
-            fields.push(_this2.createGroup(curGroup, curGroupId, curGroupName));
+            fields.push(_this2.createGroup(curGroup, curGroupId, curGroupName, curGroupClasses));
           } else {
             Array.prototype.push.apply(fields, curGroup);
           }
@@ -766,11 +773,14 @@ var PropertySet$1 = function (_React$Component) {
 
           var meta = this.props.bean.meta[path];
 
-          var newGroupId = meta.groupId || null;
-          var newGroupName = meta.groupName || null;
+          var newGroupId = meta.groupId;
+          var newGroupName = meta.groupName;
+          var newGroupClasses = meta.groupClasses;
+
           if (newGroupId !== curGroupId) {
             finishGroup();
             curGroupName = newGroupName;
+            curGroupClasses = newGroupClasses;
             curGroupId = newGroupId;
           }
           var field = React.createElement(Property, _extends({}, this.props, { key: path, path: path, onChange: this.props.onChange }));
@@ -811,6 +821,7 @@ PropertySet$1.propTypes = {
   bean: PropTypes.object.isRequired,
   onChange: PropTypes.func,
   inline: PropTypes.bool,
+  bsSize: PropTypes.string,
   localization: PropTypes.object,
   rowClass: PropTypes.string
 };
