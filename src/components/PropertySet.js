@@ -19,7 +19,7 @@ class PropertySet extends React.Component
       <div className={classNames('property-group', curGroupClasses || 'property-group__top-line col-12')} key={curGroupId} ref={curGroupId}>
         <div className="property-group__top-line-block row"/>
         {this.getName(curGroupName)}
-        <div className={this.props.rowClass}>
+        <div className={classNames('property-group__block', this.props.rowClass)}>
           {curGroup}
         </div>
       </div>
