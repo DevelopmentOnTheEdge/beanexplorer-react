@@ -14,7 +14,10 @@
     "textInput4": "",
     "customSizeTextArea": "",
     "name": "",
-    "subject": ""
+    "subject": "",
+    "customSizeTextArea2": "",
+    "name2": "",
+    "subject2": ""
   },
   "meta": {
     "/textInput": {
@@ -92,20 +95,36 @@
     },
     "/customSizeTextArea": {
       "displayName": "Custom size textArea",
-      "extraAttrs": [["inputType", "textArea"], ["rows", "2"]],
-      "cssClasses": "col-lg-8",
+      "extraAttrs": [["inputType", "textArea"], ["rows", "5"]],
+      "cssClasses": "col-md-8",
       "groupName": "Group 5 - use cssClasses",
       "groupId": 5
     },
     "/name": {
       "displayName": "Name",
-      "cssClasses": "col-lg-4",
+      "cssClasses": "col-md-4",
       "groupId": 5
     },
     "/subject": {
       "displayName": "Subject",
-      "cssClasses": "col-lg-12",
+      "cssClasses": "col-md-4",
       "groupId": 5
+    },
+    "/customSizeTextArea2": {
+      "displayName": "TextArea in groupClasses",
+      "extraAttrs": [["inputType", "textArea"], ["rows", "5"]],
+      "groupClasses": "col-md-8",
+      "groupId": 6
+    },
+    "/name2": {
+      "displayName": "Name",
+      "groupClasses": "col-md-4",
+      "groupId": 7
+    },
+    "/subject2": {
+      "displayName": "Subject",
+      "groupClasses": "col-md-4",
+      "groupId": 7
     }
   },
   "order": [
@@ -123,6 +142,9 @@
     "/textInput4",
     "/customSizeTextArea",
     "/name",
-    "/subject"
+    "/subject",
+    "/customSizeTextArea2",
+    "/name2",
+    "/subject2"
   ]
 }

@@ -1320,763 +1320,818 @@ exports[`test outer 1`] = `
   className="property-set form-row"
 >
   <div
-    className="property-group col-12"
+    className="property-group property-group__top-line col-12"
   >
     <div
-      className="row property-group__line"
+      className="property-group__top-line-block row"
     />
-    <div
-      className="property-groop-box"
+    <h4
+      className="property-group__title"
     >
-      <h4
-        className="property-group__title"
-      >
-        Group 1
-      </h4>
+      Group 1
+    </h4>
+    <div
+      className="form-row"
+    >
       <div
-        className="row"
+        className="vertical-input col-lg-12"
       >
         <div
-          className="col-12"
+          className="property form-group required"
         >
-          <div
-            className="form-row"
+          <label
+            className="form-control-label"
+            htmlFor="textInputPropertyInput"
           >
-            <div
-              className="vertical-input col-lg-12"
+            Name
+          </label>
+          <div
+            className="controls"
+          >
+            <input
+              className="property-input form-control"
+              disabled={undefined}
+              id="textInputPropertyInput"
+              maxLength={undefined}
+              onChange={[Function]}
+              pattern={undefined}
+              placeholder={undefined}
+              required={true}
+              size={undefined}
+              type="text"
+              value="test"
+            />
+            <small
+              className="form-text text-muted"
             >
-              <div
-                className="property form-group required"
-              >
-                <label
-                  className="form-control-label"
-                  htmlFor="textInputPropertyInput"
-                >
-                  Name
-                </label>
-                <div
-                  className="controls"
-                >
-                  <input
-                    className="property-input form-control"
-                    disabled={undefined}
-                    id="textInputPropertyInput"
-                    maxLength={undefined}
-                    onChange={[Function]}
-                    pattern={undefined}
-                    placeholder={undefined}
-                    required={true}
-                    size={undefined}
-                    type="text"
-                    value="test"
-                  />
-                  <small
-                    className="form-text text-muted"
-                  >
-                    Help text
-                  </small>
-                </div>
-              </div>
-            </div>
-            <div
-              className="vertical-input col-lg-12"
-            >
-              <div
-                className="property form-check required"
-              >
-                <input
-                  checked={true}
-                  className="property-input form-check-input"
-                  disabled={undefined}
-                  id="checkBoxPropertyInput"
-                  onChange={[Function]}
-                  required={true}
-                  size={undefined}
-                  type="checkbox"
-                />
-                <label
-                  className="form-check-label"
-                  htmlFor="checkBoxPropertyInput"
-                >
-                  CheckBox
-                </label>
-                <small
-                  className="form-text text-muted"
-                >
-                  You must check before submitting.
-                </small>
-              </div>
-            </div>
-            <div
-              className="form-group property property-label col-lg-12"
-            >
-              <label
-                className="property-input"
-                id="labelFieldPropertyInput"
-              >
-                Pellentesque habitant morbi tristique senectus...
-              </label>
-            </div>
+              Help text
+            </small>
           </div>
         </div>
+      </div>
+      <div
+        className="vertical-input col-lg-12"
+      >
+        <div
+          className="property form-check required"
+        >
+          <input
+            checked={true}
+            className="property-input form-check-input"
+            disabled={undefined}
+            id="checkBoxPropertyInput"
+            onChange={[Function]}
+            required={true}
+            size={undefined}
+            type="checkbox"
+          />
+          <label
+            className="form-check-label"
+            htmlFor="checkBoxPropertyInput"
+          >
+            CheckBox
+          </label>
+          <small
+            className="form-text text-muted"
+          >
+            You must check before submitting.
+          </small>
+        </div>
+      </div>
+      <div
+        className="form-group property property-label col-lg-12"
+      >
+        <label
+          className="property-input"
+          id="labelFieldPropertyInput"
+        >
+          Pellentesque habitant morbi tristique senectus...
+        </label>
       </div>
     </div>
   </div>
   <div
-    className="property-group col-12"
+    className="property-group property-group__top-line col-12"
   >
     <div
-      className="row property-group__line"
+      className="property-group__top-line-block row"
     />
-    <div
-      className="property-groop-box"
+    <h4
+      className="property-group__title"
     >
-      <h4
-        className="property-group__title"
-      >
-        Server side validation - error
-      </h4>
+      Server side validation - error
+    </h4>
+    <div
+      className="form-row"
+    >
       <div
-        className="row"
+        className="vertical-input col-lg-12"
       >
         <div
-          className="col-12"
+          className="property form-group required"
         >
+          <label
+            className="form-control-label"
+            htmlFor="textInput2PropertyInput"
+          >
+            Name
+          </label>
           <div
-            className="form-row"
+            className="controls"
+          >
+            <input
+              className="property-input form-control is-invalid"
+              disabled={undefined}
+              id="textInput2PropertyInput"
+              maxLength={undefined}
+              onChange={[Function]}
+              pattern={undefined}
+              placeholder={undefined}
+              required={true}
+              size={undefined}
+              type="text"
+              value="test"
+            />
+            <div
+              className="invalid-feedback"
+            >
+              The name is already in use.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="vertical-input col-lg-12"
+      >
+        <div
+          className="property form-group required"
+        >
+          <label
+            className="form-control-label"
+            htmlFor="select2PropertyInput"
+          >
+            Select
+          </label>
+          <div
+            className="controls"
           >
             <div
-              className="vertical-input col-lg-12"
+              style={undefined}
             >
               <div
-                className="property form-group required"
+                className="Select property-input is-invalid has-value is-clearable is-searchable Select--single"
+                style={undefined}
               >
-                <label
-                  className="form-control-label"
-                  htmlFor="textInput2PropertyInput"
-                >
-                  Name
-                </label>
+                <input
+                  disabled={false}
+                  name="select2PropertyInput"
+                  type="hidden"
+                  value="vanilla"
+                />
                 <div
-                  className="controls"
+                  className="Select-control"
+                  onKeyDown={[Function]}
+                  onMouseDown={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchMove={[Function]}
+                  onTouchStart={[Function]}
+                  style={undefined}
                 >
-                  <input
-                    className="property-input form-control is-invalid"
-                    disabled={undefined}
-                    id="textInput2PropertyInput"
-                    maxLength={undefined}
-                    onChange={[Function]}
-                    pattern={undefined}
-                    placeholder={undefined}
-                    required={true}
-                    size={undefined}
-                    type="text"
-                    value="test"
-                  />
-                  <div
-                    className="invalid-feedback"
-                  >
-                    The name is already in use.
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div
-              className="vertical-input col-lg-12"
-            >
-              <div
-                className="property form-group required"
-              >
-                <label
-                  className="form-control-label"
-                  htmlFor="select2PropertyInput"
-                >
-                  Select
-                </label>
-                <div
-                  className="controls"
-                >
-                  <div
-                    style={undefined}
+                  <span
+                    className="Select-multi-value-wrapper"
+                    id="react-select-14--value"
                   >
                     <div
-                      className="Select property-input is-invalid has-value is-clearable is-searchable Select--single"
+                      className="Select-value"
                       style={undefined}
+                      title={undefined}
+                    >
+                      <span
+                        aria-selected="true"
+                        className="Select-value-label"
+                        id="react-select-14--value-item"
+                        role="option"
+                      >
+                        Vanilla
+                      </span>
+                    </div>
+                    <div
+                      className="Select-input"
+                      style={
+                        Object {
+                          "display": "inline-block",
+                        }
+                      }
                     >
                       <input
-                        disabled={false}
-                        name="select2PropertyInput"
-                        type="hidden"
-                        value="vanilla"
+                        aria-activedescendant="react-select-14--value"
+                        aria-describedby={undefined}
+                        aria-expanded="false"
+                        aria-haspopup="false"
+                        aria-label={undefined}
+                        aria-labelledby={undefined}
+                        aria-owns=""
+                        className={undefined}
+                        id={undefined}
+                        onBlur={[Function]}
+                        onChange={[Function]}
+                        onFocus={[Function]}
+                        required={false}
+                        role="combobox"
+                        style={
+                          Object {
+                            "boxSizing": "content-box",
+                            "width": "5px",
+                          }
+                        }
+                        tabIndex={undefined}
+                        value=""
                       />
                       <div
-                        className="Select-control"
-                        onKeyDown={[Function]}
-                        onMouseDown={[Function]}
-                        onTouchEnd={[Function]}
-                        onTouchMove={[Function]}
-                        onTouchStart={[Function]}
-                        style={undefined}
+                        style={
+                          Object {
+                            "height": 0,
+                            "left": 0,
+                            "overflow": "scroll",
+                            "position": "absolute",
+                            "top": 0,
+                            "visibility": "hidden",
+                            "whiteSpace": "pre",
+                          }
+                        }
                       >
-                        <span
-                          className="Select-multi-value-wrapper"
-                          id="react-select-14--value"
-                        >
-                          <div
-                            className="Select-value"
-                            style={undefined}
-                            title={undefined}
-                          >
-                            <span
-                              aria-selected="true"
-                              className="Select-value-label"
-                              id="react-select-14--value-item"
-                              role="option"
-                            >
-                              Vanilla
-                            </span>
-                          </div>
-                          <div
-                            className="Select-input"
-                            style={
-                              Object {
-                                "display": "inline-block",
-                              }
-                            }
-                          >
-                            <input
-                              aria-activedescendant="react-select-14--value"
-                              aria-describedby={undefined}
-                              aria-expanded="false"
-                              aria-haspopup="false"
-                              aria-label={undefined}
-                              aria-labelledby={undefined}
-                              aria-owns=""
-                              className={undefined}
-                              id={undefined}
-                              onBlur={[Function]}
-                              onChange={[Function]}
-                              onFocus={[Function]}
-                              required={false}
-                              role="combobox"
-                              style={
-                                Object {
-                                  "boxSizing": "content-box",
-                                  "width": "5px",
-                                }
-                              }
-                              tabIndex={undefined}
-                              value=""
-                            />
-                            <div
-                              style={
-                                Object {
-                                  "height": 0,
-                                  "left": 0,
-                                  "overflow": "scroll",
-                                  "position": "absolute",
-                                  "top": 0,
-                                  "visibility": "hidden",
-                                  "whiteSpace": "pre",
-                                }
-                              }
-                            >
-                              
-                            </div>
-                          </div>
-                        </span>
-                        <span
-                          aria-label="Clear value"
-                          className="Select-clear-zone"
-                          onMouseDown={[Function]}
-                          onTouchEnd={[Function]}
-                          onTouchMove={[Function]}
-                          onTouchStart={[Function]}
-                          title="Clear value"
-                        >
-                          <span
-                            className="Select-clear"
-                            dangerouslySetInnerHTML={
-                              Object {
-                                "__html": "&times;",
-                              }
-                            }
-                          />
-                        </span>
-                        <span
-                          className="Select-arrow-zone"
-                          onMouseDown={[Function]}
-                        >
-                          <span
-                            className="Select-arrow"
-                            onMouseDown={[Function]}
-                          />
-                        </span>
+                        
                       </div>
                     </div>
-                  </div>
+                  </span>
+                  <span
+                    aria-label="Clear value"
+                    className="Select-clear-zone"
+                    onMouseDown={[Function]}
+                    onTouchEnd={[Function]}
+                    onTouchMove={[Function]}
+                    onTouchStart={[Function]}
+                    title="Clear value"
+                  >
+                    <span
+                      className="Select-clear"
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "&times;",
+                        }
+                      }
+                    />
+                  </span>
+                  <span
+                    className="Select-arrow-zone"
+                    onMouseDown={[Function]}
+                  >
+                    <span
+                      className="Select-arrow"
+                      onMouseDown={[Function]}
+                    />
+                  </span>
                 </div>
               </div>
-            </div>
-            <div
-              className="vertical-input col-lg-12"
-            >
-              <div
-                className="property form-check"
-              >
-                <input
-                  checked={true}
-                  className="property-input form-check-input is-invalid"
-                  disabled={undefined}
-                  id="checkBox2PropertyInput"
-                  onChange={[Function]}
-                  required={false}
-                  size={undefined}
-                  type="checkbox"
-                />
-                <label
-                  className="form-check-label"
-                  htmlFor="checkBox2PropertyInput"
-                >
-                  CheckBox
-                </label>
-                <div
-                  className="invalid-feedback"
-                >
-                  This option is not available in the current state.
-                </div>
-              </div>
-            </div>
-            <div
-              className="form-group property property-label col-lg-12"
-            >
-              <label
-                className="property-input text-danger"
-                id="labelField2PropertyInput"
-              >
-                Pellentesque habitant morbi tristique senectus...
-              </label>
             </div>
           </div>
         </div>
       </div>
+      <div
+        className="vertical-input col-lg-12"
+      >
+        <div
+          className="property form-check"
+        >
+          <input
+            checked={true}
+            className="property-input form-check-input is-invalid"
+            disabled={undefined}
+            id="checkBox2PropertyInput"
+            onChange={[Function]}
+            required={false}
+            size={undefined}
+            type="checkbox"
+          />
+          <label
+            className="form-check-label"
+            htmlFor="checkBox2PropertyInput"
+          >
+            CheckBox
+          </label>
+          <div
+            className="invalid-feedback"
+          >
+            This option is not available in the current state.
+          </div>
+        </div>
+      </div>
+      <div
+        className="form-group property property-label col-lg-12"
+      >
+        <label
+          className="property-input text-danger"
+          id="labelField2PropertyInput"
+        >
+          Pellentesque habitant morbi tristique senectus...
+        </label>
+      </div>
     </div>
   </div>
   <div
-    className="property-group col-12"
+    className="property-group property-group__top-line col-12"
   >
     <div
-      className="row property-group__line"
+      className="property-group__top-line-block row"
     />
-    <div
-      className="property-groop-box"
+    <h4
+      className="property-group__title"
     >
-      <h4
-        className="property-group__title"
-      >
-        Server side validation - success
-      </h4>
+      Server side validation - success
+    </h4>
+    <div
+      className="form-row"
+    >
       <div
-        className="row"
+        className="vertical-input col-lg-12"
       >
         <div
-          className="col-12"
+          className="property form-group required"
         >
+          <label
+            className="form-control-label"
+            htmlFor="textInput3PropertyInput"
+          >
+            Name
+          </label>
           <div
-            className="form-row"
+            className="controls"
+          >
+            <input
+              className="property-input form-control is-valid"
+              disabled={undefined}
+              id="textInput3PropertyInput"
+              maxLength={undefined}
+              onChange={[Function]}
+              pattern={undefined}
+              placeholder={undefined}
+              required={true}
+              size={undefined}
+              type="text"
+              value="test"
+            />
+            <div
+              className="valid-feedback"
+            >
+              Ok here
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="vertical-input col-lg-12"
+      >
+        <div
+          className="property form-group required"
+        >
+          <label
+            className="form-control-label"
+            htmlFor="select3PropertyInput"
+          >
+            Select
+          </label>
+          <div
+            className="controls"
           >
             <div
-              className="vertical-input col-lg-12"
+              style={undefined}
             >
               <div
-                className="property form-group required"
+                className="Select property-input is-valid has-value is-clearable is-searchable Select--single"
+                style={undefined}
               >
-                <label
-                  className="form-control-label"
-                  htmlFor="textInput3PropertyInput"
-                >
-                  Name
-                </label>
+                <input
+                  disabled={false}
+                  name="select3PropertyInput"
+                  type="hidden"
+                  value="vanilla"
+                />
                 <div
-                  className="controls"
+                  className="Select-control"
+                  onKeyDown={[Function]}
+                  onMouseDown={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchMove={[Function]}
+                  onTouchStart={[Function]}
+                  style={undefined}
                 >
-                  <input
-                    className="property-input form-control is-valid"
-                    disabled={undefined}
-                    id="textInput3PropertyInput"
-                    maxLength={undefined}
-                    onChange={[Function]}
-                    pattern={undefined}
-                    placeholder={undefined}
-                    required={true}
-                    size={undefined}
-                    type="text"
-                    value="test"
-                  />
-                  <div
-                    className="valid-feedback"
-                  >
-                    Ok here
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div
-              className="vertical-input col-lg-12"
-            >
-              <div
-                className="property form-group required"
-              >
-                <label
-                  className="form-control-label"
-                  htmlFor="select3PropertyInput"
-                >
-                  Select
-                </label>
-                <div
-                  className="controls"
-                >
-                  <div
-                    style={undefined}
+                  <span
+                    className="Select-multi-value-wrapper"
+                    id="react-select-15--value"
                   >
                     <div
-                      className="Select property-input is-valid has-value is-clearable is-searchable Select--single"
+                      className="Select-value"
                       style={undefined}
+                      title={undefined}
+                    >
+                      <span
+                        aria-selected="true"
+                        className="Select-value-label"
+                        id="react-select-15--value-item"
+                        role="option"
+                      >
+                        Vanilla
+                      </span>
+                    </div>
+                    <div
+                      className="Select-input"
+                      style={
+                        Object {
+                          "display": "inline-block",
+                        }
+                      }
                     >
                       <input
-                        disabled={false}
-                        name="select3PropertyInput"
-                        type="hidden"
-                        value="vanilla"
+                        aria-activedescendant="react-select-15--value"
+                        aria-describedby={undefined}
+                        aria-expanded="false"
+                        aria-haspopup="false"
+                        aria-label={undefined}
+                        aria-labelledby={undefined}
+                        aria-owns=""
+                        className={undefined}
+                        id={undefined}
+                        onBlur={[Function]}
+                        onChange={[Function]}
+                        onFocus={[Function]}
+                        required={false}
+                        role="combobox"
+                        style={
+                          Object {
+                            "boxSizing": "content-box",
+                            "width": "5px",
+                          }
+                        }
+                        tabIndex={undefined}
+                        value=""
                       />
                       <div
-                        className="Select-control"
-                        onKeyDown={[Function]}
-                        onMouseDown={[Function]}
-                        onTouchEnd={[Function]}
-                        onTouchMove={[Function]}
-                        onTouchStart={[Function]}
-                        style={undefined}
+                        style={
+                          Object {
+                            "height": 0,
+                            "left": 0,
+                            "overflow": "scroll",
+                            "position": "absolute",
+                            "top": 0,
+                            "visibility": "hidden",
+                            "whiteSpace": "pre",
+                          }
+                        }
                       >
-                        <span
-                          className="Select-multi-value-wrapper"
-                          id="react-select-15--value"
-                        >
-                          <div
-                            className="Select-value"
-                            style={undefined}
-                            title={undefined}
-                          >
-                            <span
-                              aria-selected="true"
-                              className="Select-value-label"
-                              id="react-select-15--value-item"
-                              role="option"
-                            >
-                              Vanilla
-                            </span>
-                          </div>
-                          <div
-                            className="Select-input"
-                            style={
-                              Object {
-                                "display": "inline-block",
-                              }
-                            }
-                          >
-                            <input
-                              aria-activedescendant="react-select-15--value"
-                              aria-describedby={undefined}
-                              aria-expanded="false"
-                              aria-haspopup="false"
-                              aria-label={undefined}
-                              aria-labelledby={undefined}
-                              aria-owns=""
-                              className={undefined}
-                              id={undefined}
-                              onBlur={[Function]}
-                              onChange={[Function]}
-                              onFocus={[Function]}
-                              required={false}
-                              role="combobox"
-                              style={
-                                Object {
-                                  "boxSizing": "content-box",
-                                  "width": "5px",
-                                }
-                              }
-                              tabIndex={undefined}
-                              value=""
-                            />
-                            <div
-                              style={
-                                Object {
-                                  "height": 0,
-                                  "left": 0,
-                                  "overflow": "scroll",
-                                  "position": "absolute",
-                                  "top": 0,
-                                  "visibility": "hidden",
-                                  "whiteSpace": "pre",
-                                }
-                              }
-                            >
-                              
-                            </div>
-                          </div>
-                        </span>
-                        <span
-                          aria-label="Clear value"
-                          className="Select-clear-zone"
-                          onMouseDown={[Function]}
-                          onTouchEnd={[Function]}
-                          onTouchMove={[Function]}
-                          onTouchStart={[Function]}
-                          title="Clear value"
-                        >
-                          <span
-                            className="Select-clear"
-                            dangerouslySetInnerHTML={
-                              Object {
-                                "__html": "&times;",
-                              }
-                            }
-                          />
-                        </span>
-                        <span
-                          className="Select-arrow-zone"
-                          onMouseDown={[Function]}
-                        >
-                          <span
-                            className="Select-arrow"
-                            onMouseDown={[Function]}
-                          />
-                        </span>
+                        
                       </div>
                     </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div
-              className="vertical-input col-lg-12"
-            >
-              <div
-                className="property form-check required"
-              >
-                <input
-                  checked={true}
-                  className="property-input form-check-input is-valid"
-                  disabled={undefined}
-                  id="checkBox3PropertyInput"
-                  onChange={[Function]}
-                  required={true}
-                  size={undefined}
-                  type="checkbox"
-                />
-                <label
-                  className="form-check-label"
-                  htmlFor="checkBox3PropertyInput"
-                >
-                  CheckBox
-                </label>
-                <div
-                  className="valid-feedback"
-                >
-                  Ok here
-                </div>
-              </div>
-            </div>
-            <div
-              className="form-group property property-label col-lg-12"
-            >
-              <label
-                className="property-input text-success"
-                id="labelField3PropertyInput"
-              >
-                Pellentesque habitant morbi tristique senectus...
-              </label>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div
-    className="property-group col-12"
-  >
-    <div
-      className="row property-group__line"
-    />
-    <div
-      className="property-groop-box"
-    >
-      <h4
-        className="property-group__title"
-      >
-        Group 4 - CanBeNull
-      </h4>
-      <div
-        className="row"
-      >
-        <div
-          className="col-12"
-        >
-          <div
-            className="form-row"
-          >
-            <div
-              className="vertical-input col-lg-12"
-            >
-              <div
-                className="property form-group"
-              >
-                <label
-                  className="form-control-label"
-                  htmlFor="textInput4PropertyInput"
-                >
-                  Name
-                </label>
-                <div
-                  className="controls"
-                >
-                  <input
-                    className="property-input form-control"
-                    disabled={undefined}
-                    id="textInput4PropertyInput"
-                    maxLength={undefined}
-                    onChange={[Function]}
-                    pattern={undefined}
-                    placeholder={undefined}
-                    required={false}
-                    size={undefined}
-                    type="text"
-                    value=""
-                  />
+                  </span>
+                  <span
+                    aria-label="Clear value"
+                    className="Select-clear-zone"
+                    onMouseDown={[Function]}
+                    onTouchEnd={[Function]}
+                    onTouchMove={[Function]}
+                    onTouchStart={[Function]}
+                    title="Clear value"
+                  >
+                    <span
+                      className="Select-clear"
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "&times;",
+                        }
+                      }
+                    />
+                  </span>
+                  <span
+                    className="Select-arrow-zone"
+                    onMouseDown={[Function]}
+                  >
+                    <span
+                      className="Select-arrow"
+                      onMouseDown={[Function]}
+                    />
+                  </span>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <div
+        className="vertical-input col-lg-12"
+      >
+        <div
+          className="property form-check required"
+        >
+          <input
+            checked={true}
+            className="property-input form-check-input is-valid"
+            disabled={undefined}
+            id="checkBox3PropertyInput"
+            onChange={[Function]}
+            required={true}
+            size={undefined}
+            type="checkbox"
+          />
+          <label
+            className="form-check-label"
+            htmlFor="checkBox3PropertyInput"
+          >
+            CheckBox
+          </label>
+          <div
+            className="valid-feedback"
+          >
+            Ok here
+          </div>
+        </div>
+      </div>
+      <div
+        className="form-group property property-label col-lg-12"
+      >
+        <label
+          className="property-input text-success"
+          id="labelField3PropertyInput"
+        >
+          Pellentesque habitant morbi tristique senectus...
+        </label>
+      </div>
     </div>
   </div>
   <div
-    className="property-group col-12"
+    className="property-group property-group__top-line col-12"
   >
     <div
-      className="row property-group__line"
+      className="property-group__top-line-block row"
     />
-    <div
-      className="property-groop-box"
+    <h4
+      className="property-group__title"
     >
-      <h4
-        className="property-group__title"
-      >
-        Group 5 - use cssClasses
-      </h4>
+      Group 4 - CanBeNull
+    </h4>
+    <div
+      className="form-row"
+    >
       <div
-        className="row"
+        className="vertical-input col-lg-12"
       >
         <div
-          className="col-12"
+          className="property form-group"
         >
-          <div
-            className="form-row"
+          <label
+            className="form-control-label"
+            htmlFor="textInput4PropertyInput"
           >
-            <div
-              className="vertical-input col-lg-8"
-            >
-              <div
-                className="property form-group required"
-              >
-                <label
-                  className="form-control-label"
-                  htmlFor="customSizeTextAreaPropertyInput"
-                >
-                  Custom size textArea
-                </label>
-                <div
-                  className="controls"
-                >
-                  <textarea
-                    className="property-input form-control"
-                    disabled={undefined}
-                    id="customSizeTextAreaPropertyInput"
-                    maxLength={undefined}
-                    onChange={[Function]}
-                    pattern={undefined}
-                    placeholder={undefined}
-                    required={true}
-                    rows="2"
-                    size={undefined}
-                    value=""
-                  />
-                </div>
-              </div>
-            </div>
-            <div
-              className="vertical-input col-lg-4"
-            >
-              <div
-                className="property form-group required"
-              >
-                <label
-                  className="form-control-label"
-                  htmlFor="namePropertyInput"
-                >
-                  Name
-                </label>
-                <div
-                  className="controls"
-                >
-                  <input
-                    className="property-input form-control"
-                    disabled={undefined}
-                    id="namePropertyInput"
-                    maxLength={undefined}
-                    onChange={[Function]}
-                    pattern={undefined}
-                    placeholder={undefined}
-                    required={true}
-                    size={undefined}
-                    type="text"
-                    value=""
-                  />
-                </div>
-              </div>
-            </div>
-            <div
-              className="vertical-input col-lg-12"
-            >
-              <div
-                className="property form-group required"
-              >
-                <label
-                  className="form-control-label"
-                  htmlFor="subjectPropertyInput"
-                >
-                  Subject
-                </label>
-                <div
-                  className="controls"
-                >
-                  <input
-                    className="property-input form-control"
-                    disabled={undefined}
-                    id="subjectPropertyInput"
-                    maxLength={undefined}
-                    onChange={[Function]}
-                    pattern={undefined}
-                    placeholder={undefined}
-                    required={true}
-                    size={undefined}
-                    type="text"
-                    value=""
-                  />
-                </div>
-              </div>
-            </div>
+            Name
+          </label>
+          <div
+            className="controls"
+          >
+            <input
+              className="property-input form-control"
+              disabled={undefined}
+              id="textInput4PropertyInput"
+              maxLength={undefined}
+              onChange={[Function]}
+              pattern={undefined}
+              placeholder={undefined}
+              required={false}
+              size={undefined}
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="property-group property-group__top-line col-12"
+  >
+    <div
+      className="property-group__top-line-block row"
+    />
+    <h4
+      className="property-group__title"
+    >
+      Group 5 - use cssClasses
+    </h4>
+    <div
+      className="form-row"
+    >
+      <div
+        className="vertical-input col-md-8"
+      >
+        <div
+          className="property form-group required"
+        >
+          <label
+            className="form-control-label"
+            htmlFor="customSizeTextAreaPropertyInput"
+          >
+            Custom size textArea
+          </label>
+          <div
+            className="controls"
+          >
+            <textarea
+              className="property-input form-control"
+              disabled={undefined}
+              id="customSizeTextAreaPropertyInput"
+              maxLength={undefined}
+              onChange={[Function]}
+              pattern={undefined}
+              placeholder={undefined}
+              required={true}
+              rows="5"
+              size={undefined}
+              value=""
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="vertical-input col-md-4"
+      >
+        <div
+          className="property form-group required"
+        >
+          <label
+            className="form-control-label"
+            htmlFor="namePropertyInput"
+          >
+            Name
+          </label>
+          <div
+            className="controls"
+          >
+            <input
+              className="property-input form-control"
+              disabled={undefined}
+              id="namePropertyInput"
+              maxLength={undefined}
+              onChange={[Function]}
+              pattern={undefined}
+              placeholder={undefined}
+              required={true}
+              size={undefined}
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="vertical-input col-md-4"
+      >
+        <div
+          className="property form-group required"
+        >
+          <label
+            className="form-control-label"
+            htmlFor="subjectPropertyInput"
+          >
+            Subject
+          </label>
+          <div
+            className="controls"
+          >
+            <input
+              className="property-input form-control"
+              disabled={undefined}
+              id="subjectPropertyInput"
+              maxLength={undefined}
+              onChange={[Function]}
+              pattern={undefined}
+              placeholder={undefined}
+              required={true}
+              size={undefined}
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="property-group col-md-8"
+  >
+    <div
+      className="property-group__top-line-block row"
+    />
+    <div
+      className="form-row"
+    >
+      <div
+        className="vertical-input col-lg-12"
+      >
+        <div
+          className="property form-group required"
+        >
+          <label
+            className="form-control-label"
+            htmlFor="customSizeTextArea2PropertyInput"
+          >
+            TextArea in groupClasses
+          </label>
+          <div
+            className="controls"
+          >
+            <textarea
+              className="property-input form-control"
+              disabled={undefined}
+              id="customSizeTextArea2PropertyInput"
+              maxLength={undefined}
+              onChange={[Function]}
+              pattern={undefined}
+              placeholder={undefined}
+              required={true}
+              rows="5"
+              size={undefined}
+              value=""
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="property-group col-md-4"
+  >
+    <div
+      className="property-group__top-line-block row"
+    />
+    <div
+      className="form-row"
+    >
+      <div
+        className="vertical-input col-lg-12"
+      >
+        <div
+          className="property form-group required"
+        >
+          <label
+            className="form-control-label"
+            htmlFor="name2PropertyInput"
+          >
+            Name
+          </label>
+          <div
+            className="controls"
+          >
+            <input
+              className="property-input form-control"
+              disabled={undefined}
+              id="name2PropertyInput"
+              maxLength={undefined}
+              onChange={[Function]}
+              pattern={undefined}
+              placeholder={undefined}
+              required={true}
+              size={undefined}
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="vertical-input col-lg-12"
+      >
+        <div
+          className="property form-group required"
+        >
+          <label
+            className="form-control-label"
+            htmlFor="subject2PropertyInput"
+          >
+            Subject
+          </label>
+          <div
+            className="controls"
+          >
+            <input
+              className="property-input form-control"
+              disabled={undefined}
+              id="subject2PropertyInput"
+              maxLength={undefined}
+              onChange={[Function]}
+              pattern={undefined}
+              placeholder={undefined}
+              required={true}
+              size={undefined}
+              type="text"
+              value=""
+            />
           </div>
         </div>
       </div>
@@ -2090,408 +2145,384 @@ exports[`validationTest 1`] = `
   className="property-set form-row"
 >
   <div
-    className="property-group col-12"
+    className="property-group property-group__top-line col-12"
   >
     <div
-      className="row property-group__line"
+      className="property-group__top-line-block row"
     />
-    <div
-      className="property-groop-box"
+    <h4
+      className="property-group__title"
     >
-      <h4
-        className="property-group__title"
-      >
-        Numbers
-      </h4>
+      Numbers
+    </h4>
+    <div
+      className="form-row"
+    >
       <div
-        className="row"
+        className="vertical-input col-lg-12"
       >
         <div
-          className="col-12"
+          className="property form-group required"
         >
-          <div
-            className="form-row"
+          <label
+            className="form-control-label"
+            htmlFor="shortPropertyInput"
           >
-            <div
-              className="vertical-input col-lg-12"
+            Short
+          </label>
+          <div
+            className="controls"
+          >
+            <input
+              className="property-input form-control"
+              disabled={undefined}
+              id="shortPropertyInput"
+              max={32767}
+              min={-32768}
+              onChange={[Function]}
+              placeholder={undefined}
+              required={true}
+              size={undefined}
+              step={1}
+              type="number"
+              value={32767}
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="vertical-input col-lg-12"
+      >
+        <div
+          className="property form-group required"
+        >
+          <label
+            className="form-control-label"
+            htmlFor="integerPropertyInput"
+          >
+            Integer
+          </label>
+          <div
+            className="controls"
+          >
+            <input
+              className="property-input form-control"
+              disabled={undefined}
+              id="integerPropertyInput"
+              max={2147483647}
+              min={-2147483648}
+              onChange={[Function]}
+              placeholder={undefined}
+              required={true}
+              size={undefined}
+              step={1}
+              type="number"
+              value={2147483647}
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="vertical-input col-lg-12"
+      >
+        <div
+          className="property form-group required"
+        >
+          <label
+            className="form-control-label"
+            htmlFor="longPropertyInput"
+          >
+            Long
+          </label>
+          <div
+            className="controls"
+          >
+            <input
+              className="property-input form-control"
+              disabled={undefined}
+              id="longPropertyInput"
+              max={9007199254740991}
+              min={-9007199254740991}
+              onChange={[Function]}
+              placeholder={undefined}
+              required={true}
+              size={undefined}
+              step={1}
+              type="number"
+              value={9007199254740991}
+            />
+            <small
+              className="form-text text-muted"
             >
-              <div
-                className="property form-group required"
-              >
-                <label
-                  className="form-control-label"
-                  htmlFor="shortPropertyInput"
-                >
-                  Short
-                </label>
-                <div
-                  className="controls"
-                >
-                  <input
-                    className="property-input form-control"
-                    disabled={undefined}
-                    id="shortPropertyInput"
-                    max={32767}
-                    min={-32768}
-                    onChange={[Function]}
-                    placeholder={undefined}
-                    required={true}
-                    size={undefined}
-                    step={1}
-                    type="number"
-                    value={32767}
-                  />
-                </div>
-              </div>
-            </div>
-            <div
-              className="vertical-input col-lg-12"
-            >
-              <div
-                className="property form-group required"
-              >
-                <label
-                  className="form-control-label"
-                  htmlFor="integerPropertyInput"
-                >
-                  Integer
-                </label>
-                <div
-                  className="controls"
-                >
-                  <input
-                    className="property-input form-control"
-                    disabled={undefined}
-                    id="integerPropertyInput"
-                    max={2147483647}
-                    min={-2147483648}
-                    onChange={[Function]}
-                    placeholder={undefined}
-                    required={true}
-                    size={undefined}
-                    step={1}
-                    type="number"
-                    value={2147483647}
-                  />
-                </div>
-              </div>
-            </div>
-            <div
-              className="vertical-input col-lg-12"
-            >
-              <div
-                className="property form-group required"
-              >
-                <label
-                  className="form-control-label"
-                  htmlFor="longPropertyInput"
-                >
-                  Long
-                </label>
-                <div
-                  className="controls"
-                >
-                  <input
-                    className="property-input form-control"
-                    disabled={undefined}
-                    id="longPropertyInput"
-                    max={9007199254740991}
-                    min={-9007199254740991}
-                    onChange={[Function]}
-                    placeholder={undefined}
-                    required={true}
-                    size={undefined}
-                    step={1}
-                    type="number"
-                    value={9007199254740991}
-                  />
-                  <small
-                    className="form-text text-muted"
-                  >
-                    use Number.MAX_SAFE_INTEGER and Number.MIN_SAFE_INTEGER for limits
-                  </small>
-                </div>
-              </div>
-            </div>
-            <div
-              className="vertical-input col-lg-12"
-            >
-              <div
-                className="property form-group required"
-              >
-                <label
-                  className="form-control-label"
-                  htmlFor="doublePropertyInput"
-                >
-                  Double
-                </label>
-                <div
-                  className="controls"
-                >
-                  <input
-                    className="property-input form-control"
-                    disabled={undefined}
-                    id="doublePropertyInput"
-                    max={undefined}
-                    min={undefined}
-                    onChange={[Function]}
-                    placeholder={undefined}
-                    required={true}
-                    size={undefined}
-                    step={1e-12}
-                    type="number"
-                    value={100.1}
-                  />
-                </div>
-              </div>
-            </div>
-            <div
-              className="vertical-input col-lg-12"
-            >
-              <div
-                className="property form-group required"
-              >
-                <label
-                  className="form-control-label"
-                  htmlFor="doubleWithRangeAndStepPropertyInput"
-                >
-                  Number input with range and double step
-                </label>
-                <div
-                  className="controls"
-                >
-                  <input
-                    className="property-input form-control"
-                    disabled={undefined}
-                    id="doubleWithRangeAndStepPropertyInput"
-                    max={1000}
-                    min={0}
-                    onChange={[Function]}
-                    placeholder={undefined}
-                    required={true}
-                    size={undefined}
-                    step={0.5}
-                    type="number"
-                    value={100.5}
-                  />
-                </div>
-              </div>
-            </div>
-            <div
-              className="vertical-input col-lg-12"
-            >
-              <div
-                className="property form-group"
-              >
-                <label
-                  className="form-control-label"
-                  htmlFor="integerWithRangeAndStepPropertyInput"
-                >
-                  Number input with range and integer step
-                </label>
-                <div
-                  className="controls"
-                >
-                  <input
-                    className="property-input form-control"
-                    disabled={undefined}
-                    id="integerWithRangeAndStepPropertyInput"
-                    max={100}
-                    min={0}
-                    onChange={[Function]}
-                    placeholder={undefined}
-                    required={false}
-                    size={undefined}
-                    step={10}
-                    type="number"
-                    value=""
-                  />
-                </div>
-              </div>
-            </div>
+              use Number.MAX_SAFE_INTEGER and Number.MIN_SAFE_INTEGER for limits
+            </small>
+          </div>
+        </div>
+      </div>
+      <div
+        className="vertical-input col-lg-12"
+      >
+        <div
+          className="property form-group required"
+        >
+          <label
+            className="form-control-label"
+            htmlFor="doublePropertyInput"
+          >
+            Double
+          </label>
+          <div
+            className="controls"
+          >
+            <input
+              className="property-input form-control"
+              disabled={undefined}
+              id="doublePropertyInput"
+              max={undefined}
+              min={undefined}
+              onChange={[Function]}
+              placeholder={undefined}
+              required={true}
+              size={undefined}
+              step={1e-12}
+              type="number"
+              value={100.1}
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="vertical-input col-lg-12"
+      >
+        <div
+          className="property form-group required"
+        >
+          <label
+            className="form-control-label"
+            htmlFor="doubleWithRangeAndStepPropertyInput"
+          >
+            Number input with range and double step
+          </label>
+          <div
+            className="controls"
+          >
+            <input
+              className="property-input form-control"
+              disabled={undefined}
+              id="doubleWithRangeAndStepPropertyInput"
+              max={1000}
+              min={0}
+              onChange={[Function]}
+              placeholder={undefined}
+              required={true}
+              size={undefined}
+              step={0.5}
+              type="number"
+              value={100.5}
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="vertical-input col-lg-12"
+      >
+        <div
+          className="property form-group"
+        >
+          <label
+            className="form-control-label"
+            htmlFor="integerWithRangeAndStepPropertyInput"
+          >
+            Number input with range and integer step
+          </label>
+          <div
+            className="controls"
+          >
+            <input
+              className="property-input form-control"
+              disabled={undefined}
+              id="integerWithRangeAndStepPropertyInput"
+              max={100}
+              min={0}
+              onChange={[Function]}
+              placeholder={undefined}
+              required={false}
+              size={undefined}
+              step={10}
+              type="number"
+              value=""
+            />
           </div>
         </div>
       </div>
     </div>
   </div>
   <div
-    className="property-group col-12"
+    className="property-group property-group__top-line col-12"
   >
     <div
-      className="row property-group__line"
+      className="property-group__top-line-block row"
     />
-    <div
-      className="property-groop-box"
+    <h4
+      className="property-group__title"
     >
-      <h4
-        className="property-group__title"
-      >
-        Text
-      </h4>
+      Text
+    </h4>
+    <div
+      className="form-row"
+    >
       <div
-        className="row"
+        className="vertical-input col-lg-12"
       >
         <div
-          className="col-12"
+          className="property form-group required"
         >
-          <div
-            className="form-row"
+          <label
+            className="form-control-label"
+            htmlFor="textInputPropertyInput"
           >
-            <div
-              className="vertical-input col-lg-12"
-            >
-              <div
-                className="property form-group required"
-              >
-                <label
-                  className="form-control-label"
-                  htmlFor="textInputPropertyInput"
-                >
-                  Text input with columnSize
-                </label>
-                <div
-                  className="controls"
-                >
-                  <input
-                    className="property-input form-control"
-                    disabled={undefined}
-                    id="textInputPropertyInput"
-                    maxLength={10}
-                    onChange={[Function]}
-                    pattern={undefined}
-                    placeholder={undefined}
-                    required={true}
-                    size={undefined}
-                    type="text"
-                    value="qwerty7890"
-                  />
-                </div>
-              </div>
-            </div>
-            <div
-              className="vertical-input col-lg-12"
-            >
-              <div
-                className="property form-group"
-              >
-                <label
-                  className="form-control-label"
-                  htmlFor="textInputWithPatternPropertyInput"
-                >
-                  Text input with pattern
-                </label>
-                <div
-                  className="controls"
-                >
-                  <input
-                    className="property-input form-control"
-                    disabled={undefined}
-                    id="textInputWithPatternPropertyInput"
-                    maxLength={undefined}
-                    onChange={[Function]}
-                    pattern="^[A-Za-zА-Яа-яЁё]+$"
-                    placeholder={undefined}
-                    required={false}
-                    size={undefined}
-                    type="text"
-                    value="AZazАЯаяЁё"
-                  />
-                </div>
-              </div>
-            </div>
-            <div
-              className="vertical-input col-lg-12"
-            >
-              <div
-                className="property form-group required"
-              >
-                <label
-                  className="form-control-label"
-                  htmlFor="passwordPropertyInput"
-                >
-                  Password
-                </label>
-                <div
-                  className="controls"
-                >
-                  <input
-                    className="property-input form-control"
-                    disabled={undefined}
-                    id="passwordPropertyInput"
-                    maxLength={undefined}
-                    onChange={[Function]}
-                    pattern={undefined}
-                    placeholder={undefined}
-                    required={true}
-                    size={undefined}
-                    type="password"
-                    value="123"
-                  />
-                </div>
-              </div>
-            </div>
-            <div
-              className="vertical-input col-lg-12"
-            >
-              <div
-                className="property form-group required"
-              >
-                <label
-                  className="form-control-label"
-                  htmlFor="passwordInValidationRulesPropertyInput"
-                >
-                  Password in extraAttrs
-                </label>
-                <div
-                  className="controls"
-                >
-                  <input
-                    className="property-input form-control"
-                    disabled={undefined}
-                    id="passwordInValidationRulesPropertyInput"
-                    maxLength={undefined}
-                    onChange={[Function]}
-                    pattern={undefined}
-                    placeholder={undefined}
-                    required={true}
-                    size={undefined}
-                    type="password"
-                    value="123"
-                  />
-                </div>
-              </div>
-            </div>
-            <div
-              className="vertical-input col-lg-12"
-            >
-              <div
-                className="property form-group required"
-              >
-                <label
-                  className="form-control-label"
-                  htmlFor="emailPropertyInput"
-                >
-                  Email type
-                </label>
-                <div
-                  className="controls"
-                >
-                  <input
-                    className="property-input form-control"
-                    disabled={undefined}
-                    id="emailPropertyInput"
-                    maxLength={undefined}
-                    onChange={[Function]}
-                    pattern={undefined}
-                    placeholder={undefined}
-                    required={true}
-                    size={undefined}
-                    type="email"
-                    value="test@mail.ru"
-                  />
-                </div>
-              </div>
-            </div>
+            Text input with columnSize
+          </label>
+          <div
+            className="controls"
+          >
+            <input
+              className="property-input form-control"
+              disabled={undefined}
+              id="textInputPropertyInput"
+              maxLength={10}
+              onChange={[Function]}
+              pattern={undefined}
+              placeholder={undefined}
+              required={true}
+              size={undefined}
+              type="text"
+              value="qwerty7890"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="vertical-input col-lg-12"
+      >
+        <div
+          className="property form-group"
+        >
+          <label
+            className="form-control-label"
+            htmlFor="textInputWithPatternPropertyInput"
+          >
+            Text input with pattern
+          </label>
+          <div
+            className="controls"
+          >
+            <input
+              className="property-input form-control"
+              disabled={undefined}
+              id="textInputWithPatternPropertyInput"
+              maxLength={undefined}
+              onChange={[Function]}
+              pattern="^[A-Za-zА-Яа-яЁё]+$"
+              placeholder={undefined}
+              required={false}
+              size={undefined}
+              type="text"
+              value="AZazАЯаяЁё"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="vertical-input col-lg-12"
+      >
+        <div
+          className="property form-group required"
+        >
+          <label
+            className="form-control-label"
+            htmlFor="passwordPropertyInput"
+          >
+            Password
+          </label>
+          <div
+            className="controls"
+          >
+            <input
+              className="property-input form-control"
+              disabled={undefined}
+              id="passwordPropertyInput"
+              maxLength={undefined}
+              onChange={[Function]}
+              pattern={undefined}
+              placeholder={undefined}
+              required={true}
+              size={undefined}
+              type="password"
+              value="123"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="vertical-input col-lg-12"
+      >
+        <div
+          className="property form-group required"
+        >
+          <label
+            className="form-control-label"
+            htmlFor="passwordInValidationRulesPropertyInput"
+          >
+            Password in extraAttrs
+          </label>
+          <div
+            className="controls"
+          >
+            <input
+              className="property-input form-control"
+              disabled={undefined}
+              id="passwordInValidationRulesPropertyInput"
+              maxLength={undefined}
+              onChange={[Function]}
+              pattern={undefined}
+              placeholder={undefined}
+              required={true}
+              size={undefined}
+              type="password"
+              value="123"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="vertical-input col-lg-12"
+      >
+        <div
+          className="property form-group required"
+        >
+          <label
+            className="form-control-label"
+            htmlFor="emailPropertyInput"
+          >
+            Email type
+          </label>
+          <div
+            className="controls"
+          >
+            <input
+              className="property-input form-control"
+              disabled={undefined}
+              id="emailPropertyInput"
+              maxLength={undefined}
+              onChange={[Function]}
+              pattern={undefined}
+              placeholder={undefined}
+              required={true}
+              size={undefined}
+              type="email"
+              value="test@mail.ru"
+            />
           </div>
         </div>
       </div>

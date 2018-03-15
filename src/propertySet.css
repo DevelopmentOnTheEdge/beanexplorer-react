@@ -2,17 +2,27 @@
   max-width: 100%;
 }
 
+/****************************************************************************/
+
 .property-group {
-  margin-top: 1.2em;
   position: relative;
 }
 
-.property-group__line {
-  border-top: 1px solid rgb(216, 216, 216);
-  padding-top: 1em;
+.property-group__top-line{
+  margin-top: 1.2em;
 }
 
-.property-group:first-child .property-group__line{
+.property-group__top-line-block{
+  display: none;
+}
+
+.property-group__top-line .property-group__top-line-block {
+  border-top: 1px solid rgb(216, 216, 216);
+  padding-top: 1em;
+  display: block;
+}
+
+.property-group:first-child .property-group__top-line .property-group__top-line-block{
   border-top: none;
 }
 
@@ -24,6 +34,8 @@
   /*font-size: 1.6em;*/
   margin: 0 0 0 -3px;
 }
+
+/****************************************************************************/
 
 .property .text-muted{
   color: #2b2b2b !important;
@@ -56,6 +68,8 @@ input:required, textarea:required {
   box-shadow: none;
 }
 
+/****************************************************************************/
+
 .vertical-input .col-form-label-sm,
 .vertical-input .col-form-label-lg{
   margin-bottom: 0;
@@ -75,10 +89,13 @@ input:required, textarea:required {
   margin-top: 1.1rem;
 }
 
+/****************************************************************************/
+
 .Select.is-disabled > .Select-control {
   background-color: #eaedf0;
 }
-.Select-control {
+.Select .Select-control{
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   border-color: #ced4da;
 }
 .Select--multi.is-disabled .Select-value {
@@ -91,6 +108,8 @@ input:required, textarea:required {
   border-color: #80bdff;
   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
+
+/****************************************************************************/
 
 .Select-placeholder,
 .Select--single > .Select-control .Select-value,
@@ -159,9 +178,7 @@ input:required, textarea:required {
   opacity: 1;
 }
 
-.Select .Select-control{
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-}
+/****************************************************************************/
 
 .was-validated .required .Select:not(.is-disabled) .Select-control:focus,
 .Select.is-invalid.is-focused:not(.is-open) > .Select-control,

@@ -6,19 +6,21 @@ import classNames  from 'classnames';
 
 class PropertySet extends React.Component
 {
-  createGroup(curGroup, curGroupId, curGroupName) {
+  getName(name){
+    if(name){
+      return <h4 className='property-group__title'>{name}</h4>
+    }else{
+      return null
+    }
+  }
+
+  createGroup(curGroup, curGroupId, curGroupName, curGroupClasses) {
     return (
-      <div className='property-group col-12' key={curGroupId} ref={curGroupId}>
-        <div className="row property-group__line"/>
-        <div className='property-groop-box'>
-          <h4 className='property-group__title'>{curGroupName}</h4>
-          <div className="row">
-            <div className="col-12">
-              <div className={this.props.rowClass}>
-                {curGroup}
-              </div>
-            </div>
-          </div>
+      <div className={classNames('property-group', curGroupClasses || 'property-group__top-line col-12')} key={curGroupId} ref={curGroupId}>
+        <div className="property-group__top-line-block row"/>
+        {this.getName(curGroupName)}
+        <div className={this.props.rowClass}>
+          {curGroup}
         </div>
       </div>
     );
@@ -26,13 +28,13 @@ class PropertySet extends React.Component
 
   render() {
     let curGroup = [];
-    let curGroupName = null, curGroupId = null;
+    let curGroupName = null, curGroupId = null, curGroupClasses = null;
     let fields = [];
 
     const finishGroup = () => {
       if(curGroup.length > 0) {
         if(curGroupId) {
-          fields.push(this.createGroup(curGroup, curGroupId, curGroupName));
+          fields.push(this.createGroup(curGroup, curGroupId, curGroupName, curGroupClasses));
         } else {
           Array.prototype.push.apply(fields, curGroup);
         }
@@ -43,11 +45,14 @@ class PropertySet extends React.Component
     for(const path of this.props.bean.order) {
       const meta = this.props.bean.meta[path];
 
-      const newGroupId = meta.groupId || null;
-      const newGroupName = meta.groupName || null;
+      const newGroupId = meta.groupId;
+      const newGroupName = meta.groupName;
+      const newGroupClasses = meta.groupClasses;
+
       if(newGroupId !== curGroupId) {
         finishGroup();
         curGroupName = newGroupName;
+        curGroupClasses = newGroupClasses;
         curGroupId = newGroupId;
       }
       const field = (<Property {...this.props} key={path} path={path} onChange={this.props.onChange} />);
