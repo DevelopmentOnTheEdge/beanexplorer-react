@@ -6,7 +6,7 @@ import classNames  from 'classnames';
 
 class PropertySet extends React.Component
 {
-  getName(name){
+  static getName(name){
     if(name){
       return <h4 className='property-group__title'>{name}</h4>
     }else{
@@ -16,9 +16,16 @@ class PropertySet extends React.Component
 
   createGroup(curGroup, curGroupId, curGroupName, curGroupClasses) {
     return (
-      <div className={classNames('property-group', curGroupClasses || 'property-group__top-line col-12')} key={curGroupId} ref={curGroupId}>
+      <div
+        className={classNames(
+          'property-group',
+          curGroupClasses || 'property-group__top-line col-12'
+        )}
+        key={curGroupId}
+        ref={curGroupId}
+      >
         <div className="property-group__top-line-row row"/>
-        {this.getName(curGroupName)}
+        {PropertySet.getName(curGroupName)}
         <div className={classNames('property-group__row', this.props.rowClass)}>
           {curGroup}
         </div>
@@ -55,7 +62,16 @@ class PropertySet extends React.Component
         curGroupClasses = newGroupClasses;
         curGroupId = newGroupId;
       }
-      const field = (<Property {...this.props} key={path} path={path} onChange={this.props.onChange} />);
+
+      const field = (
+        <Property
+          {...this.props}
+          key={path}
+          path={path}
+          onChange={this.props.onChange}
+        />
+      );
+
       curGroup.push(field);
     }
     finishGroup();

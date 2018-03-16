@@ -1323,7 +1323,7 @@ exports[`test outer 1`] = `
     className="property-group property-group__top-line col-12"
   >
     <div
-      className="property-group__top-line-block row"
+      className="property-group__top-line-row row"
     />
     <h4
       className="property-group__title"
@@ -1331,7 +1331,7 @@ exports[`test outer 1`] = `
       Group 1
     </h4>
     <div
-      className="form-row"
+      className="property-group__row form-row"
     >
       <div
         className="vertical-input col-lg-12"
@@ -1414,7 +1414,7 @@ exports[`test outer 1`] = `
     className="property-group property-group__top-line col-12"
   >
     <div
-      className="property-group__top-line-block row"
+      className="property-group__top-line-row row"
     />
     <h4
       className="property-group__title"
@@ -1422,7 +1422,7 @@ exports[`test outer 1`] = `
       Server side validation - error
     </h4>
     <div
-      className="form-row"
+      className="property-group__row form-row"
     >
       <div
         className="vertical-input col-lg-12"
@@ -1642,7 +1642,7 @@ exports[`test outer 1`] = `
     className="property-group property-group__top-line col-12"
   >
     <div
-      className="property-group__top-line-block row"
+      className="property-group__top-line-row row"
     />
     <h4
       className="property-group__title"
@@ -1650,7 +1650,7 @@ exports[`test outer 1`] = `
       Server side validation - success
     </h4>
     <div
-      className="form-row"
+      className="property-group__row form-row"
     >
       <div
         className="vertical-input col-lg-12"
@@ -1870,7 +1870,7 @@ exports[`test outer 1`] = `
     className="property-group property-group__top-line col-12"
   >
     <div
-      className="property-group__top-line-block row"
+      className="property-group__top-line-row row"
     />
     <h4
       className="property-group__title"
@@ -1878,7 +1878,7 @@ exports[`test outer 1`] = `
       Group 4 - CanBeNull
     </h4>
     <div
-      className="form-row"
+      className="property-group__row form-row"
     >
       <div
         className="vertical-input col-lg-12"
@@ -1917,7 +1917,7 @@ exports[`test outer 1`] = `
     className="property-group property-group__top-line col-12"
   >
     <div
-      className="property-group__top-line-block row"
+      className="property-group__top-line-row row"
     />
     <h4
       className="property-group__title"
@@ -1925,7 +1925,7 @@ exports[`test outer 1`] = `
       Group 5 - use cssClasses
     </h4>
     <div
-      className="form-row"
+      className="property-group__row form-row"
     >
       <div
         className="vertical-input col-md-8"
@@ -2026,10 +2026,10 @@ exports[`test outer 1`] = `
     className="property-group col-md-8"
   >
     <div
-      className="property-group__top-line-block row"
+      className="property-group__top-line-row row"
     />
     <div
-      className="form-row"
+      className="property-group__row form-row"
     >
       <div
         className="vertical-input col-lg-12"
@@ -2068,10 +2068,10 @@ exports[`test outer 1`] = `
     className="property-group col-md-4"
   >
     <div
-      className="property-group__top-line-block row"
+      className="property-group__top-line-row row"
     />
     <div
-      className="form-row"
+      className="property-group__row form-row"
     >
       <div
         className="vertical-input col-lg-12"
@@ -2148,7 +2148,7 @@ exports[`validationTest 1`] = `
     className="property-group property-group__top-line col-12"
   >
     <div
-      className="property-group__top-line-block row"
+      className="property-group__top-line-row row"
     />
     <h4
       className="property-group__title"
@@ -2156,7 +2156,7 @@ exports[`validationTest 1`] = `
       Numbers
     </h4>
     <div
-      className="form-row"
+      className="property-group__row form-row"
     >
       <div
         className="vertical-input col-lg-12"
@@ -2361,7 +2361,7 @@ exports[`validationTest 1`] = `
     className="property-group property-group__top-line col-12"
   >
     <div
-      className="property-group__top-line-block row"
+      className="property-group__top-line-row row"
     />
     <h4
       className="property-group__title"
@@ -2369,7 +2369,7 @@ exports[`validationTest 1`] = `
       Text
     </h4>
     <div
-      className="form-row"
+      className="property-group__row form-row"
     >
       <div
         className="vertical-input col-lg-12"
