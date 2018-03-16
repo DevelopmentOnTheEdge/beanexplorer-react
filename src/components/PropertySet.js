@@ -17,9 +17,9 @@ class PropertySet extends React.Component
   createGroup(curGroup, curGroupId, curGroupName, curGroupClasses) {
     return (
       <div className={classNames('property-group', curGroupClasses || 'property-group__top-line col-12')} key={curGroupId} ref={curGroupId}>
-        <div className="property-group__top-line-block row"/>
+        <div className="property-group__top-line-row row"/>
         {this.getName(curGroupName)}
-        <div className={classNames('property-group__block', this.props.rowClass)}>
+        <div className={classNames('property-group__row', this.props.rowClass)}>
           {curGroup}
         </div>
       </div>
