@@ -8,6 +8,8 @@ import CKEditor             from 'react-ckeditor-component';
 import MaskedInput          from 'react-maskedinput';
 import JsonPointer          from 'json-pointer';
 import classNames           from 'classnames';
+import bigInt               from "big-integer";
+import bigRat               from "big-rational";
 
 
 class PropertyInput extends React.Component
@@ -58,7 +60,45 @@ class PropertyInput extends React.Component
     } else {
       e.target.setCustomValidity('')
     }
-  };
+  }
+
+  static validationNumber(e, range, step) {
+    let value;
+    try {
+      value = bigRat(e.target.value);
+    } catch (err) {
+      this.setErrorState(e, "The value must be a number.");
+      return
+    }
+
+    if(range) {
+      //console.log(value, bigRat(range.max));
+      if (value.compare(bigRat(range.min)) === -1) {
+        this.setErrorState(e, "The value must be greater than or equal to " + range.min);
+        return
+      }
+      else if (value.compare(bigRat(range.max)) === 1) {
+        this.setErrorState(e, "The value must be less than or equal to " + range.max);
+        return
+      }
+    }
+
+    if(step) {
+      //console.log(value.divide(stepRat).toString(), value.divide(bigRat(step)).denominator, bigInt.one);
+      if (!value.divide(bigRat(step)).denominator.equals(bigInt.one)) {
+        this.setErrorState(e, "stepMismatch " + step);
+        return
+      }
+    }
+
+    this.setErrorState(e, '');
+  }
+
+  static setErrorState(e, text)
+  {
+    e.target.setCustomValidity(text);
+    e.target.title = text;
+  }
 
   handleChangeSelect(object) {
     if(Array.isArray(object)) {
@@ -186,12 +226,10 @@ class PropertyInput extends React.Component
           {...rawInputProps}
         />
       ),
-      number: (range, defaultStep) => (
+      strNumber: (range, step) => (
         <input
-          type="number"
-          min={range.min}
-          max={range.max}
-          step={validationRulesMap.step || defaultStep}
+          type="text"
+          onInput={(e) => PropertyInput.validationNumber(e, range, step)}
           {...rawInputProps}
         />
       ),
@@ -412,29 +450,26 @@ class PropertyInput extends React.Component
       return controls['mask']();
     }
 
-    if(validationRulesMap.range !== undefined ||
+    if(validationRulesMap.range !== undefined || validationRulesMap.step !== undefined ||
       meta.type === 'Short' || meta.type === 'Integer' || meta.type === 'Long' || meta.type === 'Double')
     {
-      //use defaultStep for double for prevent validation errors in firefox
-      let defaultStep = meta.type === 'Double' ? 0.000000000001 : 1;
+      let step = validationRulesMap.step || (meta.type !== 'Double' ? 1 : undefined);
       let range;
 
       switch (meta.type)
       {
         case 'Short':
-          range = {min: -32768, max: 32767};
+          range = {min: "-32768", max: "32767"};
           break;
         case 'Integer':
-          range = {min: -2147483648, max: 2147483647};
+          range = {min: "-2147483648", max: "2147483647"};
           break;
         case 'Long':
-          range = {min: Number.MIN_SAFE_INTEGER, max: Number.MAX_SAFE_INTEGER};
+          range = {min: "-9223372036854775808", max: "9223372036854775807"};
           break;
-        default:
-          range = {min: undefined, max: undefined}
       }
 
-      return controls['number'](validationRulesMap.range || range, defaultStep);
+      return controls['strNumber'](validationRulesMap.range || range, step);
     }
 
     if(controls[meta.type] !== undefined)

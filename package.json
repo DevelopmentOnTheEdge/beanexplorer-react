@@ -21,6 +21,8 @@
   },
   "author": "",
   "dependencies": {
+    "big-integer": "^1.6.26",
+    "big-rational": "^0.10.7",
     "classnames": "2.2.5",
     "json-pointer": "^0.6.0",
     "moment": "2.20.1",

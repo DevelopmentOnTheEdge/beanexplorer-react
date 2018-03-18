@@ -1,10 +1,10 @@
 {
   "values": {
-    "short": 32767,
-    "integer": 2147483647,
-    "long": 9007199254740991,
-    "double": 100.1,
-    "doubleWithRangeAndStep": 100.5,
+    "short": "32767",
+    "integer": "2147483647",
+    "long": "9223372036854775807",
+    "double": "100.1",
+    "doubleWithRangeAndStep": "100.5",
     "integerWithRangeAndStep": "",
     "textInput": "qwerty7890",
     "textInputWithPattern": "AZazАЯаяЁё",
@@ -27,7 +27,6 @@
     "/long": {
       "displayName": "Long",
       "type": "Long",
-      "message": "use Number.MAX_SAFE_INTEGER and Number.MIN_SAFE_INTEGER for limits",
       "groupId": 1
     },
     "/double": {
@@ -37,12 +36,12 @@
     },
     "/doubleWithRangeAndStep": {
       "displayName": "Number input with range and double step",
-      "validationRules":[{"type":"step","attr":0.5},{"type":"range","attr":{"min":0,"max":1000}}],
+      "validationRules":[{"type":"step","attr":"0.5"},{"type":"range","attr":{"min":"0","max":"1000"}}],
       "groupId": 1
     },
     "/integerWithRangeAndStep": {
       "displayName": "Number input with range and integer step",
-      "validationRules":[{"type":"step","attr":10},{"type":"range","attr":{"min":0,"max":100}}],
+      "validationRules":[{"type":"step","attr":"10"},{"type":"range","attr":{"min":"0","max":"100"}}],
       "groupId": 1,
       "canBeNull": true
     },
