@@ -17,13 +17,7 @@ class PropertyInput extends React.Component
   constructor(props) {
     super(props);
 
-    const path  = this.getPath();
-    const meta  = this.props.bean.meta[path];
-
-    this.state = {
-      meta: meta,
-      validationRulesMap: PropertyInput.getValidationRulesMap(meta)
-    };
+    this.state = this.getInitState(props);
 
     this.handleChange = this.handleChange.bind(this);
     this.handleChangeSelect = this.handleChangeSelect.bind(this);
@@ -33,11 +27,27 @@ class PropertyInput extends React.Component
     this.dateValidationMessage = this.dateValidationMessage.bind(this);
   }
 
-  getPath() {
-    if(this.props.path) {
-      return this.props.path;
+  componentWillReceiveProps(nextProps) {
+    this.setState(this.getInitState(nextProps));
+  }
+
+  getInitState(props) {
+    const path  = this.getPath(props);
+    const meta  = props.bean.meta[path];
+
+    return {
+      meta: meta,
+      validationRulesMap: PropertyInput.getValidationRulesMap(meta)
+    };
+  }
+
+  getPath(props) {
+    if(props === undefined)props = this.props;
+
+    if(props.path) {
+      return props.path;
     }else{
-      return this.props.bean.order[this.props.id];
+      return props.bean.order[props.id];
     }
   }
 

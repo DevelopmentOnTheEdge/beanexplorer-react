@@ -204,3 +204,21 @@ test('updateCkeditor', () => {
   expect(setData.mock.calls.length).toEqual(1);
   expect(setReadOnly.mock.calls[1]).toEqual([true]);
 });
+
+test('test componentWillReceiveProps', () => {
+  const handle = jest.fn();
+
+  const wrapper = mount(
+    <PropertyInput path={"/textInput"} bean={bean} onChange={handle} />
+  );
+
+  expect(wrapper.state().meta).toEqual({"displayName": "Text input"});
+  expect(wrapper.state().validationRulesMap).toEqual({});
+
+  wrapper.setProps({ path: "/number" });
+
+  expect(wrapper.state().meta).toEqual({"displayName": "Number", "type": "Integer"});
+  expect(wrapper.state().validationRulesMap).toEqual(
+    {"range": {"attr": {"max": "2147483647", "min": "-2147483648"}}, "step": {"attr": "1"}}
+  );
+});
