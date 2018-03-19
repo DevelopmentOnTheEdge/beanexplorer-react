@@ -26,6 +26,8 @@ class PropertyInput extends React.Component
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleChangeSelect = this.handleChangeSelect.bind(this);
+
     this.numberValidation = this.numberValidation.bind(this);
     this.patternValidationMessage = this.patternValidationMessage.bind(this);
     this.dateValidationMessage = this.dateValidationMessage.bind(this);
@@ -57,7 +59,7 @@ class PropertyInput extends React.Component
   }
 
   static dateFromISOFormat(stringDate) {
-    const date = moment(stringDate === undefined ? "" : stringDate, 'YYYY-MM-DD', true);
+    const date = moment(stringDate, 'YYYY-MM-DD', true);
     if (date.isValid()) {
       return date.format('DD.MM.YYYY');
     } else {
@@ -109,18 +111,18 @@ class PropertyInput extends React.Component
     }
 
     if(range) {
-      if (value.compare(bigRat(range.min)) === -1) {
-        PropertyInput.setErrorState(e, this.setMessagePlaceHolders(local.rangeUnderflow, [range.min]));
+      if (value.compare(bigRat(range.attr.min)) === -1) {
+        PropertyInput.setErrorState(e, this.setMessagePlaceHolders(local.rangeUnderflow, [range.attr.min]));
         return
       }
-      else if (value.compare(bigRat(range.max)) === 1) {
-        PropertyInput.setErrorState(e, this.setMessagePlaceHolders(local.rangeOverflow, [range.max]));
+      else if (value.compare(bigRat(range.attr.max)) === 1) {
+        PropertyInput.setErrorState(e, this.setMessagePlaceHolders(local.rangeOverflow, [range.attr.max]));
         return
       }
     }
 
     if(step) {
-      const stepRat = bigRat(step);
+      const stepRat = bigRat(step.attr);
 
       if (!value.divide(stepRat).denominator.equals(bigInt.one))
       {
@@ -287,7 +289,7 @@ class PropertyInput extends React.Component
     const rawInputProps = Object.assign({},
       baseProps,
       {
-        value: value === undefined ? "" : value,
+        value: value,
         onChange: this.handleChange,
         placeholder: meta.placeholder
       }
@@ -407,7 +409,7 @@ class PropertyInput extends React.Component
           name: id,
           value: strValue,
           options: options,
-          onChange: (v) => this.handleChangeSelect(v),
+          onChange: this.handleChangeSelect,
           clearAllText: this.props.localization.clearAllText,
           clearValueText: this.props.localization.clearValueText,
           noResultsText: this.props.localization.noResultsText,
@@ -458,7 +460,7 @@ class PropertyInput extends React.Component
       mask: () => (
         <MaskedInput
           mask={validationRulesMap.mask.attr}
-          value={value === undefined ? "" : value}
+          value={value}
           onChange={this.handleChange}
           {...baseProps}
         />
