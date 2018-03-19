@@ -62,43 +62,62 @@ class PropertyInput extends React.Component
     }
   }
 
-  static validationNumber(e, range, step, type)
+  validationNumber(e, range, step, type)
   {
-    if((type === 'Short' || type === 'Integer' || type === 'Long') &&
-      (e.target.value.indexOf('e') !== -1 || e.target.value.indexOf('E') !== -1))
-    {
-      this.setErrorState(e, "'E' is not supported for simple integer types.");
-      return
-    }
+    const local = this.props.localization;
 
     let value;
     try {
       value = bigRat(e.target.value);
     } catch (err) {
-      this.setErrorState(e, "The value must be a number.");
+      PropertyInput.setErrorState(e, local.numberTypeMismatch);
+      return
+    }
+
+    if((type === 'Short' || type === 'Integer' || type === 'Long') &&
+      (e.target.value.indexOf('e') !== -1 || e.target.value.indexOf('E') !== -1))
+    {
+      PropertyInput.setErrorState(e, local.simpleIntegerTypeMismatch);
       return
     }
 
     if(range) {
       if (value.compare(bigRat(range.min)) === -1) {
-        this.setErrorState(e, "The value must be greater than or equal to " + range.min);
+        PropertyInput.setErrorState(e, this.setMessagePlaceHolders(local.rangeUnderflow, [range.min]));
         return
       }
       else if (value.compare(bigRat(range.max)) === 1) {
-        this.setErrorState(e, "The value must be less than or equal to " + range.max);
+        PropertyInput.setErrorState(e, this.setMessagePlaceHolders(local.rangeOverflow, [range.max]));
         return
       }
     }
 
     if(step) {
-      //console.log(value.divide(stepRat).toString(), value.divide(bigRat(step)).denominator, bigInt.one);
-      if (!value.divide(bigRat(step)).denominator.equals(bigInt.one)) {
-        this.setErrorState(e, "stepMismatch " + step);
+      const stepRat = bigRat(step);
+
+      if (!value.divide(stepRat).denominator.equals(bigInt.one))
+      {
+        const min = value.divide(stepRat).floor().multiply(stepRat);
+        const max = min.add(stepRat);
+
+        PropertyInput.setErrorState(e, this.setMessagePlaceHolders(
+              local.stepMismatch, [min.toDecimal(), max.toDecimal()]
+        ));
         return
       }
     }
 
-    this.setErrorState(e, '');
+    PropertyInput.setErrorState(e, '');
+  }
+
+  setMessagePlaceHolders(source, params)
+  {
+    if(params){
+      params.forEach(function(item, i) {
+        source = source.replace(new RegExp("\\{" + i + "\\}", "g"), item);
+      });
+    }
+    return source
   }
 
   static setErrorState(e, text)
@@ -236,7 +255,7 @@ class PropertyInput extends React.Component
       strNumber: (range, step, type) => (
         <input
           type="text"
-          onInput={(e) => PropertyInput.validationNumber(e, range, step, type)}
+          onInput={(e) => this.validationNumber(e, range, step, type)}
           {...rawInputProps}
         />
       ),
@@ -502,6 +521,11 @@ PropertyInput.defaultProps = {
     noResultsText: 'No results found',
     searchPromptText: 'Type to search',
     placeholder: 'Select ...',
+    stepMismatch: 'Please enter a valid value. The closest allowed values are {0} and {1}.',
+    numberTypeMismatch: 'Enter the number.',
+    simpleIntegerTypeMismatch: '"E" is not supported for simple integer types.',
+    rangeOverflow: 'The value must be greater than or equal to {0}.',
+    rangeUnderflow: 'The value must be less than or equal to {0}.',
     loadingPlaceholder: 'Loading...',
     datePatternError: 'Please enter a valid date in the format dd.mm.yyyy'
   },
