@@ -8,6 +8,7 @@
     "integerWithRangeAndStep": "",
     "textInput": "qwerty7890",
     "textInputWithPattern": "AZazАЯаяЁё",
+    "textInputWithPatternAndMessage": "",
     "password": "123",
     "passwordInValidationRules": "123",
     "email": "test@mail.ru"
@@ -58,6 +59,13 @@
       "canBeNull": true,
       "groupId": 2
     },
+    "/textInputWithPatternAndMessage": {
+      "displayName": "Text input with pattern and message",
+      "validationRules":[{"type":"pattern","attr":"\\d{3}","customMessage":"Enter 3 digits."}],
+      "canBeNull": true,
+      "placeholder": "999",
+      "groupId": 2
+    },
     "/password": {
       "displayName": "Password",
       "passwordField": true,
@@ -83,6 +91,7 @@
     "/integerWithRangeAndStep",
     "/textInput",
     "/textInputWithPattern",
+    "/textInputWithPatternAndMessage",
     "/password",
     "/passwordInValidationRules",
     "/email"

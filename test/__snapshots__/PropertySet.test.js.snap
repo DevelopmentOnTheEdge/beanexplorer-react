@@ -2438,6 +2438,37 @@ exports[`validationTest 1`] = `
         className="vertical-input col-lg-12"
       >
         <div
+          className="property form-group"
+        >
+          <label
+            className="form-control-label"
+            htmlFor="textInputWithPatternAndMessagePropertyInput"
+          >
+            Text input with pattern and message
+          </label>
+          <div
+            className="controls"
+          >
+            <input
+              className="property-input form-control"
+              disabled={undefined}
+              id="textInputWithPatternAndMessagePropertyInput"
+              maxLength={undefined}
+              onChange={[Function]}
+              pattern="\\\\d{3}"
+              placeholder="999"
+              required={false}
+              size={undefined}
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="vertical-input col-lg-12"
+      >
+        <div
           className="property form-group required"
         >
           <label

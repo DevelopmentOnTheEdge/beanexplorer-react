@@ -166,13 +166,15 @@ class PropertyInput extends React.Component
 
     if(!Array.isArray(rules))
     {
-      map[rules.type] = rules.attr;
+      map[rules.type] = {attr: rules.attr};
+      if(rules.customMessage) map[rules.type].customMessage = rules.customMessage
     }
     else
     {
       for (let i=0 ;i< rules.length; i++)
       {
-        map[rules[i].type] = rules[i].attr;
+        map[rules[i].type] = {attr: rules[i].attr};
+        if(rules[i].customMessage) map[rules[i].type].customMessage = rules[i].customMessage
       }
     }
 
@@ -240,7 +242,7 @@ class PropertyInput extends React.Component
         <input
           type={type}
           maxLength={meta.columnSize}
-          pattern={validationRulesMap.pattern}
+          pattern={validationRulesMap.pattern ? validationRulesMap.pattern.attr : undefined}
           {...rawInputProps}
         />
       ),
@@ -248,7 +250,7 @@ class PropertyInput extends React.Component
         <textarea
           rows={extraAttrsMap.rows || 3}
           maxLength={meta.columnSize}
-          pattern={validationRulesMap.pattern}
+          pattern={validationRulesMap.pattern ? validationRulesMap.pattern.attr : undefined}
           {...rawInputProps}
         />
       ),
@@ -395,7 +397,7 @@ class PropertyInput extends React.Component
 //      },
       mask: () => (
         <MaskedInput
-          mask={validationRulesMap.mask}
+          mask={validationRulesMap.mask.attr}
           value={value === undefined ? "" : value}
           onChange={this.handleChange}
           {...baseProps}
@@ -482,7 +484,7 @@ class PropertyInput extends React.Component
     if(validationRulesMap.range !== undefined || validationRulesMap.step !== undefined ||
       meta.type === 'Short' || meta.type === 'Integer' || meta.type === 'Long' || meta.type === 'Double')
     {
-      let step = validationRulesMap.step || (meta.type !== 'Double' ? '1' : undefined);
+      let step = validationRulesMap.step ? validationRulesMap.step.attr : (meta.type !== 'Double' ? '1' : undefined);
       let range;
 
       switch (meta.type)
@@ -498,7 +500,7 @@ class PropertyInput extends React.Component
           break;
       }
 
-      return controls['strNumber'](validationRulesMap.range || range, step, meta.type);
+      return controls['strNumber'](validationRulesMap.range ? validationRulesMap.range.attr : range, step, meta.type);
     }
 
     if(controls[meta.type] !== undefined)
