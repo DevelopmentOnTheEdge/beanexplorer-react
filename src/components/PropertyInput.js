@@ -62,7 +62,15 @@ class PropertyInput extends React.Component
     }
   }
 
-  static validationNumber(e, range, step) {
+  static validationNumber(e, range, step, type)
+  {
+    if((type === 'Short' || type === 'Integer' || type === 'Long') &&
+      (e.target.value.indexOf('e') !== -1 || e.target.value.indexOf('E') !== -1))
+    {
+      this.setErrorState(e, "'E' is not supported for simple integer types.");
+      return
+    }
+
     let value;
     try {
       value = bigRat(e.target.value);
@@ -72,7 +80,6 @@ class PropertyInput extends React.Component
     }
 
     if(range) {
-      //console.log(value, bigRat(range.max));
       if (value.compare(bigRat(range.min)) === -1) {
         this.setErrorState(e, "The value must be greater than or equal to " + range.min);
         return
@@ -226,10 +233,10 @@ class PropertyInput extends React.Component
           {...rawInputProps}
         />
       ),
-      strNumber: (range, step) => (
+      strNumber: (range, step, type) => (
         <input
           type="text"
-          onInput={(e) => PropertyInput.validationNumber(e, range, step)}
+          onInput={(e) => PropertyInput.validationNumber(e, range, step, type)}
           {...rawInputProps}
         />
       ),
@@ -469,7 +476,7 @@ class PropertyInput extends React.Component
           break;
       }
 
-      return controls['strNumber'](validationRulesMap.range || range, step);
+      return controls['strNumber'](validationRulesMap.range || range, step, meta.type);
     }
 
     if(controls[meta.type] !== undefined)
