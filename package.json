@@ -1,6 +1,6 @@
 {
   "name": "beanexplorer-react",
-  "version": "0.1.31",
+  "version": "1.0.0",
   "description": "React component for BeanExplorer beans",
   "main": "dist/beanexplorer-react.js",
   "jsnext:main": "dist/beanexplorer-react.es.js",
@@ -19,7 +19,7 @@
     "type": "git",
     "url": "https://github.com/DevelopmentOnTheEdge/beanexplorer-react"
   },
-  "author": "",
+  "author": "Innokentiy Krivonosov",
   "dependencies": {
     "big-integer": "^1.6.26",
     "big-rational": "^0.10.7",

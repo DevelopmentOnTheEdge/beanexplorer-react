@@ -109,6 +109,7 @@ var PropertyInput = function (_React$Component) {
 
     _this.handleChange = _this.handleChange.bind(_this);
     _this.handleChangeSelect = _this.handleChangeSelect.bind(_this);
+    _this.base64FileHandle = _this.base64FileHandle.bind(_this);
 
     _this.numberValidation = _this.numberValidation.bind(_this);
     _this.patternValidationMessage = _this.patternValidationMessage.bind(_this);
@@ -255,9 +256,23 @@ var PropertyInput = function (_React$Component) {
       }
     }
   }, {
+    key: 'base64FileHandle',
+    value: function base64FileHandle(e) {
+      var _this2 = this;
+
+      if (e.target.files && e.target.files.length === 1) {
+        var fileName = e.target.files[0].name;
+        PropertyInput.getBase64(e.target.files[0]).then(function (data) {
+          _this2.callOnChange({ type: "Base64File", name: fileName, data: data });
+        });
+      } else if (e.target.files && e.target.files.length === 0) {
+        this.callOnChange("");
+      }
+    }
+  }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
 
       var path = this.getPath();
       var meta = this.state.meta;
@@ -401,13 +416,13 @@ var PropertyInput = function (_React$Component) {
         }
         return React.createElement(CKEditor, {
           ref: function ref(instance) {
-            _this2.ckeditor = instance;
+            _this3.ckeditor = instance;
           },
           activeClass: 'p10',
           content: value,
           events: {
             "change": function change(evt) {
-              _this2.callOnChange(evt.editor.getData());
+              _this3.callOnChange(evt.editor.getData());
             }
           },
           config: {
@@ -453,16 +468,7 @@ var PropertyInput = function (_React$Component) {
         return React.createElement('input', _extends({
           type: 'file',
           multiple: meta.multipleSelectionList,
-          onChange: function onChange(e) {
-            if (e.target.files && e.target.files.length === 1) {
-              var fileName = e.target.files[0].name;
-              PropertyInput.getBase64(e.target.files[0]).then(function (data) {
-                _this2.callOnChange({ type: "Base64File", name: fileName, data: data });
-              });
-            } else if (e.target.files && e.target.files.length === 0) {
-              _this2.callOnChange("");
-            }
-          }
+          onChange: this.base64FileHandle
         }, baseProps));
       }
 
