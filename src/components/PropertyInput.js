@@ -20,9 +20,13 @@ class PropertyInput extends React.Component
     const path  = this.getPath();
     const meta  = this.props.bean.meta[path];
 
-    this.state = {validationRulesMap: PropertyInput.getValidationRulesMap(meta.validationRules)};
+    this.state = {
+      meta: meta,
+      validationRulesMap: PropertyInput.getValidationRulesMap(meta)
+    };
 
     this.handleChange = this.handleChange.bind(this);
+    this.numberValidation = this.numberValidation.bind(this);
     this.patternValidationMessage = this.patternValidationMessage.bind(this);
     this.dateValidationMessage = this.dateValidationMessage.bind(this);
   }
@@ -81,8 +85,12 @@ class PropertyInput extends React.Component
     }
   }
 
-  numberValidation(e, range, step, type)
+  numberValidation(e)
   {
+    const range = this.state.validationRulesMap.range;
+    const step = this.state.validationRulesMap.step;
+    const type = this.state.meta.type;
+
     const local = this.props.localization;
 
     let value;
@@ -179,21 +187,49 @@ class PropertyInput extends React.Component
     return map;
   }
 
-  static getValidationRulesMap(rules) {
-    let map = {};
-    if(rules === undefined)return map;
+  static getValidationRulesMap(meta)
+  {
+    const rules = meta.validationRules;
 
-    if(!Array.isArray(rules))
+    let map = {};
+    if(rules !== undefined)
     {
-      map[rules.type] = {attr: rules.attr};
-      if(rules.customMessage) map[rules.type].customMessage = rules.customMessage
+      if (!Array.isArray(rules)) {
+        map[rules.type] = {attr: rules.attr};
+        if (rules.customMessage) map[rules.type].customMessage = rules.customMessage
+      }
+      else {
+        for (let i = 0; i < rules.length; i++) {
+          map[rules[i].type] = {attr: rules[i].attr};
+          if (rules[i].customMessage) map[rules[i].type].customMessage = rules[i].customMessage
+        }
+      }
     }
-    else
+
+    if(meta.type === 'Short' || meta.type === 'Integer' || meta.type === 'Long')
     {
-      for (let i=0 ;i< rules.length; i++)
+      if(!map.range)
       {
-        map[rules[i].type] = {attr: rules[i].attr};
-        if(rules[i].customMessage) map[rules[i].type].customMessage = rules[i].customMessage
+        let rangeAttr;
+
+        switch (meta.type) {
+          case 'Short':
+            rangeAttr = {min: "-32768", max: "32767"};
+            break;
+          case 'Integer':
+            rangeAttr = {min: "-2147483648", max: "2147483647"};
+            break;
+          case 'Long':
+            rangeAttr = {min: "-9223372036854775808", max: "9223372036854775807"};
+            break;
+        }
+
+        map['range'] = {attr: rangeAttr};
+      }
+
+      if(!map.step)
+      {
+        map['step'] = {attr: '1'};
       }
     }
 
@@ -210,7 +246,7 @@ class PropertyInput extends React.Component
 
   render() {
     const path     = this.getPath();
-    const meta     = this.props.bean.meta[path];
+    const meta     = this.state.meta;
     const value    = JsonPointer.get(this.props.bean, "/values" + path);
     const id       = path.substring(path.lastIndexOf("/")+1) + "PropertyInput";
     const required = meta.canBeNull !== true;
@@ -281,10 +317,10 @@ class PropertyInput extends React.Component
       strNumber: (range, step, type) => (
         <input
           type="text"
-          onInput={(e) => this.numberValidation(e, range, step, type)}
+          onInput={this.numberValidation}
           data-info-type={type}
-          data-info-range={range ? range.min + ', ' + range.max : undefined}
-          data-info-step={step}
+          data-info-range={(range && range.attr) ? range.attr.min + ', ' + range.attr.max : undefined}
+          data-info-step={step ? step.attr : undefined}
           {...rawInputProps}
         />
       ),
@@ -508,23 +544,7 @@ class PropertyInput extends React.Component
     if(validationRulesMap.range !== undefined || validationRulesMap.step !== undefined ||
       meta.type === 'Short' || meta.type === 'Integer' || meta.type === 'Long' || meta.type === 'Double')
     {
-      let step = validationRulesMap.step ? validationRulesMap.step.attr : (meta.type !== 'Double' ? '1' : undefined);
-      let range;
-
-      switch (meta.type)
-      {
-        case 'Short':
-          range = {min: "-32768", max: "32767"};
-          break;
-        case 'Integer':
-          range = {min: "-2147483648", max: "2147483647"};
-          break;
-        case 'Long':
-          range = {min: "-9223372036854775808", max: "9223372036854775807"};
-          break;
-      }
-
-      return controls['strNumber'](validationRulesMap.range ? validationRulesMap.range.attr : range, step, meta.type);
+      return controls['strNumber'](validationRulesMap.range, validationRulesMap.step, meta.type);
     }
 
     if(controls[meta.type] !== undefined)

@@ -141,13 +141,13 @@ test('handleChangeSelect', () => {
 
 test('getValidationRulesMap test', () => {
 
-  expect(PropertyInput.getValidationRulesMap([{"type":"step","attr":0.5},{"type":"range","attr":{"min":0,"max":1000}}]))
+  expect(PropertyInput.getValidationRulesMap({validationRules: [{"type":"step","attr":0.5},{"type":"range","attr":{"min":0,"max":1000}}]}))
     .toEqual({"range": {"attr": {"max": 1000, "min": 0}}, "step": {"attr": 0.5}});
 
-  expect(PropertyInput.getValidationRulesMap({"type":"step","attr":0.5}))
+  expect(PropertyInput.getValidationRulesMap({validationRules: {"type":"step","attr":0.5}}))
     .toEqual({"step": {"attr": 0.5}});
 
-  expect(PropertyInput.getValidationRulesMap({"type":"pattern","attr":"\\d{3}", "customMessage":"Enter 3 digits."}))
+  expect(PropertyInput.getValidationRulesMap({validationRules: {"type":"pattern","attr":"\\d{3}", "customMessage":"Enter 3 digits."}}))
     .toEqual({"pattern": {"attr": "\\d{3}", "customMessage": "Enter 3 digits."}});
 });
 
