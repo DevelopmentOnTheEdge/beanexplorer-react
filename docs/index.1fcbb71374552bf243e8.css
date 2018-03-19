@@ -815,17 +815,17 @@ td.rdtYear:hover {
   margin-top: 1.2em;
 }
 
-.property-group__top-line-block{
+.property-group__top-line-row{
   display: none;
 }
 
-.property-group__top-line .property-group__top-line-block {
+.property-group__top-line .property-group__top-line-row {
   border-top: 1px solid rgb(216, 216, 216);
   padding-top: 1em;
   display: block;
 }
 
-.property-group:first-child .property-group__top-line .property-group__top-line-block{
+.property-group:first-child .property-group__top-line .property-group__top-line-row{
   border-top: none;
 }
 

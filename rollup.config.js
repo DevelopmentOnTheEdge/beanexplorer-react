@@ -23,6 +23,8 @@ const globals = {
   'react-maskedinput': 'MaskedInput',
   'react-select': 'Select',
   'react-virtualized-select': 'VirtualizedSelect',
+  'big-integer': 'bigInt',
+  'big-rational': 'bigRat'
 };
 const external = Object.keys(globals);
 

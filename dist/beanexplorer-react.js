@@ -1,8 +1,8 @@
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('react'), require('prop-types'), require('classnames'), require('react-datetime'), require('moment'), require('react-select'), require('react-virtualized-select'), require('react-ckeditor-component'), require('react-maskedinput'), require('json-pointer')) :
-	typeof define === 'function' && define.amd ? define(['react', 'prop-types', 'classnames', 'react-datetime', 'moment', 'react-select', 'react-virtualized-select', 'react-ckeditor-component', 'react-maskedinput', 'json-pointer'], factory) :
-	(global.PropertySet = factory(global.React,global.PropTypes,global.classNames,global.Datetime,global.moment,global.Select,global.VirtualizedSelect,global.CKEditor,global.MaskedInput,global.JsonPointer));
-}(this, (function (React,PropTypes,classNames,Datetime,moment,Select,VirtualizedSelect,CKEditor,MaskedInput,JsonPointer) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('react'), require('prop-types'), require('classnames'), require('react-datetime'), require('moment'), require('react-select'), require('react-virtualized-select'), require('react-ckeditor-component'), require('react-maskedinput'), require('json-pointer'), require('big-integer'), require('big-rational')) :
+	typeof define === 'function' && define.amd ? define(['react', 'prop-types', 'classnames', 'react-datetime', 'moment', 'react-select', 'react-virtualized-select', 'react-ckeditor-component', 'react-maskedinput', 'json-pointer', 'big-integer', 'big-rational'], factory) :
+	(global.PropertySet = factory(global.React,global.PropTypes,global.classNames,global.Datetime,global.moment,global.Select,global.VirtualizedSelect,global.CKEditor,global.MaskedInput,global.JsonPointer,global.bigInt,global.bigRat));
+}(this, (function (React,PropTypes,classNames,Datetime,moment,Select,VirtualizedSelect,CKEditor,MaskedInput,JsonPointer,bigInt,bigRat) { 'use strict';
 
 React = React && React.hasOwnProperty('default') ? React['default'] : React;
 PropTypes = PropTypes && PropTypes.hasOwnProperty('default') ? PropTypes['default'] : PropTypes;
@@ -14,6 +14,8 @@ VirtualizedSelect = VirtualizedSelect && VirtualizedSelect.hasOwnProperty('defau
 CKEditor = CKEditor && CKEditor.hasOwnProperty('default') ? CKEditor['default'] : CKEditor;
 MaskedInput = MaskedInput && MaskedInput.hasOwnProperty('default') ? MaskedInput['default'] : MaskedInput;
 JsonPointer = JsonPointer && JsonPointer.hasOwnProperty('default') ? JsonPointer['default'] : JsonPointer;
+bigInt = bigInt && bigInt.hasOwnProperty('default') ? bigInt['default'] : bigInt;
+bigRat = bigRat && bigRat.hasOwnProperty('default') ? bigRat['default'] : bigRat;
 
 var classCallCheck = function (instance, Constructor) {
   if (!(instance instanceof Constructor)) {
@@ -103,17 +105,42 @@ var PropertyInput = function (_React$Component) {
 
     var _this = possibleConstructorReturn(this, (PropertyInput.__proto__ || Object.getPrototypeOf(PropertyInput)).call(this, props));
 
+    _this.state = _this.getInitState(props);
+
     _this.handleChange = _this.handleChange.bind(_this);
+    _this.handleChangeSelect = _this.handleChangeSelect.bind(_this);
+
+    _this.numberValidation = _this.numberValidation.bind(_this);
+    _this.patternValidationMessage = _this.patternValidationMessage.bind(_this);
+    _this.dateValidationMessage = _this.dateValidationMessage.bind(_this);
     return _this;
   }
 
   createClass(PropertyInput, [{
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      this.setState(this.getInitState(nextProps));
+    }
+  }, {
+    key: 'getInitState',
+    value: function getInitState(props) {
+      var path = this.getPath(props);
+      var meta = props.bean.meta[path];
+
+      return {
+        meta: meta,
+        validationRulesMap: PropertyInput.getValidationRulesMap(meta)
+      };
+    }
+  }, {
     key: 'getPath',
-    value: function getPath() {
-      if (this.props.path) {
-        return this.props.path;
+    value: function getPath(props) {
+      if (props === undefined) props = this.props;
+
+      if (props.path) {
+        return props.path;
       } else {
-        return this.props.bean.order[this.props.id];
+        return props.bean.order[props.id];
       }
     }
   }, {
@@ -137,13 +164,81 @@ var PropertyInput = function (_React$Component) {
       }
     }
   }, {
-    key: 'validationDate',
-    value: function validationDate(e) {
+    key: 'dateValidationMessage',
+    value: function dateValidationMessage(e) {
       if (e.target.validity.patternMismatch) {
         e.target.setCustomValidity(this.props.localization.datePatternError);
       } else {
         e.target.setCustomValidity('');
       }
+    }
+  }, {
+    key: 'patternValidationMessage',
+    value: function patternValidationMessage(e) {
+      var pattern = this.state.validationRulesMap.pattern;
+      if (pattern && pattern.customMessage) {
+        if (e.target.validity.patternMismatch) {
+          e.target.setCustomValidity(pattern.customMessage);
+        } else {
+          e.target.setCustomValidity('');
+        }
+      }
+    }
+  }, {
+    key: 'numberValidation',
+    value: function numberValidation(e) {
+      var range = this.state.validationRulesMap.range;
+      var step = this.state.validationRulesMap.step;
+      var type = this.state.meta.type;
+
+      var local = this.props.localization;
+
+      var value = void 0;
+      try {
+        value = bigRat(e.target.value);
+      } catch (err) {
+        PropertyInput.setErrorState(e, local.numberTypeMismatch);
+        return;
+      }
+
+      if ((type === 'Short' || type === 'Integer' || type === 'Long') && (e.target.value.indexOf('e') !== -1 || e.target.value.indexOf('E') !== -1)) {
+        PropertyInput.setErrorState(e, local.simpleIntegerTypeMismatch);
+        return;
+      }
+
+      if (range) {
+        if (value.compare(bigRat(range.attr.min)) === -1) {
+          PropertyInput.setErrorState(e, this.setMessagePlaceHolders(local.rangeUnderflow, [range.attr.min]));
+          return;
+        } else if (value.compare(bigRat(range.attr.max)) === 1) {
+          PropertyInput.setErrorState(e, this.setMessagePlaceHolders(local.rangeOverflow, [range.attr.max]));
+          return;
+        }
+      }
+
+      if (step) {
+        var stepRat = bigRat(step.attr);
+
+        if (!value.divide(stepRat).denominator.equals(bigInt.one)) {
+          var min = value.divide(stepRat).floor().multiply(stepRat);
+          var max = min.add(stepRat);
+
+          PropertyInput.setErrorState(e, this.setMessagePlaceHolders(local.stepMismatch, [min.toDecimal(), max.toDecimal()]));
+          return;
+        }
+      }
+
+      PropertyInput.setErrorState(e, '');
+    }
+  }, {
+    key: 'setMessagePlaceHolders',
+    value: function setMessagePlaceHolders(source, params) {
+      if (params) {
+        params.forEach(function (item, i) {
+          source = source.replace(new RegExp("\\{" + i + "\\}", "g"), item);
+        });
+      }
+      return source;
     }
   }, {
     key: 'handleChangeSelect',
@@ -164,12 +259,13 @@ var PropertyInput = function (_React$Component) {
       var _this2 = this;
 
       var path = this.getPath();
-      var meta = this.props.bean.meta[path];
+      var meta = this.state.meta;
       var value = JsonPointer.get(this.props.bean, "/values" + path);
       var id = path.substring(path.lastIndexOf("/") + 1) + "PropertyInput";
-      var extraAttrsMap = PropertyInput.getExtraAttrsMap(meta.extraAttrs);
-      var validationRulesMap = PropertyInput.getValidationRulesMap(meta.validationRules);
       var required = meta.canBeNull !== true;
+      var extraAttrsMap = PropertyInput.getExtraAttrsMap(meta.extraAttrs);
+
+      var validationRulesMap = this.state.validationRulesMap;
 
       var inputTypeClass = void 0;
       switch (meta.type) {
@@ -195,7 +291,7 @@ var PropertyInput = function (_React$Component) {
       };
 
       var rawInputProps = Object.assign({}, baseProps, {
-        value: value === undefined ? "" : value,
+        value: value,
         onChange: this.handleChange,
         placeholder: meta.placeholder
       });
@@ -205,22 +301,27 @@ var PropertyInput = function (_React$Component) {
           return React.createElement('input', _extends({
             type: type,
             maxLength: meta.columnSize,
-            pattern: validationRulesMap.pattern
+            pattern: validationRulesMap.pattern ? validationRulesMap.pattern.attr : undefined,
+            onInvalid: _this2.patternValidationMessage,
+            onInput: _this2.patternValidationMessage
           }, rawInputProps));
         },
         textArea: function textArea() {
           return React.createElement('textarea', _extends({
             rows: extraAttrsMap.rows || 3,
             maxLength: meta.columnSize,
-            pattern: validationRulesMap.pattern
+            pattern: validationRulesMap.pattern ? validationRulesMap.pattern.attr : undefined,
+            onInvalid: _this2.patternValidationMessage,
+            onInput: _this2.patternValidationMessage
           }, rawInputProps));
         },
-        number: function number(range, defaultStep) {
+        strNumber: function strNumber(range, step, type) {
           return React.createElement('input', _extends({
-            type: 'number',
-            min: range.min,
-            max: range.max,
-            step: validationRulesMap.step || defaultStep
+            type: 'text',
+            onInput: _this2.numberValidation,
+            'data-info-type': type,
+            'data-info-range': range && range.attr ? range.attr.min + ', ' + range.attr.max : undefined,
+            'data-info-step': step ? step.attr : undefined
           }, rawInputProps));
         },
         Boolean: function Boolean() {
@@ -244,12 +345,8 @@ var PropertyInput = function (_React$Component) {
             locale: _this2.props.localization.locale,
             inputProps: Object.assign({}, baseProps, {
               pattern: "(^$|\\d{1,2}\\.\\d{1,2}\\.\\d{4})",
-              onInvalid: function onInvalid(v) {
-                return _this2.validationDate(v);
-              },
-              onInput: function onInput(v) {
-                return _this2.validationDate(v);
-              },
+              onInvalid: _this2.dateValidationMessage,
+              onInput: _this2.dateValidationMessage,
               placeholder: meta.placeholder
             })
           });
@@ -303,9 +400,7 @@ var PropertyInput = function (_React$Component) {
             name: id,
             value: strValue,
             options: options,
-            onChange: function onChange(v) {
-              return _this2.handleChangeSelect(v);
-            },
+            onChange: _this2.handleChangeSelect,
             clearAllText: _this2.props.localization.clearAllText,
             clearValueText: _this2.props.localization.clearValueText,
             noResultsText: _this2.props.localization.noResultsText,
@@ -348,8 +443,8 @@ var PropertyInput = function (_React$Component) {
         //      },
         mask: function mask() {
           return React.createElement(MaskedInput, _extends({
-            mask: validationRulesMap.mask,
-            value: value === undefined ? "" : value,
+            mask: validationRulesMap.mask.attr,
+            value: value,
             onChange: _this2.handleChange
           }, baseProps));
         },
@@ -417,26 +512,8 @@ var PropertyInput = function (_React$Component) {
         return controls['mask']();
       }
 
-      if (validationRulesMap.range !== undefined || meta.type === 'Short' || meta.type === 'Integer' || meta.type === 'Long' || meta.type === 'Double') {
-        //use defaultStep for double for prevent validation errors in firefox
-        var defaultStep = meta.type === 'Double' ? 0.000000000001 : 1;
-        var range = void 0;
-
-        switch (meta.type) {
-          case 'Short':
-            range = { min: -32768, max: 32767 };
-            break;
-          case 'Integer':
-            range = { min: -2147483648, max: 2147483647 };
-            break;
-          case 'Long':
-            range = { min: Number.MIN_SAFE_INTEGER, max: Number.MAX_SAFE_INTEGER };
-            break;
-          default:
-            range = { min: undefined, max: undefined };
-        }
-
-        return controls['number'](validationRulesMap.range || range, defaultStep);
+      if (validationRulesMap.range !== undefined || validationRulesMap.step !== undefined || meta.type === 'Short' || meta.type === 'Integer' || meta.type === 'Long' || meta.type === 'Double') {
+        return controls['strNumber'](validationRulesMap.range, validationRulesMap.step, meta.type);
       }
 
       if (controls[meta.type] !== undefined) {
@@ -452,12 +529,18 @@ var PropertyInput = function (_React$Component) {
   }], [{
     key: 'dateFromISOFormat',
     value: function dateFromISOFormat(stringDate) {
-      var date = moment(stringDate === undefined ? "" : stringDate, 'YYYY-MM-DD', true);
+      var date = moment(stringDate, 'YYYY-MM-DD', true);
       if (date.isValid()) {
         return date.format('DD.MM.YYYY');
       } else {
         return stringDate;
       }
+    }
+  }, {
+    key: 'setErrorState',
+    value: function setErrorState(e, text) {
+      e.target.setCustomValidity(text);
+      e.target.title = text;
     }
   }, {
     key: 'getBase64',
@@ -486,15 +569,43 @@ var PropertyInput = function (_React$Component) {
     }
   }, {
     key: 'getValidationRulesMap',
-    value: function getValidationRulesMap(rules) {
-      var map = {};
-      if (rules === undefined) return map;
+    value: function getValidationRulesMap(meta) {
+      var rules = meta.validationRules;
 
-      if (!Array.isArray(rules)) {
-        map[rules.type] = rules.attr;
-      } else {
-        for (var i = 0; i < rules.length; i++) {
-          map[rules[i].type] = rules[i].attr;
+      var map = {};
+      if (rules !== undefined) {
+        if (!Array.isArray(rules)) {
+          map[rules.type] = { attr: rules.attr };
+          if (rules.customMessage) map[rules.type].customMessage = rules.customMessage;
+        } else {
+          for (var i = 0; i < rules.length; i++) {
+            map[rules[i].type] = { attr: rules[i].attr };
+            if (rules[i].customMessage) map[rules[i].type].customMessage = rules[i].customMessage;
+          }
+        }
+      }
+
+      if (meta.type === 'Short' || meta.type === 'Integer' || meta.type === 'Long') {
+        if (!map.range) {
+          var rangeAttr = void 0;
+
+          switch (meta.type) {
+            case 'Short':
+              rangeAttr = { min: "-32768", max: "32767" };
+              break;
+            case 'Integer':
+              rangeAttr = { min: "-2147483648", max: "2147483647" };
+              break;
+            case 'Long':
+              rangeAttr = { min: "-9223372036854775808", max: "9223372036854775807" };
+              break;
+          }
+
+          map['range'] = { attr: rangeAttr };
+        }
+
+        if (!map.step) {
+          map['step'] = { attr: '1' };
         }
       }
 
@@ -520,6 +631,11 @@ PropertyInput.defaultProps = {
     noResultsText: 'No results found',
     searchPromptText: 'Type to search',
     placeholder: 'Select ...',
+    stepMismatch: 'Please enter a valid value. The closest allowed values are {0} and {1}.',
+    numberTypeMismatch: 'Enter the number.',
+    simpleIntegerTypeMismatch: '"E" is not supported for simple integer types.',
+    rangeOverflow: 'The value must be less than or equal to {0}.',
+    rangeUnderflow: 'The value must be greater than or equal to {0}.',
     loadingPlaceholder: 'Loading...',
     datePatternError: 'Please enter a valid date in the format dd.mm.yyyy'
   }
@@ -720,29 +836,20 @@ var PropertySet$1 = function (_React$Component) {
   }
 
   createClass(PropertySet, [{
-    key: 'getName',
-    value: function getName(name) {
-      if (name) {
-        return React.createElement(
-          'h4',
-          { className: 'property-group__title' },
-          name
-        );
-      } else {
-        return null;
-      }
-    }
-  }, {
     key: 'createGroup',
     value: function createGroup(curGroup, curGroupId, curGroupName, curGroupClasses) {
       return React.createElement(
         'div',
-        { className: classNames('property-group', curGroupClasses || 'property-group__top-line col-12'), key: curGroupId, ref: curGroupId },
-        React.createElement('div', { className: 'property-group__top-line-block row' }),
-        this.getName(curGroupName),
+        {
+          className: classNames('property-group', curGroupClasses || 'property-group__top-line col-12'),
+          key: curGroupId,
+          ref: curGroupId
+        },
+        React.createElement('div', { className: 'property-group__top-line-row row' }),
+        PropertySet.getName(curGroupName),
         React.createElement(
           'div',
-          { className: this.props.rowClass },
+          { className: classNames('property-group__row', this.props.rowClass) },
           curGroup
         )
       );
@@ -789,7 +896,13 @@ var PropertySet$1 = function (_React$Component) {
             curGroupClasses = newGroupClasses;
             curGroupId = newGroupId;
           }
-          var field = React.createElement(Property, _extends({}, this.props, { key: path, path: path, onChange: this.props.onChange }));
+
+          var field = React.createElement(Property, _extends({}, this.props, {
+            key: path,
+            path: path,
+            onChange: this.props.onChange
+          }));
+
           curGroup.push(field);
         }
       } catch (err) {
@@ -814,6 +927,19 @@ var PropertySet$1 = function (_React$Component) {
         { className: classNames('property-set', this.props.rowClass) },
         fields
       );
+    }
+  }], [{
+    key: 'getName',
+    value: function getName(name) {
+      if (name) {
+        return React.createElement(
+          'h4',
+          { className: 'property-group__title' },
+          name
+        );
+      } else {
+        return null;
+      }
     }
   }]);
   return PropertySet;
