@@ -13,18 +13,16 @@ jest.mock('react-dom', () => ({
   findDOMNode: () => {},
 }));
 
-test('renders without crashing', () => {
+test('renders without crashing bean ', () => {
 
-	mount(<PropertySet bean={bean}/>);
+  mount(<PropertySet bean={bean}/>);
 
-  const beanForSnapshot = Object.assign({}, bean);
+  mount(<PropertySet bean={bean} bsSize="sm"/>);
+  mount(<PropertySet bean={bean} bsSize="lg"/>);
 
-  let index = beanForSnapshot.order.indexOf("/number");
-  beanForSnapshot.order.splice(index, 1);
+});
 
-  // index = beanForSnapshot.order.indexOf("/date");
-  // beanForSnapshot.order.splice(index, 1);
-
+test('snapshot bean', () => {
   const component = renderer.create(
     <PropertySet bean={bean} />
   );
@@ -66,6 +64,10 @@ test('inline layout1', () => {
     <PropertySet bean={layout1} inline rowClass="" />
   );
   expect(component.toJSON()).toMatchSnapshot();
+
+  //renders without crashing
+  mount(<PropertySet bean={layout1} inline rowClass="" bsSize="sm"/>);
+  mount(<PropertySet bean={layout1} inline rowClass="" bsSize="lg"/>);
 });
 
 test('inline layout2', () => {

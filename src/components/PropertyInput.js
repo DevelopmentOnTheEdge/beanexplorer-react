@@ -21,6 +21,7 @@ class PropertyInput extends React.Component
 
     this.handleChange = this.handleChange.bind(this);
     this.handleChangeSelect = this.handleChangeSelect.bind(this);
+    this.base64FileHandle = this.base64FileHandle.bind(this);
 
     this.numberValidation = this.numberValidation.bind(this);
     this.patternValidationMessage = this.patternValidationMessage.bind(this);
@@ -175,6 +176,20 @@ class PropertyInput extends React.Component
       this.callOnChange(selectArray);
     } else {
       this.callOnChange(object !== null ? object.value : "");
+    }
+  }
+
+  base64FileHandle(e) {
+    if(e.target.files && e.target.files.length === 1)
+    {
+      const fileName = e.target.files[0].name;
+      PropertyInput.getBase64(e.target.files[0]).then(data => {
+      this.callOnChange({type: "Base64File", name: fileName, data: data})
+    });
+    }
+    else if(e.target.files && e.target.files.length === 0)
+    {
+      this.callOnChange("")
     }
   }
 
@@ -496,19 +511,7 @@ class PropertyInput extends React.Component
       return <input
         type="file"
         multiple={meta.multipleSelectionList}
-        onChange={(e) => {
-          if(e.target.files && e.target.files.length === 1)
-          {
-            const fileName = e.target.files[0].name;
-            PropertyInput.getBase64(e.target.files[0]).then(data => {
-              this.callOnChange({type: "Base64File", name: fileName, data: data})
-            });
-          }
-          else if(e.target.files && e.target.files.length === 0)
-          {
-            this.callOnChange("")
-          }
-        }}
+        onChange={this.base64FileHandle}
         {...baseProps}
       />
     }

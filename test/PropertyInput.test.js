@@ -36,7 +36,7 @@ test('textInputWithPatternAndMessage', () => {
   const handle = jest.fn();
 
   const spy = jest.spyOn(PropertyInput.prototype, "patternValidationMessage");
-  const wrapper = mount(
+  let wrapper = mount(
     <PropertyInput path={"/textInputWithPatternAndMessage"} bean={validationTest} />
   );
 
@@ -47,6 +47,14 @@ test('textInputWithPatternAndMessage', () => {
   wrapper.find('input').simulate('input', {target: {setCustomValidity: handle, validity: {}}});
   expect(spy.mock.calls.length).toEqual(2);
   expect(handle.mock.calls[1]).toEqual([""]);
+
+  wrapper = mount(
+    <PropertyInput path={"/textInputWithPattern"} bean={validationTest} />
+  );
+
+  wrapper.find('input').simulate('input', {target: {setCustomValidity: handle, validity: {patternMismatch: true}}});
+  expect(spy.mock.calls.length).toEqual(3);
+  expect(handle.mock.calls.length).toEqual(2);
 });
 
 test('textInputWithPatternAndMessage', () => {
@@ -79,6 +87,14 @@ test('textInputWithPatternAndMessage', () => {
   wrapper.find('input').simulate('input', {target: {value: "1.1e2", setCustomValidity: handle}});
   expect(handle.mock.calls[6]).toEqual(["\"E\" is not supported for simple integer types."]);
 
+  wrapper.setProps({bean: validationTest, path: "/short"});
+
+  ["/short","/integer","/long","/double","/doubleWithRangeAndStep","/integerWithRangeAndStep",].forEach(function(path) {
+    wrapper.setProps({path: path});
+    wrapper.find('input').simulate('input', {target: {value: "1", setCustomValidity: handle}});
+  });
+  expect(spy.mock.calls.length).toEqual(13);
+  expect(handle.mock.calls.length).toEqual(13);
 });
 
 

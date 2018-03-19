@@ -55,7 +55,7 @@ exports[`inline layout1 1`] = `
         >
           <span
             className="Select-multi-value-wrapper"
-            id="react-select-16--value"
+            id="react-select-22--value"
           >
             <div
               className="Select-placeholder"
@@ -71,7 +71,7 @@ exports[`inline layout1 1`] = `
               }
             >
               <input
-                aria-activedescendant="react-select-16--value"
+                aria-activedescendant="react-select-22--value"
                 aria-describedby={undefined}
                 aria-expanded="false"
                 aria-haspopup="false"
@@ -208,7 +208,41 @@ exports[`inline layout2 1`] = `
 </div>
 `;
 
-exports[`renders without crashing 1`] = `
+exports[`simple property set 1`] = `
+<div
+  className="property-set form-row"
+>
+  <div
+    className="vertical-input col-lg-12"
+  >
+    <div
+      className="property form-group required"
+    >
+      <div
+        className="controls"
+      >
+        <input
+          className="property-input form-control"
+          disabled={undefined}
+          id="numberPropertyInput"
+          maxLength={undefined}
+          onChange={[Function]}
+          onInput={[Function]}
+          onInvalid={[Function]}
+          pattern={undefined}
+          placeholder={undefined}
+          required={true}
+          size={undefined}
+          type="text"
+          value=""
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`snapshot bean 1`] = `
 <div
   className="property-set form-row"
 >
@@ -675,6 +709,39 @@ exports[`renders without crashing 1`] = `
     >
       <label
         className="form-control-label"
+        htmlFor="numberPropertyInput"
+      >
+        Number
+      </label>
+      <div
+        className="controls"
+      >
+        <input
+          className="property-input form-control"
+          data-info-range="-2147483648, 2147483647"
+          data-info-step="1"
+          data-info-type="Integer"
+          disabled={undefined}
+          id="numberPropertyInput"
+          onChange={[Function]}
+          onInput={[Function]}
+          placeholder={undefined}
+          required={true}
+          size={undefined}
+          type="text"
+          value="123"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="vertical-input col-lg-12"
+  >
+    <div
+      className="property form-group required"
+    >
+      <label
+        className="form-control-label"
         htmlFor="maskPropertyInput"
       >
         Mask
@@ -824,7 +891,7 @@ exports[`renders without crashing 1`] = `
             >
               <span
                 className="Select-multi-value-wrapper"
-                id="react-select-5--value"
+                id="react-select-11--value"
               >
                 <div
                   className="Select-value"
@@ -834,7 +901,7 @@ exports[`renders without crashing 1`] = `
                   <span
                     aria-selected="true"
                     className="Select-value-label"
-                    id="react-select-5--value-item"
+                    id="react-select-11--value-item"
                     role="option"
                   >
                     Vanilla
@@ -849,7 +916,7 @@ exports[`renders without crashing 1`] = `
                   }
                 >
                   <input
-                    aria-activedescendant="react-select-5--value"
+                    aria-activedescendant="react-select-11--value"
                     aria-describedby={undefined}
                     aria-expanded="false"
                     aria-haspopup="false"
@@ -961,7 +1028,7 @@ exports[`renders without crashing 1`] = `
             >
               <span
                 className="Select-multi-value-wrapper"
-                id="react-select-6--value"
+                id="react-select-12--value"
               >
                 <div
                   className="Select-value"
@@ -971,7 +1038,7 @@ exports[`renders without crashing 1`] = `
                   <span
                     aria-selected="true"
                     className="Select-value-label"
-                    id="react-select-6--value-item"
+                    id="react-select-12--value-item"
                     role="option"
                   >
                     Vanilla
@@ -986,7 +1053,7 @@ exports[`renders without crashing 1`] = `
                   }
                 >
                   <input
-                    aria-activedescendant="react-select-6--value"
+                    aria-activedescendant="react-select-12--value"
                     aria-describedby={undefined}
                     aria-expanded="false"
                     aria-haspopup="false"
@@ -1104,7 +1171,7 @@ exports[`renders without crashing 1`] = `
             >
               <span
                 className="Select-multi-value-wrapper"
-                id="react-select-7--value"
+                id="react-select-13--value"
               >
                 <div
                   className="Select-value"
@@ -1124,7 +1191,7 @@ exports[`renders without crashing 1`] = `
                   <span
                     aria-selected="true"
                     className="Select-value-label"
-                    id="react-select-7--value-0"
+                    id="react-select-13--value-0"
                     role="option"
                   >
                     Chocolate
@@ -1153,7 +1220,7 @@ exports[`renders without crashing 1`] = `
                   <span
                     aria-selected="true"
                     className="Select-value-label"
-                    id="react-select-7--value-1"
+                    id="react-select-13--value-1"
                     role="option"
                   >
                     Strawberry
@@ -1173,7 +1240,7 @@ exports[`renders without crashing 1`] = `
                   }
                 >
                   <input
-                    aria-activedescendant="react-select-7--value"
+                    aria-activedescendant="react-select-13--value"
                     aria-describedby={undefined}
                     aria-expanded="false"
                     aria-haspopup="false"
@@ -1286,40 +1353,6 @@ exports[`renders without crashing 1`] = `
       >
         <div
           className="p10"
-        />
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`simple property set 1`] = `
-<div
-  className="property-set form-row"
->
-  <div
-    className="vertical-input col-lg-12"
-  >
-    <div
-      className="property form-group required"
-    >
-      <div
-        className="controls"
-      >
-        <input
-          className="property-input form-control"
-          disabled={undefined}
-          id="numberPropertyInput"
-          maxLength={undefined}
-          onChange={[Function]}
-          onInput={[Function]}
-          onInvalid={[Function]}
-          pattern={undefined}
-          placeholder={undefined}
-          required={true}
-          size={undefined}
-          type="text"
-          value=""
         />
       </div>
     </div>
@@ -1515,7 +1548,7 @@ exports[`test outer 1`] = `
                 >
                   <span
                     className="Select-multi-value-wrapper"
-                    id="react-select-14--value"
+                    id="react-select-20--value"
                   >
                     <div
                       className="Select-value"
@@ -1525,7 +1558,7 @@ exports[`test outer 1`] = `
                       <span
                         aria-selected="true"
                         className="Select-value-label"
-                        id="react-select-14--value-item"
+                        id="react-select-20--value-item"
                         role="option"
                       >
                         Vanilla
@@ -1540,7 +1573,7 @@ exports[`test outer 1`] = `
                       }
                     >
                       <input
-                        aria-activedescendant="react-select-14--value"
+                        aria-activedescendant="react-select-20--value"
                         aria-describedby={undefined}
                         aria-expanded="false"
                         aria-haspopup="false"
@@ -1745,7 +1778,7 @@ exports[`test outer 1`] = `
                 >
                   <span
                     className="Select-multi-value-wrapper"
-                    id="react-select-15--value"
+                    id="react-select-21--value"
                   >
                     <div
                       className="Select-value"
@@ -1755,7 +1788,7 @@ exports[`test outer 1`] = `
                       <span
                         aria-selected="true"
                         className="Select-value-label"
-                        id="react-select-15--value-item"
+                        id="react-select-21--value-item"
                         role="option"
                       >
                         Vanilla
@@ -1770,7 +1803,7 @@ exports[`test outer 1`] = `
                       }
                     >
                       <input
-                        aria-activedescendant="react-select-15--value"
+                        aria-activedescendant="react-select-21--value"
                         aria-describedby={undefined}
                         aria-expanded="false"
                         aria-haspopup="false"
