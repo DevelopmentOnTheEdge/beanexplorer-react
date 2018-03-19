@@ -2,6 +2,7 @@ import React from 'react';
 import PropertyInput from '../src/components/PropertyInput';
 import {shallow, mount, render} from 'enzyme';
 import bean from '../src/testJson.json';
+import validationTest from '../src/validationTest.json';
 
 
 test('checkBox', () => {
@@ -31,6 +32,23 @@ test('textInput', () => {
 
 });
 
+test('textInputWithPatternAndMessage', () => {
+  const handle = jest.fn();
+
+  const spy = jest.spyOn(PropertyInput.prototype, "patternValidationMessage");
+  const wrapper = mount(
+    <PropertyInput path={"/textInputWithPatternAndMessage"} bean={validationTest} />
+  );
+
+  wrapper.find('input').simulate('input', {target: {setCustomValidity: handle, validity: {patternMismatch: true}}});
+  expect(spy.mock.calls.length).toEqual(1);
+  expect(handle.mock.calls[0]).toEqual(["Enter 3 digits."]);
+
+  wrapper.find('input').simulate('input', {target: {setCustomValidity: handle, validity: {}}});
+  expect(spy.mock.calls.length).toEqual(2);
+  expect(handle.mock.calls[1]).toEqual([""]);
+});
+
 test('date', () => {
   const handle = jest.fn();
 
@@ -50,12 +68,23 @@ test('date', () => {
   expect(handle.mock.calls[2]).toEqual(["/date", "20.07.20"]);
 
   expect(handle.mock.calls.length).toEqual(3);
+});
 
-  wrapper.instance().dateValidation({target:{setCustomValidity: handle, validity: {patternMismatch: true}}});
-  expect(handle.mock.calls[3]).toEqual(["Please enter a valid date in the format dd.mm.yyyy"]);
+test('date dateValidationMessage', () => {
+  const handle = jest.fn();
 
-  wrapper.instance().dateValidation({target:{setCustomValidity: handle, validity: {patternMismatch: false}}});
-  expect(handle.mock.calls[4]).toEqual([""]);
+  const spy = jest.spyOn(PropertyInput.prototype, "dateValidationMessage");
+  const wrapper = mount(
+    <PropertyInput path={"/date"} bean={bean} onChange={handle} />
+  );
+
+  wrapper.find('input').simulate('input', {target:{setCustomValidity: handle, validity: {patternMismatch: true}}});
+  expect(handle.mock.calls[0]).toEqual(["Please enter a valid date in the format dd.mm.yyyy"]);
+
+  wrapper.find('input').simulate('input', {target:{setCustomValidity: handle, validity: {patternMismatch: false}}});
+  expect(handle.mock.calls[1]).toEqual([""]);
+
+  expect(spy.mock.calls.length).toEqual(2);
 });
 
 test('date init with no valid date', () => {

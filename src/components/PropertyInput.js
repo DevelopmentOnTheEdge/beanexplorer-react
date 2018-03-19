@@ -17,7 +17,14 @@ class PropertyInput extends React.Component
   constructor(props) {
     super(props);
 
+    const path  = this.getPath();
+    const meta  = this.props.bean.meta[path];
+
+    this.state = {validationRulesMap: PropertyInput.getValidationRulesMap(meta.validationRules)};
+
     this.handleChange = this.handleChange.bind(this);
+    this.patternValidationMessage = this.patternValidationMessage.bind(this);
+    this.dateValidationMessage = this.dateValidationMessage.bind(this);
   }
 
   getPath() {
@@ -54,11 +61,23 @@ class PropertyInput extends React.Component
     }
   }
 
-  dateValidation(e) {
+  dateValidationMessage(e) {
     if (e.target.validity.patternMismatch) {
       e.target.setCustomValidity(this.props.localization.datePatternError)
     } else {
       e.target.setCustomValidity('')
+    }
+  }
+
+  patternValidationMessage(e) {
+    const pattern = this.state.validationRulesMap.pattern;
+    if(pattern && pattern.customMessage)
+    {
+      if (e.target.validity.patternMismatch) {
+        e.target.setCustomValidity(pattern.customMessage)
+      } else {
+        e.target.setCustomValidity('')
+      }
     }
   }
 
@@ -190,13 +209,14 @@ class PropertyInput extends React.Component
   }
 
   render() {
-    const path  = this.getPath();
-    const meta  = this.props.bean.meta[path];
-    const value = JsonPointer.get(this.props.bean, "/values" + path);
-    const id    = path.substring(path.lastIndexOf("/")+1) + "PropertyInput";
-    const extraAttrsMap = PropertyInput.getExtraAttrsMap(meta.extraAttrs);
-    const validationRulesMap = PropertyInput.getValidationRulesMap(meta.validationRules);
+    const path     = this.getPath();
+    const meta     = this.props.bean.meta[path];
+    const value    = JsonPointer.get(this.props.bean, "/values" + path);
+    const id       = path.substring(path.lastIndexOf("/")+1) + "PropertyInput";
     const required = meta.canBeNull !== true;
+    const extraAttrsMap = PropertyInput.getExtraAttrsMap(meta.extraAttrs);
+
+    const validationRulesMap = this.state.validationRulesMap;
 
     let inputTypeClass;
     switch (meta.type){
@@ -243,6 +263,8 @@ class PropertyInput extends React.Component
           type={type}
           maxLength={meta.columnSize}
           pattern={validationRulesMap.pattern ? validationRulesMap.pattern.attr : undefined}
+          onInvalid={this.patternValidationMessage}
+          onInput={this.patternValidationMessage}
           {...rawInputProps}
         />
       ),
@@ -251,6 +273,8 @@ class PropertyInput extends React.Component
           rows={extraAttrsMap.rows || 3}
           maxLength={meta.columnSize}
           pattern={validationRulesMap.pattern ? validationRulesMap.pattern.attr : undefined}
+          onInvalid={this.patternValidationMessage}
+          onInput={this.patternValidationMessage}
           {...rawInputProps}
         />
       ),
@@ -286,8 +310,8 @@ class PropertyInput extends React.Component
             baseProps,
             {
               pattern: "(^$|\\d{1,2}\\.\\d{1,2}\\.\\d{4})",
-              onInvalid: (v) => this.dateValidation(v),
-              onInput: (v) => this.dateValidation(v),
+              onInvalid: this.dateValidationMessage,
+              onInput: this.dateValidationMessage,
               placeholder: meta.placeholder
             }
           )}
