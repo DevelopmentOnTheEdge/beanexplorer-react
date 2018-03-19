@@ -54,7 +54,7 @@ class PropertyInput extends React.Component
     }
   }
 
-  validationDate(e) {
+  dateValidation(e) {
     if (e.target.validity.patternMismatch) {
       e.target.setCustomValidity(this.props.localization.datePatternError)
     } else {
@@ -62,7 +62,7 @@ class PropertyInput extends React.Component
     }
   }
 
-  validationNumber(e, range, step, type)
+  numberValidation(e, range, step, type)
   {
     const local = this.props.localization;
 
@@ -255,7 +255,10 @@ class PropertyInput extends React.Component
       strNumber: (range, step, type) => (
         <input
           type="text"
-          onInput={(e) => this.validationNumber(e, range, step, type)}
+          onInput={(e) => this.numberValidation(e, range, step, type)}
+          data-info-type={type}
+          data-info-range={range ? range.min + ', ' + range.max : undefined}
+          data-info-step={step}
           {...rawInputProps}
         />
       ),
@@ -281,8 +284,8 @@ class PropertyInput extends React.Component
             baseProps,
             {
               pattern: "(^$|\\d{1,2}\\.\\d{1,2}\\.\\d{4})",
-              onInvalid: (v) => this.validationDate(v),
-              onInput: (v) => this.validationDate(v),
+              onInvalid: (v) => this.dateValidation(v),
+              onInput: (v) => this.dateValidation(v),
               placeholder: meta.placeholder
             }
           )}
@@ -479,7 +482,7 @@ class PropertyInput extends React.Component
     if(validationRulesMap.range !== undefined || validationRulesMap.step !== undefined ||
       meta.type === 'Short' || meta.type === 'Integer' || meta.type === 'Long' || meta.type === 'Double')
     {
-      let step = validationRulesMap.step || (meta.type !== 'Double' ? 1 : undefined);
+      let step = validationRulesMap.step || (meta.type !== 'Double' ? '1' : undefined);
       let range;
 
       switch (meta.type)
@@ -524,8 +527,8 @@ PropertyInput.defaultProps = {
     stepMismatch: 'Please enter a valid value. The closest allowed values are {0} and {1}.',
     numberTypeMismatch: 'Enter the number.',
     simpleIntegerTypeMismatch: '"E" is not supported for simple integer types.',
-    rangeOverflow: 'The value must be greater than or equal to {0}.',
-    rangeUnderflow: 'The value must be less than or equal to {0}.',
+    rangeOverflow: 'The value must be less than or equal to {0}.',
+    rangeUnderflow: 'The value must be greater than or equal to {0}.',
     loadingPlaceholder: 'Loading...',
     datePatternError: 'Please enter a valid date in the format dd.mm.yyyy'
   },

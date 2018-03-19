@@ -2175,6 +2175,9 @@ exports[`validationTest 1`] = `
           >
             <input
               className="property-input form-control"
+              data-info-range="-32768, 32767"
+              data-info-step="1"
+              data-info-type="Short"
               disabled={undefined}
               id="shortPropertyInput"
               onChange={[Function]}
@@ -2205,6 +2208,9 @@ exports[`validationTest 1`] = `
           >
             <input
               className="property-input form-control"
+              data-info-range="-2147483648, 2147483647"
+              data-info-step="1"
+              data-info-type="Integer"
               disabled={undefined}
               id="integerPropertyInput"
               onChange={[Function]}
@@ -2235,6 +2241,9 @@ exports[`validationTest 1`] = `
           >
             <input
               className="property-input form-control"
+              data-info-range="-9223372036854775808, 9223372036854775807"
+              data-info-step="1"
+              data-info-type="Long"
               disabled={undefined}
               id="longPropertyInput"
               onChange={[Function]}
@@ -2265,6 +2274,9 @@ exports[`validationTest 1`] = `
           >
             <input
               className="property-input form-control"
+              data-info-range={undefined}
+              data-info-step={undefined}
+              data-info-type="Double"
               disabled={undefined}
               id="doublePropertyInput"
               onChange={[Function]}
@@ -2295,6 +2307,9 @@ exports[`validationTest 1`] = `
           >
             <input
               className="property-input form-control"
+              data-info-range="0, 1000"
+              data-info-step="0.5"
+              data-info-type={undefined}
               disabled={undefined}
               id="doubleWithRangeAndStepPropertyInput"
               onChange={[Function]}
@@ -2325,6 +2340,9 @@ exports[`validationTest 1`] = `
           >
             <input
               className="property-input form-control"
+              data-info-range="0, 100"
+              data-info-step="10"
+              data-info-type="Integer"
               disabled={undefined}
               id="integerWithRangeAndStepPropertyInput"
               onChange={[Function]}
