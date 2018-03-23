@@ -174,17 +174,6 @@ input:required, textarea:required {
   margin-top: 7px;
 }
 
-.form-control-file {
-  border-radius: .25rem;
-  padding: 3px 12px 3px 3px;
-  border: 1px solid #ced4da;
-}
-
-.form-control-file:disabled, .form-control-file[readonly] {
-  background-color: #e9ecef;
-  opacity: 1;
-}
-
 /****************************************************************************/
 
 .was-validated .required .Select:not(.is-disabled) .Select-control:focus,
