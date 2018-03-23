@@ -475,18 +475,6 @@ class PropertyInput extends React.Component
       />
     }
 
-    if(extraAttrsMap.inputType === 'textArea')
-    {
-      return <textarea
-        rows={extraAttrsMap.rows || 3}
-        maxLength={meta.columnSize}
-        pattern={validationRulesMap.pattern ? validationRulesMap.pattern.attr : undefined}
-        onInvalid={this.patternValidationMessage}
-        onInput={this.patternValidationMessage}
-        {...rawInputProps}
-      />
-    }
-
     if(validationRulesMap.mask !== undefined)
     {
       return <MaskedInput
@@ -552,13 +540,26 @@ class PropertyInput extends React.Component
       />
     }
 
+    const rawTextValidation = {
+      maxLength: meta.columnSize,
+      pattern: validationRulesMap.pattern ? validationRulesMap.pattern.attr : undefined,
+      onInvalid: this.patternValidationMessage,
+      onInput: this.patternValidationMessage
+    };
+
+    if(extraAttrsMap.inputType === 'textArea')
+    {
+      return <textarea
+        rows={extraAttrsMap.rows || 3}
+        {...rawInputProps}
+        {...rawTextValidation}
+      />
+    }
+
     return <input
       type={extraAttrsMap.inputType || 'text'}
-      maxLength={meta.columnSize}
-      pattern={validationRulesMap.pattern ? validationRulesMap.pattern.attr : undefined}
-      onInvalid={this.patternValidationMessage}
-      onInput={this.patternValidationMessage}
       {...rawInputProps}
+      {...rawTextValidation}
     />;
   }
 
