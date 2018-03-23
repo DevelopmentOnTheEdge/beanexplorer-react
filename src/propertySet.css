@@ -90,12 +90,8 @@ input:required, textarea:required {
 }
 
 /****************************************************************************/
-.form-control ~ .invalid-feedback,
-.form-control ~ .valid-feedback,
-.Select-outer ~ .invalid-feedback,
-.Select-outer ~ .valid-feedback,
-.Datetime-outer ~ .invalid-feedback,
-.Datetime-outer ~ .valid-feedback{
+.property .invalid-feedback,
+.property .valid-feedback {
   display: block;
 }
 
