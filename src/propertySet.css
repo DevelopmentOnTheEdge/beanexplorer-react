@@ -85,6 +85,11 @@ input:required, textarea:required {
 .vertical-input--sm .form-check-input {
   margin-top: 0.55rem;
 }
+.vertical-input--sm .invalid-feedback,
+.vertical-input--sm .form-text.text-muted{
+  margin-top: 0;
+}
+
 .vertical-input--lg .form-check-input {
   margin-top: 1.1rem;
 }
