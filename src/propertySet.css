@@ -98,7 +98,7 @@ input:required, textarea:required {
 /****************************************************************************/
 
 .Select.is-disabled > .Select-control {
-  background-color: #eaedf0;
+  background-color: #e9ecef;
 }
 .Select .Select-control{
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
