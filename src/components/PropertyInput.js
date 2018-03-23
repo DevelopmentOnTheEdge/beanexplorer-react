@@ -383,12 +383,6 @@ class PropertyInput extends React.Component
         disabled: meta.readOnly,
         multi: meta.multipleSelectionList,
         matchPos: extraAttrsMap.matchPos || "any",
-        className: classNames(
-          'property-input',
-          validationClasses,
-          {'Select--sm': this.props.bsSize === "sm"},
-          {'Select--lg': this.props.bsSize === "lg"}
-        ),
         required: required
       };
 
@@ -412,7 +406,18 @@ class PropertyInput extends React.Component
         select = <Select {...selectAttr} />;
       }
 
-      return <div style={style} >{select}</div>
+      return <div
+        className={classNames(
+          "Select-outer",
+          'property-input',
+          {'Select--sm': this.props.bsSize === "sm"},
+          {'Select--lg': this.props.bsSize === "lg"},
+          validationClasses
+        )}
+        style={style}
+      >
+        {select}
+      </div>
     }
 
     if(meta.labelField)

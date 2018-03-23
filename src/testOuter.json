@@ -47,6 +47,7 @@
       "displayName": "Select",
       "tagList": [["vanilla","Vanilla"],["chocolate","Chocolate"]],
       "groupId": 2,
+      "message": "Error message.",
       "status": "error"
     },
     "/checkBox2": {
@@ -73,6 +74,7 @@
       "displayName": "Select",
       "tagList": [["vanilla","Vanilla"],["chocolate","Chocolate"]],
       "groupId": 3,
+      "message": "Ok here",
       "status": "success"
     },
     "/checkBox3": {

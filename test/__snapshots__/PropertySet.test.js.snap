@@ -33,6 +33,7 @@ exports[`inline layout1 1`] = `
     className="property form-group required mb-2 mr-sm-2"
   >
     <div
+      className="Select-outer property-input"
       style={
         Object {
           "maxWidth": "100%",
@@ -41,7 +42,7 @@ exports[`inline layout1 1`] = `
       }
     >
       <div
-        className="Select property-input is-clearable is-searchable Select--single"
+        className="Select is-clearable is-searchable Select--single"
         style={undefined}
       >
         <div
@@ -868,10 +869,11 @@ exports[`snapshot bean 1`] = `
         className="controls"
       >
         <div
+          className="Select-outer property-input"
           style={undefined}
         >
           <div
-            className="Select property-input has-value is-clearable is-searchable Select--single"
+            className="Select has-value is-clearable is-searchable Select--single"
             style={undefined}
           >
             <input
@@ -1005,10 +1007,11 @@ exports[`snapshot bean 1`] = `
         className="controls"
       >
         <div
+          className="Select-outer property-input"
           style={undefined}
         >
           <div
-            className="Select property-input has-value is-clearable is-searchable Select--single"
+            className="Select has-value is-clearable is-searchable Select--single"
             style={undefined}
           >
             <input
@@ -1142,10 +1145,11 @@ exports[`snapshot bean 1`] = `
         className="controls"
       >
         <div
+          className="Select-outer property-input"
           style={undefined}
         >
           <div
-            className="Select property-input has-value is-clearable is-searchable Select--multi"
+            className="Select has-value is-clearable is-searchable Select--multi"
             style={undefined}
           >
             <input
@@ -1525,10 +1529,11 @@ exports[`test outer 1`] = `
             className="controls"
           >
             <div
+              className="Select-outer property-input is-invalid"
               style={undefined}
             >
               <div
-                className="Select property-input is-invalid has-value is-clearable is-searchable Select--single"
+                className="Select has-value is-clearable is-searchable Select--single"
                 style={undefined}
               >
                 <input
@@ -1643,6 +1648,11 @@ exports[`test outer 1`] = `
                 </div>
               </div>
             </div>
+            <div
+              className="invalid-feedback"
+            >
+              Error message.
+            </div>
           </div>
         </div>
       </div>
@@ -1755,10 +1765,11 @@ exports[`test outer 1`] = `
             className="controls"
           >
             <div
+              className="Select-outer property-input is-valid"
               style={undefined}
             >
               <div
-                className="Select property-input is-valid has-value is-clearable is-searchable Select--single"
+                className="Select has-value is-clearable is-searchable Select--single"
                 style={undefined}
               >
                 <input
@@ -1872,6 +1883,11 @@ exports[`test outer 1`] = `
                   </span>
                 </div>
               </div>
+            </div>
+            <div
+              className="valid-feedback"
+            >
+              Ok here
             </div>
           </div>
         </div>
