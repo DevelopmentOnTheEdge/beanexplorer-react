@@ -112,7 +112,7 @@ class Property extends React.Component
       {
         return (
           <div className={outerClasses}>
-            <div className={classNames('form-group property property-label')}>
+            <div className={classNames('property-label', formGroupClasses)}>
               <PropertyInput {...this.props} />
               {messageElement}
             </div>

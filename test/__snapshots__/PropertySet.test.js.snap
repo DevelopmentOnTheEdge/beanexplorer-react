@@ -1309,7 +1309,7 @@ exports[`snapshot bean 1`] = `
     className="vertical-input col-lg-12"
   >
     <div
-      className="form-group property property-label"
+      className="property-label property form-group required"
     >
       <label
         className="property-input"
@@ -1326,7 +1326,7 @@ exports[`snapshot bean 1`] = `
     className="vertical-input col-lg-12"
   >
     <div
-      className="form-group property property-label"
+      className="property-label property form-group required"
     >
       <label
         className="property-input text-warning"
@@ -1891,7 +1891,7 @@ exports[`snapshot bean with readOnly 1`] = `
     className="vertical-input col-lg-12"
   >
     <div
-      className="form-group property property-label"
+      className="property-label property form-group required"
     >
       <label
         className="property-input"
@@ -1908,7 +1908,7 @@ exports[`snapshot bean with readOnly 1`] = `
     className="vertical-input col-lg-12"
   >
     <div
-      className="form-group property property-label"
+      className="property-label property form-group required"
     >
       <label
         className="property-input text-warning"
@@ -2062,7 +2062,7 @@ exports[`test outer 1`] = `
         className="vertical-input col-lg-12"
       >
         <div
-          className="form-group property property-label"
+          className="property-label property form-group required"
         >
           <label
             className="property-input"
@@ -2305,7 +2305,7 @@ exports[`test outer 1`] = `
         className="vertical-input col-lg-12"
       >
         <div
-          className="form-group property property-label"
+          className="property-label property form-group required"
         >
           <label
             className="property-input text-danger"
@@ -2548,7 +2548,7 @@ exports[`test outer 1`] = `
         className="vertical-input col-lg-12"
       >
         <div
-          className="form-group property property-label"
+          className="property-label property form-group required"
         >
           <label
             className="property-input text-success"

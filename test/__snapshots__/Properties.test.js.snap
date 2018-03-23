@@ -40,7 +40,7 @@ exports[`contain property 1`] = `
     className="vertical-input col-lg-12"
   >
     <div
-      className="form-group property property-label"
+      className="property-label property form-group required"
     >
       <label
         className="property-input text-warning"
