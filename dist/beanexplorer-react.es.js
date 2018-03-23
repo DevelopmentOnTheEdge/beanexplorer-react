@@ -287,6 +287,10 @@ var PropertyInput = function (_React$Component) {
           inputTypeClass = 'form-control';
       }
 
+      if (extraAttrsMap.inputType === "form-control-plaintext" && meta.readOnly === true && inputTypeClass === 'form-control') {
+        inputTypeClass = 'form-control-plaintext';
+      }
+
       var validationClasses = classNames({ 'is-invalid': meta.status === 'error' }, { 'is-valid': meta.status === 'success' });
 
       var basePropsClasses = classNames('property-input', inputTypeClass, validationClasses, this.props.controlClassName, { 'form-control-sm': this.props.bsSize === "sm" && meta.type !== "Boolean" }, { 'form-control-lg': this.props.bsSize === "lg" && meta.type !== "Boolean" });
@@ -294,17 +298,31 @@ var PropertyInput = function (_React$Component) {
       var baseProps = {
         id: id,
         key: id,
-        disabled: meta.readOnly,
         required: required,
         size: meta.inputSize,
         className: basePropsClasses
       };
+
+      if (meta.readOnly === true) {
+        if (meta.type === 'Boolean' || meta.type === 'Base64File') {
+          baseProps['disabled'] = 'disabled';
+        } else {
+          baseProps['readOnly'] = 'readonly';
+        }
+      }
 
       var rawInputProps = Object.assign({}, baseProps, {
         value: value,
         onChange: this.handleChange,
         placeholder: meta.placeholder
       });
+
+      var rawTextValidation = {
+        maxLength: meta.columnSize,
+        pattern: validationRulesMap.pattern ? validationRulesMap.pattern.attr : undefined,
+        onInvalid: this.patternValidationMessage,
+        onInput: this.patternValidationMessage
+      };
 
       //      dateTime: {
       //        normal: () => {
@@ -357,7 +375,6 @@ var PropertyInput = function (_React$Component) {
           disabled: meta.readOnly,
           multi: meta.multipleSelectionList,
           matchPos: extraAttrsMap.matchPos || "any",
-          className: classNames('property-input', validationClasses, { 'Select--sm': this.props.bsSize === "sm" }, { 'Select--lg': this.props.bsSize === "lg" }),
           required: required
         };
 
@@ -377,7 +394,10 @@ var PropertyInput = function (_React$Component) {
 
         return React.createElement(
           'div',
-          { style: style },
+          {
+            className: classNames("Select-outer", 'property-input', { 'Select--sm': this.props.bsSize === "sm" }, { 'Select--lg': this.props.bsSize === "lg" }, validationClasses),
+            style: style
+          },
           select
         );
       }
@@ -426,16 +446,6 @@ var PropertyInput = function (_React$Component) {
         });
       }
 
-      if (extraAttrsMap.inputType === 'textArea') {
-        return React.createElement('textarea', _extends({
-          rows: extraAttrsMap.rows || 3,
-          maxLength: meta.columnSize,
-          pattern: validationRulesMap.pattern ? validationRulesMap.pattern.attr : undefined,
-          onInvalid: this.patternValidationMessage,
-          onInput: this.patternValidationMessage
-        }, rawInputProps));
-      }
-
       if (validationRulesMap.mask !== undefined) {
         return React.createElement(MaskedInput, _extends({
           mask: validationRulesMap.mask.attr,
@@ -467,22 +477,31 @@ var PropertyInput = function (_React$Component) {
       }
 
       if (meta.type === 'Date') {
-        return React.createElement(Datetime, {
-          dateFormat: 'DD.MM.YYYY',
-          key: id + "Datetime",
-          value: PropertyInput.dateFromISOFormat(value),
-          onChange: this.dateToISOFormat,
-          timeFormat: false,
-          closeOnSelect: true,
-          closeOnTab: true,
-          locale: this.props.localization.locale,
-          inputProps: Object.assign({}, baseProps, {
-            pattern: "(^$|\\d{1,2}\\.\\d{1,2}\\.\\d{4})",
-            onInvalid: this.dateValidationMessage,
-            onInput: this.dateValidationMessage,
-            placeholder: meta.placeholder
-          })
-        });
+        if (meta.readOnly !== true) {
+          return React.createElement(Datetime, {
+            dateFormat: 'DD.MM.YYYY',
+            key: id + "Datetime",
+            value: PropertyInput.dateFromISOFormat(value),
+            onChange: this.dateToISOFormat,
+            timeFormat: false,
+            closeOnSelect: true,
+            closeOnTab: true,
+            locale: this.props.localization.locale,
+            inputProps: Object.assign({}, baseProps, {
+              pattern: "(^$|\\d{1,2}\\.\\d{1,2}\\.\\d{4})",
+              onInvalid: this.dateValidationMessage,
+              onInput: this.dateValidationMessage,
+              placeholder: meta.placeholder
+            }),
+            className: 'Datetime-outer'
+          });
+        } else {
+          return React.createElement('input', _extends({
+            type: 'text'
+          }, rawInputProps, rawTextValidation, {
+            value: PropertyInput.dateFromISOFormat(value)
+          }));
+        }
       }
 
       if (meta.type === 'Boolean') {
@@ -493,13 +512,15 @@ var PropertyInput = function (_React$Component) {
         }, baseProps));
       }
 
+      if (extraAttrsMap.inputType === 'textArea') {
+        return React.createElement('textarea', _extends({
+          rows: extraAttrsMap.rows || 3
+        }, rawInputProps, rawTextValidation));
+      }
+
       return React.createElement('input', _extends({
-        type: extraAttrsMap.inputType || 'text',
-        maxLength: meta.columnSize,
-        pattern: validationRulesMap.pattern ? validationRulesMap.pattern.attr : undefined,
-        onInvalid: this.patternValidationMessage,
-        onInput: this.patternValidationMessage
-      }, rawInputProps));
+        type: extraAttrsMap.inputType || 'text'
+      }, rawInputProps, rawTextValidation));
     }
   }], [{
     key: 'dateFromISOFormat',
@@ -729,7 +750,8 @@ var Property = function (_React$Component) {
           return React.createElement(
             'div',
             { className: classNames('form-group property property-label', meta.cssClasses || 'col-lg-12') },
-            React.createElement(PropertyInput, this.props)
+            React.createElement(PropertyInput, this.props),
+            messageElement
           );
         } else {
           return React.createElement(

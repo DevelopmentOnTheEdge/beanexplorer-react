@@ -893,9 +893,15 @@ input:required, textarea:required {
 }
 
 /****************************************************************************/
+.property .invalid-feedback,
+.property .valid-feedback {
+  display: block;
+}
+
+/****************************************************************************/
 
 .Select.is-disabled > .Select-control {
-  background-color: #eaedf0;
+  background-color: #e9ecef;
 }
 .Select .Select-control{
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
@@ -907,11 +913,12 @@ input:required, textarea:required {
 .Select.has-value.Select--single > .Select-control .Select-value .Select-value-label, .Select.has-value.is-pseudo-focused.Select--single > .Select-control .Select-value .Select-value-label {
   color: #495057;
 }
+.Select.is-focused > .Select-control,
 .Select.is-focused:not(.is-open) > .Select-control {
   border-color: #80bdff;
+  outline: 0;
   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
-
 /****************************************************************************/
 
 .Select-placeholder,
@@ -928,7 +935,7 @@ input:required, textarea:required {
 }
 
 .Select--sm .Select-placeholder,
-.Select--sm.Select--single > .Select-control .Select-value,
+.Select--sm .Select--single > .Select-control .Select-value,
 .Select--sm .Select-input > input{
   line-height: 29px;
 }
@@ -946,12 +953,12 @@ input:required, textarea:required {
 .Select--sm .Select-option {
   padding: 4px 10px;
 }
-.Select--sm.Select--multi .Select-value {
+.Select--sm .Select--multi .Select-value {
   margin-top: 3px;
 }
 
 .Select--lg .Select-placeholder,
-.Select--lg.Select--single > .Select-control .Select-value,
+.Select--lg .Select--single > .Select-control .Select-value,
 .Select--lg .Select-input > input{
   line-height: 46px;
 }
@@ -966,49 +973,38 @@ input:required, textarea:required {
 .Select--lg .Select-option {
   font-size: 1.25rem;
 }
-.Select--lg.Select--multi .Select-value {
+.Select--lg .Select--multi .Select-value {
   margin-top: 7px;
-}
-
-.form-control-file {
-  border-radius: .25rem;
-  padding: 3px 12px 3px 3px;
-  border: 1px solid #ced4da;
-}
-
-.form-control-file:disabled, .form-control-file[readonly] {
-  background-color: #e9ecef;
-  opacity: 1;
 }
 
 /****************************************************************************/
 
 .was-validated .required .Select:not(.is-disabled) .Select-control:focus,
-.Select.is-invalid.is-focused:not(.is-open) > .Select-control,
+.is-invalid .Select.is-focused:not(.is-open) > .Select-control,
 .was-validated .required .Select.is-focused:not(.is-open) > .Select-control,
-.Select.is-invalid .Select-control:focus,
+.is-invalid .Select .Select-control:focus,
 .was-validated .form-control-file:invalid:focus{
   border-color: #dc3545;
   box-shadow: 0 0 0 0.2rem rgba(220,53,69,.25);
 }
 
 .was-validated .required .Select:not(.is-disabled) .Select-control,
-.Select.is-invalid .Select-control,
+.is-invalid .Select .Select-control,
 .was-validated .form-control-file:invalid{
   border-color: #dc3545;
 }
 
 .was-validated .required .Select.has-value:not(.is-disabled) .Select-control:focus,
-.Select.is-valid.is-focused:not(.is-open) > .Select-control,
+.is-valid .Select.is-focused:not(.is-open) > .Select-control,
 .was-validated .Select.has-value.is-focused:not(.is-open) > .Select-control,
-.Select.is-valid .Select-control:focus,
+.is-valid .Select .Select-control:focus,
 .was-validated .form-control-file:valid:focus{
   border-color: #28a745;
   box-shadow: 0 0 0 0.2rem rgba(40,167,69,.25);
 }
 
 .was-validated .required .Select.has-value:not(.is-disabled) .Select-control,
-.Select.is-valid .Select-control,
+.is-valid .Select .Select-control,
 .was-validated .form-control-file:valid{
   border-color: #28a745;
 }
