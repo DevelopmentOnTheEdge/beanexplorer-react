@@ -52,16 +52,6 @@ class Property extends React.Component
       }
     }
 
-    const cssClasses = meta.cssClasses || 'col-lg-12';
-
-    const outerClasses = classNames(
-      'vertical-input',
-      {'vertical-input--sm': this.props.bsSize === "sm"},
-      {'vertical-input--lg': this.props.bsSize === "lg"},
-      cssClasses,
-      {'display-none' : meta.hidden}
-    );
-
     const formGroupClasses = classNames(
       'property',
       {'form-group': meta.type !== 'Boolean'},
@@ -71,10 +61,16 @@ class Property extends React.Component
 
     if(this.props.inline)
     {
+      const outerClasses = classNames(
+        formGroupClasses,
+        meta.cssClasses || 'mb-2 mr-sm-2',
+        {'display-none' : meta.hidden}
+      );
+
       if(meta.type === "Boolean")
       {
         return (
-          <div className={classNames(meta.cssClasses, formGroupClasses, "mb-2 mr-sm-2", {'display-none' : meta.hidden})} >
+          <div className={outerClasses} >
             <PropertyInput {...this.props} />
             {label}
           </div>
@@ -83,7 +79,7 @@ class Property extends React.Component
       else
       {
         return (
-          <div className={classNames(meta.cssClasses, formGroupClasses, "mb-2 mr-sm-2", {'display-none' : meta.hidden})} >
+          <div className={outerClasses} >
             {label}
             <PropertyInput {...this.props}/>
           </div>
@@ -92,6 +88,14 @@ class Property extends React.Component
     }
     else
     {
+      const outerClasses = classNames(
+        'vertical-input',
+        {'vertical-input--sm': this.props.bsSize === "sm"},
+        {'vertical-input--lg': this.props.bsSize === "lg"},
+        meta.cssClasses || 'col-lg-12',
+        {'display-none' : meta.hidden}
+      );
+
       if(meta.type === "Boolean")
       {
         return (
@@ -107,9 +111,11 @@ class Property extends React.Component
       else if(meta.labelField)
       {
         return (
-          <div className={classNames('form-group property property-label', meta.cssClasses || 'col-lg-12')}>
-            <PropertyInput {...this.props} />
-            {messageElement}
+          <div className={outerClasses}>
+            <div className={classNames('form-group property property-label')}>
+              <PropertyInput {...this.props} />
+              {messageElement}
+            </div>
           </div>
         );
       }

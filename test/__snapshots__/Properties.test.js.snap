@@ -37,14 +37,18 @@ exports[`contain property 1`] = `
     </div>
   </div>
   <div
-    className="form-group property property-label col-lg-12"
+    className="vertical-input col-lg-12"
   >
-    <label
-      className="property-input text-warning"
-      id="labelFieldPropertyInput"
+    <div
+      className="form-group property property-label"
     >
-      Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
-    </label>
+      <label
+        className="property-input text-warning"
+        id="labelFieldPropertyInput"
+      >
+        Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+      </label>
+    </div>
   </div>
 </div>
 `;

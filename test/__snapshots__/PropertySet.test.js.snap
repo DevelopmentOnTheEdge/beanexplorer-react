@@ -1306,27 +1306,35 @@ exports[`snapshot bean 1`] = `
     </div>
   </div>
   <div
-    className="form-group property property-label col-lg-12"
+    className="vertical-input col-lg-12"
   >
-    <label
-      className="property-input"
-      dangerouslySetInnerHTML={
-        Object {
-          "__html": "<p>Pellentesque habitant morbi tristique senectus et netus et <a href=\\"#test\\">Link</a> malesuada fames ac <b>turpis</b> egestas.</p>",
+    <div
+      className="form-group property property-label"
+    >
+      <label
+        className="property-input"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<p>Pellentesque habitant morbi tristique senectus et netus et <a href=\\"#test\\">Link</a> malesuada fames ac <b>turpis</b> egestas.</p>",
+          }
         }
-      }
-      id="labelFieldRawPropertyInput"
-    />
+        id="labelFieldRawPropertyInput"
+      />
+    </div>
   </div>
   <div
-    className="form-group property property-label col-lg-12"
+    className="vertical-input col-lg-12"
   >
-    <label
-      className="property-input text-warning"
-      id="labelFieldPropertyInput"
+    <div
+      className="form-group property property-label"
     >
-      Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
-    </label>
+      <label
+        className="property-input text-warning"
+        id="labelFieldPropertyInput"
+      >
+        Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+      </label>
+    </div>
   </div>
   <div
     className="vertical-input col-lg-12"
@@ -1880,27 +1888,35 @@ exports[`snapshot bean with readOnly 1`] = `
     </div>
   </div>
   <div
-    className="form-group property property-label col-lg-12"
+    className="vertical-input col-lg-12"
   >
-    <label
-      className="property-input"
-      dangerouslySetInnerHTML={
-        Object {
-          "__html": "<p>Pellentesque habitant morbi tristique senectus et netus et <a href=\\"#test\\">Link</a> malesuada fames ac <b>turpis</b> egestas.</p>",
+    <div
+      className="form-group property property-label"
+    >
+      <label
+        className="property-input"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<p>Pellentesque habitant morbi tristique senectus et netus et <a href=\\"#test\\">Link</a> malesuada fames ac <b>turpis</b> egestas.</p>",
+          }
         }
-      }
-      id="labelFieldRawPropertyInput"
-    />
+        id="labelFieldRawPropertyInput"
+      />
+    </div>
   </div>
   <div
-    className="form-group property property-label col-lg-12"
+    className="vertical-input col-lg-12"
   >
-    <label
-      className="property-input text-warning"
-      id="labelFieldPropertyInput"
+    <div
+      className="form-group property property-label"
     >
-      Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
-    </label>
+      <label
+        className="property-input text-warning"
+        id="labelFieldPropertyInput"
+      >
+        Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+      </label>
+    </div>
   </div>
   <div
     className="vertical-input col-lg-12"
@@ -2043,19 +2059,23 @@ exports[`test outer 1`] = `
         </div>
       </div>
       <div
-        className="form-group property property-label col-lg-12"
+        className="vertical-input col-lg-12"
       >
-        <label
-          className="property-input"
-          id="labelFieldPropertyInput"
+        <div
+          className="form-group property property-label"
         >
-          Pellentesque habitant morbi tristique senectus...
-        </label>
-        <small
-          className="form-text text-muted"
-        >
-          Help text.
-        </small>
+          <label
+            className="property-input"
+            id="labelFieldPropertyInput"
+          >
+            Pellentesque habitant morbi tristique senectus...
+          </label>
+          <small
+            className="form-text text-muted"
+          >
+            Help text.
+          </small>
+        </div>
       </div>
     </div>
   </div>
@@ -2282,18 +2302,22 @@ exports[`test outer 1`] = `
         </div>
       </div>
       <div
-        className="form-group property property-label col-lg-12"
+        className="vertical-input col-lg-12"
       >
-        <label
-          className="property-input text-danger"
-          id="labelField2PropertyInput"
-        >
-          Pellentesque habitant morbi tristique senectus...
-        </label>
         <div
-          className="invalid-feedback"
+          className="form-group property property-label"
         >
-          Error sub message.
+          <label
+            className="property-input text-danger"
+            id="labelField2PropertyInput"
+          >
+            Pellentesque habitant morbi tristique senectus...
+          </label>
+          <div
+            className="invalid-feedback"
+          >
+            Error sub message.
+          </div>
         </div>
       </div>
     </div>
@@ -2521,18 +2545,22 @@ exports[`test outer 1`] = `
         </div>
       </div>
       <div
-        className="form-group property property-label col-lg-12"
+        className="vertical-input col-lg-12"
       >
-        <label
-          className="property-input text-success"
-          id="labelField3PropertyInput"
-        >
-          Pellentesque habitant morbi tristique senectus...
-        </label>
         <div
-          className="valid-feedback"
+          className="form-group property property-label"
         >
-          Ok here
+          <label
+            className="property-input text-success"
+            id="labelField3PropertyInput"
+          >
+            Pellentesque habitant morbi tristique senectus...
+          </label>
+          <div
+            className="valid-feedback"
+          >
+            Ok here
+          </div>
         </div>
       </div>
     </div>
