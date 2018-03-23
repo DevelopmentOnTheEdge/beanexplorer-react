@@ -109,6 +109,7 @@ class Property extends React.Component
         return (
           <div className={classNames('form-group property property-label', meta.cssClasses || 'col-lg-12')}>
             <PropertyInput {...this.props} />
+            {messageElement}
           </div>
         );
       }

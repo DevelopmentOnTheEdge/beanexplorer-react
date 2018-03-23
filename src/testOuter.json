@@ -34,6 +34,7 @@
     },
     "/labelField": {
       "labelField": true,
+      "message": "Help text.",
       "groupId": 1
     },
     "/textInput2": {
@@ -61,6 +62,7 @@
     "/labelField2": {
       "labelField": true,
       "groupId": 2,
+      "message": "Error sub message.",
       "status": "error"
     },
     "/textInput3": {
@@ -87,6 +89,7 @@
     "/labelField3": {
       "labelField": true,
       "groupId": 3,
+      "message": "Ok here",
       "status": "success"
     },
     "/textInput4": {

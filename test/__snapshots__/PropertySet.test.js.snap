@@ -1458,6 +1458,11 @@ exports[`test outer 1`] = `
         >
           Pellentesque habitant morbi tristique senectus...
         </label>
+        <small
+          className="form-text text-muted"
+        >
+          Help text.
+        </small>
       </div>
     </div>
   </div>
@@ -1694,6 +1699,11 @@ exports[`test outer 1`] = `
         >
           Pellentesque habitant morbi tristique senectus...
         </label>
+        <div
+          className="invalid-feedback"
+        >
+          Error sub message.
+        </div>
       </div>
     </div>
   </div>
@@ -1930,6 +1940,11 @@ exports[`test outer 1`] = `
         >
           Pellentesque habitant morbi tristique senectus...
         </label>
+        <div
+          className="valid-feedback"
+        >
+          Ok here
+        </div>
       </div>
     </div>
   </div>
