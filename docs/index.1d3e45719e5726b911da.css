@@ -904,7 +904,9 @@ input:required, textarea:required {
 }
 
 /****************************************************************************/
-
+.Select-control:hover {
+  box-shadow: none;
+}
 .Select.is-disabled > .Select-control,
 .is-disabled .Select-control .Select-input:focus {
   background-color: #e9ecef;
@@ -919,8 +921,7 @@ input:required, textarea:required {
 .Select.has-value.Select--single > .Select-control .Select-value .Select-value-label, .Select.has-value.is-pseudo-focused.Select--single > .Select-control .Select-value .Select-value-label {
   color: #495057;
 }
-.Select.is-focused > .Select-control,
-.Select.is-focused:not(.is-open) > .Select-control {
+.property .Select.is-focused > .Select-control{
   border-color: #80bdff;
   outline: 0;
   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
@@ -985,34 +986,26 @@ input:required, textarea:required {
 
 /****************************************************************************/
 
-.was-validated .required .Select:not(.is-disabled) .Select-control:focus,
-.is-invalid .Select.is-focused > .Select-control,
-.is-invalid .Select.is-focused:not(.is-open) > .Select-control,
-.was-validated .required .Select.is-focused:not(.is-open) > .Select-control,
-.is-invalid .Select .Select-control:focus,
-.was-validated .form-control-file:invalid:focus{
+.was-validated .required.property .Select.is-focused > .Select-control,
+.property .is-invalid .Select.is-focused > .Select-control{
   border-color: #dc3545;
   box-shadow: 0 0 0 0.2rem rgba(220,53,69,.25);
 }
 
 .was-validated .required .Select:not(.is-disabled) .Select-control,
-.is-invalid .Select .Select-control,
-.was-validated .form-control-file:invalid{
+.is-invalid .Select .Select-control{
   border-color: #dc3545;
 }
 
-.was-validated .required .Select.has-value:not(.is-disabled) .Select-control:focus,
-.is-valid .Select.is-focused > .Select-control,
-.is-valid .Select.is-focused:not(.is-open) > .Select-control,
-.was-validated .Select.has-value.is-focused:not(.is-open) > .Select-control,
-.is-valid .Select .Select-control:focus,
-.was-validated .form-control-file:valid:focus{
+.was-validated .required.property .Select.has-value.is-focused > .Select-control,
+.was-validated .property .Select.is-focused > .Select-control,
+.property .is-valid .Select.is-focused > .Select-control{
   border-color: #28a745;
   box-shadow: 0 0 0 0.2rem rgba(40,167,69,.25);
 }
 
 .was-validated .required .Select.has-value:not(.is-disabled) .Select-control,
-.is-valid .Select .Select-control,
-.was-validated .form-control-file:valid{
+.was-validated .Select:not(.is-disabled) .Select-control,
+.is-valid .Select .Select-control{
   border-color: #28a745;
 }
