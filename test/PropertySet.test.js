@@ -29,12 +29,15 @@ test('snapshot bean', () => {
   expect(component.toJSON()).toMatchSnapshot();
 });
 
-test('renders without crashing readOnly', () => {
+test('snapshot bean with readOnly', () => {
   for(let item in bean.meta) {
     bean.meta[item]['readOnly'] = true;
   }
 
-  mount(<PropertySet bean={bean}/>);
+  const component = renderer.create(
+    <PropertySet bean={bean} />
+  );
+  expect(component.toJSON()).toMatchSnapshot();
 });
 
 test('renders without crashing empty value', () => {

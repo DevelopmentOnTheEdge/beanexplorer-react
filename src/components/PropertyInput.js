@@ -315,11 +315,19 @@ class PropertyInput extends React.Component
     const baseProps = {
       id: id,
       key: id,
-      disabled: meta.readOnly,
       required: required,
       size: meta.inputSize,
       className: basePropsClasses
     };
+
+    if(meta.readOnly === true)
+    {
+      if(meta.type === 'Boolean' || meta.type === 'Base64File'){
+        baseProps['disabled'] = 'disabled';
+      }else{
+        baseProps['readOnly'] = 'readonly';
+      }
+    }
 
     const rawInputProps = Object.assign({},
       baseProps,
@@ -329,6 +337,13 @@ class PropertyInput extends React.Component
         placeholder: meta.placeholder
       }
     );
+
+    const rawTextValidation = {
+      maxLength: meta.columnSize,
+      pattern: validationRulesMap.pattern ? validationRulesMap.pattern.attr : undefined,
+      onInvalid: this.patternValidationMessage,
+      onInput: this.patternValidationMessage
+    };
 
 //      dateTime: {
 //        normal: () => {
@@ -510,26 +525,35 @@ class PropertyInput extends React.Component
     }
 
     if(meta.type === 'Date'){
-      return <Datetime
-        dateFormat="DD.MM.YYYY"
-        key={id + "Datetime"}
-        value={PropertyInput.dateFromISOFormat(value)}
-        onChange={this.dateToISOFormat}
-        timeFormat={false}
-        closeOnSelect={true}
-        closeOnTab={true}
-        locale={this.props.localization.locale}
-        inputProps={ Object.assign({},
-          baseProps,
-          {
-            pattern: "(^$|\\d{1,2}\\.\\d{1,2}\\.\\d{4})",
-            onInvalid: this.dateValidationMessage,
-            onInput: this.dateValidationMessage,
-            placeholder: meta.placeholder
-          }
-        )}
-        className="Datetime-outer"
-      />
+      if(meta.readOnly !== true) {
+        return <Datetime
+          dateFormat="DD.MM.YYYY"
+          key={id + "Datetime"}
+          value={PropertyInput.dateFromISOFormat(value)}
+          onChange={this.dateToISOFormat}
+          timeFormat={false}
+          closeOnSelect={true}
+          closeOnTab={true}
+          locale={this.props.localization.locale}
+          inputProps={Object.assign({},
+            baseProps,
+            {
+              pattern: "(^$|\\d{1,2}\\.\\d{1,2}\\.\\d{4})",
+              onInvalid: this.dateValidationMessage,
+              onInput: this.dateValidationMessage,
+              placeholder: meta.placeholder
+            }
+          )}
+          className="Datetime-outer"
+        />
+      }else{
+        return <input
+          type={'text'}
+          {...rawInputProps}
+          {...rawTextValidation}
+          value={PropertyInput.dateFromISOFormat(value)}
+        />;
+      }
     }
 
     if(meta.type === 'Boolean'){
@@ -540,13 +564,6 @@ class PropertyInput extends React.Component
         {...baseProps}
       />
     }
-
-    const rawTextValidation = {
-      maxLength: meta.columnSize,
-      pattern: validationRulesMap.pattern ? validationRulesMap.pattern.attr : undefined,
-      onInvalid: this.patternValidationMessage,
-      onInput: this.patternValidationMessage
-    };
 
     if(extraAttrsMap.inputType === 'textArea')
     {

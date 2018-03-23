@@ -21,7 +21,6 @@ exports[`contain property 1`] = `
       >
         <input
           className="property-input form-control"
-          disabled={undefined}
           id="textInputPropertyInput"
           maxLength={undefined}
           onChange={[Function]}

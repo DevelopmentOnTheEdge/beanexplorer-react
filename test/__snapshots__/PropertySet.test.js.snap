@@ -15,7 +15,6 @@ exports[`inline layout1 1`] = `
   >
     <input
       className="property-input form-control"
-      disabled={undefined}
       id="namePropertyInput"
       maxLength={undefined}
       onChange={[Function]}
@@ -143,7 +142,6 @@ exports[`inline layout2 1`] = `
     </label>
     <input
       className="property-input form-control"
-      disabled={undefined}
       id="name2PropertyInput"
       maxLength={undefined}
       onChange={[Function]}
@@ -163,7 +161,6 @@ exports[`inline layout2 1`] = `
     <input
       checked={false}
       className="property-input form-check-input"
-      disabled={undefined}
       id="subject2PropertyInput"
       onChange={[Function]}
       required={true}
@@ -192,7 +189,6 @@ exports[`inline layout2 1`] = `
   >
     <input
       className="property-input form-control"
-      disabled={undefined}
       id="hiddenInputPropertyInput"
       maxLength={undefined}
       onChange={[Function]}
@@ -224,7 +220,6 @@ exports[`simple property set 1`] = `
       >
         <input
           className="property-input form-control"
-          disabled={undefined}
           id="numberPropertyInput"
           maxLength={undefined}
           onChange={[Function]}
@@ -264,7 +259,6 @@ exports[`snapshot bean 1`] = `
       >
         <input
           className="property-input form-control"
-          disabled={undefined}
           id="textInputPropertyInput"
           maxLength={undefined}
           onChange={[Function]}
@@ -300,7 +294,6 @@ exports[`snapshot bean 1`] = `
         >
           <input
             className="property-input form-control"
-            disabled={undefined}
             id="datePropertyInput"
             onChange={[Function]}
             onClick={[Function]}
@@ -722,7 +715,6 @@ exports[`snapshot bean 1`] = `
           data-info-range="-2147483648, 2147483647"
           data-info-step="1"
           data-info-type="Integer"
-          disabled={undefined}
           id="numberPropertyInput"
           onChange={[Function]}
           onInput={[Function]}
@@ -752,7 +744,6 @@ exports[`snapshot bean 1`] = `
       >
         <input
           className="property-input form-control"
-          disabled={undefined}
           id="maskPropertyInput"
           mask="11111"
           maxLength={5}
@@ -785,7 +776,6 @@ exports[`snapshot bean 1`] = `
       >
         <textarea
           className="property-input form-control"
-          disabled={undefined}
           id="textAreaPropertyInput"
           maxLength={undefined}
           onChange={[Function]}
@@ -810,7 +800,6 @@ exports[`snapshot bean 1`] = `
       <input
         checked={true}
         className="property-input form-check-input"
-        disabled={undefined}
         id="checkBoxPropertyInput"
         onChange={[Function]}
         required={true}
@@ -842,7 +831,6 @@ exports[`snapshot bean 1`] = `
       >
         <input
           className="property-input form-control-file"
-          disabled={undefined}
           id="filePropertyInput"
           multiple={undefined}
           onChange={[Function]}
@@ -1364,6 +1352,580 @@ exports[`snapshot bean 1`] = `
 </div>
 `;
 
+exports[`snapshot bean with readOnly 1`] = `
+<div
+  className="property-set form-row"
+>
+  <div
+    className="vertical-input col-lg-12"
+  >
+    <div
+      className="property form-group required"
+    >
+      <label
+        className="form-control-label"
+        htmlFor="textInputPropertyInput"
+      >
+        Text input
+      </label>
+      <div
+        className="controls"
+      >
+        <input
+          className="property-input form-control"
+          id="textInputPropertyInput"
+          maxLength={undefined}
+          onChange={[Function]}
+          onInput={[Function]}
+          onInvalid={[Function]}
+          pattern={undefined}
+          placeholder={undefined}
+          readOnly="readonly"
+          required={true}
+          size={undefined}
+          type="text"
+          value="test"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="vertical-input col-lg-12"
+  >
+    <div
+      className="property form-group required"
+    >
+      <label
+        className="form-control-label"
+        htmlFor="datePropertyInput"
+      >
+        Date
+      </label>
+      <div
+        className="controls"
+      >
+        <input
+          className="property-input form-control"
+          id="datePropertyInput"
+          maxLength={undefined}
+          onChange={[Function]}
+          onInput={[Function]}
+          onInvalid={[Function]}
+          pattern={undefined}
+          placeholder={undefined}
+          readOnly="readonly"
+          required={true}
+          size={undefined}
+          type="text"
+          value="20.07.2017"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="vertical-input col-lg-12"
+  >
+    <div
+      className="property form-group required"
+    >
+      <label
+        className="form-control-label"
+        htmlFor="numberPropertyInput"
+      >
+        Number
+      </label>
+      <div
+        className="controls"
+      >
+        <input
+          className="property-input form-control"
+          data-info-range="-2147483648, 2147483647"
+          data-info-step="1"
+          data-info-type="Integer"
+          id="numberPropertyInput"
+          onChange={[Function]}
+          onInput={[Function]}
+          placeholder={undefined}
+          readOnly="readonly"
+          required={true}
+          size={undefined}
+          type="text"
+          value="123"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="vertical-input col-lg-12"
+  >
+    <div
+      className="property form-group required"
+    >
+      <label
+        className="form-control-label"
+        htmlFor="maskPropertyInput"
+      >
+        Mask
+      </label>
+      <div
+        className="controls"
+      >
+        <input
+          className="property-input form-control"
+          id="maskPropertyInput"
+          mask="11111"
+          maxLength={5}
+          onChange={[Function]}
+          onKeyDown={[Function]}
+          onKeyPress={[Function]}
+          onPaste={[Function]}
+          placeholder="_____"
+          readOnly="readonly"
+          required={true}
+          size={5}
+          value="123__"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="vertical-input col-lg-12"
+  >
+    <div
+      className="property form-group required"
+    >
+      <label
+        className="form-control-label"
+        htmlFor="textAreaPropertyInput"
+      >
+        TextArea
+      </label>
+      <div
+        className="controls"
+      >
+        <textarea
+          className="property-input form-control"
+          id="textAreaPropertyInput"
+          maxLength={undefined}
+          onChange={[Function]}
+          onInput={[Function]}
+          onInvalid={[Function]}
+          pattern={undefined}
+          placeholder={undefined}
+          readOnly="readonly"
+          required={true}
+          rows={3}
+          size={undefined}
+          value="test"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="vertical-input col-lg-12"
+  >
+    <div
+      className="property form-check required"
+    >
+      <input
+        checked={true}
+        className="property-input form-check-input"
+        disabled="disabled"
+        id="checkBoxPropertyInput"
+        onChange={[Function]}
+        required={true}
+        size={undefined}
+        type="checkbox"
+      />
+      <label
+        className="form-check-label"
+        htmlFor="checkBoxPropertyInput"
+      >
+        CheckBox
+      </label>
+    </div>
+  </div>
+  <div
+    className="vertical-input col-lg-12"
+  >
+    <div
+      className="property form-group"
+    >
+      <label
+        className="form-control-label"
+        htmlFor="filePropertyInput"
+      >
+        File
+      </label>
+      <div
+        className="controls"
+      >
+        <input
+          className="property-input form-control-file"
+          disabled="disabled"
+          id="filePropertyInput"
+          multiple={undefined}
+          onChange={[Function]}
+          required={false}
+          size={undefined}
+          type="file"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="vertical-input col-lg-12"
+  >
+    <div
+      className="property form-group required"
+    >
+      <label
+        className="form-control-label"
+        htmlFor="selectPropertyInput"
+      >
+        Select
+      </label>
+      <div
+        className="controls"
+      >
+        <div
+          className="Select-outer property-input"
+          style={undefined}
+        >
+          <div
+            className="Select has-value is-clearable is-disabled is-searchable Select--single"
+            style={undefined}
+          >
+            <input
+              disabled={true}
+              name="selectPropertyInput"
+              type="hidden"
+              value="vanilla"
+            />
+            <div
+              className="Select-control"
+              onKeyDown={[Function]}
+              onMouseDown={[Function]}
+              onTouchEnd={[Function]}
+              onTouchMove={[Function]}
+              onTouchStart={[Function]}
+              style={undefined}
+            >
+              <span
+                className="Select-multi-value-wrapper"
+                id="react-select-14--value"
+              >
+                <div
+                  className="Select-value"
+                  style={undefined}
+                  title={undefined}
+                >
+                  <span
+                    aria-selected="true"
+                    className="Select-value-label"
+                    id="react-select-14--value-item"
+                    role="option"
+                  >
+                    Vanilla
+                  </span>
+                </div>
+                <div
+                  aria-activedescendant="react-select-14--value"
+                  aria-disabled="true"
+                  aria-expanded={false}
+                  aria-label={undefined}
+                  aria-labelledby={undefined}
+                  aria-owns=""
+                  className="Select-input"
+                  onBlur={[Function]}
+                  onFocus={[Function]}
+                  role="combobox"
+                  style={
+                    Object {
+                      "border": 0,
+                      "display": "inline-block",
+                      "width": 1,
+                    }
+                  }
+                  tabIndex={0}
+                />
+              </span>
+              <span
+                className="Select-arrow-zone"
+                onMouseDown={[Function]}
+              >
+                <span
+                  className="Select-arrow"
+                  onMouseDown={[Function]}
+                />
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="vertical-input col-lg-12"
+  >
+    <div
+      className="property form-group required"
+    >
+      <label
+        className="form-control-label"
+        htmlFor="virtualizedSelectPropertyInput"
+      >
+        VirtualizedSelect
+      </label>
+      <div
+        className="controls"
+      >
+        <div
+          className="Select-outer property-input"
+          style={undefined}
+        >
+          <div
+            className="Select has-value is-clearable is-disabled is-searchable Select--single"
+            style={undefined}
+          >
+            <input
+              disabled={true}
+              name="virtualizedSelectPropertyInput"
+              type="hidden"
+              value="vanilla"
+            />
+            <div
+              className="Select-control"
+              onKeyDown={[Function]}
+              onMouseDown={[Function]}
+              onTouchEnd={[Function]}
+              onTouchMove={[Function]}
+              onTouchStart={[Function]}
+              style={undefined}
+            >
+              <span
+                className="Select-multi-value-wrapper"
+                id="react-select-15--value"
+              >
+                <div
+                  className="Select-value"
+                  style={undefined}
+                  title={undefined}
+                >
+                  <span
+                    aria-selected="true"
+                    className="Select-value-label"
+                    id="react-select-15--value-item"
+                    role="option"
+                  >
+                    Vanilla
+                  </span>
+                </div>
+                <div
+                  aria-activedescendant="react-select-15--value"
+                  aria-disabled="true"
+                  aria-expanded={false}
+                  aria-label={undefined}
+                  aria-labelledby={undefined}
+                  aria-owns=""
+                  className="Select-input"
+                  onBlur={[Function]}
+                  onFocus={[Function]}
+                  role="combobox"
+                  style={
+                    Object {
+                      "border": 0,
+                      "display": "inline-block",
+                      "width": 1,
+                    }
+                  }
+                  tabIndex={0}
+                />
+              </span>
+              <span
+                className="Select-arrow-zone"
+                onMouseDown={[Function]}
+              >
+                <span
+                  className="Select-arrow"
+                  onMouseDown={[Function]}
+                />
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="vertical-input col-lg-12"
+  >
+    <div
+      className="property form-group required"
+    >
+      <label
+        className="form-control-label"
+        htmlFor="multiSelectPropertyInput"
+      >
+        Multi Select
+      </label>
+      <div
+        className="controls"
+      >
+        <div
+          className="Select-outer property-input"
+          style={undefined}
+        >
+          <div
+            className="Select has-value is-clearable is-disabled is-searchable Select--multi"
+            style={undefined}
+          >
+            <input
+              disabled={true}
+              name="multiSelectPropertyInput"
+              type="hidden"
+              value="chocolate"
+            />
+            <input
+              disabled={true}
+              name="multiSelectPropertyInput"
+              type="hidden"
+              value="strawberry"
+            />
+            <div
+              className="Select-control"
+              onKeyDown={[Function]}
+              onMouseDown={[Function]}
+              onTouchEnd={[Function]}
+              onTouchMove={[Function]}
+              onTouchStart={[Function]}
+              style={undefined}
+            >
+              <span
+                className="Select-multi-value-wrapper"
+                id="react-select-16--value"
+              >
+                <div
+                  className="Select-value"
+                  style={undefined}
+                  title={undefined}
+                >
+                  <span
+                    aria-selected="true"
+                    className="Select-value-label"
+                    id="react-select-16--value-0"
+                    role="option"
+                  >
+                    Chocolate
+                    <span
+                      className="Select-aria-only"
+                    >
+                       
+                    </span>
+                  </span>
+                </div>
+                <div
+                  className="Select-value"
+                  style={undefined}
+                  title={undefined}
+                >
+                  <span
+                    aria-selected="true"
+                    className="Select-value-label"
+                    id="react-select-16--value-1"
+                    role="option"
+                  >
+                    Strawberry
+                    <span
+                      className="Select-aria-only"
+                    >
+                       
+                    </span>
+                  </span>
+                </div>
+                <div
+                  aria-activedescendant="react-select-16--value"
+                  aria-disabled="true"
+                  aria-expanded={false}
+                  aria-label={undefined}
+                  aria-labelledby={undefined}
+                  aria-owns=""
+                  className="Select-input"
+                  onBlur={[Function]}
+                  onFocus={[Function]}
+                  role="combobox"
+                  style={
+                    Object {
+                      "border": 0,
+                      "display": "inline-block",
+                      "width": 1,
+                    }
+                  }
+                  tabIndex={0}
+                />
+              </span>
+              <span
+                className="Select-arrow-zone"
+                onMouseDown={[Function]}
+              >
+                <span
+                  className="Select-arrow"
+                  onMouseDown={[Function]}
+                />
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="form-group property property-label col-lg-12"
+  >
+    <label
+      className="property-input"
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": "<p>Pellentesque habitant morbi tristique senectus et netus et <a href=\\"#test\\">Link</a> malesuada fames ac <b>turpis</b> egestas.</p>",
+        }
+      }
+      id="labelFieldRawPropertyInput"
+    />
+  </div>
+  <div
+    className="form-group property property-label col-lg-12"
+  >
+    <label
+      className="property-input text-warning"
+      id="labelFieldPropertyInput"
+    >
+      Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+    </label>
+  </div>
+  <div
+    className="vertical-input col-lg-12"
+  >
+    <div
+      className="property form-group required"
+    >
+      <label
+        className="form-control-label"
+        htmlFor="WYSIWYGPropertyInput"
+      >
+        WYSIWYG
+      </label>
+      <div
+        className="controls"
+      >
+        <div
+          className="p10"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`test outer 1`] = `
 <div
   className="property-set form-row"
@@ -1399,7 +1961,6 @@ exports[`test outer 1`] = `
           >
             <input
               className="property-input form-control"
-              disabled={undefined}
               id="textInputPropertyInput"
               maxLength={undefined}
               onChange={[Function]}
@@ -1429,7 +1990,6 @@ exports[`test outer 1`] = `
           <input
             checked={true}
             className="property-input form-check-input"
-            disabled={undefined}
             id="checkBoxPropertyInput"
             onChange={[Function]}
             required={true}
@@ -1497,7 +2057,6 @@ exports[`test outer 1`] = `
           >
             <input
               className="property-input form-control is-invalid"
-              disabled={undefined}
               id="textInput2PropertyInput"
               maxLength={undefined}
               onChange={[Function]}
@@ -1670,7 +2229,6 @@ exports[`test outer 1`] = `
           <input
             checked={true}
             className="property-input form-check-input is-invalid"
-            disabled={undefined}
             id="checkBox2PropertyInput"
             onChange={[Function]}
             required={false}
@@ -1738,7 +2296,6 @@ exports[`test outer 1`] = `
           >
             <input
               className="property-input form-control is-valid"
-              disabled={undefined}
               id="textInput3PropertyInput"
               maxLength={undefined}
               onChange={[Function]}
@@ -1911,7 +2468,6 @@ exports[`test outer 1`] = `
           <input
             checked={true}
             className="property-input form-check-input is-valid"
-            disabled={undefined}
             id="checkBox3PropertyInput"
             onChange={[Function]}
             required={true}
@@ -1979,7 +2535,6 @@ exports[`test outer 1`] = `
           >
             <input
               className="property-input form-control"
-              disabled={undefined}
               id="textInput4PropertyInput"
               maxLength={undefined}
               onChange={[Function]}
@@ -2028,7 +2583,6 @@ exports[`test outer 1`] = `
           >
             <textarea
               className="property-input form-control"
-              disabled={undefined}
               id="customSizeTextAreaPropertyInput"
               maxLength={undefined}
               onChange={[Function]}
@@ -2061,7 +2615,6 @@ exports[`test outer 1`] = `
           >
             <input
               className="property-input form-control"
-              disabled={undefined}
               id="namePropertyInput"
               maxLength={undefined}
               onChange={[Function]}
@@ -2094,7 +2647,6 @@ exports[`test outer 1`] = `
           >
             <input
               className="property-input form-control"
-              disabled={undefined}
               id="subjectPropertyInput"
               maxLength={undefined}
               onChange={[Function]}
@@ -2138,7 +2690,6 @@ exports[`test outer 1`] = `
           >
             <textarea
               className="property-input form-control"
-              disabled={undefined}
               id="customSizeTextArea2PropertyInput"
               maxLength={undefined}
               onChange={[Function]}
@@ -2182,7 +2733,6 @@ exports[`test outer 1`] = `
           >
             <input
               className="property-input form-control"
-              disabled={undefined}
               id="name2PropertyInput"
               maxLength={undefined}
               onChange={[Function]}
@@ -2215,7 +2765,6 @@ exports[`test outer 1`] = `
           >
             <input
               className="property-input form-control"
-              disabled={undefined}
               id="subject2PropertyInput"
               maxLength={undefined}
               onChange={[Function]}
@@ -2274,7 +2823,6 @@ exports[`validationTest 1`] = `
               data-info-range="-32768, 32767"
               data-info-step="1"
               data-info-type="Short"
-              disabled={undefined}
               id="shortPropertyInput"
               onChange={[Function]}
               onInput={[Function]}
@@ -2307,7 +2855,6 @@ exports[`validationTest 1`] = `
               data-info-range="-2147483648, 2147483647"
               data-info-step="1"
               data-info-type="Integer"
-              disabled={undefined}
               id="integerPropertyInput"
               onChange={[Function]}
               onInput={[Function]}
@@ -2340,7 +2887,6 @@ exports[`validationTest 1`] = `
               data-info-range="-9223372036854775808, 9223372036854775807"
               data-info-step="1"
               data-info-type="Long"
-              disabled={undefined}
               id="longPropertyInput"
               onChange={[Function]}
               onInput={[Function]}
@@ -2373,7 +2919,6 @@ exports[`validationTest 1`] = `
               data-info-range={undefined}
               data-info-step={undefined}
               data-info-type="Double"
-              disabled={undefined}
               id="doublePropertyInput"
               onChange={[Function]}
               onInput={[Function]}
@@ -2406,7 +2951,6 @@ exports[`validationTest 1`] = `
               data-info-range="0, 1000"
               data-info-step="0.5"
               data-info-type={undefined}
-              disabled={undefined}
               id="doubleWithRangeAndStepPropertyInput"
               onChange={[Function]}
               onInput={[Function]}
@@ -2439,7 +2983,6 @@ exports[`validationTest 1`] = `
               data-info-range="0, 100"
               data-info-step="10"
               data-info-type="Integer"
-              disabled={undefined}
               id="integerWithRangeAndStepPropertyInput"
               onChange={[Function]}
               onInput={[Function]}
@@ -2485,7 +3028,6 @@ exports[`validationTest 1`] = `
           >
             <input
               className="property-input form-control"
-              disabled={undefined}
               id="textInputPropertyInput"
               maxLength={10}
               onChange={[Function]}
@@ -2518,7 +3060,6 @@ exports[`validationTest 1`] = `
           >
             <input
               className="property-input form-control"
-              disabled={undefined}
               id="textInputWithPatternPropertyInput"
               maxLength={undefined}
               onChange={[Function]}
@@ -2551,7 +3092,6 @@ exports[`validationTest 1`] = `
           >
             <input
               className="property-input form-control"
-              disabled={undefined}
               id="textInputWithPatternAndMessagePropertyInput"
               maxLength={undefined}
               onChange={[Function]}
@@ -2584,7 +3124,6 @@ exports[`validationTest 1`] = `
           >
             <input
               className="property-input form-control"
-              disabled={undefined}
               id="passwordPropertyInput"
               maxLength={undefined}
               onChange={[Function]}
@@ -2617,7 +3156,6 @@ exports[`validationTest 1`] = `
           >
             <input
               className="property-input form-control"
-              disabled={undefined}
               id="passwordInValidationRulesPropertyInput"
               maxLength={undefined}
               onChange={[Function]}
@@ -2650,7 +3188,6 @@ exports[`validationTest 1`] = `
           >
             <input
               className="property-input form-control"
-              disabled={undefined}
               id="emailPropertyInput"
               maxLength={undefined}
               onChange={[Function]}
