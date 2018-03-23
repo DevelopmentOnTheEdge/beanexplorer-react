@@ -190,8 +190,7 @@ input:required, textarea:required {
 }
 
 .was-validated .required .Select:not(.is-disabled) .Select-control,
-.is-invalid .Select .Select-control,
-.was-validated .form-control-file:invalid{
+.is-invalid .Select .Select-control{
   border-color: #dc3545;
 }
 
@@ -204,7 +203,6 @@ input:required, textarea:required {
 
 .was-validated .required .Select.has-value:not(.is-disabled) .Select-control,
 .was-validated .Select:not(.is-disabled) .Select-control,
-.is-valid .Select .Select-control,
-.was-validated .form-control-file:valid{
+.is-valid .Select .Select-control{
   border-color: #28a745;
 }
