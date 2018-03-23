@@ -855,10 +855,6 @@ td.rdtYear:hover {
   display: none!important;
 }
 
-.form-check.property {
-  margin-bottom: 0.5rem;
-}
-
 label.property-input {
   margin-bottom: 0;
 }
@@ -872,6 +868,9 @@ input:required, textarea:required {
 }
 
 /****************************************************************************/
+.vertical-input .form-check.property {
+  margin-bottom: 0.5rem;
+}
 
 .vertical-input .col-form-label-sm,
 .vertical-input .col-form-label-lg{
@@ -888,6 +887,12 @@ input:required, textarea:required {
 .vertical-input--sm .form-check-input {
   margin-top: 0.55rem;
 }
+.vertical-input--sm .invalid-feedback,
+.vertical-input--sm .valid-feedback,
+.vertical-input--sm .form-text.text-muted{
+  margin-top: 0;
+}
+
 .vertical-input--lg .form-check-input {
   margin-top: 1.1rem;
 }
@@ -900,7 +905,8 @@ input:required, textarea:required {
 
 /****************************************************************************/
 
-.Select.is-disabled > .Select-control {
+.Select.is-disabled > .Select-control,
+.is-disabled .Select-control .Select-input:focus {
   background-color: #e9ecef;
 }
 .Select .Select-control{
@@ -980,6 +986,7 @@ input:required, textarea:required {
 /****************************************************************************/
 
 .was-validated .required .Select:not(.is-disabled) .Select-control:focus,
+.is-invalid .Select.is-focused > .Select-control,
 .is-invalid .Select.is-focused:not(.is-open) > .Select-control,
 .was-validated .required .Select.is-focused:not(.is-open) > .Select-control,
 .is-invalid .Select .Select-control:focus,
@@ -995,6 +1002,7 @@ input:required, textarea:required {
 }
 
 .was-validated .required .Select.has-value:not(.is-disabled) .Select-control:focus,
+.is-valid .Select.is-focused > .Select-control,
 .is-valid .Select.is-focused:not(.is-open) > .Select-control,
 .was-validated .Select.has-value.is-focused:not(.is-open) > .Select-control,
 .is-valid .Select .Select-control:focus,

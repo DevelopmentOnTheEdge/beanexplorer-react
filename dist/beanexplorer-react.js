@@ -717,33 +717,33 @@ var Property = function (_React$Component) {
         }
       }
 
-      var cssClasses = meta.cssClasses || 'col-lg-12';
-
-      var outerClasses = classNames('vertical-input', { 'vertical-input--sm': this.props.bsSize === "sm" }, { 'vertical-input--lg': this.props.bsSize === "lg" }, cssClasses, { 'display-none': meta.hidden });
-
       var formGroupClasses = classNames('property', { 'form-group': meta.type !== 'Boolean' }, { 'form-check': meta.type === 'Boolean' }, { 'required': meta.canBeNull !== true });
 
       if (this.props.inline) {
+        var outerClasses = classNames(formGroupClasses, meta.cssClasses || this.props.className || 'mb-2 mr-sm-2', { 'display-none': meta.hidden });
+
         if (meta.type === "Boolean") {
           return React.createElement(
             'div',
-            { className: classNames(meta.cssClasses, formGroupClasses, "mb-2 mr-sm-2", { 'display-none': meta.hidden }) },
+            { className: outerClasses },
             React.createElement(PropertyInput, this.props),
             label
           );
         } else {
           return React.createElement(
             'div',
-            { className: classNames(meta.cssClasses, formGroupClasses, "mb-2 mr-sm-2", { 'display-none': meta.hidden }) },
+            { className: outerClasses },
             label,
             React.createElement(PropertyInput, this.props)
           );
         }
       } else {
+        var _outerClasses = classNames('vertical-input', { 'vertical-input--sm': this.props.bsSize === "sm" }, { 'vertical-input--lg': this.props.bsSize === "lg" }, meta.cssClasses || this.props.className || 'col-lg-12', { 'display-none': meta.hidden });
+
         if (meta.type === "Boolean") {
           return React.createElement(
             'div',
-            { className: outerClasses },
+            { className: _outerClasses },
             React.createElement(
               'div',
               { className: formGroupClasses },
@@ -755,14 +755,18 @@ var Property = function (_React$Component) {
         } else if (meta.labelField) {
           return React.createElement(
             'div',
-            { className: classNames('form-group property property-label', meta.cssClasses || 'col-lg-12') },
-            React.createElement(PropertyInput, this.props),
-            messageElement
+            { className: _outerClasses },
+            React.createElement(
+              'div',
+              { className: classNames('property-label', formGroupClasses) },
+              React.createElement(PropertyInput, this.props),
+              messageElement
+            )
           );
         } else {
           return React.createElement(
             'div',
-            { className: outerClasses },
+            { className: _outerClasses },
             React.createElement(
               'div',
               { className: formGroupClasses },
@@ -789,7 +793,8 @@ Property.propTypes = {
   inline: PropTypes.bool,
   bsSize: PropTypes.string,
   onChange: PropTypes.func,
-  localization: PropTypes.object
+  localization: PropTypes.object,
+  className: PropTypes.string
 };
 
 var Properties = function (_React$Component) {
