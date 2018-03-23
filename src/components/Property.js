@@ -63,7 +63,7 @@ class Property extends React.Component
     {
       const outerClasses = classNames(
         formGroupClasses,
-        meta.cssClasses || 'mb-2 mr-sm-2',
+        meta.cssClasses || this.props.className || 'mb-2 mr-sm-2',
         {'display-none' : meta.hidden}
       );
 
@@ -92,7 +92,7 @@ class Property extends React.Component
         'vertical-input',
         {'vertical-input--sm': this.props.bsSize === "sm"},
         {'vertical-input--lg': this.props.bsSize === "lg"},
-        meta.cssClasses || 'col-lg-12',
+        meta.cssClasses || this.props.className || 'col-lg-12',
         {'display-none' : meta.hidden}
       );
 
@@ -146,7 +146,8 @@ Property.propTypes = {
   inline: PropTypes.bool,
   bsSize: PropTypes.string,
   onChange: PropTypes.func,
-  localization: PropTypes.object
+  localization: PropTypes.object,
+  className: PropTypes.string
 };
 
 export default Property;

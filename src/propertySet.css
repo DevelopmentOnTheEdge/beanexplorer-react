@@ -52,10 +52,6 @@
   display: none!important;
 }
 
-.form-check.property {
-  margin-bottom: 0.5rem;
-}
-
 label.property-input {
   margin-bottom: 0;
 }
@@ -69,6 +65,9 @@ input:required, textarea:required {
 }
 
 /****************************************************************************/
+.vertical-input .form-check.property {
+  margin-bottom: 0.5rem;
+}
 
 .vertical-input .col-form-label-sm,
 .vertical-input .col-form-label-lg{

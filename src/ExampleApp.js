@@ -76,10 +76,10 @@ class AllPropertyTypes extends Component
     )
   }
 
-  getSubmitBtn(){
+  getSubmitBtn(className){
     return (
       <button type="submit" className={classNames(
-        "btn btn-primary mb-2",
+        className || "btn btn-primary mb-2",
         {'btn-sm' : this.state.bsSize === 'sm'},
         {'btn-lg' : this.state.bsSize === 'lg'}
       )}>Submit</button>
@@ -191,28 +191,6 @@ class InlineForm extends AllPropertyTypes
   }
 
   getForm() {
-    const namePatternMismatch = 'Minimum length is 6 characters';
-    const validationUser = function (e) {
-      if(namePatternMismatch) {
-        if (e.target.validity.patternMismatch) {
-          e.target.setCustomValidity(namePatternMismatch)
-        } else {
-          e.target.setCustomValidity('')
-        }
-      }
-    };
-
-    const number1ErrorRange = 'Введите 3 цифры';
-    const validationNumber1 = function (e) {
-      if(number1ErrorRange) {
-        if (e.target.validity.rangeOverflow || e.target.validity.rangeUnderflow) {
-          e.target.setCustomValidity(number1ErrorRange)
-        } else {
-          e.target.setCustomValidity('')
-        }
-      }
-    };
-
     const commonProps = {
       bean: this.getBean(),
       onChange: this.handleFieldChange,
@@ -232,7 +210,7 @@ class InlineForm extends AllPropertyTypes
     };
 
     const properties2 = commonProps2.bean.order.map(p => (
-      <Property key={p} path={p} {...commonProps2} bsSize={this.state.bsSize}/>
+      <Property key={p} path={p} {...commonProps2} bsSize={this.state.bsSize} className="mr-sm-2"/>
     ));
 
     return (
@@ -243,31 +221,7 @@ class InlineForm extends AllPropertyTypes
         </form>
         <form className="bs-example form-inline">
           {properties2}
-          {this.getSubmitBtn()}
-        </form>
-
-        <h5>Test setCustomValidity()</h5>
-        <form className="bs-example needs-validation form-inline" onSubmit={this.handleSubmit}>
-          <input
-            type="text"
-            name="user"
-            className="form-control mb-2 mr-sm-2"
-            pattern=".{6,}"
-            onInvalid={validationUser}
-            onInput={validationUser}
-            required
-          />
-          <input
-            type="number"
-            name="number1"
-            className="form-control mb-2 mr-sm-2"
-            min={100}
-            max={999}
-            onInvalid={validationNumber1}
-            onInput={validationNumber1}
-            required
-          />
-          <button type="submit" className="btn btn-primary mb-2">Submit</button>
+          {this.getSubmitBtn("btn btn-primary")}
         </form>
       </div>
     )
