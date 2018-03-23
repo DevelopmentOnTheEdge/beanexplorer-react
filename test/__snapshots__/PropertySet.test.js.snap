@@ -296,7 +296,7 @@ exports[`snapshot bean 1`] = `
         className="controls"
       >
         <div
-          className="rdt"
+          className="rdt Datetime-outer"
         >
           <input
             className="property-input form-control"

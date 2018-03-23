@@ -528,6 +528,7 @@ class PropertyInput extends React.Component
             placeholder: meta.placeholder
           }
         )}
+        className="Datetime-outer"
       />
     }
 

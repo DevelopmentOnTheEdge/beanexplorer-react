@@ -90,6 +90,16 @@ input:required, textarea:required {
 }
 
 /****************************************************************************/
+.form-control ~ .invalid-feedback,
+.form-control ~ .valid-feedback,
+.Select-outer ~ .invalid-feedback,
+.Select-outer ~ .valid-feedback,
+.Datetime-outer ~ .invalid-feedback,
+.Datetime-outer ~ .valid-feedback{
+  display: block;
+}
+
+/****************************************************************************/
 
 .Select.is-disabled > .Select-control {
   background-color: #eaedf0;
@@ -107,10 +117,6 @@ input:required, textarea:required {
 .Select.is-focused:not(.is-open) > .Select-control {
   border-color: #80bdff;
   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-}
-.Select-outer.is-invalid ~ .invalid-feedback,
-.Select-outer.is-valid ~ .valid-feedback{
-  display: block;
 }
 
 /****************************************************************************/
