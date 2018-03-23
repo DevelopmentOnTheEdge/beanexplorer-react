@@ -97,7 +97,8 @@ input:required, textarea:required {
 
 /****************************************************************************/
 
-.Select.is-disabled > .Select-control {
+.Select.is-disabled > .Select-control,
+.is-disabled .Select-control .Select-input:focus {
   background-color: #e9ecef;
 }
 .Select .Select-control{
@@ -177,6 +178,7 @@ input:required, textarea:required {
 /****************************************************************************/
 
 .was-validated .required .Select:not(.is-disabled) .Select-control:focus,
+.is-invalid .Select.is-focused > .Select-control,
 .is-invalid .Select.is-focused:not(.is-open) > .Select-control,
 .was-validated .required .Select.is-focused:not(.is-open) > .Select-control,
 .is-invalid .Select .Select-control:focus,
@@ -192,6 +194,7 @@ input:required, textarea:required {
 }
 
 .was-validated .required .Select.has-value:not(.is-disabled) .Select-control:focus,
+.is-valid .Select.is-focused > .Select-control,
 .is-valid .Select.is-focused:not(.is-open) > .Select-control,
 .was-validated .Select.has-value.is-focused:not(.is-open) > .Select-control,
 .is-valid .Select .Select-control:focus,
