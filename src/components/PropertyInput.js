@@ -298,6 +298,12 @@ class PropertyInput extends React.Component
       default: inputTypeClass = 'form-control';
     }
 
+    if(extraAttrsMap.inputType === "form-control-plaintext" &&
+       meta.readOnly === true && inputTypeClass === 'form-control')
+    {
+      inputTypeClass = 'form-control-plaintext'
+    }
+
     let validationClasses = classNames(
       {'is-invalid' : meta.status === 'error'},
       {'is-valid' : meta.status === 'success'},

@@ -1,6 +1,7 @@
 {
   "values": {
     "textInput": "test",
+    "readonlyPlainText": "email@example.com",
     "checkBox": true,
     "labelField": "Pellentesque habitant morbi tristique senectus...",
     "textInput2": "test",
@@ -25,6 +26,12 @@
       "groupName": "Group 1",
       "groupId": 1,
       "message": "Help text"
+    },
+    "/readonlyPlainText": {
+      "displayName": "Readonly plain text",
+      "groupId": 1,
+      "readOnly": true,
+      "extraAttrs": [["inputType", "form-control-plaintext"]]
     },
     "/checkBox": {
       "displayName": "CheckBox",
@@ -134,6 +141,7 @@
   },
   "order": [
     "/textInput",
+    "/readonlyPlainText",
     "/checkBox",
     "/labelField",
     "/textInput2",

@@ -1985,6 +1985,39 @@ exports[`test outer 1`] = `
         className="vertical-input col-lg-12"
       >
         <div
+          className="property form-group required"
+        >
+          <label
+            className="form-control-label"
+            htmlFor="readonlyPlainTextPropertyInput"
+          >
+            Readonly plain text
+          </label>
+          <div
+            className="controls"
+          >
+            <input
+              className="property-input form-control-plaintext"
+              id="readonlyPlainTextPropertyInput"
+              maxLength={undefined}
+              onChange={[Function]}
+              onInput={[Function]}
+              onInvalid={[Function]}
+              pattern={undefined}
+              placeholder={undefined}
+              readOnly="readonly"
+              required={true}
+              size={undefined}
+              type="form-control-plaintext"
+              value="email@example.com"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="vertical-input col-lg-12"
+      >
+        <div
           className="property form-check required"
         >
           <input
