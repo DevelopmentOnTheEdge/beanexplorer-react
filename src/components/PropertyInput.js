@@ -142,7 +142,7 @@ class PropertyInput extends React.Component
         const max = min.add(stepRat);
 
         PropertyInput.setErrorState(e, this.setMessagePlaceHolders(
-              local.stepMismatch, [min.toDecimal(), max.toDecimal()]
+          local.stepMismatch, [min.toDecimal(), max.toDecimal()]
         ));
         return
       }
@@ -184,8 +184,8 @@ class PropertyInput extends React.Component
     {
       const fileName = e.target.files[0].name;
       PropertyInput.getBase64(e.target.files[0]).then(data => {
-      this.callOnChange({type: "Base64File", name: fileName, data: data})
-    });
+        this.callOnChange({type: "Base64File", name: fileName, data: data})
+      });
     }
     else if(e.target.files && e.target.files.length === 0)
     {
@@ -299,7 +299,7 @@ class PropertyInput extends React.Component
     }
 
     if(extraAttrsMap.inputType === "form-control-plaintext" &&
-       meta.readOnly === true && inputTypeClass === 'form-control')
+      meta.readOnly === true && inputTypeClass === 'form-control')
     {
       inputTypeClass = 'form-control-plaintext'
     }
@@ -615,7 +615,7 @@ PropertyInput.propTypes = {
   bsSize: PropTypes.string,
   onChange: PropTypes.func,
   localization: PropTypes.object,
-  controlClassName: PropTypes.string, 
+  controlClassName: PropTypes.string,
 };
 
 export default PropertyInput;
