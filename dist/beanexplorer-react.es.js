@@ -118,14 +118,23 @@ var PropertyInput = function (_React$Component) {
       this.setState(this.getInitState(nextProps));
     }
   }, {
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate() {
+      if (this.datetimeInput) this.dateValidationMessage({ target: this.datetimeInput });
+    }
+  }, {
     key: 'getInitState',
     value: function getInitState(props) {
       var path = this.getPath(props);
       var meta = props.bean.meta[path];
+      var id = path.substring(path.lastIndexOf("/") + 1) + "PropertyInput";
+      var validationRulesMap = PropertyInput.getValidationRulesMap(meta);
 
       return {
+        path: path,
+        id: id,
         meta: meta,
-        validationRulesMap: PropertyInput.getValidationRulesMap(meta)
+        validationRulesMap: validationRulesMap
       };
     }
   }, {
@@ -153,6 +162,8 @@ var PropertyInput = function (_React$Component) {
   }, {
     key: 'dateToISOFormat',
     value: function dateToISOFormat(date) {
+      this.datetimeInput.focus();
+
       if (typeof date === "string") {
         this.callOnChange(date);
       } else {
@@ -268,14 +279,16 @@ var PropertyInput = function (_React$Component) {
     value: function render() {
       var _this3 = this;
 
-      var path = this.getPath();
-      var meta = this.state.meta;
+      var _state = this.state,
+          id = _state.id,
+          path = _state.path,
+          meta = _state.meta,
+          validationRulesMap = _state.validationRulesMap;
+
+
       var value = JsonPointer.get(this.props.bean, "/values" + path);
-      var id = path.substring(path.lastIndexOf("/") + 1) + "PropertyInput";
       var required = meta.canBeNull !== true;
       var extraAttrsMap = PropertyInput.getExtraAttrsMap(meta);
-
-      var validationRulesMap = this.state.validationRulesMap;
 
       var inputTypeClass = void 0;
       switch (meta.type) {
@@ -488,9 +501,10 @@ var PropertyInput = function (_React$Component) {
             closeOnTab: true,
             locale: this.props.localization.locale,
             inputProps: Object.assign({}, baseProps, {
+              ref: function ref(instance) {
+                _this3.datetimeInput = instance;
+              },
               pattern: "(^$|\\d{1,2}\\.\\d{1,2}\\.\\d{4})",
-              onInvalid: this.dateValidationMessage,
-              onInput: this.dateValidationMessage,
               placeholder: meta.placeholder
             }),
             className: 'Datetime-outer'
