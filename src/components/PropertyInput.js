@@ -36,10 +36,14 @@ class PropertyInput extends React.Component
   getInitState(props) {
     const path  = this.getPath(props);
     const meta  = props.bean.meta[path];
+    const id    = path.substring(path.lastIndexOf("/")+1) + "PropertyInput";
+    const validationRulesMap = PropertyInput.getValidationRulesMap(meta);
 
     return {
+      path: path,
+      id: id,
       meta: meta,
-      validationRulesMap: PropertyInput.getValidationRulesMap(meta)
+      validationRulesMap: validationRulesMap
     };
   }
 
@@ -63,6 +67,7 @@ class PropertyInput extends React.Component
   }
 
   dateToISOFormat(date) {
+    //this.refs.
     if(typeof date === "string") {
       this.callOnChange(date);
     } else {
@@ -282,14 +287,16 @@ class PropertyInput extends React.Component
   }
 
   render() {
-    const path     = this.getPath();
-    const meta     = this.state.meta;
+    const {
+      id,
+      path,
+      meta,
+      validationRulesMap
+    } = this.state;
+
     const value    = JsonPointer.get(this.props.bean, "/values" + path);
-    const id       = path.substring(path.lastIndexOf("/")+1) + "PropertyInput";
     const required = meta.canBeNull !== true;
     const extraAttrsMap = PropertyInput.getExtraAttrsMap(meta);
-
-    const validationRulesMap = this.state.validationRulesMap;
 
     let inputTypeClass;
     switch (meta.type){
