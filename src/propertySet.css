@@ -124,6 +124,37 @@ input:required, textarea:required {
   outline: 0;
   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
+
+/****************************************************************************/
+
+.was-validated .required.property .Select.is-focused > .Select-control,
+.property .is-invalid .Select.is-focused > .Select-control,
+.was-validated .property .rdtOpen > input:invalid,
+.property .rdtOpen > input.is-invalid{
+  border-color: #dc3545;
+  box-shadow: 0 0 0 0.2rem rgba(220,53,69,.25);
+}
+
+.was-validated .required .Select:not(.is-disabled) .Select-control,
+.is-invalid .Select .Select-control{
+  border-color: #dc3545;
+}
+
+.was-validated .required.property .Select.has-value.is-focused > .Select-control,
+.was-validated .property .Select.is-focused > .Select-control,
+.property .is-valid .Select.is-focused > .Select-control,
+.was-validated .property .rdtOpen > input:valid,
+.property .rdtOpen > input.is-valid{
+  border-color: #28a745;
+  box-shadow: 0 0 0 0.2rem rgba(40,167,69,.25);
+}
+
+.was-validated .required .Select.has-value:not(.is-disabled) .Select-control,
+.was-validated .Select:not(.is-disabled) .Select-control,
+.is-valid .Select .Select-control{
+  border-color: #28a745;
+}
+
 /****************************************************************************/
 
 .Select-placeholder,
@@ -180,34 +211,4 @@ input:required, textarea:required {
 }
 .Select--lg .Select--multi .Select-value {
   margin-top: 7px;
-}
-
-/****************************************************************************/
-
-.was-validated .required.property .Select.is-focused > .Select-control,
-.property .is-invalid .Select.is-focused > .Select-control,
-.was-validated .property .rdtOpen > input:invalid,
-.property .rdtOpen > input.is-invalid{
-  border-color: #dc3545;
-  box-shadow: 0 0 0 0.2rem rgba(220,53,69,.25);
-}
-
-.was-validated .required .Select:not(.is-disabled) .Select-control,
-.is-invalid .Select .Select-control{
-  border-color: #dc3545;
-}
-
-.was-validated .required.property .Select.has-value.is-focused > .Select-control,
-.was-validated .property .Select.is-focused > .Select-control,
-.property .is-valid .Select.is-focused > .Select-control,
-.was-validated .property .rdtOpen > input:valid,
-.property .rdtOpen > input.is-valid{
-  border-color: #28a745;
-  box-shadow: 0 0 0 0.2rem rgba(40,167,69,.25);
-}
-
-.was-validated .required .Select.has-value:not(.is-disabled) .Select-control,
-.was-validated .Select:not(.is-disabled) .Select-control,
-.is-valid .Select .Select-control{
-  border-color: #28a745;
 }
