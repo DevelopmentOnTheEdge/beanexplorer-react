@@ -122,18 +122,21 @@ test('date', () => {
 test('date dateValidationMessage', () => {
   const handle = jest.fn();
 
-  const spy = jest.spyOn(PropertyInput.prototype, "dateValidationMessage");
-  const wrapper = mount(
+  const wrapper = shallow(
     <PropertyInput path={"/date"} bean={bean} onChange={handle} />
   );
 
-  wrapper.find('input').simulate('input', {target:{setCustomValidity: handle, validity: {patternMismatch: true}}});
+  wrapper.instance().dateValidationMessage(
+    {target:{value: '20.07.2012', setCustomValidity: handle, validity: {patternMismatch: true}}});
+
   expect(handle.mock.calls[0]).toEqual(["Please enter a valid date in the format dd.mm.yyyy"]);
 
-  wrapper.find('input').simulate('input', {target:{setCustomValidity: handle, validity: {patternMismatch: false}}});
+  wrapper.instance().dateValidationMessage(
+    {target:{setCustomValidity: handle, validity: {patternMismatch: false}}});
+
   expect(handle.mock.calls[1]).toEqual([""]);
 
-  expect(spy.mock.calls.length).toEqual(2);
+  expect(handle.mock.calls.length).toEqual(2);
 });
 
 test('date init with no valid date', () => {

@@ -33,6 +33,10 @@ class PropertyInput extends React.Component
     this.setState(this.getInitState(nextProps));
   }
 
+  componentDidUpdate(){
+    if(this.datetimeInput)this.dateValidationMessage({target: this.datetimeInput});
+  }
+
   getInitState(props) {
     const path  = this.getPath(props);
     const meta  = props.bean.meta[path];
@@ -67,7 +71,8 @@ class PropertyInput extends React.Component
   }
 
   dateToISOFormat(date) {
-    //this.refs.
+    this.datetimeInput.focus();
+
     if(typeof date === "string") {
       this.callOnChange(date);
     } else {
@@ -551,9 +556,10 @@ class PropertyInput extends React.Component
           inputProps={Object.assign({},
             baseProps,
             {
+              ref: (instance) => {
+                this.datetimeInput = instance;
+              },
               pattern: "(^$|\\d{1,2}\\.\\d{1,2}\\.\\d{4})",
-              onInvalid: this.dateValidationMessage,
-              onInput: this.dateValidationMessage,
               placeholder: meta.placeholder
             }
           )}
