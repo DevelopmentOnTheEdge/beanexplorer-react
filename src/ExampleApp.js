@@ -3,13 +3,15 @@ import {
   HashRouter,
   Route,
   NavLink
-} from 'react-router-dom'
+} from 'react-router-dom';
+import classNames    from 'classnames';
+import Cookies       from 'universal-cookie';
+
+import JsonPointer   from 'json-pointer';
 import PropertySet   from './components/PropertySet';
 import Property      from './components/Property';
 import PropertyInput from './components/PropertyInput';
 import Properties    from './components/Properties';
-import JsonPointer   from 'json-pointer';
-import classNames    from 'classnames';
 
 import bean from './testJson.json';
 import testOuter from './testOuter.json';
@@ -37,6 +39,17 @@ class AllPropertyTypes extends Component
     this.handleFieldChange = this.handleFieldChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleJsonChange = this.handleJsonChange.bind(this);
+  }
+
+  componentWillMount(){
+    const cookies = new Cookies();
+
+    this.setState({
+      cookies: cookies,
+      wasValidated: cookies.get('wasValidated', { path: '/' }) === 'true',
+      readOnly: cookies.get('readOnly', { path: '/' }) === 'true',
+      bsSize: cookies.get('bsSize', { path: '/' }),
+    });
   }
 
   handleSubmit(event) {
@@ -99,7 +112,11 @@ class AllPropertyTypes extends Component
                     id="readOnly"
                     type="checkbox"
                     className="form-check-input"
-                    onChange={()=>{this.setState({readOnly: !this.state.readOnly})}}
+                    onChange={()=>{
+                      this.state.cookies.set('readOnly', !this.state.readOnly, { path: '/' });
+                      this.setState({readOnly: !this.state.readOnly});
+                    }}
+                    checked={this.state.readOnly === true}
                   />
                   read only
                 </label>
@@ -110,7 +127,11 @@ class AllPropertyTypes extends Component
                     id="wasValidated"
                     type="checkbox"
                     className="form-check-input"
-                    onChange={()=>{this.setState({wasValidated: !this.state.wasValidated})}}
+                    onChange={()=>{
+                      this.state.cookies.set('wasValidated', !this.state.wasValidated, { path: '/' });
+                      this.setState({wasValidated: !this.state.wasValidated});
+                    }}
+                    checked={this.state.wasValidated === true}
                   />
                   .was-validated
                 </label>
@@ -121,7 +142,10 @@ class AllPropertyTypes extends Component
                     id="bsSize-sm"
                     type="checkbox"
                     className="form-check-input"
-                    onChange={()=>{this.setState({bsSize: this.state.bsSize !== "sm" ? "sm" : ""})}}
+                    onChange={()=>{
+                      this.state.cookies.set('bsSize', this.state.bsSize !== "sm" ? "sm" : "", { path: '/' });
+                      this.setState({bsSize: this.state.bsSize !== "sm" ? "sm" : ""});
+                    }}
                     checked={this.state.bsSize === "sm"}
                   />
                   sm size
@@ -133,7 +157,10 @@ class AllPropertyTypes extends Component
                     id="bsSize-lg"
                     type="checkbox"
                     className="form-check-input"
-                    onChange={()=>{this.setState({bsSize: this.state.bsSize !== "lg" ? "lg" : ""})}}
+                    onChange={()=>{
+                      this.state.cookies.set('bsSize', this.state.bsSize !== "lg" ? "lg" : "", { path: '/' });
+                      this.setState({bsSize: this.state.bsSize !== "lg" ? "lg" : ""});
+                    }}
                     checked={this.state.bsSize === "lg"}
                   />
                   lg size
