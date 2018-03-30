@@ -118,7 +118,8 @@ input:required, textarea:required {
 .Select.has-value.Select--single > .Select-control .Select-value .Select-value-label, .Select.has-value.is-pseudo-focused.Select--single > .Select-control .Select-value .Select-value-label {
   color: #495057;
 }
-.property .Select.is-focused > .Select-control{
+.property .Select.is-focused > .Select-control,
+.property .rdtOpen > input{
   border-color: #80bdff;
   outline: 0;
   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
@@ -184,7 +185,9 @@ input:required, textarea:required {
 /****************************************************************************/
 
 .was-validated .required.property .Select.is-focused > .Select-control,
-.property .is-invalid .Select.is-focused > .Select-control{
+.property .is-invalid .Select.is-focused > .Select-control,
+.was-validated .property .rdtOpen > input:invalid,
+.property .rdtOpen > input.is-invalid{
   border-color: #dc3545;
   box-shadow: 0 0 0 0.2rem rgba(220,53,69,.25);
 }
@@ -196,7 +199,9 @@ input:required, textarea:required {
 
 .was-validated .required.property .Select.has-value.is-focused > .Select-control,
 .was-validated .property .Select.is-focused > .Select-control,
-.property .is-valid .Select.is-focused > .Select-control{
+.property .is-valid .Select.is-focused > .Select-control,
+.was-validated .property .rdtOpen > input:valid,
+.property .rdtOpen > input.is-valid{
   border-color: #28a745;
   box-shadow: 0 0 0 0.2rem rgba(40,167,69,.25);
 }
