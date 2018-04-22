@@ -1,4 +1,5 @@
 import React from 'react';
+import './setupTests.js'
 import PropertySet from '../src/components/PropertySet';
 import renderer from 'react-test-renderer';
 import {shallow, mount, render} from 'enzyme';

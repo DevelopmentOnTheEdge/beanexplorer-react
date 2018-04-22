@@ -1,4 +1,5 @@
 import React from 'react';
+import './setupTests.js'
 import PropertyInput from '../src/components/PropertyInput';
 import {shallow, mount, render} from 'enzyme';
 import bean from '../src/testJson.json';

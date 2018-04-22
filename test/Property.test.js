@@ -1,8 +1,8 @@
 import React from 'react';
+import './setupTests.js'
 import Property from '../src/components/Property';
-import {mount} from 'enzyme';
+import {configure, mount} from 'enzyme';
 import bean from '../src/testJson.json';
-
 
 test('get by id', () => {
   const handle = jest.fn();
