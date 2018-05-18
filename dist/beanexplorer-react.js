@@ -400,7 +400,7 @@ var PropertyInput = function (_React$Component) {
         var select = void 0;
         if (extraAttrsMap.inputType === "Creatable") {
           select = React.createElement(Creatable, selectAttr);
-        } else if (extraAttrsMap.inputType === "VirtualizedSelect") {
+        } else if (extraAttrsMap.inputType === "VirtualizedSelect" || extraAttrsMap.inputType === undefined && meta.tagList.length >= 100) {
           select = React.createElement(VirtualizedSelect, _extends({
             clearable: true,
             searchable: true,
