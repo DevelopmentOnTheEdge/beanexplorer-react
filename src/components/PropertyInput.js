@@ -424,7 +424,8 @@ class PropertyInput extends React.Component
       {
         select = <Creatable {...selectAttr} />
       }
-      else if(extraAttrsMap.inputType === "VirtualizedSelect")
+      else if(extraAttrsMap.inputType === "VirtualizedSelect"
+            || (extraAttrsMap.inputType === undefined && meta.tagList.length >= 100))
       {
         select = <VirtualizedSelect
           clearable
