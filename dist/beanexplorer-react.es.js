@@ -11,6 +11,10 @@ import JsonPointer from 'json-pointer';
 import bigInt from 'big-integer';
 import bigRat from 'big-rational';
 
+var inputLabelSizeClasses = function inputLabelSizeClasses(props) {
+  return classNames({ 'col-form-label-sm': props.bsSize === "sm" }, { 'col-form-label-lg': props.bsSize === "lg" });
+};
+
 var classCallCheck = function (instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
@@ -344,17 +348,58 @@ var PropertyInput = function (_React$Component) {
       //        readOnly: () => this.createStatic(value)
       //      },
 
+      if (meta.tagList && extraAttrsMap.inputType === "radio") {
+        var radioButtons = [];
+
+        for (var i = 0; i < meta.tagList.length; i++) {
+          var tagName = meta.tagList[i][0];
+          var tagLabel = meta.tagList[i][1];
+
+          radioButtons.push(React.createElement(
+            'div',
+            { className: 'form-check', key: id + "FormCheckWrapper" + i },
+            React.createElement('input', {
+              id: id + "Radio" + i,
+              className: 'form-check-input',
+              type: 'radio',
+              name: id,
+              value: tagName,
+              checked: tagName === "" + value,
+              onChange: this.handleChange,
+              required: required,
+              disabled: meta.readOnly
+            }),
+            React.createElement(
+              'label',
+              {
+                className: classNames(inputLabelSizeClasses(this.props, meta.type), "form-check-label radio-label"),
+                htmlFor: id + "Radio" + i
+              },
+              !meta.rawValue ? tagLabel : React.createElement('div', { dangerouslySetInnerHTML: { __html: tagLabel } })
+            )
+          ));
+        }
+
+        return React.createElement(
+          'div',
+          {
+            className: classNames("radio-buttons-outer", 'property-input', { 'Select--sm': this.props.bsSize === "sm" }, { 'Select--lg': this.props.bsSize === "lg" }, validationClasses)
+          },
+          radioButtons
+        );
+      }
+
       if (meta.tagList) {
         var options = [];
-        for (var i = 0; i < meta.tagList.length; i++) {
-          options.push({ value: meta.tagList[i][0], label: meta.tagList[i][1] });
+        for (var _i = 0; _i < meta.tagList.length; _i++) {
+          options.push({ value: meta.tagList[_i][0], label: meta.tagList[_i][1] });
         }
 
         var strValue = void 0;
         if (Array.isArray(value)) {
           strValue = [];
-          for (var _i = 0; _i < value.length; _i++) {
-            strValue.push("" + value[_i]);
+          for (var _i2 = 0; _i2 < value.length; _i2++) {
+            strValue.push("" + value[_i2]);
           }
         } else {
           strValue = "" + value;
@@ -700,7 +745,7 @@ var Property = function (_React$Component) {
           'label',
           {
             htmlFor: id,
-            className: classNames(meta.type === 'Boolean' ? 'form-check-label' : 'form-control-label', { 'mr-sm-2': this.props.inline && meta.type !== 'Boolean' }, { 'col-form-label-sm': this.props.bsSize === "sm" }, { 'col-form-label-lg': this.props.bsSize === "lg" })
+            className: classNames(meta.type === 'Boolean' ? 'form-check-label' : 'form-control-label', { 'mr-sm-2': this.props.inline && meta.type !== 'Boolean' }, inputLabelSizeClasses(this.props, meta.type))
           },
           meta.displayName
         );
