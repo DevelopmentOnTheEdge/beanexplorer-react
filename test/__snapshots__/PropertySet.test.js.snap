@@ -1307,6 +1307,70 @@ exports[`snapshot bean 1`] = `
     className="vertical-input col-lg-12"
   >
     <div
+      className="property form-group required"
+    >
+      <label
+        className="form-control-label"
+        htmlFor="radioButtonsPropertyInput"
+      >
+        Test Radio buttons
+      </label>
+      <div
+        className="controls"
+      >
+        <div
+          className="radio-buttons-outer property-input"
+        >
+          <div
+            className="form-check"
+          >
+            <input
+              checked={false}
+              className="form-check-input"
+              disabled={undefined}
+              id="radioButtonsPropertyInputRadio0"
+              name="radioButtonsPropertyInput"
+              onChange={[Function]}
+              required={true}
+              type="radio"
+              value="vanilla"
+            />
+            <label
+              className="form-check-label radio-label"
+              htmlFor="radioButtonsPropertyInputRadio0"
+            >
+              Vanilla
+            </label>
+          </div>
+          <div
+            className="form-check"
+          >
+            <input
+              checked={true}
+              className="form-check-input"
+              disabled={undefined}
+              id="radioButtonsPropertyInputRadio1"
+              name="radioButtonsPropertyInput"
+              onChange={[Function]}
+              required={true}
+              type="radio"
+              value="chocolate"
+            />
+            <label
+              className="form-check-label radio-label"
+              htmlFor="radioButtonsPropertyInputRadio1"
+            >
+              Chocolate
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="vertical-input col-lg-12"
+  >
+    <div
       className="property-label property form-group required"
     >
       <label
@@ -1880,6 +1944,70 @@ exports[`snapshot bean with readOnly 1`] = `
                 />
               </span>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="vertical-input col-lg-12"
+  >
+    <div
+      className="property form-group required"
+    >
+      <label
+        className="form-control-label"
+        htmlFor="radioButtonsPropertyInput"
+      >
+        Test Radio buttons
+      </label>
+      <div
+        className="controls"
+      >
+        <div
+          className="radio-buttons-outer property-input"
+        >
+          <div
+            className="form-check"
+          >
+            <input
+              checked={false}
+              className="form-check-input"
+              disabled={true}
+              id="radioButtonsPropertyInputRadio0"
+              name="radioButtonsPropertyInput"
+              onChange={[Function]}
+              required={true}
+              type="radio"
+              value="vanilla"
+            />
+            <label
+              className="form-check-label radio-label"
+              htmlFor="radioButtonsPropertyInputRadio0"
+            >
+              Vanilla
+            </label>
+          </div>
+          <div
+            className="form-check"
+          >
+            <input
+              checked={true}
+              className="form-check-input"
+              disabled={true}
+              id="radioButtonsPropertyInputRadio1"
+              name="radioButtonsPropertyInput"
+              onChange={[Function]}
+              required={true}
+              type="radio"
+              value="chocolate"
+            />
+            <label
+              className="form-check-label radio-label"
+              htmlFor="radioButtonsPropertyInputRadio1"
+            >
+              Chocolate
+            </label>
           </div>
         </div>
       </div>

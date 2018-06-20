@@ -1,0 +1,21 @@
+{
+  "values": {
+    "name": true,
+    "radioButtons": ""
+  },
+  "meta": {
+    "/name": {
+      "displayName": "Name",
+      "type": "Boolean"
+    },
+    "/radioButtons": {
+      "displayName": "Test Radio buttons",
+      "extraAttrs": [["inputType", "radio"]],
+      "tagList": [["vanilla","Vanilla"],["chocolate","Chocolate"]]
+    }
+  },
+  "order": [
+    "/name",
+    "/radioButtons"
+  ]
+}

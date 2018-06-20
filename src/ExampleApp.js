@@ -10,14 +10,13 @@ import Cookies       from 'universal-cookie';
 import JsonPointer   from 'json-pointer';
 import PropertySet   from './components/PropertySet';
 import Property      from './components/Property';
-import PropertyInput from './components/PropertyInput';
-import Properties    from './components/Properties';
 
 import bean from './testJson.json';
 import testOuter from './testOuter.json';
 import validationTest from './validationTest.json';
 import layout1 from './layout1.json';
 import layout2 from './layout2.json';
+import devJson from './devJson.json';
 
 import 'react-datetime/css/react-datetime.css';
 import 'react-select/dist/react-select.css';
@@ -207,6 +206,17 @@ class Validation extends AllPropertyTypes
   }
 }
 
+class DevForm extends AllPropertyTypes
+{
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      bean: devJson
+    };
+  }
+}
+
 class InlineForm extends AllPropertyTypes
 {
   constructor(props) {
@@ -283,12 +293,14 @@ const ExampleApp = () => (
             <li className="nav-item"><NavLink to="/outer" className="nav-link" >Outer</NavLink></li>
             <li className="nav-item"><NavLink to="/validation" className="nav-link" >Validation</NavLink></li>
             <li className="nav-item"><NavLink to="/inlineForm" className="nav-link" >Inline form</NavLink></li>
+            <li className="nav-item"><NavLink to="/dev" className="nav-link" >Dev</NavLink></li>
           </ul>
           <br/>
           <Route exact path="/" component={AllPropertyTypes}/>
           <Route path="/outer" component={PropertyOuter}/>
           <Route path="/validation" component={Validation}/>
           <Route path="/inlineForm" component={InlineForm}/>
+          <Route path="/dev" component={DevForm}/>
           <br/><br/><br/><br/>
         </div>
       </div>

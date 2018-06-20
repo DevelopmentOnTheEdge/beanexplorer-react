@@ -2,6 +2,7 @@ import React         from 'react';
 import PropTypes     from 'prop-types';
 import classNames    from 'classnames';
 import PropertyInput from './PropertyInput'
+import {inputLabelSizeClasses} from "./utils";
 
 
 class Property extends React.Component
@@ -24,10 +25,9 @@ class Property extends React.Component
       label = <label
         htmlFor={id}
         className={classNames(
-            meta.type === 'Boolean' ? 'form-check-label' : 'form-control-label',
-            {'mr-sm-2' : this.props.inline && meta.type !== 'Boolean'},
-            {'col-form-label-sm' : this.props.bsSize === "sm"},
-            {'col-form-label-lg' : this.props.bsSize === "lg"}
+          meta.type === 'Boolean' ? 'form-check-label' : 'form-control-label',
+          {'mr-sm-2' : this.props.inline && meta.type !== 'Boolean'},
+          inputLabelSizeClasses(this.props, meta.type)
         )}
       >
         {meta.displayName}

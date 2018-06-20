@@ -10,6 +10,7 @@ import JsonPointer          from 'json-pointer';
 import classNames           from 'classnames';
 import bigInt               from "big-integer";
 import bigRat               from "big-rational";
+import {inputLabelSizeClasses} from "./utils";
 
 
 class PropertyInput extends React.Component
@@ -369,6 +370,54 @@ class PropertyInput extends React.Component
 //        },
 //        readOnly: () => this.createStatic(value)
 //      },
+
+    if(meta.tagList && extraAttrsMap.inputType === "radio")
+    {
+      let radioButtons = [];
+
+      for(let i =0 ;i < meta.tagList.length; i++)
+      {
+        const tagName = meta.tagList[i][0];
+        const tagLabel = meta.tagList[i][1];
+
+        radioButtons.push(
+          <div className="form-check" key={id + "FormCheckWrapper" + i}>
+            <input
+              id={id + "Radio" + i}
+              className="form-check-input"
+              type="radio"
+              name={id}
+              value={tagName}
+              checked={tagName === "" + value}
+              onChange={this.handleChange}
+              required={required}
+              disabled={meta.readOnly}
+            />
+            <label
+              className={classNames(
+                inputLabelSizeClasses(this.props, meta.type),
+                "form-check-label radio-label"
+              )}
+              htmlFor={id + "Radio" + i}
+            >
+              {tagLabel}
+            </label>
+          </div>
+        )
+      }
+
+      return <div
+        className={classNames(
+          "radio-buttons-outer",
+          'property-input',
+          {'Select--sm': this.props.bsSize === "sm"},
+          {'Select--lg': this.props.bsSize === "lg"},
+          validationClasses
+        )}
+      >
+        {radioButtons}
+      </div>
+    }
 
     if(meta.tagList)
     {

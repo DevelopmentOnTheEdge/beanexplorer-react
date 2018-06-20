@@ -41,8 +41,8 @@
   color: #2b2b2b !important;
 }
 
-.form-group.required .form-control-label:after,
-.form-check.required .form-check-label:after{
+.property.form-group.required > .form-control-label:after,
+.property.form-check.required > .form-check-label:after{
   content:"*";
   color:#b90000;
   margin-left: 2px;
@@ -63,7 +63,9 @@ even BEFORE the user hits the submit button.
 input:required, textarea:required {
   box-shadow: none;
 }
-
+.radio-label {
+  margin-bottom: 0.3rem;
+}
 /****************************************************************************/
 .vertical-input .form-check.property {
   margin-bottom: 0.5rem;
@@ -72,6 +74,8 @@ input:required, textarea:required {
 .vertical-input .col-form-label-sm,
 .vertical-input .col-form-label-lg{
   margin-bottom: 0;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 .vertical-input--sm .form-group {
@@ -79,10 +83,10 @@ input:required, textarea:required {
 }
 
 .vertical-input--sm .form-check.property{
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.0rem;
 }
 .vertical-input--sm .form-check-input {
-  margin-top: 0.55rem;
+  margin-top: 0.4rem;
 }
 .vertical-input--sm .invalid-feedback,
 .vertical-input--sm .valid-feedback,
@@ -91,7 +95,7 @@ input:required, textarea:required {
 }
 
 .vertical-input--lg .form-check-input {
-  margin-top: 1.1rem;
+  margin-top: 0.55rem;
 }
 
 /****************************************************************************/
