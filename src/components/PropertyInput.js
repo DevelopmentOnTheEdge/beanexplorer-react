@@ -400,7 +400,7 @@ class PropertyInput extends React.Component
               )}
               htmlFor={id + "Radio" + i}
             >
-              {tagLabel}
+              {!meta.rawValue ? tagLabel : <div dangerouslySetInnerHTML={{__html: tagLabel}}/>}
             </label>
           </div>
         )
