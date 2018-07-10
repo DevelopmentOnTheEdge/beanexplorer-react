@@ -232,6 +232,11 @@ class PropertyInput extends React.Component
       map.inputType = 'password';
     }
 
+    if(meta.placeholder)
+    {
+      map.placeholder = meta.placeholder;
+    }
+
     return map;
   }
 
@@ -353,7 +358,7 @@ class PropertyInput extends React.Component
       {
         value: value,
         onChange: this.handleChange,
-        placeholder: meta.placeholder
+        placeholder: extraAttrsMap.placeholder
       }
     );
 
@@ -460,7 +465,7 @@ class PropertyInput extends React.Component
         noResultsText: this.props.localization.noResultsText,
         searchPromptText: this.props.localization.searchPromptText,
         loadingPlaceholder: this.props.localization.loadingPlaceholder,
-        placeholder: meta.placeholder || this.props.localization.placeholder,
+        placeholder: extraAttrsMap.placeholder || this.props.localization.placeholder,
         backspaceRemoves: false,
         disabled: meta.readOnly,
         multi: meta.multipleSelectionList,
@@ -610,7 +615,7 @@ class PropertyInput extends React.Component
                 this.datetimeInput = instance;
               },
               pattern: "(^$|\\d{1,2}\\.\\d{1,2}\\.\\d{4})",
-              placeholder: meta.placeholder
+              placeholder: extraAttrsMap.placeholder
             }
           )}
           className="Datetime-outer"

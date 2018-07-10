@@ -337,7 +337,7 @@ var PropertyInput = function (_React$Component) {
       var rawInputProps = Object.assign({}, baseProps, {
         value: value,
         onChange: this.handleChange,
-        placeholder: meta.placeholder
+        placeholder: extraAttrsMap.placeholder
       });
 
       var rawTextValidation = {
@@ -434,7 +434,7 @@ var PropertyInput = function (_React$Component) {
           noResultsText: this.props.localization.noResultsText,
           searchPromptText: this.props.localization.searchPromptText,
           loadingPlaceholder: this.props.localization.loadingPlaceholder,
-          placeholder: meta.placeholder || this.props.localization.placeholder,
+          placeholder: extraAttrsMap.placeholder || this.props.localization.placeholder,
           backspaceRemoves: false,
           disabled: meta.readOnly,
           multi: meta.multipleSelectionList,
@@ -556,7 +556,7 @@ var PropertyInput = function (_React$Component) {
                 _this3.datetimeInput = instance;
               },
               pattern: "(^$|\\d{1,2}\\.\\d{1,2}\\.\\d{4})",
-              placeholder: meta.placeholder
+              placeholder: extraAttrsMap.placeholder
             }),
             className: 'Datetime-outer'
           });
@@ -632,6 +632,10 @@ var PropertyInput = function (_React$Component) {
 
       if (meta.passwordField) {
         map.inputType = 'password';
+      }
+
+      if (meta.placeholder) {
+        map.placeholder = meta.placeholder;
       }
 
       return map;
