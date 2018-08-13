@@ -29,6 +29,13 @@ test('snapshot bean', () => {
   expect(component.toJSON()).toMatchSnapshot();
 });
 
+test('snapshot bean horizontal', () => {
+  const component = renderer.create(
+    <PropertySet bean={bean} horizontal/>
+  );
+  expect(component.toJSON()).toMatchSnapshot();
+});
+
 test('snapshot bean with readOnly', () => {
   for(let item in bean.meta) {
     bean.meta[item]['readOnly'] = true;

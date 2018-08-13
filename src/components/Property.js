@@ -26,7 +26,8 @@ class Property extends React.Component
         htmlFor={id}
         className={classNames(
           meta.type === 'Boolean' ? 'form-check-label' : 'form-control-label',
-          {'mr-sm-2' : this.props.inline && meta.type !== 'Boolean'},
+          {'mr-sm-2': this.props.inline && meta.type !== 'Boolean'},
+          {'col-form-label': this.props.horizontal && meta.type !== 'Boolean'},
           inputLabelSizeClasses(this.props, meta.type)
         )}
       >
@@ -82,6 +83,48 @@ class Property extends React.Component
           <div className={outerClasses} >
             {label}
             <PropertyInput {...this.props}/>
+          </div>
+        );
+      }
+    }
+    else if(this.props.horizontal)
+    {
+      const outerClasses = classNames(
+        'horizontal-input',
+        {'horizontal-input--sm': this.props.bsSize === "sm"},
+        {'horizontal-input--lg': this.props.bsSize === "lg"},
+        meta.cssClasses || this.props.className,
+        {'display-none' : meta.hidden}
+      );
+
+      if(meta.type === "Boolean")
+      {
+        return (
+          <div className={classNames(outerClasses, 'col-lg-12')}>
+            <div className={'row'}>
+              <div className={'col-lg-' + this.props.horizontalColSize}>&nbsp;</div>
+              <div className={'col-lg-' + (12-this.props.horizontalColSize)}>
+                <div className={classNames(formGroupClasses)}>
+                  <PropertyInput {...this.props} />
+                  {label}
+                  {messageElement}
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      }
+      else
+      {
+        return (
+          <div className={classNames(outerClasses, 'col-lg-12')}>
+            <div className={classNames(formGroupClasses, 'row')}>
+              <div className={'col-lg-' + this.props.horizontalColSize}>{label}</div>
+              <div className={'col-lg-' + (12-this.props.horizontalColSize)}>
+                <PropertyInput {...this.props} />
+                {messageElement}
+              </div>
+            </div>
           </div>
         );
       }
@@ -144,10 +187,16 @@ Property.propTypes = {
   path: PropTypes.string,
   id: PropTypes.number,
   inline: PropTypes.bool,
+  horizontal: PropTypes.bool,
+  horizontalColSize: PropTypes.number,
   bsSize: PropTypes.string,
   onChange: PropTypes.func,
   localization: PropTypes.object,
   className: PropTypes.string
+};
+
+Property.defaultProps = {
+  horizontalColSize: 3
 };
 
 export default Property;

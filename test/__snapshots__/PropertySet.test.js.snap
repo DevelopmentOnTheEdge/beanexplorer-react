@@ -55,7 +55,7 @@ exports[`inline layout1 1`] = `
         >
           <span
             className="Select-multi-value-wrapper"
-            id="react-select-22--value"
+            id="react-select-25--value"
           >
             <div
               className="Select-placeholder"
@@ -71,7 +71,7 @@ exports[`inline layout1 1`] = `
               }
             >
               <input
-                aria-activedescendant="react-select-22--value"
+                aria-activedescendant="react-select-25--value"
                 aria-describedby={undefined}
                 aria-expanded="false"
                 aria-haspopup="false"
@@ -1422,6 +1422,1261 @@ exports[`snapshot bean 1`] = `
 </div>
 `;
 
+exports[`snapshot bean horizontal 1`] = `
+<div
+  className="property-set form-row"
+>
+  <div
+    className="horizontal-input col-lg-12"
+  >
+    <div
+      className="property form-group required row"
+    >
+      <div
+        className="col-lg-3"
+      >
+        <label
+          className="form-control-label col-form-label"
+          htmlFor="textInputPropertyInput"
+        >
+          Text input
+        </label>
+      </div>
+      <div
+        className="col-lg-9"
+      >
+        <input
+          className="property-input form-control"
+          id="textInputPropertyInput"
+          maxLength={undefined}
+          onChange={[Function]}
+          onInput={[Function]}
+          onInvalid={[Function]}
+          pattern={undefined}
+          placeholder={undefined}
+          required={true}
+          size={undefined}
+          type="text"
+          value="test"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="horizontal-input col-lg-12"
+  >
+    <div
+      className="property form-group required row"
+    >
+      <div
+        className="col-lg-3"
+      >
+        <label
+          className="form-control-label col-form-label"
+          htmlFor="datePropertyInput"
+        >
+          Date
+        </label>
+      </div>
+      <div
+        className="col-lg-9"
+      >
+        <div
+          className="rdt Datetime-outer"
+        >
+          <input
+            className="property-input form-control"
+            id="datePropertyInput"
+            onChange={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            pattern="(^$|\\\\d{1,2}\\\\.\\\\d{1,2}\\\\.\\\\d{4})"
+            placeholder={undefined}
+            required={true}
+            size={undefined}
+            type="text"
+            value="20.07.2017"
+          />
+          <div
+            className="rdtPicker"
+          >
+            <div
+              className="rdtDays"
+            >
+              <table>
+                <thead>
+                  <tr>
+                    <th
+                      className="rdtPrev"
+                      onClick={[Function]}
+                    >
+                      <span>
+                        ‹
+                      </span>
+                    </th>
+                    <th
+                      className="rdtSwitch"
+                      colSpan={5}
+                      data-value={6}
+                      onClick={[Function]}
+                    >
+                      July 2017
+                    </th>
+                    <th
+                      className="rdtNext"
+                      onClick={[Function]}
+                    >
+                      <span>
+                        ›
+                      </span>
+                    </th>
+                  </tr>
+                  <tr>
+                    <th
+                      className="dow"
+                    >
+                      Su
+                    </th>
+                    <th
+                      className="dow"
+                    >
+                      Mo
+                    </th>
+                    <th
+                      className="dow"
+                    >
+                      Tu
+                    </th>
+                    <th
+                      className="dow"
+                    >
+                      We
+                    </th>
+                    <th
+                      className="dow"
+                    >
+                      Th
+                    </th>
+                    <th
+                      className="dow"
+                    >
+                      Fr
+                    </th>
+                    <th
+                      className="dow"
+                    >
+                      Sa
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td
+                      className="rdtDay rdtOld"
+                      data-value={25}
+                      onClick={[Function]}
+                    >
+                      25
+                    </td>
+                    <td
+                      className="rdtDay rdtOld"
+                      data-value={26}
+                      onClick={[Function]}
+                    >
+                      26
+                    </td>
+                    <td
+                      className="rdtDay rdtOld"
+                      data-value={27}
+                      onClick={[Function]}
+                    >
+                      27
+                    </td>
+                    <td
+                      className="rdtDay rdtOld"
+                      data-value={28}
+                      onClick={[Function]}
+                    >
+                      28
+                    </td>
+                    <td
+                      className="rdtDay rdtOld"
+                      data-value={29}
+                      onClick={[Function]}
+                    >
+                      29
+                    </td>
+                    <td
+                      className="rdtDay rdtOld"
+                      data-value={30}
+                      onClick={[Function]}
+                    >
+                      30
+                    </td>
+                    <td
+                      className="rdtDay"
+                      data-value={1}
+                      onClick={[Function]}
+                    >
+                      1
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      className="rdtDay"
+                      data-value={2}
+                      onClick={[Function]}
+                    >
+                      2
+                    </td>
+                    <td
+                      className="rdtDay"
+                      data-value={3}
+                      onClick={[Function]}
+                    >
+                      3
+                    </td>
+                    <td
+                      className="rdtDay"
+                      data-value={4}
+                      onClick={[Function]}
+                    >
+                      4
+                    </td>
+                    <td
+                      className="rdtDay"
+                      data-value={5}
+                      onClick={[Function]}
+                    >
+                      5
+                    </td>
+                    <td
+                      className="rdtDay"
+                      data-value={6}
+                      onClick={[Function]}
+                    >
+                      6
+                    </td>
+                    <td
+                      className="rdtDay"
+                      data-value={7}
+                      onClick={[Function]}
+                    >
+                      7
+                    </td>
+                    <td
+                      className="rdtDay"
+                      data-value={8}
+                      onClick={[Function]}
+                    >
+                      8
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      className="rdtDay"
+                      data-value={9}
+                      onClick={[Function]}
+                    >
+                      9
+                    </td>
+                    <td
+                      className="rdtDay"
+                      data-value={10}
+                      onClick={[Function]}
+                    >
+                      10
+                    </td>
+                    <td
+                      className="rdtDay"
+                      data-value={11}
+                      onClick={[Function]}
+                    >
+                      11
+                    </td>
+                    <td
+                      className="rdtDay"
+                      data-value={12}
+                      onClick={[Function]}
+                    >
+                      12
+                    </td>
+                    <td
+                      className="rdtDay"
+                      data-value={13}
+                      onClick={[Function]}
+                    >
+                      13
+                    </td>
+                    <td
+                      className="rdtDay"
+                      data-value={14}
+                      onClick={[Function]}
+                    >
+                      14
+                    </td>
+                    <td
+                      className="rdtDay"
+                      data-value={15}
+                      onClick={[Function]}
+                    >
+                      15
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      className="rdtDay"
+                      data-value={16}
+                      onClick={[Function]}
+                    >
+                      16
+                    </td>
+                    <td
+                      className="rdtDay"
+                      data-value={17}
+                      onClick={[Function]}
+                    >
+                      17
+                    </td>
+                    <td
+                      className="rdtDay"
+                      data-value={18}
+                      onClick={[Function]}
+                    >
+                      18
+                    </td>
+                    <td
+                      className="rdtDay"
+                      data-value={19}
+                      onClick={[Function]}
+                    >
+                      19
+                    </td>
+                    <td
+                      className="rdtDay rdtActive"
+                      data-value={20}
+                      onClick={[Function]}
+                    >
+                      20
+                    </td>
+                    <td
+                      className="rdtDay"
+                      data-value={21}
+                      onClick={[Function]}
+                    >
+                      21
+                    </td>
+                    <td
+                      className="rdtDay"
+                      data-value={22}
+                      onClick={[Function]}
+                    >
+                      22
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      className="rdtDay"
+                      data-value={23}
+                      onClick={[Function]}
+                    >
+                      23
+                    </td>
+                    <td
+                      className="rdtDay"
+                      data-value={24}
+                      onClick={[Function]}
+                    >
+                      24
+                    </td>
+                    <td
+                      className="rdtDay"
+                      data-value={25}
+                      onClick={[Function]}
+                    >
+                      25
+                    </td>
+                    <td
+                      className="rdtDay"
+                      data-value={26}
+                      onClick={[Function]}
+                    >
+                      26
+                    </td>
+                    <td
+                      className="rdtDay"
+                      data-value={27}
+                      onClick={[Function]}
+                    >
+                      27
+                    </td>
+                    <td
+                      className="rdtDay"
+                      data-value={28}
+                      onClick={[Function]}
+                    >
+                      28
+                    </td>
+                    <td
+                      className="rdtDay"
+                      data-value={29}
+                      onClick={[Function]}
+                    >
+                      29
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      className="rdtDay"
+                      data-value={30}
+                      onClick={[Function]}
+                    >
+                      30
+                    </td>
+                    <td
+                      className="rdtDay"
+                      data-value={31}
+                      onClick={[Function]}
+                    >
+                      31
+                    </td>
+                    <td
+                      className="rdtDay rdtNew"
+                      data-value={1}
+                      onClick={[Function]}
+                    >
+                      1
+                    </td>
+                    <td
+                      className="rdtDay rdtNew"
+                      data-value={2}
+                      onClick={[Function]}
+                    >
+                      2
+                    </td>
+                    <td
+                      className="rdtDay rdtNew"
+                      data-value={3}
+                      onClick={[Function]}
+                    >
+                      3
+                    </td>
+                    <td
+                      className="rdtDay rdtNew"
+                      data-value={4}
+                      onClick={[Function]}
+                    >
+                      4
+                    </td>
+                    <td
+                      className="rdtDay rdtNew"
+                      data-value={5}
+                      onClick={[Function]}
+                    >
+                      5
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="horizontal-input col-lg-12"
+  >
+    <div
+      className="property form-group required row"
+    >
+      <div
+        className="col-lg-3"
+      >
+        <label
+          className="form-control-label col-form-label"
+          htmlFor="numberPropertyInput"
+        >
+          Number
+        </label>
+      </div>
+      <div
+        className="col-lg-9"
+      >
+        <input
+          className="property-input form-control"
+          data-info-range="-2147483648, 2147483647"
+          data-info-step="1"
+          data-info-type="Integer"
+          id="numberPropertyInput"
+          onChange={[Function]}
+          onInput={[Function]}
+          placeholder={undefined}
+          required={true}
+          size={undefined}
+          type="text"
+          value="123"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="horizontal-input col-lg-12"
+  >
+    <div
+      className="property form-group required row"
+    >
+      <div
+        className="col-lg-3"
+      >
+        <label
+          className="form-control-label col-form-label"
+          htmlFor="maskPropertyInput"
+        >
+          Mask
+        </label>
+      </div>
+      <div
+        className="col-lg-9"
+      >
+        <input
+          className="property-input form-control"
+          id="maskPropertyInput"
+          mask="11111"
+          maxLength={5}
+          onChange={[Function]}
+          onKeyDown={[Function]}
+          onKeyPress={[Function]}
+          onPaste={[Function]}
+          placeholder="_____"
+          required={true}
+          size={5}
+          value="123__"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="horizontal-input col-lg-12"
+  >
+    <div
+      className="property form-group required row"
+    >
+      <div
+        className="col-lg-3"
+      >
+        <label
+          className="form-control-label col-form-label"
+          htmlFor="textAreaPropertyInput"
+        >
+          TextArea
+        </label>
+      </div>
+      <div
+        className="col-lg-9"
+      >
+        <textarea
+          className="property-input form-control"
+          id="textAreaPropertyInput"
+          maxLength={undefined}
+          onChange={[Function]}
+          onInput={[Function]}
+          onInvalid={[Function]}
+          pattern={undefined}
+          placeholder={undefined}
+          required={true}
+          rows={3}
+          size={undefined}
+          value="test"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="horizontal-input col-lg-12"
+  >
+    <div
+      className="row"
+    >
+      <div
+        className="col-lg-3"
+      >
+         
+      </div>
+      <div
+        className="col-lg-9"
+      >
+        <div
+          className="property form-check required"
+        >
+          <input
+            checked={true}
+            className="property-input form-check-input"
+            id="checkBoxPropertyInput"
+            onChange={[Function]}
+            required={true}
+            size={undefined}
+            type="checkbox"
+          />
+          <label
+            className="form-check-label"
+            htmlFor="checkBoxPropertyInput"
+          >
+            CheckBox
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="horizontal-input col-lg-12"
+  >
+    <div
+      className="property form-group row"
+    >
+      <div
+        className="col-lg-3"
+      >
+        <label
+          className="form-control-label col-form-label"
+          htmlFor="filePropertyInput"
+        >
+          File
+        </label>
+      </div>
+      <div
+        className="col-lg-9"
+      >
+        <input
+          className="property-input form-control-file"
+          id="filePropertyInput"
+          multiple={undefined}
+          onChange={[Function]}
+          required={false}
+          size={undefined}
+          type="file"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="horizontal-input col-lg-12"
+  >
+    <div
+      className="property form-group required row"
+    >
+      <div
+        className="col-lg-3"
+      >
+        <label
+          className="form-control-label col-form-label"
+          htmlFor="selectPropertyInput"
+        >
+          Select
+        </label>
+      </div>
+      <div
+        className="col-lg-9"
+      >
+        <div
+          className="Select-outer property-input"
+          style={undefined}
+        >
+          <div
+            className="Select has-value is-clearable is-searchable Select--single"
+            style={undefined}
+          >
+            <input
+              disabled={false}
+              name="selectPropertyInput"
+              type="hidden"
+              value="vanilla"
+            />
+            <div
+              className="Select-control"
+              onKeyDown={[Function]}
+              onMouseDown={[Function]}
+              onTouchEnd={[Function]}
+              onTouchMove={[Function]}
+              onTouchStart={[Function]}
+              style={undefined}
+            >
+              <span
+                className="Select-multi-value-wrapper"
+                id="react-select-14--value"
+              >
+                <div
+                  className="Select-value"
+                  style={undefined}
+                  title={undefined}
+                >
+                  <span
+                    aria-selected="true"
+                    className="Select-value-label"
+                    id="react-select-14--value-item"
+                    role="option"
+                  >
+                    Vanilla
+                  </span>
+                </div>
+                <div
+                  className="Select-input"
+                  style={
+                    Object {
+                      "display": "inline-block",
+                    }
+                  }
+                >
+                  <input
+                    aria-activedescendant="react-select-14--value"
+                    aria-describedby={undefined}
+                    aria-expanded="false"
+                    aria-haspopup="false"
+                    aria-label={undefined}
+                    aria-labelledby={undefined}
+                    aria-owns=""
+                    className={undefined}
+                    id={undefined}
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onFocus={[Function]}
+                    required={false}
+                    role="combobox"
+                    style={
+                      Object {
+                        "boxSizing": "content-box",
+                        "width": "5px",
+                      }
+                    }
+                    tabIndex={undefined}
+                    value=""
+                  />
+                  <div
+                    style={
+                      Object {
+                        "height": 0,
+                        "left": 0,
+                        "overflow": "scroll",
+                        "position": "absolute",
+                        "top": 0,
+                        "visibility": "hidden",
+                        "whiteSpace": "pre",
+                      }
+                    }
+                  >
+                    
+                  </div>
+                </div>
+              </span>
+              <span
+                aria-label="Clear value"
+                className="Select-clear-zone"
+                onMouseDown={[Function]}
+                onTouchEnd={[Function]}
+                onTouchMove={[Function]}
+                onTouchStart={[Function]}
+                title="Clear value"
+              >
+                <span
+                  className="Select-clear"
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "&times;",
+                    }
+                  }
+                />
+              </span>
+              <span
+                className="Select-arrow-zone"
+                onMouseDown={[Function]}
+              >
+                <span
+                  className="Select-arrow"
+                  onMouseDown={[Function]}
+                />
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="horizontal-input col-lg-12"
+  >
+    <div
+      className="property form-group required row"
+    >
+      <div
+        className="col-lg-3"
+      >
+        <label
+          className="form-control-label col-form-label"
+          htmlFor="virtualizedSelectPropertyInput"
+        >
+          VirtualizedSelect
+        </label>
+      </div>
+      <div
+        className="col-lg-9"
+      >
+        <div
+          className="Select-outer property-input"
+          style={undefined}
+        >
+          <div
+            className="Select has-value is-clearable is-searchable Select--single"
+            style={undefined}
+          >
+            <input
+              disabled={false}
+              name="virtualizedSelectPropertyInput"
+              type="hidden"
+              value="vanilla"
+            />
+            <div
+              className="Select-control"
+              onKeyDown={[Function]}
+              onMouseDown={[Function]}
+              onTouchEnd={[Function]}
+              onTouchMove={[Function]}
+              onTouchStart={[Function]}
+              style={undefined}
+            >
+              <span
+                className="Select-multi-value-wrapper"
+                id="react-select-15--value"
+              >
+                <div
+                  className="Select-value"
+                  style={undefined}
+                  title={undefined}
+                >
+                  <span
+                    aria-selected="true"
+                    className="Select-value-label"
+                    id="react-select-15--value-item"
+                    role="option"
+                  >
+                    Vanilla
+                  </span>
+                </div>
+                <div
+                  className="Select-input"
+                  style={
+                    Object {
+                      "display": "inline-block",
+                    }
+                  }
+                >
+                  <input
+                    aria-activedescendant="react-select-15--value"
+                    aria-describedby={undefined}
+                    aria-expanded="false"
+                    aria-haspopup="false"
+                    aria-label={undefined}
+                    aria-labelledby={undefined}
+                    aria-owns=""
+                    className={undefined}
+                    id={undefined}
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onFocus={[Function]}
+                    required={false}
+                    role="combobox"
+                    style={
+                      Object {
+                        "boxSizing": "content-box",
+                        "width": "5px",
+                      }
+                    }
+                    tabIndex={undefined}
+                    value=""
+                  />
+                  <div
+                    style={
+                      Object {
+                        "height": 0,
+                        "left": 0,
+                        "overflow": "scroll",
+                        "position": "absolute",
+                        "top": 0,
+                        "visibility": "hidden",
+                        "whiteSpace": "pre",
+                      }
+                    }
+                  >
+                    
+                  </div>
+                </div>
+              </span>
+              <span
+                aria-label="Clear value"
+                className="Select-clear-zone"
+                onMouseDown={[Function]}
+                onTouchEnd={[Function]}
+                onTouchMove={[Function]}
+                onTouchStart={[Function]}
+                title="Clear value"
+              >
+                <span
+                  className="Select-clear"
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "&times;",
+                    }
+                  }
+                />
+              </span>
+              <span
+                className="Select-arrow-zone"
+                onMouseDown={[Function]}
+              >
+                <span
+                  className="Select-arrow"
+                  onMouseDown={[Function]}
+                />
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="horizontal-input col-lg-12"
+  >
+    <div
+      className="property form-group required row"
+    >
+      <div
+        className="col-lg-3"
+      >
+        <label
+          className="form-control-label col-form-label"
+          htmlFor="multiSelectPropertyInput"
+        >
+          Multi Select
+        </label>
+      </div>
+      <div
+        className="col-lg-9"
+      >
+        <div
+          className="Select-outer property-input"
+          style={undefined}
+        >
+          <div
+            className="Select has-value is-clearable is-searchable Select--multi"
+            style={undefined}
+          >
+            <input
+              disabled={false}
+              name="multiSelectPropertyInput"
+              type="hidden"
+              value="chocolate"
+            />
+            <input
+              disabled={false}
+              name="multiSelectPropertyInput"
+              type="hidden"
+              value="strawberry"
+            />
+            <div
+              className="Select-control"
+              onKeyDown={[Function]}
+              onMouseDown={[Function]}
+              onTouchEnd={[Function]}
+              onTouchMove={[Function]}
+              onTouchStart={[Function]}
+              style={undefined}
+            >
+              <span
+                className="Select-multi-value-wrapper"
+                id="react-select-16--value"
+              >
+                <div
+                  className="Select-value"
+                  style={undefined}
+                  title={undefined}
+                >
+                  <span
+                    aria-hidden="true"
+                    className="Select-value-icon"
+                    onMouseDown={[Function]}
+                    onTouchEnd={[Function]}
+                    onTouchMove={[Function]}
+                    onTouchStart={[Function]}
+                  >
+                    ×
+                  </span>
+                  <span
+                    aria-selected="true"
+                    className="Select-value-label"
+                    id="react-select-16--value-0"
+                    role="option"
+                  >
+                    Chocolate
+                    <span
+                      className="Select-aria-only"
+                    >
+                       
+                    </span>
+                  </span>
+                </div>
+                <div
+                  className="Select-value"
+                  style={undefined}
+                  title={undefined}
+                >
+                  <span
+                    aria-hidden="true"
+                    className="Select-value-icon"
+                    onMouseDown={[Function]}
+                    onTouchEnd={[Function]}
+                    onTouchMove={[Function]}
+                    onTouchStart={[Function]}
+                  >
+                    ×
+                  </span>
+                  <span
+                    aria-selected="true"
+                    className="Select-value-label"
+                    id="react-select-16--value-1"
+                    role="option"
+                  >
+                    Strawberry
+                    <span
+                      className="Select-aria-only"
+                    >
+                       
+                    </span>
+                  </span>
+                </div>
+                <div
+                  className="Select-input"
+                  style={
+                    Object {
+                      "display": "inline-block",
+                    }
+                  }
+                >
+                  <input
+                    aria-activedescendant="react-select-16--value"
+                    aria-describedby={undefined}
+                    aria-expanded="false"
+                    aria-haspopup="false"
+                    aria-label={undefined}
+                    aria-labelledby={undefined}
+                    aria-owns=""
+                    className={undefined}
+                    id={undefined}
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onFocus={[Function]}
+                    required={false}
+                    role="combobox"
+                    style={
+                      Object {
+                        "boxSizing": "content-box",
+                        "width": "5px",
+                      }
+                    }
+                    tabIndex={undefined}
+                    value=""
+                  />
+                  <div
+                    style={
+                      Object {
+                        "height": 0,
+                        "left": 0,
+                        "overflow": "scroll",
+                        "position": "absolute",
+                        "top": 0,
+                        "visibility": "hidden",
+                        "whiteSpace": "pre",
+                      }
+                    }
+                  >
+                    
+                  </div>
+                </div>
+              </span>
+              <span
+                aria-label="Clear all"
+                className="Select-clear-zone"
+                onMouseDown={[Function]}
+                onTouchEnd={[Function]}
+                onTouchMove={[Function]}
+                onTouchStart={[Function]}
+                title="Clear all"
+              >
+                <span
+                  className="Select-clear"
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "&times;",
+                    }
+                  }
+                />
+              </span>
+              <span
+                className="Select-arrow-zone"
+                onMouseDown={[Function]}
+              >
+                <span
+                  className="Select-arrow"
+                  onMouseDown={[Function]}
+                />
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="horizontal-input col-lg-12"
+  >
+    <div
+      className="property form-group required row"
+    >
+      <div
+        className="col-lg-3"
+      >
+        <label
+          className="form-control-label col-form-label"
+          htmlFor="radioButtonsPropertyInput"
+        >
+          Test Radio buttons
+        </label>
+      </div>
+      <div
+        className="col-lg-9"
+      >
+        <div
+          className="radio-buttons-outer property-input"
+        >
+          <div
+            className="form-check"
+          >
+            <input
+              checked={false}
+              className="form-check-input"
+              disabled={undefined}
+              id="radioButtonsPropertyInputRadio0"
+              name="radioButtonsPropertyInput"
+              onChange={[Function]}
+              required={true}
+              type="radio"
+              value="vanilla"
+            />
+            <label
+              className="form-check-label radio-label"
+              htmlFor="radioButtonsPropertyInputRadio0"
+            >
+              Vanilla
+            </label>
+          </div>
+          <div
+            className="form-check"
+          >
+            <input
+              checked={true}
+              className="form-check-input"
+              disabled={undefined}
+              id="radioButtonsPropertyInputRadio1"
+              name="radioButtonsPropertyInput"
+              onChange={[Function]}
+              required={true}
+              type="radio"
+              value="chocolate"
+            />
+            <label
+              className="form-check-label radio-label"
+              htmlFor="radioButtonsPropertyInputRadio1"
+            >
+              Chocolate
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="horizontal-input col-lg-12"
+  >
+    <div
+      className="property form-group required row"
+    >
+      <div
+        className="col-lg-3"
+      />
+      <div
+        className="col-lg-9"
+      >
+        <label
+          className="property-input"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<p>Pellentesque habitant morbi tristique senectus et netus et <a href=\\"#test\\">Link</a> malesuada fames ac <b>turpis</b> egestas.</p>",
+            }
+          }
+          id="labelFieldRawPropertyInput"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="horizontal-input col-lg-12"
+  >
+    <div
+      className="property form-group required row"
+    >
+      <div
+        className="col-lg-3"
+      />
+      <div
+        className="col-lg-9"
+      >
+        <label
+          className="property-input text-warning"
+          id="labelFieldPropertyInput"
+        >
+          Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+        </label>
+      </div>
+    </div>
+  </div>
+  <div
+    className="horizontal-input col-lg-12"
+  >
+    <div
+      className="property form-group required row"
+    >
+      <div
+        className="col-lg-3"
+      >
+        <label
+          className="form-control-label col-form-label"
+          htmlFor="WYSIWYGPropertyInput"
+        >
+          WYSIWYG
+        </label>
+      </div>
+      <div
+        className="col-lg-9"
+      >
+        <div
+          className="p10"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`snapshot bean with readOnly 1`] = `
 <div
   className="property-set form-row"
@@ -1683,7 +2938,7 @@ exports[`snapshot bean with readOnly 1`] = `
             >
               <span
                 className="Select-multi-value-wrapper"
-                id="react-select-14--value"
+                id="react-select-17--value"
               >
                 <div
                   className="Select-value"
@@ -1693,14 +2948,14 @@ exports[`snapshot bean with readOnly 1`] = `
                   <span
                     aria-selected="true"
                     className="Select-value-label"
-                    id="react-select-14--value-item"
+                    id="react-select-17--value-item"
                     role="option"
                   >
                     Vanilla
                   </span>
                 </div>
                 <div
-                  aria-activedescendant="react-select-14--value"
+                  aria-activedescendant="react-select-17--value"
                   aria-disabled="true"
                   aria-expanded={false}
                   aria-label={undefined}
@@ -1775,7 +3030,7 @@ exports[`snapshot bean with readOnly 1`] = `
             >
               <span
                 className="Select-multi-value-wrapper"
-                id="react-select-15--value"
+                id="react-select-18--value"
               >
                 <div
                   className="Select-value"
@@ -1785,14 +3040,14 @@ exports[`snapshot bean with readOnly 1`] = `
                   <span
                     aria-selected="true"
                     className="Select-value-label"
-                    id="react-select-15--value-item"
+                    id="react-select-18--value-item"
                     role="option"
                   >
                     Vanilla
                   </span>
                 </div>
                 <div
-                  aria-activedescendant="react-select-15--value"
+                  aria-activedescendant="react-select-18--value"
                   aria-disabled="true"
                   aria-expanded={false}
                   aria-label={undefined}
@@ -1873,7 +3128,7 @@ exports[`snapshot bean with readOnly 1`] = `
             >
               <span
                 className="Select-multi-value-wrapper"
-                id="react-select-16--value"
+                id="react-select-19--value"
               >
                 <div
                   className="Select-value"
@@ -1883,7 +3138,7 @@ exports[`snapshot bean with readOnly 1`] = `
                   <span
                     aria-selected="true"
                     className="Select-value-label"
-                    id="react-select-16--value-0"
+                    id="react-select-19--value-0"
                     role="option"
                   >
                     Chocolate
@@ -1902,7 +3157,7 @@ exports[`snapshot bean with readOnly 1`] = `
                   <span
                     aria-selected="true"
                     className="Select-value-label"
-                    id="react-select-16--value-1"
+                    id="react-select-19--value-1"
                     role="option"
                   >
                     Strawberry
@@ -1914,7 +3169,7 @@ exports[`snapshot bean with readOnly 1`] = `
                   </span>
                 </div>
                 <div
-                  aria-activedescendant="react-select-16--value"
+                  aria-activedescendant="react-select-19--value"
                   aria-disabled="true"
                   aria-expanded={false}
                   aria-label={undefined}
@@ -2296,7 +3551,7 @@ exports[`test outer 1`] = `
                 >
                   <span
                     className="Select-multi-value-wrapper"
-                    id="react-select-20--value"
+                    id="react-select-23--value"
                   >
                     <div
                       className="Select-value"
@@ -2306,7 +3561,7 @@ exports[`test outer 1`] = `
                       <span
                         aria-selected="true"
                         className="Select-value-label"
-                        id="react-select-20--value-item"
+                        id="react-select-23--value-item"
                         role="option"
                       >
                         Vanilla
@@ -2321,7 +3576,7 @@ exports[`test outer 1`] = `
                       }
                     >
                       <input
-                        aria-activedescendant="react-select-20--value"
+                        aria-activedescendant="react-select-23--value"
                         aria-describedby={undefined}
                         aria-expanded="false"
                         aria-haspopup="false"
@@ -2539,7 +3794,7 @@ exports[`test outer 1`] = `
                 >
                   <span
                     className="Select-multi-value-wrapper"
-                    id="react-select-21--value"
+                    id="react-select-24--value"
                   >
                     <div
                       className="Select-value"
@@ -2549,7 +3804,7 @@ exports[`test outer 1`] = `
                       <span
                         aria-selected="true"
                         className="Select-value-label"
-                        id="react-select-21--value-item"
+                        id="react-select-24--value-item"
                         role="option"
                       >
                         Vanilla
@@ -2564,7 +3819,7 @@ exports[`test outer 1`] = `
                       }
                     >
                       <input
-                        aria-activedescendant="react-select-21--value"
+                        aria-activedescendant="react-select-24--value"
                         aria-describedby={undefined}
                         aria-expanded="false"
                         aria-haspopup="false"

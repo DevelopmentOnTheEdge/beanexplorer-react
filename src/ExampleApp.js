@@ -45,6 +45,7 @@ class AllPropertyTypes extends Component
 
     this.setState({
       cookies: cookies,
+      horizontal: cookies.get('horizontal', { path: '/' }) === 'true',
       wasValidated: cookies.get('wasValidated', { path: '/' }) === 'true',
       readOnly: cookies.get('readOnly', { path: '/' }) === 'true',
       bsSize: cookies.get('bsSize', { path: '/' }),
@@ -82,7 +83,12 @@ class AllPropertyTypes extends Component
   getForm(){
     return (
       <form onSubmit={this.handleSubmit} className={classNames("bs-example", {"was-validated" : this.state.wasValidated})}>
-        <PropertySet bean={this.getBean()} onChange={this.handleFieldChange} bsSize={this.state.bsSize}/>
+        <PropertySet
+          bean={this.getBean()}
+          onChange={this.handleFieldChange}
+          bsSize={this.state.bsSize}
+          horizontal={this.state.horizontal}
+        />
         {this.getSubmitBtn()}
       </form>
     )
@@ -105,6 +111,21 @@ class AllPropertyTypes extends Component
         <div className="col-lg-8">
           <div className="alert alert-secondary">
             <form className="form-inline">
+              <div className="form-check mr-sm-2">
+                <label htmlFor="horizontal" className="form-check-label">
+                  <input
+                    id="horizontal"
+                    type="checkbox"
+                    className="form-check-input"
+                    onChange={()=>{
+                      this.state.cookies.set('horizontal', !this.state.horizontal, { path: '/' });
+                      this.setState({horizontal: !this.state.horizontal});
+                    }}
+                    checked={this.state.horizontal === true}
+                  />
+                  horizontal
+                </label>
+              </div>
               <div className="form-check mr-sm-2">
                 <label htmlFor="readOnly" className="form-check-label">
                   <input
