@@ -2,6 +2,7 @@
   "values": {
     "textInput": "test",
     "date": "2017-07-20",
+    "timestamp": "2017-07-20 17:05",
     "number": "123",
     "mask": "123",
     "textArea": "test",
@@ -22,6 +23,10 @@
     "/date": {
       "displayName": "Date",
       "type": "Date"
+    },
+    "/timestamp": {
+      "displayName": "Timestamp",
+      "type": "Timestamp"
     },
     "/number": {
       "displayName": "Number",
@@ -80,6 +85,7 @@
   "order": [
     "/textInput",
     "/date",
+    "/timestamp",
     "/number",
     "/mask",
     "/textArea",

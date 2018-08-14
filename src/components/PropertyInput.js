@@ -26,8 +26,11 @@ class PropertyInput extends React.Component
 
     this.numberValidation = this.numberValidation.bind(this);
     this.patternValidationMessage = this.patternValidationMessage.bind(this);
+
     this.dateValidationMessage = this.dateValidationMessage.bind(this);
     this.dateToISOFormat = this.dateToISOFormat.bind(this);
+    this.timestampValidationMessage = this.timestampValidationMessage.bind(this);
+    this.timestampToISOFormat = this.timestampToISOFormat.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -35,7 +38,8 @@ class PropertyInput extends React.Component
   }
 
   componentDidUpdate(){
-    if(this.datetimeInput)this.dateValidationMessage({target: this.datetimeInput});
+    if(this.dateInput)this.dateValidationMessage({target: this.dateInput});
+    if(this.timestampInput)this.timestampValidationMessage({target: this.timestampInput});
   }
 
   getInitState(props) {
@@ -72,7 +76,7 @@ class PropertyInput extends React.Component
   }
 
   dateToISOFormat(date) {
-    this.datetimeInput.focus();
+    this.dateInput.focus();
 
     if(typeof date === "string") {
       this.callOnChange(date);
@@ -90,9 +94,36 @@ class PropertyInput extends React.Component
     }
   }
 
+  timestampToISOFormat(date) {
+    this.timestampInput.focus();
+
+    if(typeof date === "string") {
+      this.callOnChange(date);
+    } else {
+      this.callOnChange(date.format('YYYY-MM-DD HH:mm'));
+    }
+  }
+
+  static timestampFromISOFormat(stringDate) {
+    const date = moment(stringDate, 'YYYY-MM-DD HH:mm', true);
+    if (date.isValid()) {
+      return date.format('DD.MM.YYYY HH:mm');
+    } else {
+      return stringDate;
+    }
+  }
+
   dateValidationMessage(e) {
     if (e.target.validity.patternMismatch) {
       e.target.setCustomValidity(this.props.localization.datePatternError)
+    } else {
+      e.target.setCustomValidity('')
+    }
+  }
+
+  timestampValidationMessage(e) {
+    if (e.target.validity.patternMismatch) {
+      e.target.setCustomValidity(this.props.localization.timestampPatternError)
     } else {
       e.target.setCustomValidity('')
     }
@@ -601,10 +632,10 @@ class PropertyInput extends React.Component
       if(meta.readOnly !== true) {
         return <Datetime
           dateFormat="DD.MM.YYYY"
+          timeFormat={false}
           key={id + "Datetime"}
           value={PropertyInput.dateFromISOFormat(value)}
           onChange={this.dateToISOFormat}
-          timeFormat={false}
           closeOnSelect={true}
           closeOnTab={true}
           locale={this.props.localization.locale}
@@ -612,7 +643,7 @@ class PropertyInput extends React.Component
             baseProps,
             {
               ref: (instance) => {
-                this.datetimeInput = instance;
+                this.dateInput = instance;
               },
               pattern: "(^$|\\d{1,2}\\.\\d{1,2}\\.\\d{4})",
               placeholder: extraAttrsMap.placeholder
@@ -626,6 +657,39 @@ class PropertyInput extends React.Component
           {...rawInputProps}
           {...rawTextValidation}
           value={PropertyInput.dateFromISOFormat(value)}
+        />;
+      }
+    }
+
+    if(meta.type === 'Timestamp'){
+      if(meta.readOnly !== true) {
+        return <Datetime
+          dateFormat="DD.MM.YYYY"
+          timeFormat="HH:mm"
+          key={id + "Datetime"}
+          value={PropertyInput.timestampFromISOFormat(value)}
+          onChange={this.timestampToISOFormat}
+          closeOnSelect={true}
+          closeOnTab={true}
+          locale={this.props.localization.locale}
+          inputProps={Object.assign({},
+            baseProps,
+            {
+              ref: (instance) => {
+                this.timestampInput = instance;
+              },
+              pattern: "(^$|\\d{1,2}\\.\\d{1,2}\\.\\d{4}\\s\\d{2}:\\d{2})",
+              placeholder: extraAttrsMap.placeholder
+            }
+          )}
+          className="Datetime-outer"
+        />
+      }else{
+        return <input
+          type={'text'}
+          {...rawInputProps}
+          {...rawTextValidation}
+          value={PropertyInput.timestampFromISOFormat(value)}
         />;
       }
     }
@@ -671,7 +735,8 @@ PropertyInput.defaultProps = {
     rangeOverflow: 'The value must be less than or equal to {0}.',
     rangeUnderflow: 'The value must be greater than or equal to {0}.',
     loadingPlaceholder: 'Loading...',
-    datePatternError: 'Please enter a valid date in the format dd.mm.yyyy'
+    datePatternError: 'Please enter a valid date in the format dd.mm.yyyy',
+    timestampPatternError: 'Please enter a valid date with time in the format dd.mm.yyyy hh:mm'
   },
 };
 

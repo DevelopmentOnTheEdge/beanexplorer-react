@@ -151,6 +151,59 @@ test('date init with no valid date', () => {
   expect(input.get(0).value).toEqual('no date');
 });
 
+test('timestamp', () => {
+  const handle = jest.fn();
+
+  const wrapper = mount(
+    <PropertyInput path={"/timestamp"} bean={bean} onChange={handle} />
+  );
+
+  wrapper.find('input').simulate('change', {target: {value: '20.07.2017 17:05'}});
+  expect(handle.mock.calls[0]).toEqual(["/timestamp", "2017-07-20 17:05"]);
+
+
+  wrapper.find('input').simulate('change', {target: {value: ''}});
+  expect(handle.mock.calls[1]).toEqual(["/timestamp", ""]);
+
+
+  wrapper.find('input').simulate('change', {target: {value: '20.07.20 17:05'}});
+  expect(handle.mock.calls[2]).toEqual(["/timestamp", "20.07.20 17:05"]);
+
+  expect(handle.mock.calls.length).toEqual(3);
+});
+
+test('timestamp timestampValidationMessage', () => {
+  const handle = jest.fn();
+
+  const wrapper = shallow(
+    <PropertyInput path={"/timestamp"} bean={bean} onChange={handle} />
+  );
+
+  wrapper.instance().timestampValidationMessage(
+    {target:{value: '20.07.2012 17:05', setCustomValidity: handle, validity: {patternMismatch: true}}});
+
+  expect(handle.mock.calls[0]).toEqual(["Please enter a valid date with time in the format dd.mm.yyyy hh:mm"]);
+
+  wrapper.instance().timestampValidationMessage(
+    {target:{setCustomValidity: handle, validity: {patternMismatch: false}}});
+
+  expect(handle.mock.calls[1]).toEqual([""]);
+
+  expect(handle.mock.calls.length).toEqual(2);
+});
+
+test('timestamp init with no valid timestamp', () => {
+  const simpleBean = {
+    "values": { "timestamp": "no timestamp" },
+    "meta":   { "/timestamp": {"type": "Timestamp"} },
+    "order":  [ "/timestamp" ]
+  };
+  const wrapper = mount(<PropertyInput path={"/timestamp"} bean={simpleBean} />);
+  const input = wrapper.find('input');
+
+  expect(input.get(0).value).toEqual('no timestamp');
+});
+
 test('file', () => {
   const handle = jest.fn();//jest.fn((path, value) => { console.log(path, value); });
 

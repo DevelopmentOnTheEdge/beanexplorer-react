@@ -111,8 +111,11 @@ var PropertyInput = function (_React$Component) {
 
     _this.numberValidation = _this.numberValidation.bind(_this);
     _this.patternValidationMessage = _this.patternValidationMessage.bind(_this);
+
     _this.dateValidationMessage = _this.dateValidationMessage.bind(_this);
     _this.dateToISOFormat = _this.dateToISOFormat.bind(_this);
+    _this.timestampValidationMessage = _this.timestampValidationMessage.bind(_this);
+    _this.timestampToISOFormat = _this.timestampToISOFormat.bind(_this);
     return _this;
   }
 
@@ -124,7 +127,8 @@ var PropertyInput = function (_React$Component) {
   }, {
     key: 'componentDidUpdate',
     value: function componentDidUpdate() {
-      if (this.datetimeInput) this.dateValidationMessage({ target: this.datetimeInput });
+      if (this.dateInput) this.dateValidationMessage({ target: this.dateInput });
+      if (this.timestampInput) this.timestampValidationMessage({ target: this.timestampInput });
     }
   }, {
     key: 'getInitState',
@@ -166,7 +170,7 @@ var PropertyInput = function (_React$Component) {
   }, {
     key: 'dateToISOFormat',
     value: function dateToISOFormat(date) {
-      this.datetimeInput.focus();
+      this.dateInput.focus();
 
       if (typeof date === "string") {
         this.callOnChange(date);
@@ -175,10 +179,30 @@ var PropertyInput = function (_React$Component) {
       }
     }
   }, {
+    key: 'timestampToISOFormat',
+    value: function timestampToISOFormat(date) {
+      this.timestampInput.focus();
+
+      if (typeof date === "string") {
+        this.callOnChange(date);
+      } else {
+        this.callOnChange(date.format('YYYY-MM-DD HH:mm'));
+      }
+    }
+  }, {
     key: 'dateValidationMessage',
     value: function dateValidationMessage(e) {
       if (e.target.validity.patternMismatch) {
         e.target.setCustomValidity(this.props.localization.datePatternError);
+      } else {
+        e.target.setCustomValidity('');
+      }
+    }
+  }, {
+    key: 'timestampValidationMessage',
+    value: function timestampValidationMessage(e) {
+      if (e.target.validity.patternMismatch) {
+        e.target.setCustomValidity(this.props.localization.timestampPatternError);
       } else {
         e.target.setCustomValidity('');
       }
@@ -538,16 +562,16 @@ var PropertyInput = function (_React$Component) {
         if (meta.readOnly !== true) {
           return React.createElement(Datetime, {
             dateFormat: 'DD.MM.YYYY',
+            timeFormat: false,
             key: id + "Datetime",
             value: PropertyInput.dateFromISOFormat(value),
             onChange: this.dateToISOFormat,
-            timeFormat: false,
             closeOnSelect: true,
             closeOnTab: true,
             locale: this.props.localization.locale,
             inputProps: Object.assign({}, baseProps, {
               ref: function ref(instance) {
-                _this3.datetimeInput = instance;
+                _this3.dateInput = instance;
               },
               pattern: "(^$|\\d{1,2}\\.\\d{1,2}\\.\\d{4})",
               placeholder: extraAttrsMap.placeholder
@@ -559,6 +583,35 @@ var PropertyInput = function (_React$Component) {
             type: 'text'
           }, rawInputProps, rawTextValidation, {
             value: PropertyInput.dateFromISOFormat(value)
+          }));
+        }
+      }
+
+      if (meta.type === 'Timestamp') {
+        if (meta.readOnly !== true) {
+          return React.createElement(Datetime, {
+            dateFormat: 'DD.MM.YYYY',
+            timeFormat: 'HH:mm',
+            key: id + "Datetime",
+            value: PropertyInput.timestampFromISOFormat(value),
+            onChange: this.timestampToISOFormat,
+            closeOnSelect: true,
+            closeOnTab: true,
+            locale: this.props.localization.locale,
+            inputProps: Object.assign({}, baseProps, {
+              ref: function ref(instance) {
+                _this3.timestampInput = instance;
+              },
+              pattern: "(^$|\\d{1,2}\\.\\d{1,2}\\.\\d{4}\\s\\d{2}:\\d{2})",
+              placeholder: extraAttrsMap.placeholder
+            }),
+            className: 'Datetime-outer'
+          });
+        } else {
+          return React.createElement('input', _extends({
+            type: 'text'
+          }, rawInputProps, rawTextValidation, {
+            value: PropertyInput.timestampFromISOFormat(value)
           }));
         }
       }
@@ -587,6 +640,16 @@ var PropertyInput = function (_React$Component) {
       var date = moment(stringDate, 'YYYY-MM-DD', true);
       if (date.isValid()) {
         return date.format('DD.MM.YYYY');
+      } else {
+        return stringDate;
+      }
+    }
+  }, {
+    key: 'timestampFromISOFormat',
+    value: function timestampFromISOFormat(stringDate) {
+      var date = moment(stringDate, 'YYYY-MM-DD HH:mm', true);
+      if (date.isValid()) {
+        return date.format('DD.MM.YYYY HH:mm');
       } else {
         return stringDate;
       }
@@ -704,7 +767,8 @@ PropertyInput.defaultProps = {
     rangeOverflow: 'The value must be less than or equal to {0}.',
     rangeUnderflow: 'The value must be greater than or equal to {0}.',
     loadingPlaceholder: 'Loading...',
-    datePatternError: 'Please enter a valid date in the format dd.mm.yyyy'
+    datePatternError: 'Please enter a valid date in the format dd.mm.yyyy',
+    timestampPatternError: 'Please enter a valid date with time in the format dd.mm.yyyy hh:mm'
   }
 };
 
@@ -749,7 +813,7 @@ var Property = function (_React$Component) {
           'label',
           {
             htmlFor: id,
-            className: classNames(meta.type === 'Boolean' ? 'form-check-label' : 'form-control-label', { 'mr-sm-2': this.props.inline && meta.type !== 'Boolean' }, inputLabelSizeClasses(this.props, meta.type))
+            className: classNames(meta.type === 'Boolean' ? 'form-check-label' : 'form-control-label', { 'mr-sm-2': this.props.inline && meta.type !== 'Boolean' }, { 'col-form-label': this.props.horizontal && meta.type !== 'Boolean' }, inputLabelSizeClasses(this.props, meta.type))
           },
           meta.displayName
         );
@@ -794,13 +858,62 @@ var Property = function (_React$Component) {
             React.createElement(PropertyInput, this.props)
           );
         }
-      } else {
-        var _outerClasses = classNames('vertical-input', { 'vertical-input--sm': this.props.bsSize === "sm" }, { 'vertical-input--lg': this.props.bsSize === "lg" }, meta.cssClasses || this.props.className || 'col-lg-12', { 'display-none': meta.hidden });
+      } else if (this.props.horizontal) {
+        var _outerClasses = classNames('horizontal-input', { 'horizontal-input--sm': this.props.bsSize === "sm" }, { 'horizontal-input--lg': this.props.bsSize === "lg" }, meta.cssClasses || this.props.className, { 'display-none': meta.hidden });
 
         if (meta.type === "Boolean") {
           return React.createElement(
             'div',
-            { className: _outerClasses },
+            { className: classNames(_outerClasses, 'col-lg-12') },
+            React.createElement(
+              'div',
+              { className: 'row' },
+              React.createElement(
+                'div',
+                { className: 'col-lg-' + this.props.horizontalColSize },
+                '\xA0'
+              ),
+              React.createElement(
+                'div',
+                { className: 'col-lg-' + (12 - this.props.horizontalColSize) },
+                React.createElement(
+                  'div',
+                  { className: classNames(formGroupClasses) },
+                  React.createElement(PropertyInput, this.props),
+                  label,
+                  messageElement
+                )
+              )
+            )
+          );
+        } else {
+          return React.createElement(
+            'div',
+            { className: classNames(_outerClasses, 'col-lg-12') },
+            React.createElement(
+              'div',
+              { className: classNames(formGroupClasses, 'row') },
+              React.createElement(
+                'div',
+                { className: 'col-lg-' + this.props.horizontalColSize },
+                label
+              ),
+              React.createElement(
+                'div',
+                { className: 'col-lg-' + (12 - this.props.horizontalColSize) },
+                React.createElement(PropertyInput, this.props),
+                messageElement
+              )
+            )
+          );
+        }
+      } else {
+        var _outerClasses2 = classNames('vertical-input', { 'vertical-input--sm': this.props.bsSize === "sm" }, { 'vertical-input--lg': this.props.bsSize === "lg" }, meta.cssClasses || this.props.className || 'col-lg-12', { 'display-none': meta.hidden });
+
+        if (meta.type === "Boolean") {
+          return React.createElement(
+            'div',
+            { className: _outerClasses2 },
             React.createElement(
               'div',
               { className: formGroupClasses },
@@ -812,7 +925,7 @@ var Property = function (_React$Component) {
         } else if (meta.labelField) {
           return React.createElement(
             'div',
-            { className: _outerClasses },
+            { className: _outerClasses2 },
             React.createElement(
               'div',
               { className: classNames('property-label', formGroupClasses) },
@@ -823,7 +936,7 @@ var Property = function (_React$Component) {
         } else {
           return React.createElement(
             'div',
-            { className: _outerClasses },
+            { className: _outerClasses2 },
             React.createElement(
               'div',
               { className: formGroupClasses },
@@ -848,10 +961,16 @@ Property.propTypes = {
   path: PropTypes.string,
   id: PropTypes.number,
   inline: PropTypes.bool,
+  horizontal: PropTypes.bool,
+  horizontalColSize: PropTypes.number,
   bsSize: PropTypes.string,
   onChange: PropTypes.func,
   localization: PropTypes.object,
   className: PropTypes.string
+};
+
+Property.defaultProps = {
+  horizontalColSize: 3
 };
 
 var Properties = function (_React$Component) {
@@ -1006,7 +1125,7 @@ var PropertySet$1 = function (_React$Component) {
     value: function getName(name) {
       if (name) {
         return React.createElement(
-          'h4',
+          'h5',
           { className: 'property-group__title' },
           name
         );

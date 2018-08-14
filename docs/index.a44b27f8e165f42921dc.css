@@ -801,12 +801,6 @@ td.rdtYear:hover {
   letter-spacing: 1px;
   content: "Example";
 }
-.property{
-  max-width: 100%;
-}
-
-/****************************************************************************/
-
 .property-group {
   position: relative;
 }
@@ -870,6 +864,14 @@ input:required, textarea:required {
   margin-bottom: 0.3rem;
 }
 /****************************************************************************/
+.horizontal-input .form-check.property{
+  margin-bottom: 1rem;
+}
+/****************************************************************************/
+.vertical-input .property{
+  max-width: 100%;
+}
+
 .vertical-input .form-check.property {
   margin-bottom: 0.5rem;
 }
