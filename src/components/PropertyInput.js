@@ -100,12 +100,12 @@ class PropertyInput extends React.Component
     if(typeof date === "string") {
       this.callOnChange(date);
     } else {
-      this.callOnChange(date.format('YYYY-MM-DD HH:mm'));
+      this.callOnChange(date.format('YYYY-MM-DD HH:mm:ss.SSS'));
     }
   }
 
   static timestampFromISOFormat(stringDate) {
-    const date = moment(stringDate, 'YYYY-MM-DD HH:mm', true);
+    const date = moment(stringDate, 'YYYY-MM-DD HH:mm:ss.SSS', true);
     if (date.isValid()) {
       return date.format('DD.MM.YYYY HH:mm');
     } else {

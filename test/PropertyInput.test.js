@@ -159,7 +159,7 @@ test('timestamp', () => {
   );
 
   wrapper.find('input').simulate('change', {target: {value: '20.07.2017 17:05'}});
-  expect(handle.mock.calls[0]).toEqual(["/timestamp", "2017-07-20 17:05"]);
+  expect(handle.mock.calls[0]).toEqual(["/timestamp", "2017-07-20 17:05:00.000"]);
 
 
   wrapper.find('input').simulate('change', {target: {value: ''}});

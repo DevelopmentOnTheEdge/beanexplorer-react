@@ -723,7 +723,7 @@ exports[`snapshot bean 1`] = `
             required={true}
             size={undefined}
             type="text"
-            value="20.07.2017 17:05"
+            value="14.08.2018 13:33"
           />
           <div
             className="rdtPicker"
@@ -745,10 +745,10 @@ exports[`snapshot bean 1`] = `
                     <th
                       className="rdtSwitch"
                       colSpan={5}
-                      data-value={6}
+                      data-value={7}
                       onClick={[Function]}
                     >
-                      July 2017
+                      August 2018
                     </th>
                     <th
                       className="rdtNext"
@@ -801,34 +801,6 @@ exports[`snapshot bean 1`] = `
                   <tr>
                     <td
                       className="rdtDay rdtOld"
-                      data-value={25}
-                      onClick={[Function]}
-                    >
-                      25
-                    </td>
-                    <td
-                      className="rdtDay rdtOld"
-                      data-value={26}
-                      onClick={[Function]}
-                    >
-                      26
-                    </td>
-                    <td
-                      className="rdtDay rdtOld"
-                      data-value={27}
-                      onClick={[Function]}
-                    >
-                      27
-                    </td>
-                    <td
-                      className="rdtDay rdtOld"
-                      data-value={28}
-                      onClick={[Function]}
-                    >
-                      28
-                    </td>
-                    <td
-                      className="rdtDay rdtOld"
                       data-value={29}
                       onClick={[Function]}
                     >
@@ -842,14 +814,19 @@ exports[`snapshot bean 1`] = `
                       30
                     </td>
                     <td
+                      className="rdtDay rdtOld"
+                      data-value={31}
+                      onClick={[Function]}
+                    >
+                      31
+                    </td>
+                    <td
                       className="rdtDay"
                       data-value={1}
                       onClick={[Function]}
                     >
                       1
                     </td>
-                  </tr>
-                  <tr>
                     <td
                       className="rdtDay"
                       data-value={2}
@@ -871,6 +848,8 @@ exports[`snapshot bean 1`] = `
                     >
                       4
                     </td>
+                  </tr>
+                  <tr>
                     <td
                       className="rdtDay"
                       data-value={5}
@@ -899,8 +878,6 @@ exports[`snapshot bean 1`] = `
                     >
                       8
                     </td>
-                  </tr>
-                  <tr>
                     <td
                       className="rdtDay"
                       data-value={9}
@@ -922,6 +899,8 @@ exports[`snapshot bean 1`] = `
                     >
                       11
                     </td>
+                  </tr>
+                  <tr>
                     <td
                       className="rdtDay"
                       data-value={12}
@@ -937,7 +916,7 @@ exports[`snapshot bean 1`] = `
                       13
                     </td>
                     <td
-                      className="rdtDay"
+                      className="rdtDay rdtActive rdtToday"
                       data-value={14}
                       onClick={[Function]}
                     >
@@ -950,8 +929,6 @@ exports[`snapshot bean 1`] = `
                     >
                       15
                     </td>
-                  </tr>
-                  <tr>
                     <td
                       className="rdtDay"
                       data-value={16}
@@ -973,6 +950,8 @@ exports[`snapshot bean 1`] = `
                     >
                       18
                     </td>
+                  </tr>
+                  <tr>
                     <td
                       className="rdtDay"
                       data-value={19}
@@ -981,7 +960,7 @@ exports[`snapshot bean 1`] = `
                       19
                     </td>
                     <td
-                      className="rdtDay rdtActive"
+                      className="rdtDay"
                       data-value={20}
                       onClick={[Function]}
                     >
@@ -1001,8 +980,6 @@ exports[`snapshot bean 1`] = `
                     >
                       22
                     </td>
-                  </tr>
-                  <tr>
                     <td
                       className="rdtDay"
                       data-value={23}
@@ -1024,6 +1001,8 @@ exports[`snapshot bean 1`] = `
                     >
                       25
                     </td>
+                  </tr>
+                  <tr>
                     <td
                       className="rdtDay"
                       data-value={26}
@@ -1052,8 +1031,6 @@ exports[`snapshot bean 1`] = `
                     >
                       29
                     </td>
-                  </tr>
-                  <tr>
                     <td
                       className="rdtDay"
                       data-value={30}
@@ -1075,6 +1052,8 @@ exports[`snapshot bean 1`] = `
                     >
                       1
                     </td>
+                  </tr>
+                  <tr>
                     <td
                       className="rdtDay rdtNew"
                       data-value={2}
@@ -1103,6 +1082,27 @@ exports[`snapshot bean 1`] = `
                     >
                       5
                     </td>
+                    <td
+                      className="rdtDay rdtNew"
+                      data-value={6}
+                      onClick={[Function]}
+                    >
+                      6
+                    </td>
+                    <td
+                      className="rdtDay rdtNew"
+                      data-value={7}
+                      onClick={[Function]}
+                    >
+                      7
+                    </td>
+                    <td
+                      className="rdtDay rdtNew"
+                      data-value={8}
+                      onClick={[Function]}
+                    >
+                      8
+                    </td>
                   </tr>
                 </tbody>
                 <tfoot>
@@ -1112,7 +1112,7 @@ exports[`snapshot bean 1`] = `
                       colSpan={7}
                       onClick={[Function]}
                     >
-                      17:05
+                      13:33
                     </td>
                   </tr>
                 </tfoot>
@@ -2349,7 +2349,7 @@ exports[`snapshot bean horizontal 1`] = `
             required={true}
             size={undefined}
             type="text"
-            value="20.07.2017 17:05"
+            value="14.08.2018 13:33"
           />
           <div
             className="rdtPicker"
@@ -2371,10 +2371,10 @@ exports[`snapshot bean horizontal 1`] = `
                     <th
                       className="rdtSwitch"
                       colSpan={5}
-                      data-value={6}
+                      data-value={7}
                       onClick={[Function]}
                     >
-                      July 2017
+                      August 2018
                     </th>
                     <th
                       className="rdtNext"
@@ -2427,34 +2427,6 @@ exports[`snapshot bean horizontal 1`] = `
                   <tr>
                     <td
                       className="rdtDay rdtOld"
-                      data-value={25}
-                      onClick={[Function]}
-                    >
-                      25
-                    </td>
-                    <td
-                      className="rdtDay rdtOld"
-                      data-value={26}
-                      onClick={[Function]}
-                    >
-                      26
-                    </td>
-                    <td
-                      className="rdtDay rdtOld"
-                      data-value={27}
-                      onClick={[Function]}
-                    >
-                      27
-                    </td>
-                    <td
-                      className="rdtDay rdtOld"
-                      data-value={28}
-                      onClick={[Function]}
-                    >
-                      28
-                    </td>
-                    <td
-                      className="rdtDay rdtOld"
                       data-value={29}
                       onClick={[Function]}
                     >
@@ -2468,14 +2440,19 @@ exports[`snapshot bean horizontal 1`] = `
                       30
                     </td>
                     <td
+                      className="rdtDay rdtOld"
+                      data-value={31}
+                      onClick={[Function]}
+                    >
+                      31
+                    </td>
+                    <td
                       className="rdtDay"
                       data-value={1}
                       onClick={[Function]}
                     >
                       1
                     </td>
-                  </tr>
-                  <tr>
                     <td
                       className="rdtDay"
                       data-value={2}
@@ -2497,6 +2474,8 @@ exports[`snapshot bean horizontal 1`] = `
                     >
                       4
                     </td>
+                  </tr>
+                  <tr>
                     <td
                       className="rdtDay"
                       data-value={5}
@@ -2525,8 +2504,6 @@ exports[`snapshot bean horizontal 1`] = `
                     >
                       8
                     </td>
-                  </tr>
-                  <tr>
                     <td
                       className="rdtDay"
                       data-value={9}
@@ -2548,6 +2525,8 @@ exports[`snapshot bean horizontal 1`] = `
                     >
                       11
                     </td>
+                  </tr>
+                  <tr>
                     <td
                       className="rdtDay"
                       data-value={12}
@@ -2563,7 +2542,7 @@ exports[`snapshot bean horizontal 1`] = `
                       13
                     </td>
                     <td
-                      className="rdtDay"
+                      className="rdtDay rdtActive rdtToday"
                       data-value={14}
                       onClick={[Function]}
                     >
@@ -2576,8 +2555,6 @@ exports[`snapshot bean horizontal 1`] = `
                     >
                       15
                     </td>
-                  </tr>
-                  <tr>
                     <td
                       className="rdtDay"
                       data-value={16}
@@ -2599,6 +2576,8 @@ exports[`snapshot bean horizontal 1`] = `
                     >
                       18
                     </td>
+                  </tr>
+                  <tr>
                     <td
                       className="rdtDay"
                       data-value={19}
@@ -2607,7 +2586,7 @@ exports[`snapshot bean horizontal 1`] = `
                       19
                     </td>
                     <td
-                      className="rdtDay rdtActive"
+                      className="rdtDay"
                       data-value={20}
                       onClick={[Function]}
                     >
@@ -2627,8 +2606,6 @@ exports[`snapshot bean horizontal 1`] = `
                     >
                       22
                     </td>
-                  </tr>
-                  <tr>
                     <td
                       className="rdtDay"
                       data-value={23}
@@ -2650,6 +2627,8 @@ exports[`snapshot bean horizontal 1`] = `
                     >
                       25
                     </td>
+                  </tr>
+                  <tr>
                     <td
                       className="rdtDay"
                       data-value={26}
@@ -2678,8 +2657,6 @@ exports[`snapshot bean horizontal 1`] = `
                     >
                       29
                     </td>
-                  </tr>
-                  <tr>
                     <td
                       className="rdtDay"
                       data-value={30}
@@ -2701,6 +2678,8 @@ exports[`snapshot bean horizontal 1`] = `
                     >
                       1
                     </td>
+                  </tr>
+                  <tr>
                     <td
                       className="rdtDay rdtNew"
                       data-value={2}
@@ -2729,6 +2708,27 @@ exports[`snapshot bean horizontal 1`] = `
                     >
                       5
                     </td>
+                    <td
+                      className="rdtDay rdtNew"
+                      data-value={6}
+                      onClick={[Function]}
+                    >
+                      6
+                    </td>
+                    <td
+                      className="rdtDay rdtNew"
+                      data-value={7}
+                      onClick={[Function]}
+                    >
+                      7
+                    </td>
+                    <td
+                      className="rdtDay rdtNew"
+                      data-value={8}
+                      onClick={[Function]}
+                    >
+                      8
+                    </td>
                   </tr>
                 </tbody>
                 <tfoot>
@@ -2738,7 +2738,7 @@ exports[`snapshot bean horizontal 1`] = `
                       colSpan={7}
                       onClick={[Function]}
                     >
-                      17:05
+                      13:33
                     </td>
                   </tr>
                 </tfoot>
@@ -3639,7 +3639,7 @@ exports[`snapshot bean with readOnly 1`] = `
           required={true}
           size={undefined}
           type="text"
-          value="20.07.2017 17:05"
+          value="14.08.2018 13:33"
         />
       </div>
     </div>
