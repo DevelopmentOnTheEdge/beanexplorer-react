@@ -8,7 +8,7 @@ class PropertySet extends React.Component
 {
   static getName(name){
     if(name){
-      return <h4 className='property-group__title'>{name}</h4>
+      return <h5 className='property-group__title'>{name}</h5>
     }else{
       return null
     }

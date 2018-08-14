@@ -3333,11 +3333,11 @@ exports[`test outer 1`] = `
     <div
       className="property-group__top-line-row row"
     />
-    <h4
+    <h5
       className="property-group__title"
     >
       Group 1
-    </h4>
+    </h5>
     <div
       className="property-group__row form-row"
     >
@@ -3466,11 +3466,11 @@ exports[`test outer 1`] = `
     <div
       className="property-group__top-line-row row"
     />
-    <h4
+    <h5
       className="property-group__title"
     >
       Server side validation - error
-    </h4>
+    </h5>
     <div
       className="property-group__row form-row"
     >
@@ -3709,11 +3709,11 @@ exports[`test outer 1`] = `
     <div
       className="property-group__top-line-row row"
     />
-    <h4
+    <h5
       className="property-group__title"
     >
       Server side validation - success
-    </h4>
+    </h5>
     <div
       className="property-group__row form-row"
     >
@@ -3952,11 +3952,11 @@ exports[`test outer 1`] = `
     <div
       className="property-group__top-line-row row"
     />
-    <h4
+    <h5
       className="property-group__title"
     >
       Group 4 - CanBeNull
-    </h4>
+    </h5>
     <div
       className="property-group__row form-row"
     >
@@ -4000,11 +4000,11 @@ exports[`test outer 1`] = `
     <div
       className="property-group__top-line-row row"
     />
-    <h4
+    <h5
       className="property-group__title"
     >
       Group 5 - use cssClasses
-    </h4>
+    </h5>
     <div
       className="property-group__row form-row"
     >
@@ -4237,11 +4237,11 @@ exports[`validationTest 1`] = `
     <div
       className="property-group__top-line-row row"
     />
-    <h4
+    <h5
       className="property-group__title"
     >
       Numbers
-    </h4>
+    </h5>
     <div
       className="property-group__row form-row"
     >
@@ -4445,11 +4445,11 @@ exports[`validationTest 1`] = `
     <div
       className="property-group__top-line-row row"
     />
-    <h4
+    <h5
       className="property-group__title"
     >
       Text
-    </h4>
+    </h5>
     <div
       className="property-group__row form-row"
     >
