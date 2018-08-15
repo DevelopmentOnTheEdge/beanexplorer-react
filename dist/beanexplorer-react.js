@@ -868,6 +868,8 @@ var Property = function (_React$Component) {
         var _outerClasses = classNames('horizontal-input', { 'horizontal-input--sm': this.props.bsSize === "sm" }, { 'horizontal-input--lg': this.props.bsSize === "lg" }, meta.cssClasses || this.props.className, { 'display-none': meta.hidden });
 
         if (meta.type === "Boolean") {
+          var colTag = 'col-lg-' + (12 - this.props.horizontalColSize);
+          var offsetTag = 'offset-lg-' + this.props.horizontalColSize;
           return React.createElement(
             'div',
             { className: classNames(_outerClasses, 'col-lg-12') },
@@ -876,12 +878,7 @@ var Property = function (_React$Component) {
               { className: 'row' },
               React.createElement(
                 'div',
-                { className: 'col-lg-' + this.props.horizontalColSize },
-                '\xA0'
-              ),
-              React.createElement(
-                'div',
-                { className: 'col-lg-' + (12 - this.props.horizontalColSize) },
+                { className: classNames(colTag, offsetTag) },
                 React.createElement(
                   'div',
                   { className: classNames(formGroupClasses) },

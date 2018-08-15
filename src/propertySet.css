@@ -35,10 +35,10 @@
   color: #2b2b2b !important;
 }
 
-.property.form-group.required > .form-control-label:after,
-.property.form-check.required > .form-check-label:after{
-  content:"*";
-  color:#b90000;
+.property.form-group.required .form-control-label:after,
+.property.form-check.required .form-check-label:after {
+  content: "*";
+  color: #b90000;
   margin-left: 2px;
 }
 
