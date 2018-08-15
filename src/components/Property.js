@@ -99,11 +99,12 @@ class Property extends React.Component
 
       if(meta.type === "Boolean")
       {
+        const colTag = 'col-lg-' + (12-this.props.horizontalColSize);
+        const offsetTag = 'offset-lg-' + this.props.horizontalColSize;
         return (
           <div className={classNames(outerClasses, 'col-lg-12')}>
             <div className={'row'}>
-              <div className={'col-lg-' + this.props.horizontalColSize}>&nbsp;</div>
-              <div className={'col-lg-' + (12-this.props.horizontalColSize)}>
+              <div className={classNames(colTag, offsetTag)}>
                 <div className={classNames(formGroupClasses)}>
                   <PropertyInput {...this.props} />
                   {label}
