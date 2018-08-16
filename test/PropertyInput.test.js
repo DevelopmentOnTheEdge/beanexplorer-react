@@ -192,6 +192,42 @@ test('timestamp timestampValidationMessage', () => {
   expect(handle.mock.calls.length).toEqual(2);
 });
 
+test('3 Fractional seconds digits', () => {
+  const simpleBean = {
+    "values": { "timestamp": "2017-07-20 17:05:00.333" },
+    "meta":   { "/timestamp": {"type": "Timestamp"} },
+    "order":  [ "/timestamp" ]
+  };
+  const wrapper = mount(<PropertyInput path={"/timestamp"} bean={simpleBean} />);
+  const input = wrapper.find('input');
+
+  expect(input.get(0).value).toEqual('20.07.2017 17:05');
+});
+
+test('2 Fractional seconds digits', () => {
+  const simpleBean = {
+    "values": { "timestamp": "2017-07-20 17:05:00.22" },
+    "meta":   { "/timestamp": {"type": "Timestamp"} },
+    "order":  [ "/timestamp" ]
+  };
+  const wrapper = mount(<PropertyInput path={"/timestamp"} bean={simpleBean} />);
+  const input = wrapper.find('input');
+
+  expect(input.get(0).value).toEqual('20.07.2017 17:05');
+});
+
+test('1 Fractional seconds digits', () => {
+  const simpleBean = {
+    "values": { "timestamp": "2017-07-20 17:05:00.1" },
+    "meta":   { "/timestamp": {"type": "Timestamp"} },
+    "order":  [ "/timestamp" ]
+  };
+  const wrapper = mount(<PropertyInput path={"/timestamp"} bean={simpleBean} />);
+  const input = wrapper.find('input');
+
+  expect(input.get(0).value).toEqual('20.07.2017 17:05');
+});
+
 test('timestamp init with no valid timestamp', () => {
   const simpleBean = {
     "values": { "timestamp": "no timestamp" },

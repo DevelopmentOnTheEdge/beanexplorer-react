@@ -653,7 +653,14 @@ var PropertyInput = function (_React$Component) {
   }, {
     key: 'timestampFromISOFormat',
     value: function timestampFromISOFormat(stringDate) {
-      var date = moment(stringDate, 'YYYY-MM-DD HH:mm:ss.SSS', true);
+      var date = void 0;
+      if (stringDate.length === 23) {
+        date = moment(stringDate, 'YYYY-MM-DD HH:mm:ss.SSS', true);
+      } else if (stringDate.length === 22) {
+        date = moment(stringDate, 'YYYY-MM-DD HH:mm:ss.SS', true);
+      } else {
+        date = moment(stringDate, 'YYYY-MM-DD HH:mm:ss.S', true);
+      }
       if (date.isValid()) {
         return date.format('DD.MM.YYYY HH:mm');
       } else {

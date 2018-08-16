@@ -105,7 +105,14 @@ class PropertyInput extends React.Component
   }
 
   static timestampFromISOFormat(stringDate) {
-    const date = moment(stringDate, 'YYYY-MM-DD HH:mm:ss.SSS', true);
+    let date;
+    if(stringDate.length === 23){
+      date = moment(stringDate, 'YYYY-MM-DD HH:mm:ss.SSS', true);
+    }else if(stringDate.length === 22){
+      date = moment(stringDate, 'YYYY-MM-DD HH:mm:ss.SS', true);
+    }else{
+      date = moment(stringDate, 'YYYY-MM-DD HH:mm:ss.S', true);
+    }
     if (date.isValid()) {
       return date.format('DD.MM.YYYY HH:mm');
     } else {
