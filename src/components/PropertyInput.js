@@ -498,17 +498,17 @@ class PropertyInput extends React.Component
         value: strValue,
         options: options,
         onChange: this.handleChangeSelect,
-        clearAllText: this.props.localization.clearAllText,
-        clearValueText: this.props.localization.clearValueText,
-        noResultsText: this.props.localization.noResultsText,
-        searchPromptText: this.props.localization.searchPromptText,
+        //clearAllText: this.props.localization.clearAllText,
+        //clearValueText: this.props.localization.clearValueText,
+        noOptionsMessage: this.props.localization.noResultsText,
+        //searchPromptText: this.props.localization.searchPromptText,
         loadingPlaceholder: this.props.localization.loadingPlaceholder,
         placeholder: extraAttrsMap.placeholder || this.props.localization.placeholder,
-        backspaceRemoves: false,
-        disabled: meta.readOnly,
-        multi: meta.multipleSelectionList,
-        matchPos: extraAttrsMap.matchPos || "any",
-        required: required
+        backspaceRemovesValue: false,
+        isDisabled: meta.readOnly,
+        isMulti: meta.multipleSelectionList,
+        //matchPos: extraAttrsMap.matchPos || "any",
+        //required: required ??
       };
 
       let select;
