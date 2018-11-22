@@ -103,7 +103,7 @@ class Property extends React.Component
         const offsetTag = 'offset-lg-' + this.props.horizontalColSize;
         return (
           <div className={classNames(outerClasses, 'col-lg-12')}>
-            <div className={'row'}>
+            <div className={this.props.rowClass}>
               <div className={classNames(colTag, offsetTag)}>
                 <div className={classNames(formGroupClasses)}>
                   <PropertyInput {...this.props} />
@@ -119,7 +119,7 @@ class Property extends React.Component
       {
         return (
           <div className={classNames(outerClasses, 'col-lg-12')}>
-            <div className={classNames(formGroupClasses, 'row')}>
+            <div className={classNames(formGroupClasses, this.props.rowClass)}>
               <div className={'col-lg-' + this.props.horizontalColSize}>{label}</div>
               <div className={'col-lg-' + (12-this.props.horizontalColSize)}>
                 <PropertyInput {...this.props} />
@@ -190,6 +190,7 @@ Property.propTypes = {
   inline: PropTypes.bool,
   horizontal: PropTypes.bool,
   horizontalColSize: PropTypes.number,
+  rowClass: PropTypes.string,
   bsSize: PropTypes.string,
   onChange: PropTypes.func,
   localization: PropTypes.object,
@@ -197,7 +198,8 @@ Property.propTypes = {
 };
 
 Property.defaultProps = {
-  horizontalColSize: 3
+  horizontalColSize: 3,
+  rowClass: "form-row",
 };
 
 export default Property;

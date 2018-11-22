@@ -882,7 +882,7 @@ var Property = function (_React$Component) {
             { className: classNames(_outerClasses, 'col-lg-12') },
             React.createElement(
               'div',
-              { className: 'row' },
+              { className: this.props.rowClass },
               React.createElement(
                 'div',
                 { className: classNames(colTag, offsetTag) },
@@ -902,7 +902,7 @@ var Property = function (_React$Component) {
             { className: classNames(_outerClasses, 'col-lg-12') },
             React.createElement(
               'div',
-              { className: classNames(formGroupClasses, 'row') },
+              { className: classNames(formGroupClasses, this.props.rowClass) },
               React.createElement(
                 'div',
                 { className: 'col-lg-' + this.props.horizontalColSize },
@@ -973,6 +973,7 @@ Property.propTypes = {
   inline: PropTypes.bool,
   horizontal: PropTypes.bool,
   horizontalColSize: PropTypes.number,
+  rowClass: PropTypes.string,
   bsSize: PropTypes.string,
   onChange: PropTypes.func,
   localization: PropTypes.object,
@@ -980,7 +981,8 @@ Property.propTypes = {
 };
 
 Property.defaultProps = {
-  horizontalColSize: 3
+  horizontalColSize: 3,
+  rowClass: "form-row"
 };
 
 var Properties = function (_React$Component) {
