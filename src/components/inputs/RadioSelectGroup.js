@@ -68,9 +68,9 @@ export default class RadioSelectGroup extends React.Component
       } else {
         newValue = this.props.value.filter(v => v !== value);
       }
-      this.props.onChange(newValue);
+      this.props.callOnChange(newValue);
     } else {
-      this.props.onChange(value);
+      this.props.callOnChange(value);
     }
   }
 
@@ -83,7 +83,7 @@ RadioSelectGroup.defaultProps = {
 RadioSelectGroup.propTypes = {
   meta: PropTypes.object.isRequired,
   attr: PropTypes.object.isRequired,
-  onChange: PropTypes.func.isRequired,
+  callOnChange: PropTypes.func.isRequired,
   value: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.array

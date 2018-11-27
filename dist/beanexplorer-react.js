@@ -1,21 +1,21 @@
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('react'), require('prop-types'), require('classnames'), require('react-datetime'), require('moment'), require('react-select'), require('react-virtualized-select'), require('react-ckeditor-component'), require('react-maskedinput'), require('json-pointer'), require('big-integer'), require('big-rational')) :
-	typeof define === 'function' && define.amd ? define(['react', 'prop-types', 'classnames', 'react-datetime', 'moment', 'react-select', 'react-virtualized-select', 'react-ckeditor-component', 'react-maskedinput', 'json-pointer', 'big-integer', 'big-rational'], factory) :
-	(global.PropertySet = factory(global.React,global.PropTypes,global.classNames,global.Datetime,global.moment,global.Select,global.VirtualizedSelect,global.CKEditor,global.MaskedInput,global.JsonPointer,global.bigInt,global.bigRat));
-}(this, (function (React,PropTypes,classNames,Datetime,moment,Select,VirtualizedSelect,CKEditor,MaskedInput,JsonPointer,bigInt,bigRat) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('react'), require('prop-types'), require('classnames'), require('react-datetime'), require('moment'), require('react-ckeditor-component'), require('react-maskedinput'), require('json-pointer'), require('big-integer'), require('big-rational'), require('react-select'), require('react-virtualized-select')) :
+	typeof define === 'function' && define.amd ? define(['react', 'prop-types', 'classnames', 'react-datetime', 'moment', 'react-ckeditor-component', 'react-maskedinput', 'json-pointer', 'big-integer', 'big-rational', 'react-select', 'react-virtualized-select'], factory) :
+	(global.PropertySet = factory(global.React,global.PropTypes,global.classNames,global.Datetime,global.moment,global.CKEditor,global.MaskedInput,global.JsonPointer,global.bigInt,global.bigRat,global.Select,global.VirtualizedSelect));
+}(this, (function (React,PropTypes,classNames,Datetime,moment,CKEditor,MaskedInput,JsonPointer,bigInt,bigRat,Select,VirtualizedSelect) { 'use strict';
 
 React = React && React.hasOwnProperty('default') ? React['default'] : React;
 PropTypes = PropTypes && PropTypes.hasOwnProperty('default') ? PropTypes['default'] : PropTypes;
 classNames = classNames && classNames.hasOwnProperty('default') ? classNames['default'] : classNames;
 Datetime = Datetime && Datetime.hasOwnProperty('default') ? Datetime['default'] : Datetime;
 moment = moment && moment.hasOwnProperty('default') ? moment['default'] : moment;
-Select = Select && Select.hasOwnProperty('default') ? Select['default'] : Select;
-VirtualizedSelect = VirtualizedSelect && VirtualizedSelect.hasOwnProperty('default') ? VirtualizedSelect['default'] : VirtualizedSelect;
 CKEditor = CKEditor && CKEditor.hasOwnProperty('default') ? CKEditor['default'] : CKEditor;
 MaskedInput = MaskedInput && MaskedInput.hasOwnProperty('default') ? MaskedInput['default'] : MaskedInput;
 JsonPointer = JsonPointer && JsonPointer.hasOwnProperty('default') ? JsonPointer['default'] : JsonPointer;
 bigInt = bigInt && bigInt.hasOwnProperty('default') ? bigInt['default'] : bigInt;
 bigRat = bigRat && bigRat.hasOwnProperty('default') ? bigRat['default'] : bigRat;
+var Select__default = 'default' in Select ? Select['default'] : Select;
+VirtualizedSelect = VirtualizedSelect && VirtualizedSelect.hasOwnProperty('default') ? VirtualizedSelect['default'] : VirtualizedSelect;
 
 var inputLabelSizeClasses = function inputLabelSizeClasses(props) {
   return classNames({ 'col-form-label-sm': props.bsSize === "sm" }, { 'col-form-label-lg': props.bsSize === "lg" });
@@ -101,6 +101,203 @@ var possibleConstructorReturn = function (self, call) {
   return call && (typeof call === "object" || typeof call === "function") ? call : self;
 };
 
+var RadioSelectGroup = function (_React$Component) {
+  inherits(RadioSelectGroup, _React$Component);
+
+  function RadioSelectGroup(props) {
+    classCallCheck(this, RadioSelectGroup);
+
+    var _this = possibleConstructorReturn(this, (RadioSelectGroup.__proto__ || Object.getPrototypeOf(RadioSelectGroup)).call(this, props));
+
+    _this._onInputChange = _this._onInputChange.bind(_this);
+    return _this;
+  }
+
+  createClass(RadioSelectGroup, [{
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          meta = _props.meta,
+          attr = _props.attr,
+          value = _props.value;
+
+      var radioButtons = [];
+
+      for (var i = 0; i < meta.tagList.length; i++) {
+        var tagName = meta.tagList[i][0];
+        var tagLabel = meta.tagList[i][1];
+        var onChange = this._onInputChange.bind(null, tagName);
+
+        radioButtons.push(React.createElement(
+          'div',
+          { className: 'form-check', key: attr.id + "FormCheckWrapper" + i },
+          React.createElement('input', {
+            id: attr.id + "Radio" + i,
+            className: 'form-check-input',
+            type: meta.multipleSelectionList ? "checkbox" : "radio",
+            name: attr.id,
+            value: tagName,
+            checked: meta.multipleSelectionList ? value.includes(tagName) : tagName === "" + value,
+            onChange: onChange,
+            required: !meta.multipleSelectionList && !meta.canBeNull,
+            disabled: meta.readOnly
+          }),
+          React.createElement(
+            'label',
+            {
+              className: classNames(inputLabelSizeClasses(this.props, meta.type), "form-check-label radio-label"),
+              htmlFor: attr.id + "Radio" + i
+            },
+            !meta.rawValue ? tagLabel : React.createElement('div', { dangerouslySetInnerHTML: { __html: tagLabel } })
+          )
+        ));
+      }
+
+      return React.createElement(
+        'div',
+        {
+          className: classNames("radio-buttons-outer", 'property-input', { 'Select--sm': this.props.bsSize === "sm" }, { 'Select--lg': this.props.bsSize === "lg" }, attr.validationClasses)
+        },
+        radioButtons
+      );
+    }
+  }, {
+    key: '_onInputChange',
+    value: function _onInputChange(value, event) {
+      if (this.props.meta.multipleSelectionList) {
+        var newValue = void 0;
+        if (event.target.checked) {
+          newValue = this.props.value.concat(value);
+        } else {
+          newValue = this.props.value.filter(function (v) {
+            return v !== value;
+          });
+        }
+        this.props.callOnChange(newValue);
+      } else {
+        this.props.callOnChange(value);
+      }
+    }
+  }]);
+  return RadioSelectGroup;
+}(React.Component);
+
+RadioSelectGroup.defaultProps = {
+  localization: { checkBoxRequired: "Select at least one item" }
+};
+
+RadioSelectGroup.propTypes = {
+  meta: PropTypes.object.isRequired,
+  attr: PropTypes.object.isRequired,
+  callOnChange: PropTypes.func.isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.array]).isRequired
+};
+
+var SelectPropertyInput = function (_React$Component) {
+  inherits(SelectPropertyInput, _React$Component);
+
+  function SelectPropertyInput(props) {
+    classCallCheck(this, SelectPropertyInput);
+
+    var _this = possibleConstructorReturn(this, (SelectPropertyInput.__proto__ || Object.getPrototypeOf(SelectPropertyInput)).call(this, props));
+
+    _this.handleChangeSelect = _this.handleChangeSelect.bind(_this);
+    return _this;
+  }
+
+  createClass(SelectPropertyInput, [{
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          localization = _props.localization,
+          meta = _props.meta,
+          attr = _props.attr,
+          value = _props.value;
+
+
+      var options = [];
+      for (var i = 0; i < meta.tagList.length; i++) {
+        options.push({ value: meta.tagList[i][0], label: meta.tagList[i][1] });
+      }
+
+      var style = void 0;
+      if (this.props.inline) {
+        //константы подобраны для совпадения с длиной стандартного input
+        var k = 11;
+        if (this.props.bsSize === "sm") k = 8.95;
+        if (this.props.bsSize === "lg") k = 14.65;
+        style = {
+          width: k * (meta.inputSize || 16) + 68 + 'px',
+          maxWidth: '100%'
+        };
+      }
+
+      var selectAttr = {
+        ref: attr.id,
+        name: attr.id,
+        value: value,
+        options: options,
+        onChange: this.handleChangeSelect,
+        clearAllText: localization.clearAllText,
+        clearValueText: localization.clearValueText,
+        noResultsText: localization.noResultsText,
+        searchPromptText: localization.searchPromptText,
+        loadingPlaceholder: localization.loadingPlaceholder,
+        placeholder: attr.extraAttrsMap.placeholder || localization.placeholder,
+        backspaceRemoves: false,
+        disabled: meta.readOnly,
+        multi: meta.multipleSelectionList,
+        matchPos: attr.extraAttrsMap.matchPos || "any",
+        required: !meta.canBeNull
+      };
+
+      var select = void 0;
+      if (attr.extraAttrsMap.inputType === "Creatable") {
+        select = React.createElement(Select.Creatable, selectAttr);
+      } else if (attr.extraAttrsMap.inputType === "VirtualizedSelect" || attr.extraAttrsMap.inputType === undefined && meta.tagList.length >= 100) {
+        select = React.createElement(VirtualizedSelect, _extends({
+          clearable: true,
+          searchable: true,
+          labelKey: 'label',
+          valueKey: 'value'
+        }, selectAttr));
+      } else {
+        select = React.createElement(Select__default, selectAttr);
+      }
+
+      return React.createElement(
+        'div',
+        {
+          className: classNames("Select-outer", 'property-input', { 'Select--sm': this.props.bsSize === "sm" }, { 'Select--lg': this.props.bsSize === "lg" }, attr.validationClasses),
+          style: style
+        },
+        select
+      );
+    }
+  }, {
+    key: 'handleChangeSelect',
+    value: function handleChangeSelect(object) {
+      if (Array.isArray(object)) {
+        var selectArray = [];
+        Object.keys(object).forEach(function (key) {
+          selectArray.push(object[key].value);
+        });
+        this.props.callOnChange(selectArray);
+      } else {
+        this.props.callOnChange(object !== null ? object.value : "");
+      }
+    }
+  }]);
+  return SelectPropertyInput;
+}(React.Component);
+
+SelectPropertyInput.propTypes = {
+  meta: PropTypes.object.isRequired,
+  attr: PropTypes.object.isRequired,
+  callOnChange: PropTypes.func.isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.array]).isRequired
+};
+
 var PropertyInput = function (_React$Component) {
   inherits(PropertyInput, _React$Component);
 
@@ -111,8 +308,9 @@ var PropertyInput = function (_React$Component) {
 
     _this.state = _this.getInitState(props);
 
+    _this.callOnChange = _this.callOnChange.bind(_this);
     _this.handleChange = _this.handleChange.bind(_this);
-    _this.handleChangeSelect = _this.handleChangeSelect.bind(_this);
+    _this.handleChangeBoolean = _this.handleChangeBoolean.bind(_this);
     _this.base64FileHandle = _this.base64FileHandle.bind(_this);
 
     _this.numberValidation = _this.numberValidation.bind(_this);
@@ -170,8 +368,12 @@ var PropertyInput = function (_React$Component) {
   }, {
     key: 'handleChange',
     value: function handleChange(event) {
-      var value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
-      this.callOnChange(value);
+      this.callOnChange(event.target.value);
+    }
+  }, {
+    key: 'handleChangeBoolean',
+    value: function handleChangeBoolean(event) {
+      this.callOnChange(event.target.checked);
     }
   }, {
     key: 'dateToISOFormat',
@@ -282,19 +484,6 @@ var PropertyInput = function (_React$Component) {
       return source;
     }
   }, {
-    key: 'handleChangeSelect',
-    value: function handleChangeSelect(object) {
-      if (Array.isArray(object)) {
-        var selectArray = [];
-        Object.keys(object).forEach(function (key) {
-          selectArray.push(object[key].value);
-        });
-        this.callOnChange(selectArray);
-      } else {
-        this.callOnChange(object !== null ? object.value : "");
-      }
-    }
-  }, {
     key: 'base64FileHandle',
     value: function base64FileHandle(e) {
       var _this2 = this;
@@ -323,6 +512,7 @@ var PropertyInput = function (_React$Component) {
       var value = JsonPointer.get(this.props.bean, "/values" + path);
       var required = meta.canBeNull !== true;
       var extraAttrsMap = PropertyInput.getExtraAttrsMap(meta);
+      var attr = { id: id, validationRulesMap: validationRulesMap, extraAttrsMap: extraAttrsMap };
 
       var inputTypeClass = void 0;
       switch (meta.type) {
@@ -339,6 +529,7 @@ var PropertyInput = function (_React$Component) {
       }
 
       var validationClasses = classNames({ 'is-invalid': meta.status === 'error' }, { 'is-valid': meta.status === 'success' });
+      attr.validationClasses = validationClasses;
 
       var basePropsClasses = classNames('property-input', inputTypeClass, validationClasses, this.props.controlClassName, { 'form-control-sm': this.props.bsSize === "sm" && meta.type !== "Boolean" }, { 'form-control-lg': this.props.bsSize === "lg" && meta.type !== "Boolean" });
 
@@ -371,123 +562,22 @@ var PropertyInput = function (_React$Component) {
         onInput: this.patternValidationMessage
       };
 
-      //      dateTime: {
-      //        normal: () => {
-      //          return ( React.createElement(Datetime, {id: id, key: id, value: value, parent: _this, onChange: handleChange, time: true, className: this.props.controlClassName}) );
-      //        },
-      //        readOnly: () => this.createStatic(value)
-      //      },
-
-      if (meta.tagList && extraAttrsMap.inputType === "radio") {
-        var radioButtons = [];
-
-        for (var i = 0; i < meta.tagList.length; i++) {
-          var tagName = meta.tagList[i][0];
-          var tagLabel = meta.tagList[i][1];
-
-          radioButtons.push(React.createElement(
-            'div',
-            { className: 'form-check', key: id + "FormCheckWrapper" + i },
-            React.createElement('input', {
-              id: id + "Radio" + i,
-              className: 'form-check-input',
-              type: 'radio',
-              name: id,
-              value: tagName,
-              checked: tagName === "" + value,
-              onChange: this.handleChange,
-              required: required,
-              disabled: meta.readOnly
-            }),
-            React.createElement(
-              'label',
-              {
-                className: classNames(inputLabelSizeClasses(this.props, meta.type), "form-check-label radio-label"),
-                htmlFor: id + "Radio" + i
-              },
-              !meta.rawValue ? tagLabel : React.createElement('div', { dangerouslySetInnerHTML: { __html: tagLabel } })
-            )
-          ));
-        }
-
-        return React.createElement(
-          'div',
-          {
-            className: classNames("radio-buttons-outer", 'property-input', { 'Select--sm': this.props.bsSize === "sm" }, { 'Select--lg': this.props.bsSize === "lg" }, validationClasses)
-          },
-          radioButtons
-        );
-      }
-
       if (meta.tagList) {
-        var options = [];
-        for (var _i = 0; _i < meta.tagList.length; _i++) {
-          options.push({ value: meta.tagList[_i][0], label: meta.tagList[_i][1] });
-        }
-
-        var strValue = void 0;
-        if (Array.isArray(value)) {
-          strValue = [];
-          for (var _i2 = 0; _i2 < value.length; _i2++) {
-            strValue.push("" + value[_i2]);
-          }
+        if (extraAttrsMap.inputType === "radio") {
+          return React.createElement(RadioSelectGroup, _extends({
+            meta: meta,
+            attr: attr,
+            callOnChange: this.callOnChange,
+            value: this.getCorrectMulValue(value, meta.multipleSelectionList)
+          }, this.props));
         } else {
-          strValue = "" + value;
+          return React.createElement(SelectPropertyInput, _extends({
+            meta: meta,
+            attr: attr,
+            callOnChange: this.callOnChange,
+            value: this.getCorrectMulValue(value, meta.multipleSelectionList)
+          }, this.props));
         }
-
-        var style = void 0;
-        if (this.props.inline) {
-          //константы подобраны для совпадения с длиной стандартного input
-          var k = 11;
-          if (this.props.bsSize === "sm") k = 8.95;
-          if (this.props.bsSize === "lg") k = 14.65;
-          style = {
-            width: k * (meta.inputSize || 16) + 68 + 'px',
-            maxWidth: '100%'
-          };
-        }
-
-        var selectAttr = {
-          ref: id,
-          name: id,
-          value: strValue,
-          options: options,
-          onChange: this.handleChangeSelect,
-          clearAllText: this.props.localization.clearAllText,
-          clearValueText: this.props.localization.clearValueText,
-          noResultsText: this.props.localization.noResultsText,
-          searchPromptText: this.props.localization.searchPromptText,
-          loadingPlaceholder: this.props.localization.loadingPlaceholder,
-          placeholder: extraAttrsMap.placeholder || this.props.localization.placeholder,
-          backspaceRemoves: false,
-          disabled: meta.readOnly,
-          multi: meta.multipleSelectionList,
-          matchPos: extraAttrsMap.matchPos || "any",
-          required: required
-        };
-
-        var select = void 0;
-        if (extraAttrsMap.inputType === "Creatable") {
-          select = React.createElement(Creatable, selectAttr);
-        } else if (extraAttrsMap.inputType === "VirtualizedSelect" || extraAttrsMap.inputType === undefined && meta.tagList.length >= 100) {
-          select = React.createElement(VirtualizedSelect, _extends({
-            clearable: true,
-            searchable: true,
-            labelKey: 'label',
-            valueKey: 'value'
-          }, selectAttr));
-        } else {
-          select = React.createElement(Select, selectAttr);
-        }
-
-        return React.createElement(
-          'div',
-          {
-            className: classNames("Select-outer", 'property-input', { 'Select--sm': this.props.bsSize === "sm" }, { 'Select--lg': this.props.bsSize === "lg" }, validationClasses),
-            style: style
-          },
-          select
-        );
       }
 
       if (meta.labelField) {
@@ -626,7 +716,7 @@ var PropertyInput = function (_React$Component) {
         return React.createElement('input', _extends({
           type: 'checkbox',
           checked: value === true || value === "true",
-          onChange: this.handleChange
+          onChange: this.handleChangeBoolean
         }, baseProps));
       }
 
@@ -639,6 +729,22 @@ var PropertyInput = function (_React$Component) {
       return React.createElement('input', _extends({
         type: extraAttrsMap.inputType || 'text'
       }, rawInputProps, rawTextValidation));
+    }
+  }, {
+    key: 'getCorrectMulValue',
+    value: function getCorrectMulValue(value, multipleSelectionList) {
+      var correctValue = void 0;
+      if (multipleSelectionList === true) {
+        correctValue = [];
+        if (Array.isArray(value)) {
+          for (var i = 0; i < value.length; i++) {
+            correctValue.push("" + value[i]);
+          }
+        }
+      } else {
+        correctValue = "" + value;
+      }
+      return correctValue;
     }
   }], [{
     key: 'dateFromISOFormat',
@@ -788,7 +894,6 @@ PropertyInput.defaultProps = {
 PropertyInput.propTypes = {
   bean: PropTypes.object.isRequired,
   path: PropTypes.string,
-  id: PropTypes.number,
   inline: PropTypes.bool,
   bsSize: PropTypes.string,
   onChange: PropTypes.func,
@@ -905,7 +1010,7 @@ var Property = function (_React$Component) {
               { className: classNames(formGroupClasses, this.props.rowClass) },
               React.createElement(
                 'div',
-                { className: 'col-lg-' + this.props.horizontalColSize },
+                { className: classNames('col-lg-' + this.props.horizontalColSize, 'col-form-control-label') },
                 label
               ),
               React.createElement(

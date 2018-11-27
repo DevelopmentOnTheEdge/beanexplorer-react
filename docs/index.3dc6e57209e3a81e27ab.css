@@ -867,6 +867,9 @@ input:required, textarea:required {
 .horizontal-input .form-check.property{
   margin-bottom: 1rem;
 }
+.horizontal-input .radio-buttons-outer {
+  padding-top: calc(.375rem + 1px);
+}
 /****************************************************************************/
 .vertical-input .property{
   max-width: 100%;

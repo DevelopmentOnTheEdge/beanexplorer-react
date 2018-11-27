@@ -2,8 +2,6 @@ import React                from 'react';
 import PropTypes            from 'prop-types';
 import Datetime             from 'react-datetime';
 import moment               from 'moment';
-import Select               from 'react-select';
-import VirtualizedSelect    from 'react-virtualized-select'
 import CKEditor             from 'react-ckeditor-component';
 import MaskedInput          from 'react-maskedinput';
 import JsonPointer          from 'json-pointer';
@@ -11,6 +9,7 @@ import classNames           from 'classnames';
 import bigInt               from "big-integer";
 import bigRat               from "big-rational";
 import RadioSelectGroup     from "./inputs/RadioSelectGroup";
+import SelectPropertyInput from "./inputs/SelectPropertyInput";
 
 
 class PropertyInput extends React.Component
@@ -23,7 +22,6 @@ class PropertyInput extends React.Component
     this.callOnChange = this.callOnChange.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleChangeBoolean = this.handleChangeBoolean.bind(this);
-    this.handleChangeSelect = this.handleChangeSelect.bind(this);
     this.base64FileHandle = this.base64FileHandle.bind(this);
 
     this.numberValidation = this.numberValidation.bind(this);
@@ -221,18 +219,6 @@ class PropertyInput extends React.Component
     e.target.title = text;
   }
 
-  handleChangeSelect(object) {
-    if(Array.isArray(object)) {
-      let selectArray = [];
-      Object.keys(object).forEach(function (key) {
-        selectArray.push(object[key].value);
-      });
-      this.callOnChange(selectArray);
-    } else {
-      this.callOnChange(object !== null ? object.value : "");
-    }
-  }
-
   base64FileHandle(e) {
     if(e.target.files && e.target.files.length === 1)
     {
@@ -351,7 +337,7 @@ class PropertyInput extends React.Component
     const value    = JsonPointer.get(this.props.bean, "/values" + path);
     const required = meta.canBeNull !== true;
     const extraAttrsMap = PropertyInput.getExtraAttrsMap(meta);
-    const attr = {id, path, validationRulesMap};
+    const attr = {id, validationRulesMap, extraAttrsMap};
 
     let inputTypeClass;
     switch (meta.type){
@@ -414,95 +400,25 @@ class PropertyInput extends React.Component
       onInput: this.patternValidationMessage
     };
 
-//      dateTime: {
-//        normal: () => {
-//          return ( React.createElement(Datetime, {id: id, key: id, value: value, parent: _this, onChange: handleChange, time: true, className: this.props.controlClassName}) );
-//        },
-//        readOnly: () => this.createStatic(value)
-//      },
-
-    if(meta.tagList && extraAttrsMap.inputType === "radio")
-    {
-      return <RadioSelectGroup
-        meta={meta}
-        attr={attr}
-        onChange={this.callOnChange}
-        value={this.getCorrectMulValue(value, meta.multipleSelectionList)}
-      />
-    }
-
     if(meta.tagList)
     {
-      let options = [];
-      for(let i =0 ;i < meta.tagList.length; i++){
-        options.push({ value: meta.tagList[i][0], label: meta.tagList[i][1] });
-      }
-
-      let style;
-      if(this.props.inline)
-      {
-        //константы подобраны для совпадения с длиной стандартного input
-        let k = 11;
-        if(this.props.bsSize === "sm")k = 8.95;
-        if(this.props.bsSize === "lg")k = 14.65;
-        style = {
-          width: k*(meta.inputSize || 16) + 68 + 'px',
-          maxWidth: '100%'
-        }
-      }
-
-      const selectAttr = {
-        ref: id,
-        name: id,
-        value: this.getCorrectMulValue(value, meta.multipleSelectionList),
-        options: options,
-        onChange: this.handleChangeSelect,
-        clearAllText: this.props.localization.clearAllText,
-        clearValueText: this.props.localization.clearValueText,
-        noResultsText: this.props.localization.noResultsText,
-        searchPromptText: this.props.localization.searchPromptText,
-        loadingPlaceholder: this.props.localization.loadingPlaceholder,
-        placeholder: extraAttrsMap.placeholder || this.props.localization.placeholder,
-        backspaceRemoves: false,
-        disabled: meta.readOnly,
-        multi: meta.multipleSelectionList,
-        matchPos: extraAttrsMap.matchPos || "any",
-        required: required
-      };
-
-      let select;
-      if(extraAttrsMap.inputType === "Creatable")
-      {
-        select = <Creatable {...selectAttr} />
-      }
-      else if(extraAttrsMap.inputType === "VirtualizedSelect"
-            || (extraAttrsMap.inputType === undefined && meta.tagList.length >= 100))
-      {
-        select = <VirtualizedSelect
-          clearable
-          searchable
-          labelKey="label"
-          valueKey="value"
-          {...selectAttr}
+      if (extraAttrsMap.inputType === "radio") {
+        return <RadioSelectGroup
+          meta={meta}
+          attr={attr}
+          callOnChange={this.callOnChange}
+          value={this.getCorrectMulValue(value, meta.multipleSelectionList)}
+          {...this.props}
+        />
+      } else {
+        return <SelectPropertyInput
+          meta={meta}
+          attr={attr}
+          callOnChange={this.callOnChange}
+          value={this.getCorrectMulValue(value, meta.multipleSelectionList)}
+          {...this.props}
         />
       }
-      else
-      {
-        select = <Select {...selectAttr} />;
-      }
-
-      return <div
-        className={classNames(
-          "Select-outer",
-          'property-input',
-          {'Select--sm': this.props.bsSize === "sm"},
-          {'Select--lg': this.props.bsSize === "lg"},
-          validationClasses
-        )}
-        style={style}
-      >
-        {select}
-      </div>
     }
 
     if(meta.labelField)
@@ -721,7 +637,6 @@ PropertyInput.defaultProps = {
 PropertyInput.propTypes = {
   bean: PropTypes.object.isRequired,
   path: PropTypes.string,
-  id: PropTypes.number,
   inline: PropTypes.bool,
   bsSize: PropTypes.string,
   onChange: PropTypes.func,
