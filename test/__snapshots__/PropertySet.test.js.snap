@@ -2011,7 +2011,7 @@ exports[`snapshot bean horizontal 1`] = `
       className="property form-group required form-row"
     >
       <div
-        className="col-lg-3"
+        className="col-lg-3 col-form-control-label"
       >
         <label
           className="form-control-label col-form-label"
@@ -2047,7 +2047,7 @@ exports[`snapshot bean horizontal 1`] = `
       className="property form-group required form-row"
     >
       <div
-        className="col-lg-3"
+        className="col-lg-3 col-form-control-label"
       >
         <label
           className="form-control-label col-form-label"
@@ -2470,7 +2470,7 @@ exports[`snapshot bean horizontal 1`] = `
       className="property form-group required form-row"
     >
       <div
-        className="col-lg-3"
+        className="col-lg-3 col-form-control-label"
       >
         <label
           className="form-control-label col-form-label"
@@ -2904,7 +2904,7 @@ exports[`snapshot bean horizontal 1`] = `
       className="property form-group required form-row"
     >
       <div
-        className="col-lg-3"
+        className="col-lg-3 col-form-control-label"
       >
         <label
           className="form-control-label col-form-label"
@@ -2940,7 +2940,7 @@ exports[`snapshot bean horizontal 1`] = `
       className="property form-group required form-row"
     >
       <div
-        className="col-lg-3"
+        className="col-lg-3 col-form-control-label"
       >
         <label
           className="form-control-label col-form-label"
@@ -2976,7 +2976,7 @@ exports[`snapshot bean horizontal 1`] = `
       className="property form-group required form-row"
     >
       <div
-        className="col-lg-3"
+        className="col-lg-3 col-form-control-label"
       >
         <label
           className="form-control-label col-form-label"
@@ -3043,7 +3043,7 @@ exports[`snapshot bean horizontal 1`] = `
       className="property form-group form-row"
     >
       <div
-        className="col-lg-3"
+        className="col-lg-3 col-form-control-label"
       >
         <label
           className="form-control-label col-form-label"
@@ -3074,7 +3074,7 @@ exports[`snapshot bean horizontal 1`] = `
       className="property form-group required form-row"
     >
       <div
-        className="col-lg-3"
+        className="col-lg-3 col-form-control-label"
       >
         <label
           className="form-control-label col-form-label"
@@ -3216,7 +3216,7 @@ exports[`snapshot bean horizontal 1`] = `
       className="property form-group required form-row"
     >
       <div
-        className="col-lg-3"
+        className="col-lg-3 col-form-control-label"
       >
         <label
           className="form-control-label col-form-label"
@@ -3358,7 +3358,7 @@ exports[`snapshot bean horizontal 1`] = `
       className="property form-group required form-row"
     >
       <div
-        className="col-lg-3"
+        className="col-lg-3 col-form-control-label"
       >
         <label
           className="form-control-label col-form-label"
@@ -3550,7 +3550,7 @@ exports[`snapshot bean horizontal 1`] = `
       className="property form-group required form-row"
     >
       <div
-        className="col-lg-3"
+        className="col-lg-3 col-form-control-label"
       >
         <label
           className="form-control-label col-form-label"
@@ -3618,7 +3618,7 @@ exports[`snapshot bean horizontal 1`] = `
       className="property form-group form-row"
     >
       <div
-        className="col-lg-3"
+        className="col-lg-3 col-form-control-label"
       >
         <label
           className="form-control-label col-form-label"
@@ -3770,7 +3770,7 @@ exports[`snapshot bean horizontal 1`] = `
       className="property form-group required form-row"
     >
       <div
-        className="col-lg-3"
+        className="col-lg-3 col-form-control-label"
       />
       <div
         className="col-lg-9"
@@ -3794,7 +3794,7 @@ exports[`snapshot bean horizontal 1`] = `
       className="property form-group required form-row"
     >
       <div
-        className="col-lg-3"
+        className="col-lg-3 col-form-control-label"
       />
       <div
         className="col-lg-9"
@@ -3815,7 +3815,7 @@ exports[`snapshot bean horizontal 1`] = `
       className="property form-group required form-row"
     >
       <div
-        className="col-lg-3"
+        className="col-lg-3 col-form-control-label"
       >
         <label
           className="form-control-label col-form-label"

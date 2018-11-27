@@ -120,7 +120,7 @@ class Property extends React.Component
         return (
           <div className={classNames(outerClasses, 'col-lg-12')}>
             <div className={classNames(formGroupClasses, this.props.rowClass)}>
-              <div className={'col-lg-' + this.props.horizontalColSize}>{label}</div>
+              <div className={classNames('col-lg-' + this.props.horizontalColSize, 'col-form-control-label')}>{label}</div>
               <div className={'col-lg-' + (12-this.props.horizontalColSize)}>
                 <PropertyInput {...this.props} />
                 {messageElement}
