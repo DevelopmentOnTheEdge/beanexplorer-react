@@ -10,7 +10,7 @@ import JsonPointer          from 'json-pointer';
 import classNames           from 'classnames';
 import bigInt               from "big-integer";
 import bigRat               from "big-rational";
-import {inputLabelSizeClasses} from "./utils";
+import RadioSelectGroup     from "./inputs/RadioSelectGroup";
 
 
 class PropertyInput extends React.Component
@@ -21,6 +21,7 @@ class PropertyInput extends React.Component
     this.state = this.getInitState(props);
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleChangeBoolean = this.handleChangeBoolean.bind(this);
     this.handleChangeSelect = this.handleChangeSelect.bind(this);
     this.base64FileHandle = this.base64FileHandle.bind(this);
 
@@ -71,8 +72,11 @@ class PropertyInput extends React.Component
   }
 
   handleChange(event) {
-    const value = (event.target.type === 'checkbox') ? event.target.checked : event.target.value;
-    this.callOnChange(value);
+    this.callOnChange(event.target.value);
+  }
+
+  handleChangeBoolean(event) {
+    this.callOnChange(event.target.checked);
   }
 
   dateToISOFormat(date) {
@@ -346,6 +350,7 @@ class PropertyInput extends React.Component
     const value    = JsonPointer.get(this.props.bean, "/values" + path);
     const required = meta.canBeNull !== true;
     const extraAttrsMap = PropertyInput.getExtraAttrsMap(meta);
+    const attr = {id, path, validationRulesMap};
 
     let inputTypeClass;
     switch (meta.type){
@@ -364,6 +369,7 @@ class PropertyInput extends React.Component
       {'is-invalid' : meta.status === 'error'},
       {'is-valid' : meta.status === 'success'},
     );
+    attr.validationClasses = validationClasses;
 
     const basePropsClasses = classNames(
       'property-input',
@@ -416,50 +422,12 @@ class PropertyInput extends React.Component
 
     if(meta.tagList && extraAttrsMap.inputType === "radio")
     {
-      let radioButtons = [];
-
-      for(let i =0 ;i < meta.tagList.length; i++)
-      {
-        const tagName = meta.tagList[i][0];
-        const tagLabel = meta.tagList[i][1];
-
-        radioButtons.push(
-          <div className="form-check" key={id + "FormCheckWrapper" + i}>
-            <input
-              id={id + "Radio" + i}
-              className="form-check-input"
-              type="radio"
-              name={id}
-              value={tagName}
-              checked={tagName === "" + value}
-              onChange={this.handleChange}
-              required={required}
-              disabled={meta.readOnly}
-            />
-            <label
-              className={classNames(
-                inputLabelSizeClasses(this.props, meta.type),
-                "form-check-label radio-label"
-              )}
-              htmlFor={id + "Radio" + i}
-            >
-              {!meta.rawValue ? tagLabel : <div dangerouslySetInnerHTML={{__html: tagLabel}}/>}
-            </label>
-          </div>
-        )
-      }
-
-      return <div
-        className={classNames(
-          "radio-buttons-outer",
-          'property-input',
-          {'Select--sm': this.props.bsSize === "sm"},
-          {'Select--lg': this.props.bsSize === "lg"},
-          validationClasses
-        )}
-      >
-        {radioButtons}
-      </div>
+      return <RadioSelectGroup
+        meta={meta}
+        attr={attr}
+        onChange={this.handleChange}
+        value={value}
+      />
     }
 
     if(meta.tagList)
@@ -705,7 +673,7 @@ class PropertyInput extends React.Component
       return <input
         type="checkbox"
         checked={value === true || value === "true"}
-        onChange={this.handleChange}
+        onChange={this.handleChangeBoolean}
         {...baseProps}
       />
     }
