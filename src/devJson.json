@@ -11,6 +11,8 @@
     "/radioButtons": {
       "displayName": "Test Radio buttons",
       "extraAttrs": [["inputType", "radio"]],
+      "multipleSelectionList": true,
+      "canBeNull": false,
       "tagList": [["vanilla","Vanilla"],["chocolate","Chocolate"]]
     }
   },

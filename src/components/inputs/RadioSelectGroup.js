@@ -6,14 +6,20 @@ import {inputLabelSizeClasses} from "../utils";
 
 export default class RadioSelectGroup extends React.Component
 {
+  constructor(props) {
+    super(props);
+    this._onInputChange = this._onInputChange.bind(this);
+  }
+
   render() {
-    const {meta, attr, value, onChange}  = this.props;
+    const {meta, attr, value}  = this.props;
     let radioButtons = [];
 
     for(let i = 0; i < meta.tagList.length; i++)
     {
       const tagName = meta.tagList[i][0];
       const tagLabel = meta.tagList[i][1];
+      const onChange = this._onInputChange.bind(null, tagName);
 
       radioButtons.push(
         <div className="form-check" key={attr.id + "FormCheckWrapper" + i}>
@@ -23,9 +29,9 @@ export default class RadioSelectGroup extends React.Component
             type={meta.multipleSelectionList ? "checkbox" : "radio"}
             name={attr.id}
             value={tagName}
-            checked={tagName === "" + value}
+            checked={meta.multipleSelectionList ? value.includes(tagName) : tagName === "" + value}
             onChange={onChange}
-            required={!meta.canBeNull}
+            required={!meta.multipleSelectionList && !meta.canBeNull}
             disabled={meta.readOnly}
           />
           <label
@@ -53,11 +59,33 @@ export default class RadioSelectGroup extends React.Component
       {radioButtons}
     </div>
   }
+
+  _onInputChange(value, event) {
+    if (this.props.meta.multipleSelectionList) {
+      let newValue;
+      if (event.target.checked) {
+        newValue = this.props.value.concat(value);
+      } else {
+        newValue = this.props.value.filter(v => v !== value);
+      }
+      this.props.onChange(newValue);
+    } else {
+      this.props.onChange(value);
+    }
+  }
+
 }
+
+RadioSelectGroup.defaultProps = {
+  localization: {checkBoxRequired: "Select at least one item"}
+};
 
 RadioSelectGroup.propTypes = {
   meta: PropTypes.object.isRequired,
   attr: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
-  value: PropTypes.string.isRequired
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.array
+  ]).isRequired
 };

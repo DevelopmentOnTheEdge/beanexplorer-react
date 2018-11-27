@@ -1801,6 +1801,154 @@ exports[`snapshot bean 1`] = `
     className="vertical-input col-lg-12"
   >
     <div
+      className="property form-group"
+    >
+      <label
+        className="form-control-label"
+        htmlFor="radioButtonsMultiSelectPropertyInput"
+      >
+        Test Radio buttons
+      </label>
+      <div
+        className="controls"
+      >
+        <div
+          className="radio-buttons-outer property-input"
+        >
+          <div
+            className="form-check"
+          >
+            <input
+              checked={false}
+              className="form-check-input"
+              disabled={undefined}
+              id="radioButtonsMultiSelectPropertyInputRadio0"
+              name="radioButtonsMultiSelectPropertyInput"
+              onChange={[Function]}
+              required={false}
+              type="checkbox"
+              value="vanilla"
+            />
+            <label
+              className="form-check-label radio-label"
+              htmlFor="radioButtonsMultiSelectPropertyInputRadio0"
+            >
+              Vanilla
+            </label>
+          </div>
+          <div
+            className="form-check"
+          >
+            <input
+              checked={true}
+              className="form-check-input"
+              disabled={undefined}
+              id="radioButtonsMultiSelectPropertyInputRadio1"
+              name="radioButtonsMultiSelectPropertyInput"
+              onChange={[Function]}
+              required={false}
+              type="checkbox"
+              value="chocolate"
+            />
+            <label
+              className="form-check-label radio-label"
+              htmlFor="radioButtonsMultiSelectPropertyInputRadio1"
+            >
+              Chocolate
+            </label>
+          </div>
+          <div
+            className="form-check"
+          >
+            <input
+              checked={true}
+              className="form-check-input"
+              disabled={undefined}
+              id="radioButtonsMultiSelectPropertyInputRadio2"
+              name="radioButtonsMultiSelectPropertyInput"
+              onChange={[Function]}
+              required={false}
+              type="checkbox"
+              value="strawberry"
+            />
+            <label
+              className="form-check-label radio-label"
+              htmlFor="radioButtonsMultiSelectPropertyInputRadio2"
+            >
+              Strawberry
+            </label>
+          </div>
+          <div
+            className="form-check"
+          >
+            <input
+              checked={false}
+              className="form-check-input"
+              disabled={undefined}
+              id="radioButtonsMultiSelectPropertyInputRadio3"
+              name="radioButtonsMultiSelectPropertyInput"
+              onChange={[Function]}
+              required={false}
+              type="checkbox"
+              value="cookiescream"
+            />
+            <label
+              className="form-check-label radio-label"
+              htmlFor="radioButtonsMultiSelectPropertyInputRadio3"
+            >
+              Cookies and Cream
+            </label>
+          </div>
+          <div
+            className="form-check"
+          >
+            <input
+              checked={false}
+              className="form-check-input"
+              disabled={undefined}
+              id="radioButtonsMultiSelectPropertyInputRadio4"
+              name="radioButtonsMultiSelectPropertyInput"
+              onChange={[Function]}
+              required={false}
+              type="checkbox"
+              value="caramel"
+            />
+            <label
+              className="form-check-label radio-label"
+              htmlFor="radioButtonsMultiSelectPropertyInputRadio4"
+            >
+              Caramel
+            </label>
+          </div>
+          <div
+            className="form-check"
+          >
+            <input
+              checked={false}
+              className="form-check-input"
+              disabled={undefined}
+              id="radioButtonsMultiSelectPropertyInputRadio5"
+              name="radioButtonsMultiSelectPropertyInput"
+              onChange={[Function]}
+              required={false}
+              type="checkbox"
+              value="peppermint"
+            />
+            <label
+              className="form-check-label radio-label"
+              htmlFor="radioButtonsMultiSelectPropertyInputRadio5"
+            >
+              Peppermint
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="vertical-input col-lg-12"
+  >
+    <div
       className="property-label property form-group required"
     >
       <label
@@ -3467,6 +3615,158 @@ exports[`snapshot bean horizontal 1`] = `
     className="horizontal-input col-lg-12"
   >
     <div
+      className="property form-group form-row"
+    >
+      <div
+        className="col-lg-3"
+      >
+        <label
+          className="form-control-label col-form-label"
+          htmlFor="radioButtonsMultiSelectPropertyInput"
+        >
+          Test Radio buttons
+        </label>
+      </div>
+      <div
+        className="col-lg-9"
+      >
+        <div
+          className="radio-buttons-outer property-input"
+        >
+          <div
+            className="form-check"
+          >
+            <input
+              checked={false}
+              className="form-check-input"
+              disabled={undefined}
+              id="radioButtonsMultiSelectPropertyInputRadio0"
+              name="radioButtonsMultiSelectPropertyInput"
+              onChange={[Function]}
+              required={false}
+              type="checkbox"
+              value="vanilla"
+            />
+            <label
+              className="form-check-label radio-label"
+              htmlFor="radioButtonsMultiSelectPropertyInputRadio0"
+            >
+              Vanilla
+            </label>
+          </div>
+          <div
+            className="form-check"
+          >
+            <input
+              checked={true}
+              className="form-check-input"
+              disabled={undefined}
+              id="radioButtonsMultiSelectPropertyInputRadio1"
+              name="radioButtonsMultiSelectPropertyInput"
+              onChange={[Function]}
+              required={false}
+              type="checkbox"
+              value="chocolate"
+            />
+            <label
+              className="form-check-label radio-label"
+              htmlFor="radioButtonsMultiSelectPropertyInputRadio1"
+            >
+              Chocolate
+            </label>
+          </div>
+          <div
+            className="form-check"
+          >
+            <input
+              checked={true}
+              className="form-check-input"
+              disabled={undefined}
+              id="radioButtonsMultiSelectPropertyInputRadio2"
+              name="radioButtonsMultiSelectPropertyInput"
+              onChange={[Function]}
+              required={false}
+              type="checkbox"
+              value="strawberry"
+            />
+            <label
+              className="form-check-label radio-label"
+              htmlFor="radioButtonsMultiSelectPropertyInputRadio2"
+            >
+              Strawberry
+            </label>
+          </div>
+          <div
+            className="form-check"
+          >
+            <input
+              checked={false}
+              className="form-check-input"
+              disabled={undefined}
+              id="radioButtonsMultiSelectPropertyInputRadio3"
+              name="radioButtonsMultiSelectPropertyInput"
+              onChange={[Function]}
+              required={false}
+              type="checkbox"
+              value="cookiescream"
+            />
+            <label
+              className="form-check-label radio-label"
+              htmlFor="radioButtonsMultiSelectPropertyInputRadio3"
+            >
+              Cookies and Cream
+            </label>
+          </div>
+          <div
+            className="form-check"
+          >
+            <input
+              checked={false}
+              className="form-check-input"
+              disabled={undefined}
+              id="radioButtonsMultiSelectPropertyInputRadio4"
+              name="radioButtonsMultiSelectPropertyInput"
+              onChange={[Function]}
+              required={false}
+              type="checkbox"
+              value="caramel"
+            />
+            <label
+              className="form-check-label radio-label"
+              htmlFor="radioButtonsMultiSelectPropertyInputRadio4"
+            >
+              Caramel
+            </label>
+          </div>
+          <div
+            className="form-check"
+          >
+            <input
+              checked={false}
+              className="form-check-input"
+              disabled={undefined}
+              id="radioButtonsMultiSelectPropertyInputRadio5"
+              name="radioButtonsMultiSelectPropertyInput"
+              onChange={[Function]}
+              required={false}
+              type="checkbox"
+              value="peppermint"
+            />
+            <label
+              className="form-check-label radio-label"
+              htmlFor="radioButtonsMultiSelectPropertyInputRadio5"
+            >
+              Peppermint
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="horizontal-input col-lg-12"
+  >
+    <div
       className="property form-group required form-row"
     >
       <div
@@ -4154,6 +4454,154 @@ exports[`snapshot bean with readOnly 1`] = `
               htmlFor="radioButtonsPropertyInputRadio1"
             >
               Chocolate
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="vertical-input col-lg-12"
+  >
+    <div
+      className="property form-group"
+    >
+      <label
+        className="form-control-label"
+        htmlFor="radioButtonsMultiSelectPropertyInput"
+      >
+        Test Radio buttons
+      </label>
+      <div
+        className="controls"
+      >
+        <div
+          className="radio-buttons-outer property-input"
+        >
+          <div
+            className="form-check"
+          >
+            <input
+              checked={false}
+              className="form-check-input"
+              disabled={true}
+              id="radioButtonsMultiSelectPropertyInputRadio0"
+              name="radioButtonsMultiSelectPropertyInput"
+              onChange={[Function]}
+              required={false}
+              type="checkbox"
+              value="vanilla"
+            />
+            <label
+              className="form-check-label radio-label"
+              htmlFor="radioButtonsMultiSelectPropertyInputRadio0"
+            >
+              Vanilla
+            </label>
+          </div>
+          <div
+            className="form-check"
+          >
+            <input
+              checked={true}
+              className="form-check-input"
+              disabled={true}
+              id="radioButtonsMultiSelectPropertyInputRadio1"
+              name="radioButtonsMultiSelectPropertyInput"
+              onChange={[Function]}
+              required={false}
+              type="checkbox"
+              value="chocolate"
+            />
+            <label
+              className="form-check-label radio-label"
+              htmlFor="radioButtonsMultiSelectPropertyInputRadio1"
+            >
+              Chocolate
+            </label>
+          </div>
+          <div
+            className="form-check"
+          >
+            <input
+              checked={true}
+              className="form-check-input"
+              disabled={true}
+              id="radioButtonsMultiSelectPropertyInputRadio2"
+              name="radioButtonsMultiSelectPropertyInput"
+              onChange={[Function]}
+              required={false}
+              type="checkbox"
+              value="strawberry"
+            />
+            <label
+              className="form-check-label radio-label"
+              htmlFor="radioButtonsMultiSelectPropertyInputRadio2"
+            >
+              Strawberry
+            </label>
+          </div>
+          <div
+            className="form-check"
+          >
+            <input
+              checked={false}
+              className="form-check-input"
+              disabled={true}
+              id="radioButtonsMultiSelectPropertyInputRadio3"
+              name="radioButtonsMultiSelectPropertyInput"
+              onChange={[Function]}
+              required={false}
+              type="checkbox"
+              value="cookiescream"
+            />
+            <label
+              className="form-check-label radio-label"
+              htmlFor="radioButtonsMultiSelectPropertyInputRadio3"
+            >
+              Cookies and Cream
+            </label>
+          </div>
+          <div
+            className="form-check"
+          >
+            <input
+              checked={false}
+              className="form-check-input"
+              disabled={true}
+              id="radioButtonsMultiSelectPropertyInputRadio4"
+              name="radioButtonsMultiSelectPropertyInput"
+              onChange={[Function]}
+              required={false}
+              type="checkbox"
+              value="caramel"
+            />
+            <label
+              className="form-check-label radio-label"
+              htmlFor="radioButtonsMultiSelectPropertyInputRadio4"
+            >
+              Caramel
+            </label>
+          </div>
+          <div
+            className="form-check"
+          >
+            <input
+              checked={false}
+              className="form-check-input"
+              disabled={true}
+              id="radioButtonsMultiSelectPropertyInputRadio5"
+              name="radioButtonsMultiSelectPropertyInput"
+              onChange={[Function]}
+              required={false}
+              type="checkbox"
+              value="peppermint"
+            />
+            <label
+              className="form-check-label radio-label"
+              htmlFor="radioButtonsMultiSelectPropertyInputRadio5"
+            >
+              Peppermint
             </label>
           </div>
         </div>

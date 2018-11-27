@@ -12,6 +12,7 @@
     "virtualizedSelect": "vanilla",
     "multiSelect": ["chocolate", "strawberry"],
     "radioButtons": "chocolate",
+    "radioButtonsMultiSelect": ["chocolate", "strawberry"],
     "labelFieldRaw": "<p>Pellentesque habitant morbi tristique senectus et netus et <a href=\"#test\">Link</a> malesuada fames ac <b>turpis</b> egestas.</p>",
     "labelField": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.",
     "WYSIWYG": "test"
@@ -68,6 +69,13 @@
       "extraAttrs": [["inputType", "radio"]],
       "tagList": [["vanilla","Vanilla"],["chocolate","Chocolate"]]
     },
+    "/radioButtonsMultiSelect": {
+      "displayName": "Test Radio buttons",
+      "extraAttrs": [["inputType", "radio"]],
+      "multipleSelectionList": true,
+      "canBeNull": true,
+      "tagList": [["vanilla","Vanilla"],["chocolate","Chocolate"],["strawberry","Strawberry"],["cookiescream","Cookies and Cream"],["caramel","Caramel"],["peppermint","Peppermint"]]
+    },
     "/labelFieldRaw": {
       "labelField": true,
       "rawValue": true
@@ -95,6 +103,7 @@
     "/virtualizedSelect",
     "/multiSelect",
     "/radioButtons",
+    "/radioButtonsMultiSelect",
     "/labelFieldRaw",
     "/labelField",
     "/WYSIWYG"

@@ -20,6 +20,7 @@ class PropertyInput extends React.Component
 
     this.state = this.getInitState(props);
 
+    this.callOnChange = this.callOnChange.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleChangeBoolean = this.handleChangeBoolean.bind(this);
     this.handleChangeSelect = this.handleChangeSelect.bind(this);
@@ -425,8 +426,8 @@ class PropertyInput extends React.Component
       return <RadioSelectGroup
         meta={meta}
         attr={attr}
-        onChange={this.handleChange}
-        value={value}
+        onChange={this.callOnChange}
+        value={this.getCorrectMulValue(value, meta.multipleSelectionList)}
       />
     }
 
@@ -435,16 +436,6 @@ class PropertyInput extends React.Component
       let options = [];
       for(let i =0 ;i < meta.tagList.length; i++){
         options.push({ value: meta.tagList[i][0], label: meta.tagList[i][1] });
-      }
-
-      let strValue;
-      if(Array.isArray(value)){
-        strValue = [];
-        for (let i = 0; i < value.length; i++)strValue.push("" + value[i]);
-      }
-      else
-      {
-        strValue = "" + value;
       }
 
       let style;
@@ -463,7 +454,7 @@ class PropertyInput extends React.Component
       const selectAttr = {
         ref: id,
         name: id,
-        value: strValue,
+        value: this.getCorrectMulValue(value, meta.multipleSelectionList),
         options: options,
         onChange: this.handleChangeSelect,
         clearAllText: this.props.localization.clearAllText,
@@ -694,6 +685,18 @@ class PropertyInput extends React.Component
     />;
   }
 
+  getCorrectMulValue(value, multipleSelectionList) {
+    let correctValue;
+    if (multipleSelectionList === true) {
+      correctValue = [];
+      if (Array.isArray(value)) {
+        for (let i = 0; i < value.length; i++) correctValue.push("" + value[i]);
+      }
+    } else {
+      correctValue = "" + value;
+    }
+    return correctValue;
+  }
 }
 
 PropertyInput.defaultProps = {
