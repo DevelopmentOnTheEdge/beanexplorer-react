@@ -2,9 +2,10 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import bigInt from "big-integer";
 import bigRat from "big-rational";
+import BasePropertyInput from "./BasePropertyInput";
 
 
-export default class NumberPropertyInput extends React.Component
+export default class NumberPropertyInput extends BasePropertyInput
 {
   constructor(props) {
     super(props);
@@ -12,9 +13,12 @@ export default class NumberPropertyInput extends React.Component
   }
 
   render() {
-    const {meta, attr, value, handleChange}  = this.props;
-    addNumberValidationRules(attr.validationRulesMap, meta);
-    const range = attr.validationRulesMap.range, step = attr.validationRulesMap.step, type = meta.type;
+    const {attr, value, handleChange}  = this.props;
+    const meta = this.getMeta();
+    const range = this.getNumberValidationRule('range');
+    const step = this.getNumberValidationRule('step');
+    const type = meta.type;
+
     return <input
       type="text"
       onInput={this.numberValidation}
@@ -30,9 +34,9 @@ export default class NumberPropertyInput extends React.Component
 
   numberValidation(e)
   {
-    const {meta, attr}  = this.props;
-    const range = attr.validationRulesMap.range;
-    const step = attr.validationRulesMap.step;
+    const meta = this.getMeta();
+    const range = this.getNumberValidationRule('range');
+    const step = this.getNumberValidationRule('step');
     const type = meta.type;
 
     const local = this.props.localization;
@@ -81,36 +85,31 @@ export default class NumberPropertyInput extends React.Component
     setErrorState(e, '');
   }
 
-}
+  getNumberValidationRule(name) {
+    const meta = this.getMeta();
+    let rule = this.getValidationRule(name);
 
-const addNumberValidationRules = function (map, meta) {
-  if (meta.type === 'Short' || meta.type === 'Integer' || meta.type === 'Long')
-  {
-    if (!map.range)
+    if (meta.type === 'Short' || meta.type === 'Integer' || meta.type === 'Long')
     {
-      let rangeAttr;
-
-      switch (meta.type) {
-        case 'Short':
-          rangeAttr = {min: "-32768", max: "32767"};
-          break;
-        case 'Integer':
-          rangeAttr = {min: "-2147483648", max: "2147483647"};
-          break;
-        case 'Long':
-          rangeAttr = {min: "-9223372036854775808", max: "9223372036854775807"};
-          break;
+      if (name === 'range' && rule === undefined)
+      {
+        switch (meta.type) {
+          case 'Short':
+            return {type: 'range', attr: {min: "-32768", max: "32767"}};
+          case 'Integer':
+            return {type: 'range', attr: {min: "-2147483648", max: "2147483647"}};
+          case 'Long':
+            return {type: 'range', attr: {min: "-9223372036854775808", max: "9223372036854775807"}};
+        }
       }
-
-      map['range'] = {attr: rangeAttr};
+      if (name === 'step' && rule === undefined)
+      {
+        return {type: 'step', attr: '1'};
+      }
     }
-
-    if (!map.step)
-    {
-      map['step'] = {attr: '1'};
-    }
-  }
-};
+    return rule;
+  };
+}
 
 const getNumberValue = function (value, meta) {
   let numberValue = value;

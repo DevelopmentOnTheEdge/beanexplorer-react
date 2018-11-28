@@ -1,5 +1,4 @@
 import React                from 'react';
-import PropTypes            from 'prop-types';
 import CKEditor             from 'react-ckeditor-component';
 import MaskedInput          from 'react-maskedinput';
 import JsonPointer          from 'json-pointer';
@@ -8,49 +7,18 @@ import RadioSelectGroup     from "./inputs/RadioSelectGroup";
 import SelectPropertyInput from "./inputs/SelectPropertyInput";
 import NumberPropertyInput from "./inputs/NumberPropertyInput";
 import DateTimePropertyInput from "./inputs/DateTimePropertyInput";
+import BasePropertyInput from "./inputs/BasePropertyInput";
 
 
-class PropertyInput extends React.Component
+class PropertyInput extends BasePropertyInput
 {
   constructor(props) {
     super(props);
-
-    this.state = this.getInitState(props);
-
     this.callOnChange = this.callOnChange.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleChangeBoolean = this.handleChangeBoolean.bind(this);
     this.base64FileHandle = this.base64FileHandle.bind(this);
-
     this.patternValidationMessage = this.patternValidationMessage.bind(this);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState(this.getInitState(nextProps));
-  }
-
-  getInitState(props) {
-    const path  = this.getPath(props);
-    const meta  = props.bean.meta[path];
-    const id    = path.substring(path.lastIndexOf("/")+1) + "PropertyInput";
-    const validationRulesMap = PropertyInput.getValidationRulesMap(meta);
-
-    return {
-      path: path,
-      id: id,
-      meta: meta,
-      validationRulesMap: validationRulesMap
-    };
-  }
-
-  getPath(props) {
-    if(props === undefined)props = this.props;
-
-    if(props.path) {
-      return props.path;
-    }else{
-      return props.bean.order[props.id];
-    }
   }
 
   callOnChange(value) {
@@ -66,7 +34,7 @@ class PropertyInput extends React.Component
   }
 
   patternValidationMessage(e) {
-    const pattern = this.state.validationRulesMap.pattern;
+    const pattern = this.getValidationRule('pattern');
     if(pattern && pattern.customMessage)
     {
       if (e.target.validity.patternMismatch) {
@@ -127,26 +95,6 @@ class PropertyInput extends React.Component
     return map;
   }
 
-  static getValidationRulesMap(meta)
-  {
-    const rules = meta.validationRules;
-    let map = {};
-    if(rules !== undefined)
-    {
-      if (!Array.isArray(rules)) {
-        map[rules.type] = {attr: rules.attr};
-        if (rules.customMessage) map[rules.type].customMessage = rules.customMessage
-      }
-      else {
-        for (let i = 0; i < rules.length; i++) {
-          map[rules[i].type] = {attr: rules[i].attr};
-          if (rules[i].customMessage) map[rules[i].type].customMessage = rules[i].customMessage
-        }
-      }
-    }
-    return map;
-  }
-
   static updateCkeditor(ckeditor, value, readOnly) {
     if(ckeditor.editorInstance.getData() !== value)
     {
@@ -156,17 +104,14 @@ class PropertyInput extends React.Component
   }
 
   render() {
-    const {
-      id,
-      path,
-      meta,
-      validationRulesMap
-    } = this.state;
+    const path  = this.getPath();
+    const meta  = this.getMeta();
+    const id    = this.getID();
 
     const value    = JsonPointer.get(this.props.bean, "/values" + path);
     const required = meta.canBeNull !== true;
     const extraAttrsMap = PropertyInput.getExtraAttrsMap(meta);
-    const attr = {id, validationRulesMap, extraAttrsMap};
+    const attr = {id, extraAttrsMap};
 
     let inputTypeClass;
     switch (meta.type){
@@ -224,9 +169,10 @@ class PropertyInput extends React.Component
     );
     attr.rawInputProps = rawInputProps;
 
+    const validationRulePattern = this.getValidationRule('pattern');
     const rawTextValidation = {
       maxLength: meta.columnSize,
-      pattern: validationRulesMap.pattern ? validationRulesMap.pattern.attr : undefined,
+      pattern: validationRulePattern ? validationRulePattern.attr : undefined,
       onInvalid: this.patternValidationMessage,
       onInput: this.patternValidationMessage
     };
@@ -308,18 +254,19 @@ class PropertyInput extends React.Component
       />
     }
 
-    if(validationRulesMap.mask !== undefined)
+    const validationRuleMask = this.getValidationRule('mask');
+    if(validationRuleMask !== undefined)
     {
       return <MaskedInput
-        mask={validationRulesMap.mask.attr}
+        mask={validationRuleMask.attr}
         value={value}
         onChange={this.handleChange}
         {...baseProps}
       />;
     }
 
-    if(validationRulesMap.range !== undefined || validationRulesMap.step !== undefined ||
-      meta.type === 'Short' || meta.type === 'Integer' || meta.type === 'Long' || meta.type === 'Double')
+    if(meta.type === 'Short' || meta.type === 'Integer' || meta.type === 'Long' || meta.type === 'Double'
+        || this.getValidationRule('range') !== undefined || this.getValidationRule('step') !== undefined)
     {
       return <NumberPropertyInput
         meta={meta}
@@ -387,34 +334,5 @@ class PropertyInput extends React.Component
     return correctValue;
   }
 }
-
-PropertyInput.defaultProps = {
-  localization: {
-    locale: 'en',
-    clearAllText: 'Clear all',
-    clearValueText: 'Clear value',
-    noResultsText: 'No results found',
-    searchPromptText: 'Type to search',
-    placeholder: 'Select ...',
-    stepMismatch: 'Please enter a valid value. The closest allowed values are {0} and {1}.',
-    numberTypeMismatch: 'Enter the number.',
-    simpleIntegerTypeMismatch: '"E" is not supported for simple integer types.',
-    rangeOverflow: 'The value must be less than or equal to {0}.',
-    rangeUnderflow: 'The value must be greater than or equal to {0}.',
-    loadingPlaceholder: 'Loading...',
-    datePatternError: 'Please enter a valid date in the format dd.mm.yyyy',
-    timestampPatternError: 'Please enter a valid date with time in the format dd.mm.yyyy hh:mm'
-  },
-};
-
-PropertyInput.propTypes = {
-  bean: PropTypes.object.isRequired,
-  path: PropTypes.string,
-  inline: PropTypes.bool,
-  bsSize: PropTypes.string,
-  onChange: PropTypes.func,
-  localization: PropTypes.object,
-  controlClassName: PropTypes.string,
-};
 
 export default PropertyInput;

@@ -240,18 +240,6 @@ test('file', () => {
 //   expect(handle.mock.calls[2]).toEqual(["/multiSelect", ["test", "test2"]]);
 // });
 
-test('getValidationRulesMap test', () => {
-
-  expect(PropertyInput.getValidationRulesMap({validationRules: [{"type":"step","attr":0.5},{"type":"range","attr":{"min":0,"max":1000}}]}))
-    .toEqual({"range": {"attr": {"max": 1000, "min": 0}}, "step": {"attr": 0.5}});
-
-  expect(PropertyInput.getValidationRulesMap({validationRules: {"type":"step","attr":0.5}}))
-    .toEqual({"step": {"attr": 0.5}});
-
-  expect(PropertyInput.getValidationRulesMap({validationRules: {"type":"pattern","attr":"\\d{3}", "customMessage":"Enter 3 digits."}}))
-    .toEqual({"pattern": {"attr": "\\d{3}", "customMessage": "Enter 3 digits."}});
-});
-
 test('updateCkeditor', () => {
   const setData = jest.fn();
   const setReadOnly = jest.fn();
@@ -273,20 +261,16 @@ test('updateCkeditor', () => {
   expect(setReadOnly.mock.calls[1]).toEqual([true]);
 });
 
-test('test componentWillReceiveProps', () => {
+test('test change path', () => {
   const handle = jest.fn();
 
   const wrapper = mount(
     <PropertyInput path={"/textInput"} bean={bean} onChange={handle} />
   );
 
-  expect(wrapper.state().meta).toEqual({"displayName": "Text input"});
-  expect(wrapper.state().validationRulesMap).toEqual({});
+  expect(wrapper.instance().getMeta()).toEqual({"displayName": "Text input"});
 
   wrapper.setProps({ path: "/number" });
 
-  expect(wrapper.state().meta).toEqual({"displayName": "Number", "type": "Integer"});
-  expect(wrapper.state().validationRulesMap).toEqual(
-    {"range": {"attr": {"max": "2147483647", "min": "-2147483648"}}, "step": {"attr": "1"}}
-  );
+  expect(wrapper.instance().getMeta()).toEqual({"displayName": "Number", "type": "Integer"});
 });
