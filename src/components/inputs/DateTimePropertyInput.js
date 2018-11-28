@@ -14,11 +14,6 @@ export default class DateTimePropertyInput extends BasePropertyInput {
     this.timestampToISOFormat = this.timestampToISOFormat.bind(this);
   }
 
-  componentDidUpdate() {
-    if (this.dateInput) this.dateValidationMessage({target: this.dateInput});
-    if (this.timestampInput) this.timestampValidationMessage({target: this.timestampInput});
-  }
-
   render() {
     const meta = this.getMeta();
     const value = this.getValue();
@@ -42,7 +37,9 @@ export default class DateTimePropertyInput extends BasePropertyInput {
                 this.dateInput = instance;
               },
               pattern: "(^$|\\d{1,2}\\.\\d{1,2}\\.\\d{4})",
-              placeholder: extraAttrsMap.placeholder
+              placeholder: extraAttrsMap.placeholder,
+              onInput: this.dateValidationMessage,
+              onInvalid: this.dateValidationMessage
             }
           )}
           className="Datetime-outer"
@@ -77,7 +74,9 @@ export default class DateTimePropertyInput extends BasePropertyInput {
                 this.timestampInput = instance;
               },
               pattern: "(^$|\\d{1,2}\\.\\d{1,2}\\.\\d{4}\\s\\d{2}:\\d{2})",
-              placeholder: extraAttrsMap.placeholder
+              placeholder: extraAttrsMap.placeholder,
+              onInput: this.timestampValidationMessage,
+              onInvalid: this.timestampValidationMessage
             }
           )}
           className="Datetime-outer"
