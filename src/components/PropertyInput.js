@@ -1,12 +1,12 @@
 import React from 'react';
 import MaskedInput from 'react-maskedinput';
-import classNames from 'classnames';
 import RadioSelectGroup from "./inputs/RadioSelectGroup";
 import SelectPropertyInput from "./inputs/SelectPropertyInput";
 import NumberPropertyInput from "./inputs/NumberPropertyInput";
 import DateTimePropertyInput from "./inputs/DateTimePropertyInput";
 import BasePropertyInput from "./inputs/BasePropertyInput";
 import WYSIWYGPropertyInput from "./inputs/WYSIWYGPropertyInput";
+import LabelPropertyInput from "./inputs/LabelPropertyInput";
 
 
 class PropertyInput extends BasePropertyInput {
@@ -46,7 +46,6 @@ class PropertyInput extends BasePropertyInput {
 
   render() {
     const meta = this.getMeta();
-    const id = this.getID();
     const value = this.getValue();
     const extraAttrsMap = BasePropertyInput.getExtraAttrsMap(meta);
 
@@ -59,46 +58,11 @@ class PropertyInput extends BasePropertyInput {
     }
 
     if (meta.labelField) {
-      let labelPropertyClasses = classNames(
-        'property-input',
-        this.props.controlClassName,
-        {'text-danger': meta.status === 'error'},
-        {'text-success': meta.status === 'success'},
-        {'text-warning': meta.status === 'warning'},
-        {'col-form-label-sm': this.props.bsSize === "sm"},
-        {'col-form-label-lg': this.props.bsSize === "lg"}
-      );
-      if (meta.rawValue) {
-        return <label
-          id={id}
-          key={id}
-          className={labelPropertyClasses}
-          dangerouslySetInnerHTML={{__html: value}}
-        />
-      }
-      else {
-        return <label
-          className={labelPropertyClasses}
-          id={id}
-          key={id}
-        >
-          {value}
-        </label>
-      }
+      return <LabelPropertyInput {...this.props}/>
     }
 
     if (extraAttrsMap.inputType === 'WYSIWYG') {
       return <WYSIWYGPropertyInput {...this.props}/>
-    }
-
-    const validationRuleMask = this.getValidationRule('mask');
-    if (validationRuleMask !== undefined) {
-      return <MaskedInput
-        mask={validationRuleMask.attr}
-        value={value}
-        onChange={this.handleChange}
-        {...this.getBaseProps()}
-      />;
     }
 
     if (meta.type === 'Short' || meta.type === 'Integer' || meta.type === 'Long' || meta.type === 'Double'
@@ -136,6 +100,16 @@ class PropertyInput extends BasePropertyInput {
         {...rawInputProps}
         {...rawTextValidation}
       />
+    }
+
+    const validationRuleMask = this.getValidationRule('mask');
+    if (validationRuleMask !== undefined) {
+      return <MaskedInput
+        mask={validationRuleMask.attr}
+        value={value}
+        onChange={this.handleChange}
+        {...this.getBaseProps()}
+      />;
     }
 
     return <input
