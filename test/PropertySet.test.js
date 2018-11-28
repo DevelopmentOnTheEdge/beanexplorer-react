@@ -7,7 +7,7 @@ import testOuter from '../src/testOuter.json';
 import validationTest from '../src/validationTest.json';
 import layout1 from '../src/layout1.json';
 import layout2 from '../src/layout2.json';
-
+import JsonPointer   from 'json-pointer';
 //https://github.com/YouCanBookMe/react-datetime/issues/384
 jest.mock('react-dom', () => ({
   findDOMNode: () => {},
@@ -21,6 +21,48 @@ test('renders without crashing bean ', () => {
   mount(<PropertySet bean={bean} bsSize="lg"/>);
 
 });
+
+// class TestForm extends React.Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {bean: props.bean};
+//     this.handle = this.handle.bind(this);
+//   }
+//
+//   handle(path, value) {
+//     console.log("onChange: ", path, value);
+//
+//     JsonPointer.set(this.state.bean, "/values" + path, value);
+//     this.setState({
+//       bean: Object.assign({}, this.state.bean)
+//     });
+//   }
+//
+//   render(){
+//     return <PropertySet bean={this.state.bean} onChange={this.handle} />
+//   }
+// }
+//
+// test('TestForm', () => {
+//   //const handle = jest.fn();
+//
+//   const newBean = Object.assign({}, bean);
+//
+//   const handle = function (path, value) {
+//     JsonPointer.set(newBean, "/values" + path, value);
+//   };
+//
+//   const wrapper = mount(
+//     <TestForm bean={bean}/>
+//   );
+//
+//   wrapper.find('#textInputPropertyInput').simulate('change', {target: {value: 'newValue'}});
+//   // expect(handle.mock.calls[0]).toEqual(["/textInput", "newValue"]);
+//   //
+//   // wrapper.find('input').simulate('change', {target: {value: ''}});
+//   // expect(handle.mock.calls[1]).toEqual(["/textInput", ""]);
+//
+// });
 
 test('snapshot bean', () => {
   const component = renderer.create(
