@@ -26,6 +26,7 @@ export default class WYSIWYGPropertyInput extends BasePropertyInput {
         }
       }}
       config={{
+        removeButtons: 'image',
         language: this.props.localization.locale,
         readOnly: meta.readOnly
       }}
