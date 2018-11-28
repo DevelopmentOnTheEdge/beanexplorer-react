@@ -3,7 +3,7 @@
     "short": "32767",
     "integer": "2147483647",
     "long": "9223372036854775807",
-    "double": "100.1",
+    "double": "1.00000001234567E12",
     "doubleWithRangeAndStep": "100.5",
     "integerWithRangeAndStep": "",
     "textInput": "qwerty7890",

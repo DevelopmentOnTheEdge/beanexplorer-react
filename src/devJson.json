@@ -1,12 +1,16 @@
 {
   "values": {
-    "name": true,
+    "name": "1.00000001234567E12",
     "radioButtons": ""
   },
   "meta": {
     "/name": {
-      "displayName": "Name",
-      "type": "Boolean"
+      "displayName": "Number input with range and double step",
+      "type": "Double",
+      "validationRules":[
+        {"type":"step","attr":"0.01"},
+        {"type":"range","attr":{"min":"-1000000000000000","max":"1000000000000000"}}
+      ]
     },
     "/radioButtons": {
       "displayName": "Test Radio buttons",

@@ -5708,7 +5708,7 @@ exports[`validationTest 1`] = `
               required={true}
               size={undefined}
               type="text"
-              value="100.1"
+              value="1000000012345.67"
             />
           </div>
         </div>

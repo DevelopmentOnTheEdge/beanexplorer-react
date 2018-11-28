@@ -407,7 +407,7 @@ class PropertyInput extends React.Component
           meta={meta}
           attr={attr}
           callOnChange={this.callOnChange}
-          value={this.getCorrectMulValue(value, meta.multipleSelectionList)}
+          value={PropertyInput.getCorrectMulValue(value, meta.multipleSelectionList)}
           {...this.props}
         />
       } else {
@@ -415,7 +415,7 @@ class PropertyInput extends React.Component
           meta={meta}
           attr={attr}
           callOnChange={this.callOnChange}
-          value={this.getCorrectMulValue(value, meta.multipleSelectionList)}
+          value={PropertyInput.getCorrectMulValue(value, meta.multipleSelectionList)}
           {...this.props}
         />
       }
@@ -490,6 +490,18 @@ class PropertyInput extends React.Component
       meta.type === 'Short' || meta.type === 'Integer' || meta.type === 'Long' || meta.type === 'Double')
     {
       const range = validationRulesMap.range, step = validationRulesMap.step, type = meta.type;
+      let numberValue = value;
+      if (meta.type === 'Double') {
+        try {
+          if (value.endsWith('.'))
+            numberValue = value;
+          else
+            numberValue = bigRat(value).toDecimal();
+          console.log(bigRat(value));
+        } catch (err) {
+          numberValue = value
+        }
+      }
 
       return <input
         type="text"
@@ -497,7 +509,10 @@ class PropertyInput extends React.Component
         data-info-type={type}
         data-info-range={(range && range.attr) ? range.attr.min + ', ' + range.attr.max : undefined}
         data-info-step={step ? step.attr : undefined}
-        {...rawInputProps}
+        value={numberValue}
+        onChange={this.handleChange}
+        placeholder={extraAttrsMap.placeholder}
+        {...baseProps}
       />
     }
 
@@ -601,7 +616,7 @@ class PropertyInput extends React.Component
     />;
   }
 
-  getCorrectMulValue(value, multipleSelectionList) {
+  static getCorrectMulValue(value, multipleSelectionList) {
     let correctValue;
     if (multipleSelectionList === true) {
       correctValue = [];
