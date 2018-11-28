@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import MaskedInput from 'react-maskedinput';
+import JsonPointer from 'json-pointer';
+import Select, { Creatable } from 'react-select';
+import VirtualizedSelect from 'react-virtualized-select';
+import bigInt from 'big-integer';
+import bigRat from 'big-rational';
 import Datetime from 'react-datetime';
 import moment from 'moment';
 import CKEditor from 'react-ckeditor-component';
-import MaskedInput from 'react-maskedinput';
-import JsonPointer from 'json-pointer';
-import bigInt from 'big-integer';
-import bigRat from 'big-rational';
-import Select, { Creatable } from 'react-select';
-import VirtualizedSelect from 'react-virtualized-select';
 
 var inputLabelSizeClasses = function inputLabelSizeClasses(props) {
   return classNames({ 'col-form-label-sm': props.bsSize === "sm" }, { 'col-form-label-lg': props.bsSize === "lg" });
@@ -95,41 +95,256 @@ var possibleConstructorReturn = function (self, call) {
   return call && (typeof call === "object" || typeof call === "function") ? call : self;
 };
 
-var RadioSelectGroup = function (_React$Component) {
-  inherits(RadioSelectGroup, _React$Component);
+var BasePropertyInput = function (_React$Component) {
+  inherits(BasePropertyInput, _React$Component);
 
-  function RadioSelectGroup(props) {
-    classCallCheck(this, RadioSelectGroup);
+  function BasePropertyInput(props) {
+    classCallCheck(this, BasePropertyInput);
 
-    var _this = possibleConstructorReturn(this, (RadioSelectGroup.__proto__ || Object.getPrototypeOf(RadioSelectGroup)).call(this, props));
+    var _this = possibleConstructorReturn(this, (BasePropertyInput.__proto__ || Object.getPrototypeOf(BasePropertyInput)).call(this, props));
+
+    _this.callOnChange = _this.callOnChange.bind(_this);
+    _this.handleChange = _this.handleChange.bind(_this);
+    _this.patternValidationMessage = _this.patternValidationMessage.bind(_this);
+    return _this;
+  }
+
+  createClass(BasePropertyInput, [{
+    key: 'getPath',
+    value: function getPath() {
+      var props = this.props;
+      if (props.path) {
+        return props.path;
+      } else {
+        return props.bean.order[props.id];
+      }
+    }
+  }, {
+    key: 'getMeta',
+    value: function getMeta() {
+      return this.props.bean.meta[this.getPath()];
+    }
+  }, {
+    key: 'getID',
+    value: function getID() {
+      var path = this.getPath();
+      return path.substring(path.lastIndexOf("/") + 1) + "PropertyInput";
+    }
+  }, {
+    key: 'getValidationRule',
+    value: function getValidationRule(type) {
+      var rules = this.getMeta().validationRules;
+      if (rules !== undefined) {
+        if (Array.isArray(rules)) {
+          for (var i = 0; i < rules.length; i++) {
+            if (rules[i].type === type) return rules[i];
+          }
+        } else {
+          if (rules.type === type) return rules;
+        }
+      }
+      return undefined;
+    }
+  }, {
+    key: 'getValue',
+    value: function getValue() {
+      return JsonPointer.get(this.props.bean, "/values" + this.getPath());
+    }
+  }, {
+    key: 'getCorrectMulValue',
+    value: function getCorrectMulValue() {
+      var value = this.getValue();
+      var meta = this.getMeta();
+      var correctValue = void 0;
+      if (meta.multipleSelectionList === true) {
+        correctValue = [];
+        if (Array.isArray(value)) {
+          for (var i = 0; i < value.length; i++) {
+            correctValue.push("" + value[i]);
+          }
+        }
+      } else {
+        correctValue = "" + value;
+      }
+      return correctValue;
+    }
+  }, {
+    key: 'callOnChange',
+    value: function callOnChange(value) {
+      this.props.onChange(this.getPath(), value);
+    }
+  }, {
+    key: 'handleChange',
+    value: function handleChange(event) {
+      this.callOnChange(event.target.value);
+    }
+  }, {
+    key: 'getValidationClasses',
+    value: function getValidationClasses() {
+      var meta = this.getMeta();
+      return classNames({ 'is-invalid': meta.status === 'error' }, { 'is-valid': meta.status === 'success' });
+    }
+  }, {
+    key: 'getBaseProps',
+    value: function getBaseProps() {
+      var meta = this.getMeta();
+      var id = this.getID();
+      var extraAttrsMap = BasePropertyInput.getExtraAttrsMap(meta);
+
+      var inputTypeClass = void 0;
+      switch (meta.type) {
+        case "Boolean":
+          inputTypeClass = 'form-check-input';
+          break;
+        case "Base64File":
+          inputTypeClass = 'form-control-file';
+          break;
+        default:
+          inputTypeClass = 'form-control';
+      }
+
+      if (extraAttrsMap.inputType === "form-control-plaintext" && meta.readOnly === true && inputTypeClass === 'form-control') {
+        inputTypeClass = 'form-control-plaintext';
+      }
+
+      var basePropsClasses = classNames('property-input', inputTypeClass, this.getValidationClasses(), this.props.controlClassName, { 'form-control-sm': this.props.bsSize === "sm" && meta.type !== "Boolean" }, { 'form-control-lg': this.props.bsSize === "lg" && meta.type !== "Boolean" });
+
+      var baseProps = {
+        id: id,
+        key: id,
+        required: meta.canBeNull !== true,
+        size: meta.inputSize,
+        className: basePropsClasses
+      };
+      if (meta.readOnly === true) {
+        if (meta.type === 'Boolean' || meta.type === 'Base64File') {
+          baseProps['disabled'] = 'disabled';
+        } else {
+          baseProps['readOnly'] = 'readonly';
+        }
+      }
+      return baseProps;
+    }
+  }, {
+    key: 'getRawInputProps',
+    value: function getRawInputProps(value, extraAttrsMap) {
+      return Object.assign({}, this.getBaseProps(), {
+        value: value,
+        onChange: this.handleChange,
+        placeholder: extraAttrsMap.placeholder
+      });
+    }
+  }, {
+    key: 'getRawTextValidation',
+    value: function getRawTextValidation() {
+      var validationRulePattern = this.getValidationRule('pattern');
+      return {
+        maxLength: this.getMeta().columnSize,
+        pattern: validationRulePattern ? validationRulePattern.attr : undefined,
+        onInvalid: this.patternValidationMessage,
+        onInput: this.patternValidationMessage
+      };
+    }
+  }, {
+    key: 'patternValidationMessage',
+    value: function patternValidationMessage(e) {
+      var pattern = this.getValidationRule('pattern');
+      if (pattern && pattern.customMessage) {
+        if (e.target.validity.patternMismatch) {
+          e.target.setCustomValidity(pattern.customMessage);
+        } else {
+          e.target.setCustomValidity('');
+        }
+      }
+    }
+  }], [{
+    key: 'getExtraAttrsMap',
+    value: function getExtraAttrsMap(meta) {
+      var extraAttrs = meta.extraAttrs;
+      var map = {};
+
+      if (extraAttrs !== undefined) {
+        for (var i = 0; i < extraAttrs.length; i++) {
+          map[extraAttrs[i][0]] = extraAttrs[i][1];
+        }
+      }
+
+      if (meta.passwordField) {
+        map.inputType = 'password';
+      }
+
+      if (meta.placeholder) {
+        map.placeholder = meta.placeholder;
+      }
+
+      return map;
+    }
+  }]);
+  return BasePropertyInput;
+}(React.Component);
+
+BasePropertyInput.defaultProps = {
+  localization: {
+    locale: 'en',
+    clearAllText: 'Clear all',
+    clearValueText: 'Clear value',
+    noResultsText: 'No results found',
+    searchPromptText: 'Type to search',
+    placeholder: 'Select ...',
+    stepMismatch: 'Please enter a valid value. The closest allowed values are {0} and {1}.',
+    numberTypeMismatch: 'Enter the number.',
+    simpleIntegerTypeMismatch: '"E" is not supported for simple integer types.',
+    rangeOverflow: 'The value must be less than or equal to {0}.',
+    rangeUnderflow: 'The value must be greater than or equal to {0}.',
+    loadingPlaceholder: 'Loading...',
+    datePatternError: 'Please enter a valid date in the format dd.mm.yyyy',
+    timestampPatternError: 'Please enter a valid date with time in the format dd.mm.yyyy hh:mm'
+  }
+};
+//  localization: {checkBoxRequired: "Select at least one item"}
+
+BasePropertyInput.propTypes = {
+  bean: PropTypes.object.isRequired,
+  path: PropTypes.string,
+  inline: PropTypes.bool,
+  bsSize: PropTypes.string,
+  onChange: PropTypes.func,
+  localization: PropTypes.object,
+  controlClassName: PropTypes.string
+};
+
+var RadioSelectPropertyInput = function (_BasePropertyInput) {
+  inherits(RadioSelectPropertyInput, _BasePropertyInput);
+
+  function RadioSelectPropertyInput(props) {
+    classCallCheck(this, RadioSelectPropertyInput);
+
+    var _this = possibleConstructorReturn(this, (RadioSelectPropertyInput.__proto__ || Object.getPrototypeOf(RadioSelectPropertyInput)).call(this, props));
 
     _this._onInputChange = _this._onInputChange.bind(_this);
     return _this;
   }
 
-  createClass(RadioSelectGroup, [{
+  createClass(RadioSelectPropertyInput, [{
     key: 'render',
     value: function render() {
-      var _props = this.props,
-          meta = _props.meta,
-          attr = _props.attr,
-          value = _props.value;
-
+      var meta = this.getMeta();
+      var value = this.getCorrectMulValue();
       var radioButtons = [];
 
       for (var i = 0; i < meta.tagList.length; i++) {
         var tagName = meta.tagList[i][0];
         var tagLabel = meta.tagList[i][1];
-        var onChange = this._onInputChange.bind(null, tagName);
+        var onChange = this._onInputChange.bind(this, tagName);
 
         radioButtons.push(React.createElement(
           'div',
-          { className: 'form-check', key: attr.id + "FormCheckWrapper" + i },
+          { className: 'form-check', key: this.getID() + "FormCheckWrapper" + i },
           React.createElement('input', {
-            id: attr.id + "Radio" + i,
+            id: this.getID() + "Radio" + i,
             className: 'form-check-input',
             type: meta.multipleSelectionList ? "checkbox" : "radio",
-            name: attr.id,
+            name: this.getID(),
             value: tagName,
             checked: meta.multipleSelectionList ? value.includes(tagName) : tagName === "" + value,
             onChange: onChange,
@@ -140,7 +355,7 @@ var RadioSelectGroup = function (_React$Component) {
             'label',
             {
               className: classNames(inputLabelSizeClasses(this.props, meta.type), "form-check-label radio-label"),
-              htmlFor: attr.id + "Radio" + i
+              htmlFor: this.getID() + "Radio" + i
             },
             !meta.rawValue ? tagLabel : React.createElement('div', { dangerouslySetInnerHTML: { __html: tagLabel } })
           )
@@ -150,45 +365,35 @@ var RadioSelectGroup = function (_React$Component) {
       return React.createElement(
         'div',
         {
-          className: classNames("radio-buttons-outer", 'property-input', { 'Select--sm': this.props.bsSize === "sm" }, { 'Select--lg': this.props.bsSize === "lg" }, attr.validationClasses)
+          className: classNames("radio-buttons-outer", 'property-input', { 'Select--sm': this.props.bsSize === "sm" }, { 'Select--lg': this.props.bsSize === "lg" }, this.getValidationClasses())
         },
         radioButtons
       );
     }
   }, {
     key: '_onInputChange',
-    value: function _onInputChange(value, event) {
-      if (this.props.meta.multipleSelectionList) {
+    value: function _onInputChange(tagName, event) {
+      var value = this.getCorrectMulValue();
+      if (this.getMeta().multipleSelectionList) {
         var newValue = void 0;
         if (event.target.checked) {
-          newValue = this.props.value.concat(value);
+          newValue = value.concat(tagName);
         } else {
-          newValue = this.props.value.filter(function (v) {
-            return v !== value;
+          newValue = value.filter(function (v) {
+            return v !== tagName;
           });
         }
-        this.props.callOnChange(newValue);
+        this.callOnChange(newValue);
       } else {
-        this.props.callOnChange(value);
+        this.callOnChange(tagName);
       }
     }
   }]);
-  return RadioSelectGroup;
-}(React.Component);
+  return RadioSelectPropertyInput;
+}(BasePropertyInput);
 
-RadioSelectGroup.defaultProps = {
-  localization: { checkBoxRequired: "Select at least one item" }
-};
-
-RadioSelectGroup.propTypes = {
-  meta: PropTypes.object.isRequired,
-  attr: PropTypes.object.isRequired,
-  callOnChange: PropTypes.func.isRequired,
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.array]).isRequired
-};
-
-var SelectPropertyInput = function (_React$Component) {
-  inherits(SelectPropertyInput, _React$Component);
+var SelectPropertyInput = function (_BasePropertyInput) {
+  inherits(SelectPropertyInput, _BasePropertyInput);
 
   function SelectPropertyInput(props) {
     classCallCheck(this, SelectPropertyInput);
@@ -202,12 +407,9 @@ var SelectPropertyInput = function (_React$Component) {
   createClass(SelectPropertyInput, [{
     key: 'render',
     value: function render() {
-      var _props = this.props,
-          localization = _props.localization,
-          meta = _props.meta,
-          attr = _props.attr,
-          value = _props.value;
-
+      var meta = this.getMeta();
+      var localization = this.props.localization;
+      var extraAttrsMap = BasePropertyInput.getExtraAttrsMap(meta);
 
       var options = [];
       for (var i = 0; i < meta.tagList.length; i++) {
@@ -227,9 +429,9 @@ var SelectPropertyInput = function (_React$Component) {
       }
 
       var selectAttr = {
-        ref: attr.id,
-        name: attr.id,
-        value: value,
+        ref: this.getID(),
+        name: this.getID(),
+        value: this.getCorrectMulValue(),
         options: options,
         onChange: this.handleChangeSelect,
         clearAllText: localization.clearAllText,
@@ -237,18 +439,18 @@ var SelectPropertyInput = function (_React$Component) {
         noResultsText: localization.noResultsText,
         searchPromptText: localization.searchPromptText,
         loadingPlaceholder: localization.loadingPlaceholder,
-        placeholder: attr.extraAttrsMap.placeholder || localization.placeholder,
+        placeholder: extraAttrsMap.placeholder || localization.placeholder,
         backspaceRemoves: false,
         disabled: meta.readOnly,
         multi: meta.multipleSelectionList,
-        matchPos: attr.extraAttrsMap.matchPos || "any",
+        matchPos: extraAttrsMap.matchPos || "any",
         required: !meta.canBeNull
       };
 
       var select = void 0;
-      if (attr.extraAttrsMap.inputType === "Creatable") {
+      if (extraAttrsMap.inputType === "Creatable") {
         select = React.createElement(Creatable, selectAttr);
-      } else if (attr.extraAttrsMap.inputType === "VirtualizedSelect" || attr.extraAttrsMap.inputType === undefined && meta.tagList.length >= 100) {
+      } else if (extraAttrsMap.inputType === "VirtualizedSelect" || extraAttrsMap.inputType === undefined && meta.tagList.length >= 100) {
         select = React.createElement(VirtualizedSelect, _extends({
           clearable: true,
           searchable: true,
@@ -262,7 +464,7 @@ var SelectPropertyInput = function (_React$Component) {
       return React.createElement(
         'div',
         {
-          className: classNames("Select-outer", 'property-input', { 'Select--sm': this.props.bsSize === "sm" }, { 'Select--lg': this.props.bsSize === "lg" }, attr.validationClasses),
+          className: classNames("Select-outer", 'property-input', { 'Select--sm': this.props.bsSize === "sm" }, { 'Select--lg': this.props.bsSize === "lg" }, this.getValidationClasses()),
           style: style
         },
         select
@@ -276,39 +478,154 @@ var SelectPropertyInput = function (_React$Component) {
         Object.keys(object).forEach(function (key) {
           selectArray.push(object[key].value);
         });
-        this.props.callOnChange(selectArray);
+        this.callOnChange(selectArray);
       } else {
-        this.props.callOnChange(object !== null ? object.value : "");
+        this.callOnChange(object !== null ? object.value : "");
       }
     }
   }]);
   return SelectPropertyInput;
-}(React.Component);
+}(BasePropertyInput);
 
-SelectPropertyInput.propTypes = {
-  meta: PropTypes.object.isRequired,
-  attr: PropTypes.object.isRequired,
-  callOnChange: PropTypes.func.isRequired,
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.array]).isRequired
-};
+var NumberPropertyInput = function (_BasePropertyInput) {
+  inherits(NumberPropertyInput, _BasePropertyInput);
 
-var PropertyInput = function (_React$Component) {
-  inherits(PropertyInput, _React$Component);
+  function NumberPropertyInput(props) {
+    classCallCheck(this, NumberPropertyInput);
 
-  function PropertyInput(props) {
-    classCallCheck(this, PropertyInput);
-
-    var _this = possibleConstructorReturn(this, (PropertyInput.__proto__ || Object.getPrototypeOf(PropertyInput)).call(this, props));
-
-    _this.state = _this.getInitState(props);
-
-    _this.callOnChange = _this.callOnChange.bind(_this);
-    _this.handleChange = _this.handleChange.bind(_this);
-    _this.handleChangeBoolean = _this.handleChangeBoolean.bind(_this);
-    _this.base64FileHandle = _this.base64FileHandle.bind(_this);
+    var _this = possibleConstructorReturn(this, (NumberPropertyInput.__proto__ || Object.getPrototypeOf(NumberPropertyInput)).call(this, props));
 
     _this.numberValidation = _this.numberValidation.bind(_this);
-    _this.patternValidationMessage = _this.patternValidationMessage.bind(_this);
+    return _this;
+  }
+
+  createClass(NumberPropertyInput, [{
+    key: "render",
+    value: function render() {
+      var meta = this.getMeta();
+      var extraAttrsMap = BasePropertyInput.getExtraAttrsMap(meta);
+      var range = this.getNumberValidationRule('range');
+      var step = this.getNumberValidationRule('step');
+      var type = meta.type;
+
+      return React.createElement("input", _extends({
+        type: "text",
+        onInput: this.numberValidation,
+        "data-info-type": type,
+        "data-info-range": range && range.attr ? range.attr.min + ', ' + range.attr.max : undefined,
+        "data-info-step": step ? step.attr : undefined,
+        value: getNumberValue(this.getValue(), meta),
+        onChange: this.handleChange,
+        placeholder: extraAttrsMap.placeholder
+      }, this.getBaseProps()));
+    }
+  }, {
+    key: "numberValidation",
+    value: function numberValidation(e) {
+      var meta = this.getMeta();
+      var range = this.getNumberValidationRule('range');
+      var step = this.getNumberValidationRule('step');
+      var type = meta.type;
+
+      var local = this.props.localization;
+
+      var value = void 0;
+      try {
+        value = bigRat(e.target.value);
+      } catch (err) {
+        setErrorState(e, local.numberTypeMismatch);
+        return;
+      }
+
+      if ((type === 'Short' || type === 'Integer' || type === 'Long') && (e.target.value.indexOf('e') !== -1 || e.target.value.indexOf('E') !== -1)) {
+        setErrorState(e, local.simpleIntegerTypeMismatch);
+        return;
+      }
+
+      if (range) {
+        if (value.compare(bigRat(range.attr.min)) === -1) {
+          setErrorState(e, setMessagePlaceHolders(local.rangeUnderflow, [range.attr.min]));
+          return;
+        } else if (value.compare(bigRat(range.attr.max)) === 1) {
+          setErrorState(e, setMessagePlaceHolders(local.rangeOverflow, [range.attr.max]));
+          return;
+        }
+      }
+
+      if (step) {
+        var stepRat = bigRat(step.attr);
+
+        if (!value.divide(stepRat).denominator.equals(bigInt.one)) {
+          var min = value.divide(stepRat).floor().multiply(stepRat);
+          var max = min.add(stepRat);
+
+          setErrorState(e, setMessagePlaceHolders(local.stepMismatch, [min.toDecimal(), max.toDecimal()]));
+          return;
+        }
+      }
+
+      setErrorState(e, '');
+    }
+  }, {
+    key: "getNumberValidationRule",
+    value: function getNumberValidationRule(name) {
+      var meta = this.getMeta();
+      var rule = this.getValidationRule(name);
+
+      if (meta.type === 'Short' || meta.type === 'Integer' || meta.type === 'Long') {
+        if (name === 'range' && rule === undefined) {
+          switch (meta.type) {
+            case 'Short':
+              return { type: 'range', attr: { min: "-32768", max: "32767" } };
+            case 'Integer':
+              return { type: 'range', attr: { min: "-2147483648", max: "2147483647" } };
+            case 'Long':
+              return { type: 'range', attr: { min: "-9223372036854775808", max: "9223372036854775807" } };
+          }
+        }
+        if (name === 'step' && rule === undefined) {
+          return { type: 'step', attr: '1' };
+        }
+      }
+      return rule;
+    }
+  }]);
+  return NumberPropertyInput;
+}(BasePropertyInput);
+
+var getNumberValue = function getNumberValue(value, meta) {
+  var numberValue = value;
+  if (meta.type === 'Double') {
+    try {
+      if (value.endsWith('.')) numberValue = value;else numberValue = bigRat(value).toDecimal();
+    } catch (err) {
+      numberValue = value;
+    }
+  }
+  return numberValue;
+};
+
+var setErrorState = function setErrorState(e, text) {
+  e.target.setCustomValidity(text);
+  e.target.title = text;
+};
+
+var setMessagePlaceHolders = function setMessagePlaceHolders(source, params) {
+  if (params) {
+    params.forEach(function (item, i) {
+      source = source.replace(new RegExp("\\{" + i + "\\}", "g"), item);
+    });
+  }
+  return source;
+};
+
+var DateTimePropertyInput = function (_BasePropertyInput) {
+  inherits(DateTimePropertyInput, _BasePropertyInput);
+
+  function DateTimePropertyInput(props) {
+    classCallCheck(this, DateTimePropertyInput);
+
+    var _this = possibleConstructorReturn(this, (DateTimePropertyInput.__proto__ || Object.getPrototypeOf(DateTimePropertyInput)).call(this, props));
 
     _this.dateValidationMessage = _this.dateValidationMessage.bind(_this);
     _this.dateToISOFormat = _this.dateToISOFormat.bind(_this);
@@ -317,57 +634,82 @@ var PropertyInput = function (_React$Component) {
     return _this;
   }
 
-  createClass(PropertyInput, [{
-    key: 'componentWillReceiveProps',
-    value: function componentWillReceiveProps(nextProps) {
-      this.setState(this.getInitState(nextProps));
-    }
-  }, {
+  createClass(DateTimePropertyInput, [{
     key: 'componentDidUpdate',
     value: function componentDidUpdate() {
       if (this.dateInput) this.dateValidationMessage({ target: this.dateInput });
       if (this.timestampInput) this.timestampValidationMessage({ target: this.timestampInput });
     }
   }, {
-    key: 'getInitState',
-    value: function getInitState(props) {
-      var path = this.getPath(props);
-      var meta = props.bean.meta[path];
-      var id = path.substring(path.lastIndexOf("/") + 1) + "PropertyInput";
-      var validationRulesMap = PropertyInput.getValidationRulesMap(meta);
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
 
-      return {
-        path: path,
-        id: id,
-        meta: meta,
-        validationRulesMap: validationRulesMap
-      };
-    }
-  }, {
-    key: 'getPath',
-    value: function getPath(props) {
-      if (props === undefined) props = this.props;
+      var meta = this.getMeta();
+      var value = this.getValue();
+      var extraAttrsMap = BasePropertyInput.getExtraAttrsMap(meta);
 
-      if (props.path) {
-        return props.path;
-      } else {
-        return props.bean.order[props.id];
+      if (meta.type === 'Date') {
+        if (meta.readOnly !== true) {
+          return React.createElement(Datetime, {
+            dateFormat: 'DD.MM.YYYY',
+            timeFormat: false,
+            key: this.getID() + "Datetime",
+            value: dateFromISOFormat(value),
+            onChange: this.dateToISOFormat,
+            closeOnSelect: true,
+            closeOnTab: true,
+            locale: this.props.localization.locale,
+            inputProps: Object.assign({}, this.getBaseProps(), {
+              ref: function ref(instance) {
+                _this2.dateInput = instance;
+              },
+              pattern: "(^$|\\d{1,2}\\.\\d{1,2}\\.\\d{4})",
+              placeholder: extraAttrsMap.placeholder
+            }),
+            className: 'Datetime-outer'
+          });
+        } else {
+          var rawInputProps = this.getRawInputProps(value, extraAttrsMap);
+          var rawTextValidation = this.getRawTextValidation(meta);
+          return React.createElement('input', _extends({
+            type: 'text'
+          }, rawInputProps, rawTextValidation, {
+            value: dateFromISOFormat(value)
+          }));
+        }
       }
-    }
-  }, {
-    key: 'callOnChange',
-    value: function callOnChange(value) {
-      this.props.onChange(this.getPath(), value);
-    }
-  }, {
-    key: 'handleChange',
-    value: function handleChange(event) {
-      this.callOnChange(event.target.value);
-    }
-  }, {
-    key: 'handleChangeBoolean',
-    value: function handleChangeBoolean(event) {
-      this.callOnChange(event.target.checked);
+
+      if (meta.type === 'Timestamp') {
+        if (meta.readOnly !== true) {
+          return React.createElement(Datetime, {
+            dateFormat: 'DD.MM.YYYY',
+            timeFormat: 'HH:mm',
+            key: this.getID() + "Datetime",
+            value: timestampFromISOFormat(value),
+            onChange: this.timestampToISOFormat,
+            closeOnSelect: true,
+            closeOnTab: true,
+            locale: this.props.localization.locale,
+            inputProps: Object.assign({}, this.getBaseProps(), {
+              ref: function ref(instance) {
+                _this2.timestampInput = instance;
+              },
+              pattern: "(^$|\\d{1,2}\\.\\d{1,2}\\.\\d{4}\\s\\d{2}:\\d{2})",
+              placeholder: extraAttrsMap.placeholder
+            }),
+            className: 'Datetime-outer'
+          });
+        } else {
+          var _rawInputProps = this.getRawInputProps(value, extraAttrsMap);
+          var _rawTextValidation = this.getRawTextValidation(meta);
+          return React.createElement('input', _extends({
+            type: 'text'
+          }, _rawInputProps, _rawTextValidation, {
+            value: timestampFromISOFormat(value)
+          }));
+        }
+      }
     }
   }, {
     key: 'dateToISOFormat',
@@ -409,372 +751,160 @@ var PropertyInput = function (_React$Component) {
         e.target.setCustomValidity('');
       }
     }
-  }, {
-    key: 'patternValidationMessage',
-    value: function patternValidationMessage(e) {
-      var pattern = this.state.validationRulesMap.pattern;
-      if (pattern && pattern.customMessage) {
-        if (e.target.validity.patternMismatch) {
-          e.target.setCustomValidity(pattern.customMessage);
-        } else {
-          e.target.setCustomValidity('');
-        }
+  }]);
+  return DateTimePropertyInput;
+}(BasePropertyInput);
+
+var dateFromISOFormat = function dateFromISOFormat(stringDate) {
+  var date = moment(stringDate, 'YYYY-MM-DD', true);
+  if (date.isValid()) {
+    return date.format('DD.MM.YYYY');
+  } else {
+    return stringDate;
+  }
+};
+
+var timestampFromISOFormat = function timestampFromISOFormat(stringDate) {
+  var date = void 0;
+  if (stringDate.length === 23) {
+    date = moment(stringDate, 'YYYY-MM-DD HH:mm:ss.SSS', true);
+  } else if (stringDate.length === 22) {
+    date = moment(stringDate, 'YYYY-MM-DD HH:mm:ss.SS', true);
+  } else {
+    date = moment(stringDate, 'YYYY-MM-DD HH:mm:ss.S', true);
+  }
+  if (date.isValid()) {
+    return date.format('DD.MM.YYYY HH:mm');
+  } else {
+    return stringDate;
+  }
+};
+
+var WYSIWYGPropertyInput = function (_BasePropertyInput) {
+  inherits(WYSIWYGPropertyInput, _BasePropertyInput);
+
+  function WYSIWYGPropertyInput(props) {
+    classCallCheck(this, WYSIWYGPropertyInput);
+    return possibleConstructorReturn(this, (WYSIWYGPropertyInput.__proto__ || Object.getPrototypeOf(WYSIWYGPropertyInput)).call(this, props));
+  }
+
+  createClass(WYSIWYGPropertyInput, [{
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      var meta = this.getMeta();
+      var value = this.getValue();
+
+      if (this.ckeditor) {
+        WYSIWYGPropertyInput.updateCkeditor(this.ckeditor, value, meta.readOnly === true);
       }
+      return React.createElement(CKEditor, {
+        ref: function ref(instance) {
+          _this2.ckeditor = instance;
+        },
+        activeClass: 'p10',
+        content: value,
+        events: {
+          "change": function change(evt) {
+            _this2.callOnChange(evt.editor.getData());
+          }
+        },
+        config: {
+          language: this.props.localization.locale,
+          readOnly: meta.readOnly
+        }
+      });
     }
-  }, {
-    key: 'numberValidation',
-    value: function numberValidation(e) {
-      var range = this.state.validationRulesMap.range;
-      var step = this.state.validationRulesMap.step;
-      var type = this.state.meta.type;
-
-      var local = this.props.localization;
-
-      var value = void 0;
-      try {
-        value = bigRat(e.target.value);
-      } catch (err) {
-        PropertyInput.setErrorState(e, local.numberTypeMismatch);
-        return;
+  }], [{
+    key: 'updateCkeditor',
+    value: function updateCkeditor(ckeditor, value, readOnly) {
+      if (ckeditor.editorInstance.getData() !== value) {
+        ckeditor.editorInstance.setData(value);
       }
-
-      if ((type === 'Short' || type === 'Integer' || type === 'Long') && (e.target.value.indexOf('e') !== -1 || e.target.value.indexOf('E') !== -1)) {
-        PropertyInput.setErrorState(e, local.simpleIntegerTypeMismatch);
-        return;
-      }
-
-      if (range) {
-        if (value.compare(bigRat(range.attr.min)) === -1) {
-          PropertyInput.setErrorState(e, this.setMessagePlaceHolders(local.rangeUnderflow, [range.attr.min]));
-          return;
-        } else if (value.compare(bigRat(range.attr.max)) === 1) {
-          PropertyInput.setErrorState(e, this.setMessagePlaceHolders(local.rangeOverflow, [range.attr.max]));
-          return;
-        }
-      }
-
-      if (step) {
-        var stepRat = bigRat(step.attr);
-
-        if (!value.divide(stepRat).denominator.equals(bigInt.one)) {
-          var min = value.divide(stepRat).floor().multiply(stepRat);
-          var max = min.add(stepRat);
-
-          PropertyInput.setErrorState(e, this.setMessagePlaceHolders(local.stepMismatch, [min.toDecimal(), max.toDecimal()]));
-          return;
-        }
-      }
-
-      PropertyInput.setErrorState(e, '');
+      ckeditor.editorInstance.setReadOnly(readOnly);
     }
-  }, {
-    key: 'setMessagePlaceHolders',
-    value: function setMessagePlaceHolders(source, params) {
-      if (params) {
-        params.forEach(function (item, i) {
-          source = source.replace(new RegExp("\\{" + i + "\\}", "g"), item);
+  }]);
+  return WYSIWYGPropertyInput;
+}(BasePropertyInput);
+
+var LabelPropertyInput = function (_BasePropertyInput) {
+  inherits(LabelPropertyInput, _BasePropertyInput);
+
+  function LabelPropertyInput(props) {
+    classCallCheck(this, LabelPropertyInput);
+    return possibleConstructorReturn(this, (LabelPropertyInput.__proto__ || Object.getPrototypeOf(LabelPropertyInput)).call(this, props));
+  }
+
+  createClass(LabelPropertyInput, [{
+    key: 'render',
+    value: function render() {
+      var id = this.getID();
+      var meta = this.getMeta();
+      var value = this.getValue();
+
+      var labelPropertyClasses = classNames('property-input', this.props.controlClassName, { 'text-danger': meta.status === 'error' }, { 'text-success': meta.status === 'success' }, { 'text-warning': meta.status === 'warning' }, { 'col-form-label-sm': this.props.bsSize === "sm" }, { 'col-form-label-lg': this.props.bsSize === "lg" });
+      if (meta.rawValue) {
+        return React.createElement('label', {
+          id: id,
+          key: id,
+          className: labelPropertyClasses,
+          dangerouslySetInnerHTML: { __html: value }
         });
+      } else {
+        return React.createElement(
+          'label',
+          {
+            className: labelPropertyClasses,
+            id: id,
+            key: id
+          },
+          value
+        );
       }
-      return source;
+    }
+  }]);
+  return LabelPropertyInput;
+}(BasePropertyInput);
+
+var Base64FilePropertyInput = function (_BasePropertyInput) {
+  inherits(Base64FilePropertyInput, _BasePropertyInput);
+
+  function Base64FilePropertyInput(props) {
+    classCallCheck(this, Base64FilePropertyInput);
+
+    var _this = possibleConstructorReturn(this, (Base64FilePropertyInput.__proto__ || Object.getPrototypeOf(Base64FilePropertyInput)).call(this, props));
+
+    _this.base64FileHandle = _this.base64FileHandle.bind(_this);
+    return _this;
+  }
+
+  createClass(Base64FilePropertyInput, [{
+    key: "render",
+    value: function render() {
+      var meta = this.getMeta();
+      return React.createElement("input", _extends({
+        type: "file",
+        multiple: meta.multipleSelectionList,
+        onChange: this.base64FileHandle
+      }, this.getBaseProps()));
     }
   }, {
-    key: 'base64FileHandle',
+    key: "base64FileHandle",
     value: function base64FileHandle(e) {
       var _this2 = this;
 
       if (e.target.files && e.target.files.length === 1) {
         var fileName = e.target.files[0].name;
-        PropertyInput.getBase64(e.target.files[0]).then(function (data) {
+        Base64FilePropertyInput.getBase64(e.target.files[0]).then(function (data) {
           _this2.callOnChange({ type: "Base64File", name: fileName, data: data });
         });
       } else if (e.target.files && e.target.files.length === 0) {
         this.callOnChange("");
       }
     }
-  }, {
-    key: 'render',
-    value: function render() {
-      var _this3 = this;
-
-      var _state = this.state,
-          id = _state.id,
-          path = _state.path,
-          meta = _state.meta,
-          validationRulesMap = _state.validationRulesMap;
-
-
-      var value = JsonPointer.get(this.props.bean, "/values" + path);
-      var required = meta.canBeNull !== true;
-      var extraAttrsMap = PropertyInput.getExtraAttrsMap(meta);
-      var attr = { id: id, validationRulesMap: validationRulesMap, extraAttrsMap: extraAttrsMap };
-
-      var inputTypeClass = void 0;
-      switch (meta.type) {
-        case "Boolean":
-          inputTypeClass = 'form-check-input';break;
-        case "Base64File":
-          inputTypeClass = 'form-control-file';break;
-        default:
-          inputTypeClass = 'form-control';
-      }
-
-      if (extraAttrsMap.inputType === "form-control-plaintext" && meta.readOnly === true && inputTypeClass === 'form-control') {
-        inputTypeClass = 'form-control-plaintext';
-      }
-
-      var validationClasses = classNames({ 'is-invalid': meta.status === 'error' }, { 'is-valid': meta.status === 'success' });
-      attr.validationClasses = validationClasses;
-
-      var basePropsClasses = classNames('property-input', inputTypeClass, validationClasses, this.props.controlClassName, { 'form-control-sm': this.props.bsSize === "sm" && meta.type !== "Boolean" }, { 'form-control-lg': this.props.bsSize === "lg" && meta.type !== "Boolean" });
-
-      var baseProps = {
-        id: id,
-        key: id,
-        required: required,
-        size: meta.inputSize,
-        className: basePropsClasses
-      };
-
-      if (meta.readOnly === true) {
-        if (meta.type === 'Boolean' || meta.type === 'Base64File') {
-          baseProps['disabled'] = 'disabled';
-        } else {
-          baseProps['readOnly'] = 'readonly';
-        }
-      }
-
-      var rawInputProps = Object.assign({}, baseProps, {
-        value: value,
-        onChange: this.handleChange,
-        placeholder: extraAttrsMap.placeholder
-      });
-
-      var rawTextValidation = {
-        maxLength: meta.columnSize,
-        pattern: validationRulesMap.pattern ? validationRulesMap.pattern.attr : undefined,
-        onInvalid: this.patternValidationMessage,
-        onInput: this.patternValidationMessage
-      };
-
-      if (meta.tagList) {
-        if (extraAttrsMap.inputType === "radio") {
-          return React.createElement(RadioSelectGroup, _extends({
-            meta: meta,
-            attr: attr,
-            callOnChange: this.callOnChange,
-            value: this.getCorrectMulValue(value, meta.multipleSelectionList)
-          }, this.props));
-        } else {
-          return React.createElement(SelectPropertyInput, _extends({
-            meta: meta,
-            attr: attr,
-            callOnChange: this.callOnChange,
-            value: this.getCorrectMulValue(value, meta.multipleSelectionList)
-          }, this.props));
-        }
-      }
-
-      if (meta.labelField) {
-        var labelPropertyClasses = classNames('property-input', this.props.controlClassName, { 'text-danger': meta.status === 'error' }, { 'text-success': meta.status === 'success' }, { 'text-warning': meta.status === 'warning' }, { 'col-form-label-sm': this.props.bsSize === "sm" }, { 'col-form-label-lg': this.props.bsSize === "lg" });
-        if (meta.rawValue) {
-          return React.createElement('label', {
-            id: id,
-            key: id,
-            className: labelPropertyClasses,
-            dangerouslySetInnerHTML: { __html: value }
-          });
-        } else {
-          return React.createElement(
-            'label',
-            {
-              className: labelPropertyClasses,
-              id: id,
-              key: id
-            },
-            value
-          );
-        }
-      }
-
-      if (extraAttrsMap.inputType === 'WYSIWYG') {
-        if (this.ckeditor) {
-          PropertyInput.updateCkeditor(this.ckeditor, value, meta.readOnly === true);
-        }
-        return React.createElement(CKEditor, {
-          ref: function ref(instance) {
-            _this3.ckeditor = instance;
-          },
-          activeClass: 'p10',
-          content: value,
-          events: {
-            "change": function change(evt) {
-              _this3.callOnChange(evt.editor.getData());
-            }
-          },
-          config: {
-            language: this.props.localization.locale,
-            readOnly: meta.readOnly
-          }
-        });
-      }
-
-      if (validationRulesMap.mask !== undefined) {
-        return React.createElement(MaskedInput, _extends({
-          mask: validationRulesMap.mask.attr,
-          value: value,
-          onChange: this.handleChange
-        }, baseProps));
-      }
-
-      if (validationRulesMap.range !== undefined || validationRulesMap.step !== undefined || meta.type === 'Short' || meta.type === 'Integer' || meta.type === 'Long' || meta.type === 'Double') {
-        var range = validationRulesMap.range,
-            step = validationRulesMap.step,
-            type = meta.type;
-
-        return React.createElement('input', _extends({
-          type: 'text',
-          onInput: this.numberValidation,
-          'data-info-type': type,
-          'data-info-range': range && range.attr ? range.attr.min + ', ' + range.attr.max : undefined,
-          'data-info-step': step ? step.attr : undefined
-        }, rawInputProps));
-      }
-
-      if (meta.type === 'Base64File') {
-        return React.createElement('input', _extends({
-          type: 'file',
-          multiple: meta.multipleSelectionList,
-          onChange: this.base64FileHandle
-        }, baseProps));
-      }
-
-      if (meta.type === 'Date') {
-        if (meta.readOnly !== true) {
-          return React.createElement(Datetime, {
-            dateFormat: 'DD.MM.YYYY',
-            timeFormat: false,
-            key: id + "Datetime",
-            value: PropertyInput.dateFromISOFormat(value),
-            onChange: this.dateToISOFormat,
-            closeOnSelect: true,
-            closeOnTab: true,
-            locale: this.props.localization.locale,
-            inputProps: Object.assign({}, baseProps, {
-              ref: function ref(instance) {
-                _this3.dateInput = instance;
-              },
-              pattern: "(^$|\\d{1,2}\\.\\d{1,2}\\.\\d{4})",
-              placeholder: extraAttrsMap.placeholder
-            }),
-            className: 'Datetime-outer'
-          });
-        } else {
-          return React.createElement('input', _extends({
-            type: 'text'
-          }, rawInputProps, rawTextValidation, {
-            value: PropertyInput.dateFromISOFormat(value)
-          }));
-        }
-      }
-
-      if (meta.type === 'Timestamp') {
-        if (meta.readOnly !== true) {
-          return React.createElement(Datetime, {
-            dateFormat: 'DD.MM.YYYY',
-            timeFormat: 'HH:mm',
-            key: id + "Datetime",
-            value: PropertyInput.timestampFromISOFormat(value),
-            onChange: this.timestampToISOFormat,
-            closeOnSelect: true,
-            closeOnTab: true,
-            locale: this.props.localization.locale,
-            inputProps: Object.assign({}, baseProps, {
-              ref: function ref(instance) {
-                _this3.timestampInput = instance;
-              },
-              pattern: "(^$|\\d{1,2}\\.\\d{1,2}\\.\\d{4}\\s\\d{2}:\\d{2})",
-              placeholder: extraAttrsMap.placeholder
-            }),
-            className: 'Datetime-outer'
-          });
-        } else {
-          return React.createElement('input', _extends({
-            type: 'text'
-          }, rawInputProps, rawTextValidation, {
-            value: PropertyInput.timestampFromISOFormat(value)
-          }));
-        }
-      }
-
-      if (meta.type === 'Boolean') {
-        return React.createElement('input', _extends({
-          type: 'checkbox',
-          checked: value === true || value === "true",
-          onChange: this.handleChangeBoolean
-        }, baseProps));
-      }
-
-      if (extraAttrsMap.inputType === 'textArea') {
-        return React.createElement('textarea', _extends({
-          rows: extraAttrsMap.rows || 3
-        }, rawInputProps, rawTextValidation));
-      }
-
-      return React.createElement('input', _extends({
-        type: extraAttrsMap.inputType || 'text'
-      }, rawInputProps, rawTextValidation));
-    }
-  }, {
-    key: 'getCorrectMulValue',
-    value: function getCorrectMulValue(value, multipleSelectionList) {
-      var correctValue = void 0;
-      if (multipleSelectionList === true) {
-        correctValue = [];
-        if (Array.isArray(value)) {
-          for (var i = 0; i < value.length; i++) {
-            correctValue.push("" + value[i]);
-          }
-        }
-      } else {
-        correctValue = "" + value;
-      }
-      return correctValue;
-    }
   }], [{
-    key: 'dateFromISOFormat',
-    value: function dateFromISOFormat(stringDate) {
-      var date = moment(stringDate, 'YYYY-MM-DD', true);
-      if (date.isValid()) {
-        return date.format('DD.MM.YYYY');
-      } else {
-        return stringDate;
-      }
-    }
-  }, {
-    key: 'timestampFromISOFormat',
-    value: function timestampFromISOFormat(stringDate) {
-      var date = void 0;
-      if (stringDate.length === 23) {
-        date = moment(stringDate, 'YYYY-MM-DD HH:mm:ss.SSS', true);
-      } else if (stringDate.length === 22) {
-        date = moment(stringDate, 'YYYY-MM-DD HH:mm:ss.SS', true);
-      } else {
-        date = moment(stringDate, 'YYYY-MM-DD HH:mm:ss.S', true);
-      }
-      if (date.isValid()) {
-        return date.format('DD.MM.YYYY HH:mm');
-      } else {
-        return stringDate;
-      }
-    }
-  }, {
-    key: 'setErrorState',
-    value: function setErrorState(e, text) {
-      e.target.setCustomValidity(text);
-      e.target.title = text;
-    }
-  }, {
-    key: 'getBase64',
+    key: "getBase64",
     value: function getBase64(file) {
       return new Promise(function (resolve, reject) {
         var reader = new FileReader();
@@ -788,112 +918,94 @@ var PropertyInput = function (_React$Component) {
         reader.readAsDataURL(file);
       });
     }
-  }, {
-    key: 'getExtraAttrsMap',
-    value: function getExtraAttrsMap(meta) {
-      var extraAttrs = meta.extraAttrs;
-      var map = {};
+  }]);
+  return Base64FilePropertyInput;
+}(BasePropertyInput);
 
-      if (extraAttrs !== undefined) {
-        for (var i = 0; i < extraAttrs.length; i++) {
-          map[extraAttrs[i][0]] = extraAttrs[i][1];
-        }
-      }
+var PropertyInput = function (_BasePropertyInput) {
+  inherits(PropertyInput, _BasePropertyInput);
 
-      if (meta.passwordField) {
-        map.inputType = 'password';
-      }
+  function PropertyInput(props) {
+    classCallCheck(this, PropertyInput);
 
-      if (meta.placeholder) {
-        map.placeholder = meta.placeholder;
-      }
+    var _this = possibleConstructorReturn(this, (PropertyInput.__proto__ || Object.getPrototypeOf(PropertyInput)).call(this, props));
 
-      return map;
+    _this.handleChangeBoolean = _this.handleChangeBoolean.bind(_this);
+    return _this;
+  }
+
+  createClass(PropertyInput, [{
+    key: 'handleChangeBoolean',
+    value: function handleChangeBoolean(event) {
+      this.callOnChange(event.target.checked);
     }
   }, {
-    key: 'getValidationRulesMap',
-    value: function getValidationRulesMap(meta) {
-      var rules = meta.validationRules;
+    key: 'render',
+    value: function render() {
+      var meta = this.getMeta();
+      var value = this.getValue();
+      var extraAttrsMap = BasePropertyInput.getExtraAttrsMap(meta);
 
-      var map = {};
-      if (rules !== undefined) {
-        if (!Array.isArray(rules)) {
-          map[rules.type] = { attr: rules.attr };
-          if (rules.customMessage) map[rules.type].customMessage = rules.customMessage;
+      if (meta.tagList) {
+        if (extraAttrsMap.inputType === "radio") {
+          return React.createElement(RadioSelectPropertyInput, this.props);
         } else {
-          for (var i = 0; i < rules.length; i++) {
-            map[rules[i].type] = { attr: rules[i].attr };
-            if (rules[i].customMessage) map[rules[i].type].customMessage = rules[i].customMessage;
-          }
+          return React.createElement(SelectPropertyInput, this.props);
         }
       }
 
-      if (meta.type === 'Short' || meta.type === 'Integer' || meta.type === 'Long') {
-        if (!map.range) {
-          var rangeAttr = void 0;
-
-          switch (meta.type) {
-            case 'Short':
-              rangeAttr = { min: "-32768", max: "32767" };
-              break;
-            case 'Integer':
-              rangeAttr = { min: "-2147483648", max: "2147483647" };
-              break;
-            case 'Long':
-              rangeAttr = { min: "-9223372036854775808", max: "9223372036854775807" };
-              break;
-          }
-
-          map['range'] = { attr: rangeAttr };
-        }
-
-        if (!map.step) {
-          map['step'] = { attr: '1' };
-        }
+      if (meta.labelField) {
+        return React.createElement(LabelPropertyInput, this.props);
       }
 
-      return map;
-    }
-  }, {
-    key: 'updateCkeditor',
-    value: function updateCkeditor(ckeditor, value, readOnly) {
-      if (ckeditor.editorInstance.getData() !== value) {
-        ckeditor.editorInstance.setData(value);
+      if (extraAttrsMap.inputType === 'WYSIWYG') {
+        return React.createElement(WYSIWYGPropertyInput, this.props);
       }
-      ckeditor.editorInstance.setReadOnly(readOnly);
+
+      if (meta.type === 'Short' || meta.type === 'Integer' || meta.type === 'Long' || meta.type === 'Double' || this.getValidationRule('range') !== undefined || this.getValidationRule('step') !== undefined) {
+        return React.createElement(NumberPropertyInput, this.props);
+      }
+
+      if (meta.type === 'Base64File') {
+        return React.createElement(Base64FilePropertyInput, this.props);
+      }
+
+      if (meta.type === 'Date' || meta.type === 'Timestamp') {
+        return React.createElement(DateTimePropertyInput, this.props);
+      }
+
+      if (meta.type === 'Boolean') {
+        return React.createElement('input', _extends({
+          type: 'checkbox',
+          checked: value === true || value === "true",
+          onChange: this.handleChangeBoolean
+        }, this.getBaseProps()));
+      }
+
+      var rawInputProps = this.getRawInputProps(value, extraAttrsMap);
+      var rawTextValidation = this.getRawTextValidation(meta);
+      if (extraAttrsMap.inputType === 'textArea') {
+        return React.createElement('textarea', _extends({
+          rows: extraAttrsMap.rows || 3
+        }, rawInputProps, rawTextValidation));
+      }
+
+      var validationRuleMask = this.getValidationRule('mask');
+      if (validationRuleMask !== undefined) {
+        return React.createElement(MaskedInput, _extends({
+          mask: validationRuleMask.attr,
+          value: value,
+          onChange: this.handleChange
+        }, this.getBaseProps()));
+      }
+
+      return React.createElement('input', _extends({
+        type: extraAttrsMap.inputType || 'text'
+      }, rawInputProps, rawTextValidation));
     }
   }]);
   return PropertyInput;
-}(React.Component);
-
-PropertyInput.defaultProps = {
-  localization: {
-    locale: 'en',
-    clearAllText: 'Clear all',
-    clearValueText: 'Clear value',
-    noResultsText: 'No results found',
-    searchPromptText: 'Type to search',
-    placeholder: 'Select ...',
-    stepMismatch: 'Please enter a valid value. The closest allowed values are {0} and {1}.',
-    numberTypeMismatch: 'Enter the number.',
-    simpleIntegerTypeMismatch: '"E" is not supported for simple integer types.',
-    rangeOverflow: 'The value must be less than or equal to {0}.',
-    rangeUnderflow: 'The value must be greater than or equal to {0}.',
-    loadingPlaceholder: 'Loading...',
-    datePatternError: 'Please enter a valid date in the format dd.mm.yyyy',
-    timestampPatternError: 'Please enter a valid date with time in the format dd.mm.yyyy hh:mm'
-  }
-};
-
-PropertyInput.propTypes = {
-  bean: PropTypes.object.isRequired,
-  path: PropTypes.string,
-  inline: PropTypes.bool,
-  bsSize: PropTypes.string,
-  onChange: PropTypes.func,
-  localization: PropTypes.object,
-  controlClassName: PropTypes.string
-};
+}(BasePropertyInput);
 
 var Property = function (_React$Component) {
   inherits(Property, _React$Component);
@@ -1004,7 +1116,8 @@ var Property = function (_React$Component) {
               { className: classNames(formGroupClasses, this.props.rowClass) },
               React.createElement(
                 'div',
-                { className: classNames('col-lg-' + this.props.horizontalColSize, 'col-form-control-label') },
+                {
+                  className: classNames('col-lg-' + this.props.horizontalColSize, 'col-form-control-label') },
                 label
               ),
               React.createElement(

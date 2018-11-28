@@ -80,26 +80,26 @@ test('date', () => {
 
   expect(handle.mock.calls.length).toEqual(3);
 });
-//
-// test('date dateValidationMessage', () => {
-//   const handle = jest.fn();
-//
-//   const wrapper = shallow(
-//     <PropertyInput path={"/date"} bean={bean} onChange={handle} />
-//   );
-//
-//   wrapper.instance().dateValidationMessage(
-//     {target:{value: '20.07.2012', setCustomValidity: handle, validity: {patternMismatch: true}}});
-//
-//   expect(handle.mock.calls[0]).toEqual(["Please enter a valid date in the format dd.mm.yyyy"]);
-//
-//   wrapper.instance().dateValidationMessage(
-//     {target:{setCustomValidity: handle, validity: {patternMismatch: false}}});
-//
-//   expect(handle.mock.calls[1]).toEqual([""]);
-//
-//   expect(handle.mock.calls.length).toEqual(2);
-// });
+
+test('date dateValidationMessage', () => {
+  const handle = jest.fn();
+
+  const wrapper = shallow(
+    <DateTimePropertyInput path={"/date"} bean={bean} onChange={handle} />
+  );
+
+  wrapper.instance().dateValidationMessage(
+    {target:{value: '20.07.2012', setCustomValidity: handle, validity: {patternMismatch: true}}});
+
+  expect(handle.mock.calls[0]).toEqual(["Please enter a valid date in the format dd.mm.yyyy"]);
+
+  wrapper.instance().dateValidationMessage(
+    {target:{setCustomValidity: handle, validity: {patternMismatch: false}}});
+
+  expect(handle.mock.calls[1]).toEqual([""]);
+
+  expect(handle.mock.calls.length).toEqual(2);
+});
 
 test('date init with no valid date', () => {
   const simpleBean = {

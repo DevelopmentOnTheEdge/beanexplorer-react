@@ -4,7 +4,7 @@ import {inputLabelSizeClasses} from "../utils";
 import BasePropertyInput from "./BasePropertyInput";
 
 
-export default class RadioSelectGroup extends BasePropertyInput {
+export default class RadioSelectPropertyInput extends BasePropertyInput {
   constructor(props) {
     super(props);
     this._onInputChange = this._onInputChange.bind(this);
@@ -18,7 +18,7 @@ export default class RadioSelectGroup extends BasePropertyInput {
     for (let i = 0; i < meta.tagList.length; i++) {
       const tagName = meta.tagList[i][0];
       const tagLabel = meta.tagList[i][1];
-      const onChange = this._onInputChange.bind(null, tagName);
+      const onChange = this._onInputChange.bind(this, tagName);
 
       radioButtons.push(
         <div className="form-check" key={this.getID() + "FormCheckWrapper" + i}>

@@ -1,6 +1,6 @@
 import React from 'react';
 import MaskedInput from 'react-maskedinput';
-import RadioSelectGroup from "./inputs/RadioSelectGroup";
+import RadioSelectPropertyInput from "./inputs/RadioSelectPropertyInput";
 import SelectPropertyInput from "./inputs/SelectPropertyInput";
 import NumberPropertyInput from "./inputs/NumberPropertyInput";
 import DateTimePropertyInput from "./inputs/DateTimePropertyInput";
@@ -27,7 +27,7 @@ class PropertyInput extends BasePropertyInput {
 
     if (meta.tagList) {
       if (extraAttrsMap.inputType === "radio") {
-        return <RadioSelectGroup {...this.props}/>
+        return <RadioSelectPropertyInput {...this.props}/>
       } else {
         return <SelectPropertyInput {...this.props}/>
       }
