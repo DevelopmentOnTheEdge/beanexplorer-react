@@ -30,7 +30,7 @@ export default class DateTimePropertyInput extends BasePropertyInput
         return <Datetime
           dateFormat="DD.MM.YYYY"
           timeFormat={false}
-          key={attr.id + "Datetime"}
+          key={this.getID() + "Datetime"}
           value={dateFromISOFormat(value)}
           onChange={this.dateToISOFormat}
           closeOnSelect={true}
@@ -63,7 +63,7 @@ export default class DateTimePropertyInput extends BasePropertyInput
         return <Datetime
           dateFormat="DD.MM.YYYY"
           timeFormat="HH:mm"
-          key={attr.id + "Datetime"}
+          key={this.getID() + "Datetime"}
           value={timestampFromISOFormat(value)}
           onChange={this.timestampToISOFormat}
           closeOnSelect={true}
@@ -96,9 +96,9 @@ export default class DateTimePropertyInput extends BasePropertyInput
     this.dateInput.focus();
 
     if(typeof date === "string") {
-      this.props.callOnChange(date);
+      this.callOnChange(date);
     } else {
-      this.props.callOnChange(date.format('YYYY-MM-DD'));
+      this.callOnChange(date.format('YYYY-MM-DD'));
     }
   }
 
@@ -106,9 +106,9 @@ export default class DateTimePropertyInput extends BasePropertyInput
     this.timestampInput.focus();
 
     if(typeof date === "string") {
-      this.props.callOnChange(date);
+      this.callOnChange(date);
     } else {
-      this.props.callOnChange(date.format('YYYY-MM-DD HH:mm:ss.SSS'));
+      this.callOnChange(date.format('YYYY-MM-DD HH:mm:ss.SSS'));
     }
   }
 

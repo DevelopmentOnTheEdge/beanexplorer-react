@@ -36,8 +36,8 @@ export default class SelectPropertyInput extends BasePropertyInput
     }
 
     const selectAttr = {
-      ref: attr.id,
-      name: attr.id,
+      ref: this.getID(),
+      name: this.getID(),
       value: value,
       options: options,
       onChange: this.handleChangeSelect,
@@ -95,9 +95,9 @@ export default class SelectPropertyInput extends BasePropertyInput
       Object.keys(object).forEach(function (key) {
         selectArray.push(object[key].value);
       });
-      this.props.callOnChange(selectArray);
+      this.callOnChange(selectArray);
     } else {
-      this.props.callOnChange(object !== null ? object.value : "");
+      this.callOnChange(object !== null ? object.value : "");
     }
   }
 }

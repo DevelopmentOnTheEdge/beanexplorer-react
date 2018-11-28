@@ -13,7 +13,7 @@ export default class NumberPropertyInput extends BasePropertyInput
   }
 
   render() {
-    const {attr, value, handleChange}  = this.props;
+    const {attr, value}  = this.props;
     const meta = this.getMeta();
     const range = this.getNumberValidationRule('range');
     const step = this.getNumberValidationRule('step');
@@ -26,7 +26,7 @@ export default class NumberPropertyInput extends BasePropertyInput
       data-info-range={(range && range.attr) ? range.attr.min + ', ' + range.attr.max : undefined}
       data-info-step={step ? step.attr : undefined}
       value={getNumberValue(value, meta)}
-      onChange={handleChange}
+      onChange={this.handleChange}
       placeholder={attr.extraAttrsMap.placeholder}
       {...attr.baseProps}
     />

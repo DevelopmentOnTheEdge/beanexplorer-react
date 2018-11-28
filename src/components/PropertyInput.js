@@ -14,19 +14,9 @@ class PropertyInput extends BasePropertyInput
 {
   constructor(props) {
     super(props);
-    this.callOnChange = this.callOnChange.bind(this);
-    this.handleChange = this.handleChange.bind(this);
     this.handleChangeBoolean = this.handleChangeBoolean.bind(this);
     this.base64FileHandle = this.base64FileHandle.bind(this);
     this.patternValidationMessage = this.patternValidationMessage.bind(this);
-  }
-
-  callOnChange(value) {
-    this.props.onChange(this.getPath(), value);
-  }
-
-  handleChange(event) {
-    this.callOnChange(event.target.value);
   }
 
   handleChangeBoolean(event) {
@@ -183,14 +173,12 @@ class PropertyInput extends BasePropertyInput
       if (extraAttrsMap.inputType === "radio") {
         return <RadioSelectGroup
           attr={attr}
-          callOnChange={this.callOnChange}
           value={PropertyInput.getCorrectMulValue(value, meta.multipleSelectionList)}
           {...this.props}
         />
       } else {
         return <SelectPropertyInput
           attr={attr}
-          callOnChange={this.callOnChange}
           value={PropertyInput.getCorrectMulValue(value, meta.multipleSelectionList)}
           {...this.props}
         />
@@ -268,7 +256,6 @@ class PropertyInput extends BasePropertyInput
     {
       return <NumberPropertyInput
         attr={attr}
-        handleChange={this.handleChange}
         value={value}
         {...this.props}
       />
@@ -286,7 +273,6 @@ class PropertyInput extends BasePropertyInput
     if(meta.type === 'Date' || meta.type === 'Timestamp'){
       return <DateTimePropertyInput
         attr={attr}
-        callOnChange={this.callOnChange}
         value={value}
         {...this.props}
       />

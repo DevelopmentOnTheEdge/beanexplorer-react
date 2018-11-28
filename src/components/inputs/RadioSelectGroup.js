@@ -24,12 +24,12 @@ export default class RadioSelectGroup extends BasePropertyInput
       const onChange = this._onInputChange.bind(null, tagName);
 
       radioButtons.push(
-        <div className="form-check" key={attr.id + "FormCheckWrapper" + i}>
+        <div className="form-check" key={this.getID() + "FormCheckWrapper" + i}>
           <input
-            id={attr.id + "Radio" + i}
+            id={this.getID() + "Radio" + i}
             className="form-check-input"
             type={meta.multipleSelectionList ? "checkbox" : "radio"}
-            name={attr.id}
+            name={this.getID()}
             value={tagName}
             checked={meta.multipleSelectionList ? value.includes(tagName) : tagName === "" + value}
             onChange={onChange}
@@ -41,7 +41,7 @@ export default class RadioSelectGroup extends BasePropertyInput
               inputLabelSizeClasses(this.props, meta.type),
               "form-check-label radio-label"
             )}
-            htmlFor={attr.id + "Radio" + i}
+            htmlFor={this.getID() + "Radio" + i}
           >
             {!meta.rawValue ? tagLabel : <div dangerouslySetInnerHTML={{__html: tagLabel}}/>}
           </label>
@@ -63,16 +63,16 @@ export default class RadioSelectGroup extends BasePropertyInput
   }
 
   _onInputChange(value, event) {
-    if (this.props.meta.multipleSelectionList) {
+    if (this.getMeta().multipleSelectionList) {
       let newValue;
       if (event.target.checked) {
         newValue = this.props.value.concat(value);
       } else {
         newValue = this.props.value.filter(v => v !== value);
       }
-      this.props.callOnChange(newValue);
+      this.callOnChange(newValue);
     } else {
-      this.props.callOnChange(value);
+      this.callOnChange(value);
     }
   }
 

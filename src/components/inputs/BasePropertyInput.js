@@ -6,6 +6,8 @@ export default class BasePropertyInput extends React.Component
 {
   constructor(props) {
     super(props);
+    this.callOnChange = this.callOnChange.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   getPath() {
@@ -45,6 +47,14 @@ export default class BasePropertyInput extends React.Component
       }
     }
     return undefined;
+  }
+
+  callOnChange(value) {
+    this.props.onChange(this.getPath(), value);
+  }
+
+  handleChange(event) {
+    this.callOnChange(event.target.value);
   }
 
 }
