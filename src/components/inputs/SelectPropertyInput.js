@@ -1,8 +1,7 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-import classNames           from 'classnames';
-import Select, {Creatable}  from 'react-select';
-import VirtualizedSelect    from 'react-virtualized-select'
+import classNames from 'classnames';
+import Select, {Creatable} from 'react-select';
+import VirtualizedSelect from 'react-virtualized-select'
 import BasePropertyInput from "./BasePropertyInput";
 
 export default class SelectPropertyInput extends BasePropertyInput
@@ -15,7 +14,7 @@ export default class SelectPropertyInput extends BasePropertyInput
   render() {
     const meta = this.getMeta();
     const localization = this.props.localization;
-    const {attr, value}  = this.props;
+    const extraAttrsMap = BasePropertyInput.getExtraAttrsMap(meta);
 
     let options = [];
     for(let i =0 ;i < meta.tagList.length; i++){
@@ -38,7 +37,7 @@ export default class SelectPropertyInput extends BasePropertyInput
     const selectAttr = {
       ref: this.getID(),
       name: this.getID(),
-      value: value,
+      value: this.getCorrectMulValue(),
       options: options,
       onChange: this.handleChangeSelect,
       clearAllText: localization.clearAllText,
@@ -46,21 +45,21 @@ export default class SelectPropertyInput extends BasePropertyInput
       noResultsText: localization.noResultsText,
       searchPromptText: localization.searchPromptText,
       loadingPlaceholder: localization.loadingPlaceholder,
-      placeholder: attr.extraAttrsMap.placeholder || localization.placeholder,
+      placeholder: extraAttrsMap.placeholder || localization.placeholder,
       backspaceRemoves: false,
       disabled: meta.readOnly,
       multi: meta.multipleSelectionList,
-      matchPos: attr.extraAttrsMap.matchPos || "any",
+      matchPos: extraAttrsMap.matchPos || "any",
       required: !meta.canBeNull
     };
 
     let select;
-    if(attr.extraAttrsMap.inputType === "Creatable")
+    if(extraAttrsMap.inputType === "Creatable")
     {
       select = <Creatable {...selectAttr} />
     }
-    else if(attr.extraAttrsMap.inputType === "VirtualizedSelect"
-      || (attr.extraAttrsMap.inputType === undefined && meta.tagList.length >= 100))
+    else if(extraAttrsMap.inputType === "VirtualizedSelect"
+      || (extraAttrsMap.inputType === undefined && meta.tagList.length >= 100))
     {
       select = <VirtualizedSelect
         clearable
@@ -81,7 +80,7 @@ export default class SelectPropertyInput extends BasePropertyInput
         'property-input',
         {'Select--sm': this.props.bsSize === "sm"},
         {'Select--lg': this.props.bsSize === "lg"},
-        attr.validationClasses
+        this.getValidationClasses()
       )}
       style={style}
     >

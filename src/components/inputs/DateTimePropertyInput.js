@@ -23,7 +23,8 @@ export default class DateTimePropertyInput extends BasePropertyInput
 
   render() {
     const meta = this.getMeta();
-    const {attr, value}  = this.props;
+    const value = this.getValue();
+    const extraAttrsMap = BasePropertyInput.getExtraAttrsMap(meta);
 
     if(meta.type === 'Date'){
       if(meta.readOnly !== true) {
@@ -37,22 +38,24 @@ export default class DateTimePropertyInput extends BasePropertyInput
           closeOnTab={true}
           locale={this.props.localization.locale}
           inputProps={Object.assign({},
-            attr.baseProps,
+            this.getBaseProps(),
             {
               ref: (instance) => {
                 this.dateInput = instance;
               },
               pattern: "(^$|\\d{1,2}\\.\\d{1,2}\\.\\d{4})",
-              placeholder: attr.extraAttrsMap.placeholder
+              placeholder: extraAttrsMap.placeholder
             }
           )}
           className="Datetime-outer"
         />
       }else{
+        const rawInputProps = this.getRawInputProps(value, extraAttrsMap);
+        const rawTextValidation = this.getRawTextValidation(meta);
         return <input
           type={'text'}
-          {...attr.rawInputProps}
-          {...attr.rawTextValidation}
+          {...rawInputProps}
+          {...rawTextValidation}
           value={dateFromISOFormat(value)}
         />;
       }
@@ -70,22 +73,24 @@ export default class DateTimePropertyInput extends BasePropertyInput
           closeOnTab={true}
           locale={this.props.localization.locale}
           inputProps={Object.assign({},
-            attr.baseProps,
+            this.getBaseProps(),
             {
               ref: (instance) => {
                 this.timestampInput = instance;
               },
               pattern: "(^$|\\d{1,2}\\.\\d{1,2}\\.\\d{4}\\s\\d{2}:\\d{2})",
-              placeholder: attr.extraAttrsMap.placeholder
+              placeholder: extraAttrsMap.placeholder
             }
           )}
           className="Datetime-outer"
         />
       }else{
+        const rawInputProps = this.getRawInputProps(value, extraAttrsMap);
+        const rawTextValidation = this.getRawTextValidation(meta);
         return <input
           type={'text'}
-          {...attr.rawInputProps}
-          {...attr.rawTextValidation}
+          {...rawInputProps}
+          {...rawTextValidation}
           value={timestampFromISOFormat(value)}
         />;
       }

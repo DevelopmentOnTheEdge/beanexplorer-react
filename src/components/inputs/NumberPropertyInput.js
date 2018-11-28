@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import bigInt from "big-integer";
 import bigRat from "big-rational";
@@ -13,8 +12,8 @@ export default class NumberPropertyInput extends BasePropertyInput
   }
 
   render() {
-    const {attr, value}  = this.props;
     const meta = this.getMeta();
+    const extraAttrsMap = BasePropertyInput.getExtraAttrsMap(meta);
     const range = this.getNumberValidationRule('range');
     const step = this.getNumberValidationRule('step');
     const type = meta.type;
@@ -25,10 +24,10 @@ export default class NumberPropertyInput extends BasePropertyInput
       data-info-type={type}
       data-info-range={(range && range.attr) ? range.attr.min + ', ' + range.attr.max : undefined}
       data-info-step={step ? step.attr : undefined}
-      value={getNumberValue(value, meta)}
+      value={getNumberValue(this.getValue(), meta)}
       onChange={this.handleChange}
-      placeholder={attr.extraAttrsMap.placeholder}
-      {...attr.baseProps}
+      placeholder={extraAttrsMap.placeholder}
+      {...this.getBaseProps()}
     />
   }
 

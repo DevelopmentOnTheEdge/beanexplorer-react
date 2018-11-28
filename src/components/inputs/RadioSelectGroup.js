@@ -1,6 +1,5 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-import classNames           from 'classnames';
+import classNames from 'classnames';
 import {inputLabelSizeClasses} from "../utils";
 import BasePropertyInput from "./BasePropertyInput";
 
@@ -14,7 +13,7 @@ export default class RadioSelectGroup extends BasePropertyInput
 
   render() {
     const meta = this.getMeta();
-    const {attr, value}  = this.props;
+    const value = this.getCorrectMulValue();
     let radioButtons = [];
 
     for(let i = 0; i < meta.tagList.length; i++)
@@ -55,24 +54,25 @@ export default class RadioSelectGroup extends BasePropertyInput
         'property-input',
         {'Select--sm': this.props.bsSize === "sm"},
         {'Select--lg': this.props.bsSize === "lg"},
-        attr.validationClasses
+        this.getValidationClasses()
       )}
     >
       {radioButtons}
     </div>
   }
 
-  _onInputChange(value, event) {
+  _onInputChange(tagName, event) {
+    const value = this.getCorrectMulValue();
     if (this.getMeta().multipleSelectionList) {
       let newValue;
       if (event.target.checked) {
-        newValue = this.props.value.concat(value);
+        newValue = value.concat(tagName);
       } else {
-        newValue = this.props.value.filter(v => v !== value);
+        newValue = value.filter(v => v !== tagName);
       }
       this.callOnChange(newValue);
     } else {
-      this.callOnChange(value);
+      this.callOnChange(tagName);
     }
   }
 

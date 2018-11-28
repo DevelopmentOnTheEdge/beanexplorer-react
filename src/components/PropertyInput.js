@@ -1,7 +1,6 @@
 import React                from 'react';
 import CKEditor             from 'react-ckeditor-component';
 import MaskedInput          from 'react-maskedinput';
-import JsonPointer          from 'json-pointer';
 import classNames           from 'classnames';
 import RadioSelectGroup     from "./inputs/RadioSelectGroup";
 import SelectPropertyInput from "./inputs/SelectPropertyInput";
@@ -16,23 +15,10 @@ class PropertyInput extends BasePropertyInput
     super(props);
     this.handleChangeBoolean = this.handleChangeBoolean.bind(this);
     this.base64FileHandle = this.base64FileHandle.bind(this);
-    this.patternValidationMessage = this.patternValidationMessage.bind(this);
   }
 
   handleChangeBoolean(event) {
     this.callOnChange(event.target.checked);
-  }
-
-  patternValidationMessage(e) {
-    const pattern = this.getValidationRule('pattern');
-    if(pattern && pattern.customMessage)
-    {
-      if (e.target.validity.patternMismatch) {
-        e.target.setCustomValidity(pattern.customMessage)
-      } else {
-        e.target.setCustomValidity('')
-      }
-    }
   }
 
   base64FileHandle(e) {
@@ -61,30 +47,6 @@ class PropertyInput extends BasePropertyInput
     });
   }
 
-  static getExtraAttrsMap(meta) {
-    const extraAttrs = meta.extraAttrs;
-    let map = {};
-
-    if(extraAttrs !== undefined)
-    {
-      for (let i = 0; i < extraAttrs.length; i++) {
-        map[extraAttrs[i][0]] = extraAttrs[i][1];
-      }
-    }
-
-    if(meta.passwordField)
-    {
-      map.inputType = 'password';
-    }
-
-    if(meta.placeholder)
-    {
-      map.placeholder = meta.placeholder;
-    }
-
-    return map;
-  }
-
   static updateCkeditor(ckeditor, value, readOnly) {
     if(ckeditor.editorInstance.getData() !== value)
     {
@@ -94,94 +56,17 @@ class PropertyInput extends BasePropertyInput
   }
 
   render() {
-    const path  = this.getPath();
     const meta  = this.getMeta();
     const id    = this.getID();
-
-    const value    = JsonPointer.get(this.props.bean, "/values" + path);
-    const required = meta.canBeNull !== true;
-    const extraAttrsMap = PropertyInput.getExtraAttrsMap(meta);
-    const attr = {id, extraAttrsMap};
-
-    let inputTypeClass;
-    switch (meta.type){
-      case "Boolean":    inputTypeClass = 'form-check-input'; break;
-      case "Base64File": inputTypeClass = 'form-control-file'; break;
-      default: inputTypeClass = 'form-control';
-    }
-
-    if(extraAttrsMap.inputType === "form-control-plaintext" &&
-      meta.readOnly === true && inputTypeClass === 'form-control')
-    {
-      inputTypeClass = 'form-control-plaintext'
-    }
-
-    let validationClasses = classNames(
-      {'is-invalid' : meta.status === 'error'},
-      {'is-valid' : meta.status === 'success'},
-    );
-    attr.validationClasses = validationClasses;
-
-    const basePropsClasses = classNames(
-      'property-input',
-      inputTypeClass,
-      validationClasses,
-      this.props.controlClassName,
-      {'form-control-sm': this.props.bsSize === "sm" && meta.type !== "Boolean"},
-      {'form-control-lg': this.props.bsSize === "lg" && meta.type !== "Boolean"}
-    );
-
-    const baseProps = {
-      id: id,
-      key: id,
-      required: required,
-      size: meta.inputSize,
-      className: basePropsClasses
-    };
-    attr.baseProps = baseProps;
-
-    if(meta.readOnly === true)
-    {
-      if(meta.type === 'Boolean' || meta.type === 'Base64File'){
-        baseProps['disabled'] = 'disabled';
-      }else{
-        baseProps['readOnly'] = 'readonly';
-      }
-    }
-
-    const rawInputProps = Object.assign({},
-      baseProps,
-      {
-        value: value,
-        onChange: this.handleChange,
-        placeholder: extraAttrsMap.placeholder
-      }
-    );
-    attr.rawInputProps = rawInputProps;
-
-    const validationRulePattern = this.getValidationRule('pattern');
-    const rawTextValidation = {
-      maxLength: meta.columnSize,
-      pattern: validationRulePattern ? validationRulePattern.attr : undefined,
-      onInvalid: this.patternValidationMessage,
-      onInput: this.patternValidationMessage
-    };
-    attr.rawTextValidation = rawTextValidation;
+    const value    = this.getValue();
+    const extraAttrsMap = BasePropertyInput.getExtraAttrsMap(meta);
 
     if(meta.tagList)
     {
       if (extraAttrsMap.inputType === "radio") {
-        return <RadioSelectGroup
-          attr={attr}
-          value={PropertyInput.getCorrectMulValue(value, meta.multipleSelectionList)}
-          {...this.props}
-        />
+        return <RadioSelectGroup {...this.props}/>
       } else {
-        return <SelectPropertyInput
-          attr={attr}
-          value={PropertyInput.getCorrectMulValue(value, meta.multipleSelectionList)}
-          {...this.props}
-        />
+        return <SelectPropertyInput {...this.props}/>
       }
     }
 
@@ -247,18 +132,14 @@ class PropertyInput extends BasePropertyInput
         mask={validationRuleMask.attr}
         value={value}
         onChange={this.handleChange}
-        {...baseProps}
+        {...this.getBaseProps()}
       />;
     }
 
     if(meta.type === 'Short' || meta.type === 'Integer' || meta.type === 'Long' || meta.type === 'Double'
         || this.getValidationRule('range') !== undefined || this.getValidationRule('step') !== undefined)
     {
-      return <NumberPropertyInput
-        attr={attr}
-        value={value}
-        {...this.props}
-      />
+      return <NumberPropertyInput {...this.props}/>
     }
 
     if(meta.type === 'Base64File'){
@@ -266,16 +147,12 @@ class PropertyInput extends BasePropertyInput
         type="file"
         multiple={meta.multipleSelectionList}
         onChange={this.base64FileHandle}
-        {...baseProps}
+        {...this.getBaseProps()}
       />
     }
 
     if(meta.type === 'Date' || meta.type === 'Timestamp'){
-      return <DateTimePropertyInput
-        attr={attr}
-        value={value}
-        {...this.props}
-      />
+      return <DateTimePropertyInput {...this.props}/>
     }
 
     if(meta.type === 'Boolean'){
@@ -283,10 +160,12 @@ class PropertyInput extends BasePropertyInput
         type="checkbox"
         checked={value === true || value === "true"}
         onChange={this.handleChangeBoolean}
-        {...baseProps}
+        {...this.getBaseProps()}
       />
     }
 
+    const rawInputProps = this.getRawInputProps(value, extraAttrsMap);
+    const rawTextValidation = this.getRawTextValidation(meta);
     if(extraAttrsMap.inputType === 'textArea')
     {
       return <textarea
@@ -301,19 +180,6 @@ class PropertyInput extends BasePropertyInput
       {...rawInputProps}
       {...rawTextValidation}
     />;
-  }
-
-  static getCorrectMulValue(value, multipleSelectionList) {
-    let correctValue;
-    if (multipleSelectionList === true) {
-      correctValue = [];
-      if (Array.isArray(value)) {
-        for (let i = 0; i < value.length; i++) correctValue.push("" + value[i]);
-      }
-    } else {
-      correctValue = "" + value;
-    }
-    return correctValue;
   }
 }
 

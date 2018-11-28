@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import JsonPointer from 'json-pointer';
+import classNames from 'classnames';
 
 export default class BasePropertyInput extends React.Component
 {
@@ -8,6 +9,7 @@ export default class BasePropertyInput extends React.Component
     super(props);
     this.callOnChange = this.callOnChange.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.patternValidationMessage = this.patternValidationMessage.bind(this);
   }
 
   getPath() {
@@ -49,6 +51,25 @@ export default class BasePropertyInput extends React.Component
     return undefined;
   }
 
+  getValue() {
+    return JsonPointer.get(this.props.bean, "/values" + this.getPath())
+  }
+
+  getCorrectMulValue() {
+    const value = this.getValue();
+    const meta = this.getMeta();
+    let correctValue;
+    if (meta.multipleSelectionList === true) {
+      correctValue = [];
+      if (Array.isArray(value)) {
+        for (let i = 0; i < value.length; i++) correctValue.push("" + value[i]);
+      }
+    } else {
+      correctValue = "" + value;
+    }
+    return correctValue;
+  }
+
   callOnChange(value) {
     this.props.onChange(this.getPath(), value);
   }
@@ -57,6 +78,114 @@ export default class BasePropertyInput extends React.Component
     this.callOnChange(event.target.value);
   }
 
+  static getExtraAttrsMap(meta) {
+    const extraAttrs = meta.extraAttrs;
+    let map = {};
+
+    if(extraAttrs !== undefined)
+    {
+      for (let i = 0; i < extraAttrs.length; i++) {
+        map[extraAttrs[i][0]] = extraAttrs[i][1];
+      }
+    }
+
+    if(meta.passwordField)
+    {
+      map.inputType = 'password';
+    }
+
+    if(meta.placeholder)
+    {
+      map.placeholder = meta.placeholder;
+    }
+
+    return map;
+  }
+
+  getValidationClasses() {
+    const meta = this.getMeta();
+    return classNames(
+      {'is-invalid': meta.status === 'error'},
+      {'is-valid': meta.status === 'success'},
+    );
+  }
+
+  getBaseProps() {
+    const meta  = this.getMeta();
+    const id    = this.getID();
+    const extraAttrsMap = BasePropertyInput.getExtraAttrsMap(meta);
+
+    let inputTypeClass;
+    switch (meta.type){
+      case "Boolean":    inputTypeClass = 'form-check-input'; break;
+      case "Base64File": inputTypeClass = 'form-control-file'; break;
+      default: inputTypeClass = 'form-control';
+    }
+
+    if(extraAttrsMap.inputType === "form-control-plaintext" &&
+      meta.readOnly === true && inputTypeClass === 'form-control')
+    {
+      inputTypeClass = 'form-control-plaintext'
+    }
+
+    const basePropsClasses = classNames(
+      'property-input',
+      inputTypeClass,
+      this.getValidationClasses(),
+      this.props.controlClassName,
+      {'form-control-sm': this.props.bsSize === "sm" && meta.type !== "Boolean"},
+      {'form-control-lg': this.props.bsSize === "lg" && meta.type !== "Boolean"}
+    );
+
+    const baseProps = {
+      id: id,
+      key: id,
+      required: meta.canBeNull !== true,
+      size: meta.inputSize,
+      className: basePropsClasses
+    };
+    if (meta.readOnly === true) {
+      if (meta.type === 'Boolean' || meta.type === 'Base64File') {
+        baseProps['disabled'] = 'disabled';
+      } else {
+        baseProps['readOnly'] = 'readonly';
+      }
+    }
+    return baseProps;
+  }
+
+  getRawInputProps(value, extraAttrsMap) {
+    return Object.assign({},
+      this.getBaseProps(),
+      {
+        value: value,
+        onChange: this.handleChange,
+        placeholder: extraAttrsMap.placeholder
+      }
+    );
+  }
+
+  getRawTextValidation() {
+    const validationRulePattern = this.getValidationRule('pattern');
+    return {
+      maxLength: this.getMeta().columnSize,
+      pattern: validationRulePattern ? validationRulePattern.attr : undefined,
+      onInvalid: this.patternValidationMessage,
+      onInput: this.patternValidationMessage
+    };
+  }
+
+  patternValidationMessage(e) {
+    const pattern = this.getValidationRule('pattern');
+    if(pattern && pattern.customMessage)
+    {
+      if (e.target.validity.patternMismatch) {
+        e.target.setCustomValidity(pattern.customMessage)
+      } else {
+        e.target.setCustomValidity('')
+      }
+    }
+  }
 }
 
 BasePropertyInput.defaultProps = {
