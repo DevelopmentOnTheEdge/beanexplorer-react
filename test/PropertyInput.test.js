@@ -4,6 +4,8 @@ import {shallow, mount, render} from 'enzyme';
 import bean from '../src/testJson.json';
 import validationTest from '../src/validationTest.json';
 import WYSIWYGPropertyInput from "../src/components/inputs/WYSIWYGPropertyInput";
+import SelectPropertyInput from "../src/components/inputs/SelectPropertyInput";
+import DateTimePropertyInput from "../src/components/inputs/DateTimePropertyInput";
 
 
 test('checkBox', () => {
@@ -131,26 +133,26 @@ test('timestamp', () => {
 
   expect(handle.mock.calls.length).toEqual(3);
 });
-//
-// test('timestamp timestampValidationMessage', () => {
-//   const handle = jest.fn();
-//
-//   const wrapper = shallow(
-//     <PropertyInput path={"/timestamp"} bean={bean} onChange={handle} />
-//   );
-//
-//   wrapper.instance().timestampValidationMessage(
-//     {target:{value: '20.07.2012 17:05', setCustomValidity: handle, validity: {patternMismatch: true}}});
-//
-//   expect(handle.mock.calls[0]).toEqual(["Please enter a valid date with time in the format dd.mm.yyyy hh:mm"]);
-//
-//   wrapper.instance().timestampValidationMessage(
-//     {target:{setCustomValidity: handle, validity: {patternMismatch: false}}});
-//
-//   expect(handle.mock.calls[1]).toEqual([""]);
-//
-//   expect(handle.mock.calls.length).toEqual(2);
-// });
+
+test('timestamp timestampValidationMessage', () => {
+  const handle = jest.fn();
+
+  const wrapper = shallow(
+    <DateTimePropertyInput path={"/timestamp"} bean={bean} onChange={handle} />
+  );
+
+  wrapper.instance().timestampValidationMessage(
+    {target:{value: '20.07.2012 17:05', setCustomValidity: handle, validity: {patternMismatch: true}}});
+
+  expect(handle.mock.calls[0]).toEqual(["Please enter a valid date with time in the format dd.mm.yyyy hh:mm"]);
+
+  wrapper.instance().timestampValidationMessage(
+    {target:{setCustomValidity: handle, validity: {patternMismatch: false}}});
+
+  expect(handle.mock.calls[1]).toEqual([""]);
+
+  expect(handle.mock.calls.length).toEqual(2);
+});
 
 test('3 Fractional seconds digits', () => {
   const simpleBean = {
@@ -223,23 +225,22 @@ test('file', () => {
   expect(handle.mock.calls[0]).toEqual(["/file", ""]);
 });
 
-//TODO
-// test('multiSelect test', () => {
-//   const handle = jest.fn();
-//
-//   const wrapper = mount(
-//     <PropertyInput path={"/multiSelect"} bean={bean} onChange={handle} />
-//   );
-//
-//   wrapper.instance().handleChangeSelect(null);
-//   expect(handle.mock.calls[0]).toEqual(["/multiSelect", ""]);
-//
-//   wrapper.instance().handleChangeSelect({"value": "test"});
-//   expect(handle.mock.calls[1]).toEqual(["/multiSelect", "test"]);
-//
-//   wrapper.instance().handleChangeSelect([{"value": "test"},{"value": "test2"}]);
-//   expect(handle.mock.calls[2]).toEqual(["/multiSelect", ["test", "test2"]]);
-// });
+test('multiSelect test', () => {
+  const handle = jest.fn();
+
+  const wrapper = mount(
+    <SelectPropertyInput path={"/multiSelect"} bean={bean} onChange={handle} />
+  );
+
+  wrapper.instance().handleChangeSelect(null);
+  expect(handle.mock.calls[0]).toEqual(["/multiSelect", ""]);
+
+  wrapper.instance().handleChangeSelect({"value": "test"});
+  expect(handle.mock.calls[1]).toEqual(["/multiSelect", "test"]);
+
+  wrapper.instance().handleChangeSelect([{"value": "test"},{"value": "test2"}]);
+  expect(handle.mock.calls[2]).toEqual(["/multiSelect", ["test", "test2"]]);
+});
 
 test('updateCkeditor', () => {
   const setData = jest.fn();
