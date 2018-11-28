@@ -182,7 +182,6 @@ class PropertyInput extends BasePropertyInput
     {
       if (extraAttrsMap.inputType === "radio") {
         return <RadioSelectGroup
-          meta={meta}
           attr={attr}
           callOnChange={this.callOnChange}
           value={PropertyInput.getCorrectMulValue(value, meta.multipleSelectionList)}
@@ -190,7 +189,6 @@ class PropertyInput extends BasePropertyInput
         />
       } else {
         return <SelectPropertyInput
-          meta={meta}
           attr={attr}
           callOnChange={this.callOnChange}
           value={PropertyInput.getCorrectMulValue(value, meta.multipleSelectionList)}
@@ -269,7 +267,6 @@ class PropertyInput extends BasePropertyInput
         || this.getValidationRule('range') !== undefined || this.getValidationRule('step') !== undefined)
     {
       return <NumberPropertyInput
-        meta={meta}
         attr={attr}
         handleChange={this.handleChange}
         value={value}
@@ -288,7 +285,6 @@ class PropertyInput extends BasePropertyInput
 
     if(meta.type === 'Date' || meta.type === 'Timestamp'){
       return <DateTimePropertyInput
-        meta={meta}
         attr={attr}
         callOnChange={this.callOnChange}
         value={value}

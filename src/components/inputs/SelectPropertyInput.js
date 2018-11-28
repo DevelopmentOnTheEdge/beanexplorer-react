@@ -3,8 +3,9 @@ import React from 'react';
 import classNames           from 'classnames';
 import Select, {Creatable}  from 'react-select';
 import VirtualizedSelect    from 'react-virtualized-select'
+import BasePropertyInput from "./BasePropertyInput";
 
-export default class SelectPropertyInput extends React.Component
+export default class SelectPropertyInput extends BasePropertyInput
 {
   constructor(props) {
     super(props);
@@ -12,7 +13,9 @@ export default class SelectPropertyInput extends React.Component
   }
 
   render() {
-    const {localization, meta, attr, value}  = this.props;
+    const meta = this.getMeta();
+    const localization = this.props.localization;
+    const {attr, value}  = this.props;
 
     let options = [];
     for(let i =0 ;i < meta.tagList.length; i++){
@@ -98,13 +101,3 @@ export default class SelectPropertyInput extends React.Component
     }
   }
 }
-
-SelectPropertyInput.propTypes = {
-  meta: PropTypes.object.isRequired,
-  attr: PropTypes.object.isRequired,
-  callOnChange: PropTypes.func.isRequired,
-  value: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.array
-  ]).isRequired
-};

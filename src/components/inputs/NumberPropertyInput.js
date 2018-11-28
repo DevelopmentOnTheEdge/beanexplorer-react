@@ -119,7 +119,6 @@ const getNumberValue = function (value, meta) {
         numberValue = value;
       else
         numberValue = bigRat(value).toDecimal();
-      console.log(bigRat(value));
     } catch (err) {
       numberValue = value
     }
@@ -141,14 +140,4 @@ const setMessagePlaceHolders = function (source, params)
     });
   }
   return source
-};
-
-NumberPropertyInput.propTypes = {
-  meta: PropTypes.object.isRequired,
-  attr: PropTypes.object.isRequired,
-  handleChange: PropTypes.func.isRequired,
-  value: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.array
-  ]).isRequired
 };

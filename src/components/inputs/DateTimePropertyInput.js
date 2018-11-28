@@ -2,9 +2,10 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Datetime from 'react-datetime';
 import moment from 'moment';
+import BasePropertyInput from "./BasePropertyInput";
 
 
-export default class DateTimePropertyInput extends React.Component
+export default class DateTimePropertyInput extends BasePropertyInput
 {
   constructor(props) {
     super(props);
@@ -21,7 +22,8 @@ export default class DateTimePropertyInput extends React.Component
   }
 
   render() {
-    const {meta, attr, value}  = this.props;
+    const meta = this.getMeta();
+    const {attr, value}  = this.props;
 
     if(meta.type === 'Date'){
       if(meta.readOnly !== true) {
@@ -150,14 +152,4 @@ const timestampFromISOFormat = function(stringDate) {
   } else {
     return stringDate;
   }
-};
-
-DateTimePropertyInput.propTypes = {
-  meta: PropTypes.object.isRequired,
-  attr: PropTypes.object.isRequired,
-  callOnChange: PropTypes.func.isRequired,
-  value: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.array
-  ]).isRequired
 };

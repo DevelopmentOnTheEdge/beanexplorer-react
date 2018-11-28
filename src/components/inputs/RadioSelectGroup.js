@@ -2,9 +2,10 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import classNames           from 'classnames';
 import {inputLabelSizeClasses} from "../utils";
+import BasePropertyInput from "./BasePropertyInput";
 
 
-export default class RadioSelectGroup extends React.Component
+export default class RadioSelectGroup extends BasePropertyInput
 {
   constructor(props) {
     super(props);
@@ -12,7 +13,8 @@ export default class RadioSelectGroup extends React.Component
   }
 
   render() {
-    const {meta, attr, value}  = this.props;
+    const meta = this.getMeta();
+    const {attr, value}  = this.props;
     let radioButtons = [];
 
     for(let i = 0; i < meta.tagList.length; i++)
@@ -75,17 +77,3 @@ export default class RadioSelectGroup extends React.Component
   }
 
 }
-
-RadioSelectGroup.defaultProps = {
-  localization: {checkBoxRequired: "Select at least one item"}
-};
-
-RadioSelectGroup.propTypes = {
-  meta: PropTypes.object.isRequired,
-  attr: PropTypes.object.isRequired,
-  callOnChange: PropTypes.func.isRequired,
-  value: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.array
-  ]).isRequired
-};

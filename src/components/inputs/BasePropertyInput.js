@@ -67,6 +67,7 @@ BasePropertyInput.defaultProps = {
     timestampPatternError: 'Please enter a valid date with time in the format dd.mm.yyyy hh:mm'
   },
 };
+//  localization: {checkBoxRequired: "Select at least one item"}
 
 BasePropertyInput.propTypes = {
   bean: PropTypes.object.isRequired,
