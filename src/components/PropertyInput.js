@@ -6,10 +6,9 @@ import CKEditor             from 'react-ckeditor-component';
 import MaskedInput          from 'react-maskedinput';
 import JsonPointer          from 'json-pointer';
 import classNames           from 'classnames';
-import bigInt               from "big-integer";
-import bigRat               from "big-rational";
 import RadioSelectGroup     from "./inputs/RadioSelectGroup";
 import SelectPropertyInput from "./inputs/SelectPropertyInput";
+import NumberPropertyInput from "./inputs/NumberPropertyInput";
 
 
 class PropertyInput extends React.Component
@@ -24,7 +23,6 @@ class PropertyInput extends React.Component
     this.handleChangeBoolean = this.handleChangeBoolean.bind(this);
     this.base64FileHandle = this.base64FileHandle.bind(this);
 
-    this.numberValidation = this.numberValidation.bind(this);
     this.patternValidationMessage = this.patternValidationMessage.bind(this);
 
     this.dateValidationMessage = this.dateValidationMessage.bind(this);
@@ -151,74 +149,6 @@ class PropertyInput extends React.Component
     }
   }
 
-  numberValidation(e)
-  {
-    const range = this.state.validationRulesMap.range;
-    const step = this.state.validationRulesMap.step;
-    const type = this.state.meta.type;
-
-    const local = this.props.localization;
-
-    let value;
-    try {
-      value = bigRat(e.target.value);
-    } catch (err) {
-      PropertyInput.setErrorState(e, local.numberTypeMismatch);
-      return
-    }
-
-    if((type === 'Short' || type === 'Integer' || type === 'Long') &&
-      (e.target.value.indexOf('e') !== -1 || e.target.value.indexOf('E') !== -1))
-    {
-      PropertyInput.setErrorState(e, local.simpleIntegerTypeMismatch);
-      return
-    }
-
-    if(range) {
-      if (value.compare(bigRat(range.attr.min)) === -1) {
-        PropertyInput.setErrorState(e, this.setMessagePlaceHolders(local.rangeUnderflow, [range.attr.min]));
-        return
-      }
-      else if (value.compare(bigRat(range.attr.max)) === 1) {
-        PropertyInput.setErrorState(e, this.setMessagePlaceHolders(local.rangeOverflow, [range.attr.max]));
-        return
-      }
-    }
-
-    if(step) {
-      const stepRat = bigRat(step.attr);
-
-      if (!value.divide(stepRat).denominator.equals(bigInt.one))
-      {
-        const min = value.divide(stepRat).floor().multiply(stepRat);
-        const max = min.add(stepRat);
-
-        PropertyInput.setErrorState(e, this.setMessagePlaceHolders(
-          local.stepMismatch, [min.toDecimal(), max.toDecimal()]
-        ));
-        return
-      }
-    }
-
-    PropertyInput.setErrorState(e, '');
-  }
-
-  setMessagePlaceHolders(source, params)
-  {
-    if(params){
-      params.forEach(function(item, i) {
-        source = source.replace(new RegExp("\\{" + i + "\\}", "g"), item);
-      });
-    }
-    return source
-  }
-
-  static setErrorState(e, text)
-  {
-    e.target.setCustomValidity(text);
-    e.target.title = text;
-  }
-
   base64FileHandle(e) {
     if(e.target.files && e.target.files.length === 1)
     {
@@ -272,7 +202,6 @@ class PropertyInput extends React.Component
   static getValidationRulesMap(meta)
   {
     const rules = meta.validationRules;
-
     let map = {};
     if(rules !== undefined)
     {
@@ -287,34 +216,6 @@ class PropertyInput extends React.Component
         }
       }
     }
-
-    if(meta.type === 'Short' || meta.type === 'Integer' || meta.type === 'Long')
-    {
-      if(!map.range)
-      {
-        let rangeAttr;
-
-        switch (meta.type) {
-          case 'Short':
-            rangeAttr = {min: "-32768", max: "32767"};
-            break;
-          case 'Integer':
-            rangeAttr = {min: "-2147483648", max: "2147483647"};
-            break;
-          case 'Long':
-            rangeAttr = {min: "-9223372036854775808", max: "9223372036854775807"};
-            break;
-        }
-
-        map['range'] = {attr: rangeAttr};
-      }
-
-      if(!map.step)
-      {
-        map['step'] = {attr: '1'};
-      }
-    }
-
     return map;
   }
 
@@ -374,6 +275,7 @@ class PropertyInput extends React.Component
       size: meta.inputSize,
       className: basePropsClasses
     };
+    attr.baseProps = baseProps;
 
     if(meta.readOnly === true)
     {
@@ -489,30 +391,12 @@ class PropertyInput extends React.Component
     if(validationRulesMap.range !== undefined || validationRulesMap.step !== undefined ||
       meta.type === 'Short' || meta.type === 'Integer' || meta.type === 'Long' || meta.type === 'Double')
     {
-      const range = validationRulesMap.range, step = validationRulesMap.step, type = meta.type;
-      let numberValue = value;
-      if (meta.type === 'Double') {
-        try {
-          if (value.endsWith('.'))
-            numberValue = value;
-          else
-            numberValue = bigRat(value).toDecimal();
-          console.log(bigRat(value));
-        } catch (err) {
-          numberValue = value
-        }
-      }
-
-      return <input
-        type="text"
-        onInput={this.numberValidation}
-        data-info-type={type}
-        data-info-range={(range && range.attr) ? range.attr.min + ', ' + range.attr.max : undefined}
-        data-info-step={step ? step.attr : undefined}
-        value={numberValue}
-        onChange={this.handleChange}
-        placeholder={extraAttrsMap.placeholder}
-        {...baseProps}
+      return <NumberPropertyInput
+        meta={meta}
+        attr={attr}
+        handleChange={this.handleChange}
+        value={PropertyInput.getCorrectMulValue(value, meta.multipleSelectionList)}
+        {...this.props}
       />
     }
 
