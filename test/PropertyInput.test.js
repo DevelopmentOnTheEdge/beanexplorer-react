@@ -3,7 +3,6 @@ import PropertyInput from '../src/components/PropertyInput';
 import {shallow, mount, render} from 'enzyme';
 import bean from '../src/testJson.json';
 import validationTest from '../src/validationTest.json';
-import NumberPropertyInput from "../src/components/inputs/NumberPropertyInput";
 
 
 test('checkBox', () => {
@@ -78,26 +77,26 @@ test('date', () => {
 
   expect(handle.mock.calls.length).toEqual(3);
 });
-
-test('date dateValidationMessage', () => {
-  const handle = jest.fn();
-
-  const wrapper = shallow(
-    <PropertyInput path={"/date"} bean={bean} onChange={handle} />
-  );
-
-  wrapper.instance().dateValidationMessage(
-    {target:{value: '20.07.2012', setCustomValidity: handle, validity: {patternMismatch: true}}});
-
-  expect(handle.mock.calls[0]).toEqual(["Please enter a valid date in the format dd.mm.yyyy"]);
-
-  wrapper.instance().dateValidationMessage(
-    {target:{setCustomValidity: handle, validity: {patternMismatch: false}}});
-
-  expect(handle.mock.calls[1]).toEqual([""]);
-
-  expect(handle.mock.calls.length).toEqual(2);
-});
+//
+// test('date dateValidationMessage', () => {
+//   const handle = jest.fn();
+//
+//   const wrapper = shallow(
+//     <PropertyInput path={"/date"} bean={bean} onChange={handle} />
+//   );
+//
+//   wrapper.instance().dateValidationMessage(
+//     {target:{value: '20.07.2012', setCustomValidity: handle, validity: {patternMismatch: true}}});
+//
+//   expect(handle.mock.calls[0]).toEqual(["Please enter a valid date in the format dd.mm.yyyy"]);
+//
+//   wrapper.instance().dateValidationMessage(
+//     {target:{setCustomValidity: handle, validity: {patternMismatch: false}}});
+//
+//   expect(handle.mock.calls[1]).toEqual([""]);
+//
+//   expect(handle.mock.calls.length).toEqual(2);
+// });
 
 test('date init with no valid date', () => {
   const simpleBean = {
@@ -131,26 +130,26 @@ test('timestamp', () => {
 
   expect(handle.mock.calls.length).toEqual(3);
 });
-
-test('timestamp timestampValidationMessage', () => {
-  const handle = jest.fn();
-
-  const wrapper = shallow(
-    <PropertyInput path={"/timestamp"} bean={bean} onChange={handle} />
-  );
-
-  wrapper.instance().timestampValidationMessage(
-    {target:{value: '20.07.2012 17:05', setCustomValidity: handle, validity: {patternMismatch: true}}});
-
-  expect(handle.mock.calls[0]).toEqual(["Please enter a valid date with time in the format dd.mm.yyyy hh:mm"]);
-
-  wrapper.instance().timestampValidationMessage(
-    {target:{setCustomValidity: handle, validity: {patternMismatch: false}}});
-
-  expect(handle.mock.calls[1]).toEqual([""]);
-
-  expect(handle.mock.calls.length).toEqual(2);
-});
+//
+// test('timestamp timestampValidationMessage', () => {
+//   const handle = jest.fn();
+//
+//   const wrapper = shallow(
+//     <PropertyInput path={"/timestamp"} bean={bean} onChange={handle} />
+//   );
+//
+//   wrapper.instance().timestampValidationMessage(
+//     {target:{value: '20.07.2012 17:05', setCustomValidity: handle, validity: {patternMismatch: true}}});
+//
+//   expect(handle.mock.calls[0]).toEqual(["Please enter a valid date with time in the format dd.mm.yyyy hh:mm"]);
+//
+//   wrapper.instance().timestampValidationMessage(
+//     {target:{setCustomValidity: handle, validity: {patternMismatch: false}}});
+//
+//   expect(handle.mock.calls[1]).toEqual([""]);
+//
+//   expect(handle.mock.calls.length).toEqual(2);
+// });
 
 test('3 Fractional seconds digits', () => {
   const simpleBean = {

@@ -1,7 +1,5 @@
 import React                from 'react';
 import PropTypes            from 'prop-types';
-import Datetime             from 'react-datetime';
-import moment               from 'moment';
 import CKEditor             from 'react-ckeditor-component';
 import MaskedInput          from 'react-maskedinput';
 import JsonPointer          from 'json-pointer';
@@ -9,6 +7,7 @@ import classNames           from 'classnames';
 import RadioSelectGroup     from "./inputs/RadioSelectGroup";
 import SelectPropertyInput from "./inputs/SelectPropertyInput";
 import NumberPropertyInput from "./inputs/NumberPropertyInput";
+import DateTimePropertyInput from "./inputs/DateTimePropertyInput";
 
 
 class PropertyInput extends React.Component
@@ -24,20 +23,10 @@ class PropertyInput extends React.Component
     this.base64FileHandle = this.base64FileHandle.bind(this);
 
     this.patternValidationMessage = this.patternValidationMessage.bind(this);
-
-    this.dateValidationMessage = this.dateValidationMessage.bind(this);
-    this.dateToISOFormat = this.dateToISOFormat.bind(this);
-    this.timestampValidationMessage = this.timestampValidationMessage.bind(this);
-    this.timestampToISOFormat = this.timestampToISOFormat.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState(this.getInitState(nextProps));
-  }
-
-  componentDidUpdate(){
-    if(this.dateInput)this.dateValidationMessage({target: this.dateInput});
-    if(this.timestampInput)this.timestampValidationMessage({target: this.timestampInput});
   }
 
   getInitState(props) {
@@ -74,67 +63,6 @@ class PropertyInput extends React.Component
 
   handleChangeBoolean(event) {
     this.callOnChange(event.target.checked);
-  }
-
-  dateToISOFormat(date) {
-    this.dateInput.focus();
-
-    if(typeof date === "string") {
-      this.callOnChange(date);
-    } else {
-      this.callOnChange(date.format('YYYY-MM-DD'));
-    }
-  }
-
-  static dateFromISOFormat(stringDate) {
-    const date = moment(stringDate, 'YYYY-MM-DD', true);
-    if (date.isValid()) {
-      return date.format('DD.MM.YYYY');
-    } else {
-      return stringDate;
-    }
-  }
-
-  timestampToISOFormat(date) {
-    this.timestampInput.focus();
-
-    if(typeof date === "string") {
-      this.callOnChange(date);
-    } else {
-      this.callOnChange(date.format('YYYY-MM-DD HH:mm:ss.SSS'));
-    }
-  }
-
-  static timestampFromISOFormat(stringDate) {
-    let date;
-    if(stringDate.length === 23){
-      date = moment(stringDate, 'YYYY-MM-DD HH:mm:ss.SSS', true);
-    }else if(stringDate.length === 22){
-      date = moment(stringDate, 'YYYY-MM-DD HH:mm:ss.SS', true);
-    }else{
-      date = moment(stringDate, 'YYYY-MM-DD HH:mm:ss.S', true);
-    }
-    if (date.isValid()) {
-      return date.format('DD.MM.YYYY HH:mm');
-    } else {
-      return stringDate;
-    }
-  }
-
-  dateValidationMessage(e) {
-    if (e.target.validity.patternMismatch) {
-      e.target.setCustomValidity(this.props.localization.datePatternError)
-    } else {
-      e.target.setCustomValidity('')
-    }
-  }
-
-  timestampValidationMessage(e) {
-    if (e.target.validity.patternMismatch) {
-      e.target.setCustomValidity(this.props.localization.timestampPatternError)
-    } else {
-      e.target.setCustomValidity('')
-    }
   }
 
   patternValidationMessage(e) {
@@ -294,6 +222,7 @@ class PropertyInput extends React.Component
         placeholder: extraAttrsMap.placeholder
       }
     );
+    attr.rawInputProps = rawInputProps;
 
     const rawTextValidation = {
       maxLength: meta.columnSize,
@@ -301,6 +230,7 @@ class PropertyInput extends React.Component
       onInvalid: this.patternValidationMessage,
       onInput: this.patternValidationMessage
     };
+    attr.rawTextValidation = rawTextValidation;
 
     if(meta.tagList)
     {
@@ -395,7 +325,7 @@ class PropertyInput extends React.Component
         meta={meta}
         attr={attr}
         handleChange={this.handleChange}
-        value={PropertyInput.getCorrectMulValue(value, meta.multipleSelectionList)}
+        value={value}
         {...this.props}
       />
     }
@@ -409,70 +339,14 @@ class PropertyInput extends React.Component
       />
     }
 
-    if(meta.type === 'Date'){
-      if(meta.readOnly !== true) {
-        return <Datetime
-          dateFormat="DD.MM.YYYY"
-          timeFormat={false}
-          key={id + "Datetime"}
-          value={PropertyInput.dateFromISOFormat(value)}
-          onChange={this.dateToISOFormat}
-          closeOnSelect={true}
-          closeOnTab={true}
-          locale={this.props.localization.locale}
-          inputProps={Object.assign({},
-            baseProps,
-            {
-              ref: (instance) => {
-                this.dateInput = instance;
-              },
-              pattern: "(^$|\\d{1,2}\\.\\d{1,2}\\.\\d{4})",
-              placeholder: extraAttrsMap.placeholder
-            }
-          )}
-          className="Datetime-outer"
-        />
-      }else{
-        return <input
-          type={'text'}
-          {...rawInputProps}
-          {...rawTextValidation}
-          value={PropertyInput.dateFromISOFormat(value)}
-        />;
-      }
-    }
-
-    if(meta.type === 'Timestamp'){
-      if(meta.readOnly !== true) {
-        return <Datetime
-          dateFormat="DD.MM.YYYY"
-          timeFormat="HH:mm"
-          key={id + "Datetime"}
-          value={PropertyInput.timestampFromISOFormat(value)}
-          onChange={this.timestampToISOFormat}
-          closeOnSelect={true}
-          closeOnTab={true}
-          locale={this.props.localization.locale}
-          inputProps={Object.assign({},
-            baseProps,
-            {
-              ref: (instance) => {
-                this.timestampInput = instance;
-              },
-              pattern: "(^$|\\d{1,2}\\.\\d{1,2}\\.\\d{4}\\s\\d{2}:\\d{2})",
-              placeholder: extraAttrsMap.placeholder
-            }
-          )}
-          className="Datetime-outer"
-        />
-      }else{
-        return <input
-          type={'text'}
-          {...rawInputProps}
-          {...rawTextValidation}
-          value={PropertyInput.timestampFromISOFormat(value)}
-        />;
-      }
+    if(meta.type === 'Date' || meta.type === 'Timestamp'){
+      return <DateTimePropertyInput
+        meta={meta}
+        attr={attr}
+        callOnChange={this.callOnChange}
+        value={value}
+        {...this.props}
+      />
     }
 
     if(meta.type === 'Boolean'){
