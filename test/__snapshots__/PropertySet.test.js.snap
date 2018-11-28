@@ -55,7 +55,7 @@ exports[`inline layout1 1`] = `
         >
           <div
             className="Select-multi-value-wrapper"
-            id="react-select-18--value"
+            id="react-select-25--value"
           >
             <div
               className="Select-placeholder"
@@ -71,7 +71,7 @@ exports[`inline layout1 1`] = `
               }
             >
               <input
-                aria-activedescendant="react-select-18--value"
+                aria-activedescendant="react-select-25--value"
                 aria-describedby={undefined}
                 aria-expanded="false"
                 aria-haspopup="false"
@@ -1313,7 +1313,7 @@ exports[`snapshot bean 1`] = `
             >
               <div
                 className="Select-multi-value-wrapper"
-                id="react-select-8--value"
+                id="react-select-11--value"
               >
                 <div
                   className="Select-value"
@@ -1323,7 +1323,7 @@ exports[`snapshot bean 1`] = `
                   <span
                     aria-selected="true"
                     className="Select-value-label"
-                    id="react-select-8--value-item"
+                    id="react-select-11--value-item"
                     role="option"
                   >
                     Vanilla
@@ -1338,7 +1338,7 @@ exports[`snapshot bean 1`] = `
                   }
                 >
                   <input
-                    aria-activedescendant="react-select-8--value"
+                    aria-activedescendant="react-select-11--value"
                     aria-describedby={undefined}
                     aria-expanded="false"
                     aria-haspopup="false"
@@ -1451,7 +1451,7 @@ exports[`snapshot bean 1`] = `
             >
               <div
                 className="Select-multi-value-wrapper"
-                id="react-select-5--value"
+                id="react-select-12--value"
               >
                 <div
                   className="Select-value"
@@ -1461,7 +1461,7 @@ exports[`snapshot bean 1`] = `
                   <span
                     aria-selected="true"
                     className="Select-value-label"
-                    id="react-select-5--value-item"
+                    id="react-select-12--value-item"
                     role="option"
                   >
                     Vanilla
@@ -1476,7 +1476,7 @@ exports[`snapshot bean 1`] = `
                   }
                 >
                   <input
-                    aria-activedescendant="react-select-5--value"
+                    aria-activedescendant="react-select-12--value"
                     aria-describedby={undefined}
                     aria-expanded="false"
                     aria-haspopup="false"
@@ -1595,7 +1595,7 @@ exports[`snapshot bean 1`] = `
             >
               <div
                 className="Select-multi-value-wrapper"
-                id="react-select-9--value"
+                id="react-select-13--value"
               >
                 <div
                   className="Select-value"
@@ -1615,7 +1615,7 @@ exports[`snapshot bean 1`] = `
                   <span
                     aria-selected="true"
                     className="Select-value-label"
-                    id="react-select-9--value-0"
+                    id="react-select-13--value-0"
                     role="option"
                   >
                     Chocolate
@@ -1644,7 +1644,7 @@ exports[`snapshot bean 1`] = `
                   <span
                     aria-selected="true"
                     className="Select-value-label"
-                    id="react-select-9--value-1"
+                    id="react-select-13--value-1"
                     role="option"
                   >
                     Strawberry
@@ -1664,7 +1664,7 @@ exports[`snapshot bean 1`] = `
                   }
                 >
                   <input
-                    aria-activedescendant="react-select-9--value"
+                    aria-activedescendant="react-select-13--value"
                     aria-describedby={undefined}
                     aria-expanded="false"
                     aria-haspopup="false"
@@ -3119,7 +3119,7 @@ exports[`snapshot bean horizontal 1`] = `
             >
               <div
                 className="Select-multi-value-wrapper"
-                id="react-select-10--value"
+                id="react-select-14--value"
               >
                 <div
                   className="Select-value"
@@ -3129,7 +3129,7 @@ exports[`snapshot bean horizontal 1`] = `
                   <span
                     aria-selected="true"
                     className="Select-value-label"
-                    id="react-select-10--value-item"
+                    id="react-select-14--value-item"
                     role="option"
                   >
                     Vanilla
@@ -3144,7 +3144,7 @@ exports[`snapshot bean horizontal 1`] = `
                   }
                 >
                   <input
-                    aria-activedescendant="react-select-10--value"
+                    aria-activedescendant="react-select-14--value"
                     aria-describedby={undefined}
                     aria-expanded="false"
                     aria-haspopup="false"
@@ -3261,7 +3261,7 @@ exports[`snapshot bean horizontal 1`] = `
             >
               <div
                 className="Select-multi-value-wrapper"
-                id="react-select-6--value"
+                id="react-select-15--value"
               >
                 <div
                   className="Select-value"
@@ -3271,7 +3271,7 @@ exports[`snapshot bean horizontal 1`] = `
                   <span
                     aria-selected="true"
                     className="Select-value-label"
-                    id="react-select-6--value-item"
+                    id="react-select-15--value-item"
                     role="option"
                   >
                     Vanilla
@@ -3286,7 +3286,7 @@ exports[`snapshot bean horizontal 1`] = `
                   }
                 >
                   <input
-                    aria-activedescendant="react-select-6--value"
+                    aria-activedescendant="react-select-15--value"
                     aria-describedby={undefined}
                     aria-expanded="false"
                     aria-haspopup="false"
@@ -3409,7 +3409,7 @@ exports[`snapshot bean horizontal 1`] = `
             >
               <div
                 className="Select-multi-value-wrapper"
-                id="react-select-11--value"
+                id="react-select-16--value"
               >
                 <div
                   className="Select-value"
@@ -3429,7 +3429,7 @@ exports[`snapshot bean horizontal 1`] = `
                   <span
                     aria-selected="true"
                     className="Select-value-label"
-                    id="react-select-11--value-0"
+                    id="react-select-16--value-0"
                     role="option"
                   >
                     Chocolate
@@ -3458,7 +3458,7 @@ exports[`snapshot bean horizontal 1`] = `
                   <span
                     aria-selected="true"
                     className="Select-value-label"
-                    id="react-select-11--value-1"
+                    id="react-select-16--value-1"
                     role="option"
                   >
                     Strawberry
@@ -3478,7 +3478,7 @@ exports[`snapshot bean horizontal 1`] = `
                   }
                 >
                   <input
-                    aria-activedescendant="react-select-11--value"
+                    aria-activedescendant="react-select-16--value"
                     aria-describedby={undefined}
                     aria-expanded="false"
                     aria-haspopup="false"
@@ -4138,7 +4138,7 @@ exports[`snapshot bean with readOnly 1`] = `
             >
               <div
                 className="Select-multi-value-wrapper"
-                id="react-select-12--value"
+                id="react-select-17--value"
               >
                 <div
                   className="Select-value"
@@ -4148,14 +4148,14 @@ exports[`snapshot bean with readOnly 1`] = `
                   <span
                     aria-selected="true"
                     className="Select-value-label"
-                    id="react-select-12--value-item"
+                    id="react-select-17--value-item"
                     role="option"
                   >
                     Vanilla
                   </span>
                 </div>
                 <div
-                  aria-activedescendant="react-select-12--value"
+                  aria-activedescendant="react-select-17--value"
                   aria-disabled="true"
                   aria-expanded={false}
                   aria-label={undefined}
@@ -4230,7 +4230,7 @@ exports[`snapshot bean with readOnly 1`] = `
             >
               <div
                 className="Select-multi-value-wrapper"
-                id="react-select-7--value"
+                id="react-select-18--value"
               >
                 <div
                   className="Select-value"
@@ -4240,14 +4240,14 @@ exports[`snapshot bean with readOnly 1`] = `
                   <span
                     aria-selected="true"
                     className="Select-value-label"
-                    id="react-select-7--value-item"
+                    id="react-select-18--value-item"
                     role="option"
                   >
                     Vanilla
                   </span>
                 </div>
                 <div
-                  aria-activedescendant="react-select-7--value"
+                  aria-activedescendant="react-select-18--value"
                   aria-disabled="true"
                   aria-expanded={false}
                   aria-label={undefined}
@@ -4328,7 +4328,7 @@ exports[`snapshot bean with readOnly 1`] = `
             >
               <div
                 className="Select-multi-value-wrapper"
-                id="react-select-13--value"
+                id="react-select-19--value"
               >
                 <div
                   className="Select-value"
@@ -4338,7 +4338,7 @@ exports[`snapshot bean with readOnly 1`] = `
                   <span
                     aria-selected="true"
                     className="Select-value-label"
-                    id="react-select-13--value-0"
+                    id="react-select-19--value-0"
                     role="option"
                   >
                     Chocolate
@@ -4357,7 +4357,7 @@ exports[`snapshot bean with readOnly 1`] = `
                   <span
                     aria-selected="true"
                     className="Select-value-label"
-                    id="react-select-13--value-1"
+                    id="react-select-19--value-1"
                     role="option"
                   >
                     Strawberry
@@ -4369,7 +4369,7 @@ exports[`snapshot bean with readOnly 1`] = `
                   </span>
                 </div>
                 <div
-                  aria-activedescendant="react-select-13--value"
+                  aria-activedescendant="react-select-19--value"
                   aria-disabled="true"
                   aria-expanded={false}
                   aria-label={undefined}
@@ -4899,7 +4899,7 @@ exports[`test outer 1`] = `
                 >
                   <div
                     className="Select-multi-value-wrapper"
-                    id="react-select-16--value"
+                    id="react-select-23--value"
                   >
                     <div
                       className="Select-value"
@@ -4909,7 +4909,7 @@ exports[`test outer 1`] = `
                       <span
                         aria-selected="true"
                         className="Select-value-label"
-                        id="react-select-16--value-item"
+                        id="react-select-23--value-item"
                         role="option"
                       >
                         Vanilla
@@ -4924,7 +4924,7 @@ exports[`test outer 1`] = `
                       }
                     >
                       <input
-                        aria-activedescendant="react-select-16--value"
+                        aria-activedescendant="react-select-23--value"
                         aria-describedby={undefined}
                         aria-expanded="false"
                         aria-haspopup="false"
@@ -5142,7 +5142,7 @@ exports[`test outer 1`] = `
                 >
                   <div
                     className="Select-multi-value-wrapper"
-                    id="react-select-17--value"
+                    id="react-select-24--value"
                   >
                     <div
                       className="Select-value"
@@ -5152,7 +5152,7 @@ exports[`test outer 1`] = `
                       <span
                         aria-selected="true"
                         className="Select-value-label"
-                        id="react-select-17--value-item"
+                        id="react-select-24--value-item"
                         role="option"
                       >
                         Vanilla
@@ -5167,7 +5167,7 @@ exports[`test outer 1`] = `
                       }
                     >
                       <input
-                        aria-activedescendant="react-select-17--value"
+                        aria-activedescendant="react-select-24--value"
                         aria-describedby={undefined}
                         aria-expanded="false"
                         aria-haspopup="false"
