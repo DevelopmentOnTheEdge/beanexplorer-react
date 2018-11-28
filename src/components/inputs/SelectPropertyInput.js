@@ -4,8 +4,7 @@ import Select, {Creatable} from 'react-select';
 import VirtualizedSelect from 'react-virtualized-select'
 import BasePropertyInput from "./BasePropertyInput";
 
-export default class SelectPropertyInput extends BasePropertyInput
-{
+export default class SelectPropertyInput extends BasePropertyInput {
   constructor(props) {
     super(props);
     this.handleChangeSelect = this.handleChangeSelect.bind(this);
@@ -17,19 +16,18 @@ export default class SelectPropertyInput extends BasePropertyInput
     const extraAttrsMap = BasePropertyInput.getExtraAttrsMap(meta);
 
     let options = [];
-    for(let i =0 ;i < meta.tagList.length; i++){
-      options.push({ value: meta.tagList[i][0], label: meta.tagList[i][1] });
+    for (let i = 0; i < meta.tagList.length; i++) {
+      options.push({value: meta.tagList[i][0], label: meta.tagList[i][1]});
     }
 
     let style;
-    if(this.props.inline)
-    {
+    if (this.props.inline) {
       //константы подобраны для совпадения с длиной стандартного input
       let k = 11;
-      if(this.props.bsSize === "sm")k = 8.95;
-      if(this.props.bsSize === "lg")k = 14.65;
+      if (this.props.bsSize === "sm") k = 8.95;
+      if (this.props.bsSize === "lg") k = 14.65;
       style = {
-        width: k*(meta.inputSize || 16) + 68 + 'px',
+        width: k * (meta.inputSize || 16) + 68 + 'px',
         maxWidth: '100%'
       }
     }
@@ -54,13 +52,11 @@ export default class SelectPropertyInput extends BasePropertyInput
     };
 
     let select;
-    if(extraAttrsMap.inputType === "Creatable")
-    {
+    if (extraAttrsMap.inputType === "Creatable") {
       select = <Creatable {...selectAttr} />
     }
-    else if(extraAttrsMap.inputType === "VirtualizedSelect"
-      || (extraAttrsMap.inputType === undefined && meta.tagList.length >= 100))
-    {
+    else if (extraAttrsMap.inputType === "VirtualizedSelect"
+      || (extraAttrsMap.inputType === undefined && meta.tagList.length >= 100)) {
       select = <VirtualizedSelect
         clearable
         searchable
@@ -69,8 +65,7 @@ export default class SelectPropertyInput extends BasePropertyInput
         {...selectAttr}
       />
     }
-    else
-    {
+    else {
       select = <Select {...selectAttr} />;
     }
 
@@ -89,7 +84,7 @@ export default class SelectPropertyInput extends BasePropertyInput
   }
 
   handleChangeSelect(object) {
-    if(Array.isArray(object)) {
+    if (Array.isArray(object)) {
       let selectArray = [];
       Object.keys(object).forEach(function (key) {
         selectArray.push(object[key].value);

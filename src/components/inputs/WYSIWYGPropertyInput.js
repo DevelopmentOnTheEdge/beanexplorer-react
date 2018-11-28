@@ -1,18 +1,17 @@
 import React from 'react';
-import CKEditor             from 'react-ckeditor-component';
+import CKEditor from 'react-ckeditor-component';
 import BasePropertyInput from "./BasePropertyInput";
 
-export default class WYSIWYGPropertyInput extends BasePropertyInput
-{
+export default class WYSIWYGPropertyInput extends BasePropertyInput {
   constructor(props) {
     super(props);
   }
 
   render() {
     const meta = this.getMeta();
-    const value    = this.getValue();
+    const value = this.getValue();
 
-    if(this.ckeditor) {
+    if (this.ckeditor) {
       WYSIWYGPropertyInput.updateCkeditor(this.ckeditor, value, meta.readOnly === true);
     }
     return <CKEditor
@@ -34,8 +33,7 @@ export default class WYSIWYGPropertyInput extends BasePropertyInput
   }
 
   static updateCkeditor(ckeditor, value, readOnly) {
-    if(ckeditor.editorInstance.getData() !== value)
-    {
+    if (ckeditor.editorInstance.getData() !== value) {
       ckeditor.editorInstance.setData(value);
     }
     ckeditor.editorInstance.setReadOnly(readOnly);

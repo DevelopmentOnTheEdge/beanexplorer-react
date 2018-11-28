@@ -4,8 +4,7 @@ import {inputLabelSizeClasses} from "../utils";
 import BasePropertyInput from "./BasePropertyInput";
 
 
-export default class RadioSelectGroup extends BasePropertyInput
-{
+export default class RadioSelectGroup extends BasePropertyInput {
   constructor(props) {
     super(props);
     this._onInputChange = this._onInputChange.bind(this);
@@ -16,8 +15,7 @@ export default class RadioSelectGroup extends BasePropertyInput
     const value = this.getCorrectMulValue();
     let radioButtons = [];
 
-    for(let i = 0; i < meta.tagList.length; i++)
-    {
+    for (let i = 0; i < meta.tagList.length; i++) {
       const tagName = meta.tagList[i][0];
       const tagLabel = meta.tagList[i][1];
       const onChange = this._onInputChange.bind(null, tagName);

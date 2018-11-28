@@ -1,17 +1,16 @@
-import React       from 'react';
-import PropTypes   from 'prop-types';
-import Property    from './Property';
+import React from 'react';
+import PropTypes from 'prop-types';
+import Property from './Property';
 
 
-class Properties extends React.Component
-{
+class Properties extends React.Component {
   render() {
-    let fields = this.props.bean.order.map((path, i)=> {
-      if(this.props.ids === undefined || this.props.ids.includes(i)){
-        return(
-         <Property {...this.props} path={path} key={path}/>
+    let fields = this.props.bean.order.map((path, i) => {
+      if (this.props.ids === undefined || this.props.ids.includes(i)) {
+        return (
+          <Property {...this.props} path={path} key={path}/>
         )
-      }else{
+      } else {
         return null;
       }
     });

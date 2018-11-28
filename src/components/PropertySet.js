@@ -1,15 +1,14 @@
-import React       from 'react';
-import PropTypes   from 'prop-types';
-import Property    from './Property';
-import classNames  from 'classnames';
+import React from 'react';
+import PropTypes from 'prop-types';
+import Property from './Property';
+import classNames from 'classnames';
 
 
-class PropertySet extends React.Component
-{
-  static getName(name){
-    if(name){
+class PropertySet extends React.Component {
+  static getName(name) {
+    if (name) {
       return <h5 className='property-group__title'>{name}</h5>
-    }else{
+    } else {
       return null
     }
   }
@@ -39,8 +38,8 @@ class PropertySet extends React.Component
     let fields = [];
 
     const finishGroup = () => {
-      if(curGroup.length > 0) {
-        if(curGroupId) {
+      if (curGroup.length > 0) {
+        if (curGroupId) {
           fields.push(this.createGroup(curGroup, curGroupId, curGroupName, curGroupClasses));
         } else {
           Array.prototype.push.apply(fields, curGroup);
@@ -49,14 +48,14 @@ class PropertySet extends React.Component
       curGroup = [];
     };
 
-    for(const path of this.props.bean.order) {
+    for (const path of this.props.bean.order) {
       const meta = this.props.bean.meta[path];
 
       const newGroupId = meta.groupId;
       const newGroupName = meta.groupName;
       const newGroupClasses = meta.groupClasses;
 
-      if(newGroupId !== curGroupId) {
+      if (newGroupId !== curGroupId) {
         finishGroup();
         curGroupName = newGroupName;
         curGroupClasses = newGroupClasses;

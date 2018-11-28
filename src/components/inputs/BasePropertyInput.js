@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import JsonPointer from 'json-pointer';
 import classNames from 'classnames';
 
-export default class BasePropertyInput extends React.Component
-{
+export default class BasePropertyInput extends React.Component {
   constructor(props) {
     super(props);
     this.callOnChange = this.callOnChange.bind(this);
@@ -14,9 +13,9 @@ export default class BasePropertyInput extends React.Component
 
   getPath() {
     const props = this.props;
-    if(props.path) {
+    if (props.path) {
       return props.path;
-    }else{
+    } else {
       return props.bean.order[props.id];
     }
   }
@@ -26,24 +25,20 @@ export default class BasePropertyInput extends React.Component
   }
 
   getID() {
-    const path  = this.getPath();
-    return path.substring(path.lastIndexOf("/")+1) + "PropertyInput"
+    const path = this.getPath();
+    return path.substring(path.lastIndexOf("/") + 1) + "PropertyInput"
   }
 
-  getValidationRule(type)
-  {
+  getValidationRule(type) {
     const rules = this.getMeta().validationRules;
-    if(rules !== undefined)
-    {
-      if (Array.isArray(rules))
-      {
+    if (rules !== undefined) {
+      if (Array.isArray(rules)) {
         for (let i = 0; i < rules.length; i++) {
           if (rules[i].type === type)
             return rules[i];
         }
       }
-      else
-      {
+      else {
         if (rules.type === type)
           return rules;
       }
@@ -82,20 +77,17 @@ export default class BasePropertyInput extends React.Component
     const extraAttrs = meta.extraAttrs;
     let map = {};
 
-    if(extraAttrs !== undefined)
-    {
+    if (extraAttrs !== undefined) {
       for (let i = 0; i < extraAttrs.length; i++) {
         map[extraAttrs[i][0]] = extraAttrs[i][1];
       }
     }
 
-    if(meta.passwordField)
-    {
+    if (meta.passwordField) {
       map.inputType = 'password';
     }
 
-    if(meta.placeholder)
-    {
+    if (meta.placeholder) {
       map.placeholder = meta.placeholder;
     }
 
@@ -111,20 +103,24 @@ export default class BasePropertyInput extends React.Component
   }
 
   getBaseProps() {
-    const meta  = this.getMeta();
-    const id    = this.getID();
+    const meta = this.getMeta();
+    const id = this.getID();
     const extraAttrsMap = BasePropertyInput.getExtraAttrsMap(meta);
 
     let inputTypeClass;
-    switch (meta.type){
-      case "Boolean":    inputTypeClass = 'form-check-input'; break;
-      case "Base64File": inputTypeClass = 'form-control-file'; break;
-      default: inputTypeClass = 'form-control';
+    switch (meta.type) {
+      case "Boolean":
+        inputTypeClass = 'form-check-input';
+        break;
+      case "Base64File":
+        inputTypeClass = 'form-control-file';
+        break;
+      default:
+        inputTypeClass = 'form-control';
     }
 
-    if(extraAttrsMap.inputType === "form-control-plaintext" &&
-      meta.readOnly === true && inputTypeClass === 'form-control')
-    {
+    if (extraAttrsMap.inputType === "form-control-plaintext" &&
+      meta.readOnly === true && inputTypeClass === 'form-control') {
       inputTypeClass = 'form-control-plaintext'
     }
 
@@ -177,8 +173,7 @@ export default class BasePropertyInput extends React.Component
 
   patternValidationMessage(e) {
     const pattern = this.getValidationRule('pattern');
-    if(pattern && pattern.customMessage)
-    {
+    if (pattern && pattern.customMessage) {
       if (e.target.validity.patternMismatch) {
         e.target.setCustomValidity(pattern.customMessage)
       } else {

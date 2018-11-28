@@ -4,8 +4,7 @@ import bigRat from "big-rational";
 import BasePropertyInput from "./BasePropertyInput";
 
 
-export default class NumberPropertyInput extends BasePropertyInput
-{
+export default class NumberPropertyInput extends BasePropertyInput {
   constructor(props) {
     super(props);
     this.numberValidation = this.numberValidation.bind(this);
@@ -31,8 +30,7 @@ export default class NumberPropertyInput extends BasePropertyInput
     />
   }
 
-  numberValidation(e)
-  {
+  numberValidation(e) {
     const meta = this.getMeta();
     const range = this.getNumberValidationRule('range');
     const step = this.getNumberValidationRule('step');
@@ -49,8 +47,7 @@ export default class NumberPropertyInput extends BasePropertyInput
     }
 
     if ((type === 'Short' || type === 'Integer' || type === 'Long') &&
-      (e.target.value.indexOf('e') !== -1 || e.target.value.indexOf('E') !== -1))
-    {
+      (e.target.value.indexOf('e') !== -1 || e.target.value.indexOf('E') !== -1)) {
       setErrorState(e, local.simpleIntegerTypeMismatch);
       return
     }
@@ -69,8 +66,7 @@ export default class NumberPropertyInput extends BasePropertyInput
     if (step) {
       const stepRat = bigRat(step.attr);
 
-      if (!value.divide(stepRat).denominator.equals(bigInt.one))
-      {
+      if (!value.divide(stepRat).denominator.equals(bigInt.one)) {
         const min = value.divide(stepRat).floor().multiply(stepRat);
         const max = min.add(stepRat);
 
@@ -88,10 +84,8 @@ export default class NumberPropertyInput extends BasePropertyInput
     const meta = this.getMeta();
     let rule = this.getValidationRule(name);
 
-    if (meta.type === 'Short' || meta.type === 'Integer' || meta.type === 'Long')
-    {
-      if (name === 'range' && rule === undefined)
-      {
+    if (meta.type === 'Short' || meta.type === 'Integer' || meta.type === 'Long') {
+      if (name === 'range' && rule === undefined) {
         switch (meta.type) {
           case 'Short':
             return {type: 'range', attr: {min: "-32768", max: "32767"}};
@@ -101,8 +95,7 @@ export default class NumberPropertyInput extends BasePropertyInput
             return {type: 'range', attr: {min: "-9223372036854775808", max: "9223372036854775807"}};
         }
       }
-      if (name === 'step' && rule === undefined)
-      {
+      if (name === 'step' && rule === undefined) {
         return {type: 'step', attr: '1'};
       }
     }
@@ -125,16 +118,14 @@ const getNumberValue = function (value, meta) {
   return numberValue;
 };
 
-const setErrorState = function (e, text)
-{
+const setErrorState = function (e, text) {
   e.target.setCustomValidity(text);
   e.target.title = text;
 };
 
-const setMessagePlaceHolders = function (source, params)
-{
+const setMessagePlaceHolders = function (source, params) {
   if (params) {
-    params.forEach(function(item, i) {
+    params.forEach(function (item, i) {
       source = source.replace(new RegExp("\\{" + i + "\\}", "g"), item);
     });
   }

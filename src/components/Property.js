@@ -1,16 +1,15 @@
-import React         from 'react';
-import PropTypes     from 'prop-types';
-import classNames    from 'classnames';
+import React from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import PropertyInput from './PropertyInput'
 import {inputLabelSizeClasses} from "./utils";
 
 
-class Property extends React.Component
-{
-  getPath(){
-    if(this.props.path){
+class Property extends React.Component {
+  getPath() {
+    if (this.props.path) {
       return this.props.path;
-    }else{
+    } else {
       return this.props.bean.order[this.props.id];
     }
   }
@@ -21,7 +20,7 @@ class Property extends React.Component
     const id = path.substring(path.lastIndexOf("/") + 1) + "PropertyInput";
 
     let label;
-    if (meta.displayName){
+    if (meta.displayName) {
       label = <label
         htmlFor={id}
         className={classNames(
@@ -36,19 +35,16 @@ class Property extends React.Component
     }
 
     let messageElement;
-    if(meta.message)
-    {
+    if (meta.message) {
       let validationClasses = classNames(
-        {'invalid-feedback' : meta.status === 'error'},
-        {'valid-feedback' : meta.status === 'success'},
+        {'invalid-feedback': meta.status === 'error'},
+        {'valid-feedback': meta.status === 'success'},
       );
 
-      if(validationClasses)
-      {
+      if (validationClasses) {
         messageElement = <div className={validationClasses}>{meta.message}</div>
       }
-      else
-      {
+      else {
         messageElement = <small className="form-text text-muted">{meta.message}</small>
       }
     }
@@ -57,49 +53,44 @@ class Property extends React.Component
       'property',
       {'form-group': meta.type !== 'Boolean'},
       {'form-check': meta.type === 'Boolean'},
-      {'required' : meta.canBeNull !== true}
+      {'required': meta.canBeNull !== true}
     );
 
-    if(this.props.inline)
-    {
+    if (this.props.inline) {
       const outerClasses = classNames(
         formGroupClasses,
         meta.cssClasses || this.props.className || 'mb-2 mr-sm-2',
-        {'display-none' : meta.hidden}
+        {'display-none': meta.hidden}
       );
 
-      if(meta.type === "Boolean")
-      {
+      if (meta.type === "Boolean") {
         return (
-          <div className={outerClasses} >
+          <div className={outerClasses}>
             <PropertyInput {...this.props} />
             {label}
           </div>
         );
       }
-      else
-      {
+      else {
         return (
-          <div className={outerClasses} >
+          <div className={outerClasses}>
             {label}
             <PropertyInput {...this.props}/>
           </div>
         );
       }
     }
-    else if(this.props.horizontal)
-    {
+    else if (this.props.horizontal) {
       const outerClasses = classNames(
         'horizontal-input',
         {'horizontal-input--sm': this.props.bsSize === "sm"},
         {'horizontal-input--lg': this.props.bsSize === "lg"},
         meta.cssClasses || this.props.className,
-        {'display-none' : meta.hidden}
+        {'display-none': meta.hidden}
       );
 
-      if(meta.type === "Boolean")
-      {
-        const colTag = 'col-lg-' + (12-this.props.horizontalColSize);
+      if (meta.type === "Boolean") {
+        const colTag = 'col-lg-' + (12 - this.props.horizontalColSize);
         const offsetTag = 'offset-lg-' + this.props.horizontalColSize;
         return (
           <div className={classNames(outerClasses, 'col-lg-12')}>
@@ -115,13 +106,13 @@ class Property extends React.Component
           </div>
         );
       }
-      else
-      {
+      else {
         return (
           <div className={classNames(outerClasses, 'col-lg-12')}>
             <div className={classNames(formGroupClasses, this.props.rowClass)}>
-              <div className={classNames('col-lg-' + this.props.horizontalColSize, 'col-form-control-label')}>{label}</div>
-              <div className={'col-lg-' + (12-this.props.horizontalColSize)}>
+              <div
+                className={classNames('col-lg-' + this.props.horizontalColSize, 'col-form-control-label')}>{label}</div>
+              <div className={'col-lg-' + (12 - this.props.horizontalColSize)}>
                 <PropertyInput {...this.props} />
                 {messageElement}
               </div>
@@ -130,18 +121,16 @@ class Property extends React.Component
         );
       }
     }
-    else
-    {
+    else {
       const outerClasses = classNames(
         'vertical-input',
         {'vertical-input--sm': this.props.bsSize === "sm"},
         {'vertical-input--lg': this.props.bsSize === "lg"},
         meta.cssClasses || this.props.className || 'col-lg-12',
-        {'display-none' : meta.hidden}
+        {'display-none': meta.hidden}
       );
 
-      if(meta.type === "Boolean")
-      {
+      if (meta.type === "Boolean") {
         return (
           <div className={outerClasses}>
             <div className={formGroupClasses}>
@@ -152,8 +141,7 @@ class Property extends React.Component
           </div>
         );
       }
-      else if(meta.labelField)
-      {
+      else if (meta.labelField) {
         return (
           <div className={outerClasses}>
             <div className={classNames('property-label', formGroupClasses)}>
@@ -163,8 +151,7 @@ class Property extends React.Component
           </div>
         );
       }
-      else
-      {
+      else {
         return (
           <div className={outerClasses}>
             <div className={formGroupClasses}>

@@ -1,12 +1,10 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import Datetime from 'react-datetime';
 import moment from 'moment';
 import BasePropertyInput from "./BasePropertyInput";
 
 
-export default class DateTimePropertyInput extends BasePropertyInput
-{
+export default class DateTimePropertyInput extends BasePropertyInput {
   constructor(props) {
     super(props);
 
@@ -16,9 +14,9 @@ export default class DateTimePropertyInput extends BasePropertyInput
     this.timestampToISOFormat = this.timestampToISOFormat.bind(this);
   }
 
-  componentDidUpdate(){
-    if(this.dateInput)this.dateValidationMessage({target: this.dateInput});
-    if(this.timestampInput)this.timestampValidationMessage({target: this.timestampInput});
+  componentDidUpdate() {
+    if (this.dateInput) this.dateValidationMessage({target: this.dateInput});
+    if (this.timestampInput) this.timestampValidationMessage({target: this.timestampInput});
   }
 
   render() {
@@ -26,8 +24,8 @@ export default class DateTimePropertyInput extends BasePropertyInput
     const value = this.getValue();
     const extraAttrsMap = BasePropertyInput.getExtraAttrsMap(meta);
 
-    if(meta.type === 'Date'){
-      if(meta.readOnly !== true) {
+    if (meta.type === 'Date') {
+      if (meta.readOnly !== true) {
         return <Datetime
           dateFormat="DD.MM.YYYY"
           timeFormat={false}
@@ -49,7 +47,7 @@ export default class DateTimePropertyInput extends BasePropertyInput
           )}
           className="Datetime-outer"
         />
-      }else{
+      } else {
         const rawInputProps = this.getRawInputProps(value, extraAttrsMap);
         const rawTextValidation = this.getRawTextValidation(meta);
         return <input
@@ -61,8 +59,8 @@ export default class DateTimePropertyInput extends BasePropertyInput
       }
     }
 
-    if(meta.type === 'Timestamp'){
-      if(meta.readOnly !== true) {
+    if (meta.type === 'Timestamp') {
+      if (meta.readOnly !== true) {
         return <Datetime
           dateFormat="DD.MM.YYYY"
           timeFormat="HH:mm"
@@ -84,7 +82,7 @@ export default class DateTimePropertyInput extends BasePropertyInput
           )}
           className="Datetime-outer"
         />
-      }else{
+      } else {
         const rawInputProps = this.getRawInputProps(value, extraAttrsMap);
         const rawTextValidation = this.getRawTextValidation(meta);
         return <input
@@ -100,7 +98,7 @@ export default class DateTimePropertyInput extends BasePropertyInput
   dateToISOFormat(date) {
     this.dateInput.focus();
 
-    if(typeof date === "string") {
+    if (typeof date === "string") {
       this.callOnChange(date);
     } else {
       this.callOnChange(date.format('YYYY-MM-DD'));
@@ -110,7 +108,7 @@ export default class DateTimePropertyInput extends BasePropertyInput
   timestampToISOFormat(date) {
     this.timestampInput.focus();
 
-    if(typeof date === "string") {
+    if (typeof date === "string") {
       this.callOnChange(date);
     } else {
       this.callOnChange(date.format('YYYY-MM-DD HH:mm:ss.SSS'));
@@ -134,7 +132,7 @@ export default class DateTimePropertyInput extends BasePropertyInput
   }
 }
 
-const dateFromISOFormat = function(stringDate) {
+const dateFromISOFormat = function (stringDate) {
   const date = moment(stringDate, 'YYYY-MM-DD', true);
   if (date.isValid()) {
     return date.format('DD.MM.YYYY');
@@ -143,13 +141,13 @@ const dateFromISOFormat = function(stringDate) {
   }
 };
 
-const timestampFromISOFormat = function(stringDate) {
+const timestampFromISOFormat = function (stringDate) {
   let date;
-  if(stringDate.length === 23){
+  if (stringDate.length === 23) {
     date = moment(stringDate, 'YYYY-MM-DD HH:mm:ss.SSS', true);
-  }else if(stringDate.length === 22){
+  } else if (stringDate.length === 22) {
     date = moment(stringDate, 'YYYY-MM-DD HH:mm:ss.SS', true);
-  }else{
+  } else {
     date = moment(stringDate, 'YYYY-MM-DD HH:mm:ss.S', true);
   }
   if (date.isValid()) {
