@@ -3,6 +3,7 @@ import PropertyInput from '../src/components/PropertyInput';
 import {shallow, mount, render} from 'enzyme';
 import bean from '../src/testJson.json';
 import validationTest from '../src/validationTest.json';
+import WYSIWYGPropertyInput from "../src/components/inputs/WYSIWYGPropertyInput";
 
 
 test('checkBox', () => {
@@ -244,7 +245,7 @@ test('updateCkeditor', () => {
   const setData = jest.fn();
   const setReadOnly = jest.fn();
 
-  PropertyInput.updateCkeditor({editorInstance: {
+  WYSIWYGPropertyInput.updateCkeditor({editorInstance: {
     setReadOnly: setReadOnly,
     setData: setData,
     getData: () => {return 'test'}}}, "test2", true);
@@ -252,7 +253,7 @@ test('updateCkeditor', () => {
   expect(setData.mock.calls[0]).toEqual(["test2"]);
   expect(setReadOnly.mock.calls[0]).toEqual([true]);
 
-  PropertyInput.updateCkeditor({editorInstance: {
+  WYSIWYGPropertyInput.updateCkeditor({editorInstance: {
     setReadOnly: setReadOnly,
     setData: setData,
     getData: () => {return 'test'}}}, "test", true);

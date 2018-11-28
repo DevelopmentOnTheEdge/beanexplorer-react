@@ -1,5 +1,4 @@
 import React                from 'react';
-import CKEditor             from 'react-ckeditor-component';
 import MaskedInput          from 'react-maskedinput';
 import classNames           from 'classnames';
 import RadioSelectGroup     from "./inputs/RadioSelectGroup";
@@ -7,6 +6,7 @@ import SelectPropertyInput from "./inputs/SelectPropertyInput";
 import NumberPropertyInput from "./inputs/NumberPropertyInput";
 import DateTimePropertyInput from "./inputs/DateTimePropertyInput";
 import BasePropertyInput from "./inputs/BasePropertyInput";
+import WYSIWYGPropertyInput from "./inputs/WYSIWYGPropertyInput";
 
 
 class PropertyInput extends BasePropertyInput
@@ -45,14 +45,6 @@ class PropertyInput extends BasePropertyInput
 
       reader.readAsDataURL(file);
     });
-  }
-
-  static updateCkeditor(ckeditor, value, readOnly) {
-    if(ckeditor.editorInstance.getData() !== value)
-    {
-      ckeditor.editorInstance.setData(value);
-    }
-    ckeditor.editorInstance.setReadOnly(readOnly);
   }
 
   render() {
@@ -104,25 +96,7 @@ class PropertyInput extends BasePropertyInput
 
     if(extraAttrsMap.inputType === 'WYSIWYG')
     {
-      if(this.ckeditor) {
-        PropertyInput.updateCkeditor(this.ckeditor, value, meta.readOnly === true);
-      }
-      return <CKEditor
-        ref={instance => {
-          this.ckeditor = instance;
-        }}
-        activeClass="p10"
-        content={value}
-        events={{
-          "change": (evt) => {
-            this.callOnChange(evt.editor.getData())
-          }
-        }}
-        config={{
-          language: this.props.localization.locale,
-          readOnly: meta.readOnly
-        }}
-      />
+      return <WYSIWYGPropertyInput {...this.props}/>
     }
 
     const validationRuleMask = this.getValidationRule('mask');
