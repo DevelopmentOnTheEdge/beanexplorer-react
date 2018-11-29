@@ -578,8 +578,8 @@ var NumberPropertyInput = function (_BasePropertyInput) {
       var meta = this.getMeta();
       var rule = this.getValidationRule(name);
 
-      if (meta.type === 'Short' || meta.type === 'Integer' || meta.type === 'Long') {
-        if (name === 'range' && rule === undefined) {
+      if (rule === undefined) {
+        if (name === 'range') {
           switch (meta.type) {
             case 'Short':
               return { type: 'range', attr: { min: "-32768", max: "32767" } };
@@ -589,7 +589,7 @@ var NumberPropertyInput = function (_BasePropertyInput) {
               return { type: 'range', attr: { min: "-9223372036854775808", max: "9223372036854775807" } };
           }
         }
-        if (name === 'step' && rule === undefined) {
+        if (name === 'step' && (meta.type === 'Short' || meta.type === 'Integer' || meta.type === 'Long')) {
           return { type: 'step', attr: '1' };
         }
       }
@@ -641,12 +641,6 @@ var DateTimePropertyInput = function (_BasePropertyInput) {
   }
 
   createClass(DateTimePropertyInput, [{
-    key: 'componentDidUpdate',
-    value: function componentDidUpdate() {
-      if (this.dateInput) this.dateValidationMessage({ target: this.dateInput });
-      if (this.timestampInput) this.timestampValidationMessage({ target: this.timestampInput });
-    }
-  }, {
     key: 'render',
     value: function render() {
       var _this2 = this;
@@ -671,7 +665,9 @@ var DateTimePropertyInput = function (_BasePropertyInput) {
                 _this2.dateInput = instance;
               },
               pattern: "(^$|\\d{1,2}\\.\\d{1,2}\\.\\d{4})",
-              placeholder: extraAttrsMap.placeholder
+              placeholder: extraAttrsMap.placeholder,
+              onInput: this.dateValidationMessage,
+              onInvalid: this.dateValidationMessage
             }),
             className: 'Datetime-outer'
           });
@@ -702,7 +698,9 @@ var DateTimePropertyInput = function (_BasePropertyInput) {
                 _this2.timestampInput = instance;
               },
               pattern: "(^$|\\d{1,2}\\.\\d{1,2}\\.\\d{4}\\s\\d{2}:\\d{2})",
-              placeholder: extraAttrsMap.placeholder
+              placeholder: extraAttrsMap.placeholder,
+              onInput: this.timestampValidationMessage,
+              onInvalid: this.timestampValidationMessage
             }),
             className: 'Datetime-outer'
           });
@@ -817,6 +815,7 @@ var WYSIWYGPropertyInput = function (_BasePropertyInput) {
           }
         },
         config: {
+          removeButtons: 'image',
           language: this.props.localization.locale,
           readOnly: meta.readOnly
         }

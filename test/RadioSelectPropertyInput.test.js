@@ -1,7 +1,7 @@
 import React from 'react';
-import PropertyInput from '../../src/components/PropertyInput';
+import PropertyInput from '../src/components/PropertyInput';
 import {mount, render, shallow} from 'enzyme';
-import bean from '../../src/testJson.json';
+import bean from '../src/testJson.json';
 
 test('radioButtons change', () => {
   const handle = jest.fn();

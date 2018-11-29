@@ -84,8 +84,9 @@ export default class NumberPropertyInput extends BasePropertyInput {
     const meta = this.getMeta();
     let rule = this.getValidationRule(name);
 
-    if (meta.type === 'Short' || meta.type === 'Integer' || meta.type === 'Long') {
-      if (name === 'range' && rule === undefined) {
+    if (rule === undefined)
+    {
+      if (name === 'range') {
         switch (meta.type) {
           case 'Short':
             return {type: 'range', attr: {min: "-32768", max: "32767"}};
@@ -95,7 +96,7 @@ export default class NumberPropertyInput extends BasePropertyInput {
             return {type: 'range', attr: {min: "-9223372036854775808", max: "9223372036854775807"}};
         }
       }
-      if (name === 'step' && rule === undefined) {
+      if (name === 'step' && (meta.type === 'Short' || meta.type === 'Integer' || meta.type === 'Long')) {
         return {type: 'step', attr: '1'};
       }
     }
