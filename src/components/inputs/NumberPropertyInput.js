@@ -23,7 +23,7 @@ export default class NumberPropertyInput extends BasePropertyInput {
       data-info-type={type}
       data-info-range={(range && range.attr) ? range.attr.min + ', ' + range.attr.max : undefined}
       data-info-step={step ? step.attr : undefined}
-      value={getNumberValue(this.getValue(), meta)}
+      value={convertENotationNumbers(this.getValue())}
       onChange={this.handleChange}
       placeholder={extraAttrsMap.placeholder}
       {...this.getBaseProps()}
@@ -31,10 +31,8 @@ export default class NumberPropertyInput extends BasePropertyInput {
   }
 
   numberValidation(e) {
-    const meta = this.getMeta();
     const range = this.getNumberValidationRule('range');
     const step = this.getNumberValidationRule('step');
-    const type = meta.type;
 
     const local = this.props.localization;
 
@@ -43,12 +41,6 @@ export default class NumberPropertyInput extends BasePropertyInput {
       value = bigRat(e.target.value);
     } catch (err) {
       setErrorState(e, local.numberTypeMismatch);
-      return
-    }
-
-    if ((type === 'Short' || type === 'Integer' || type === 'Long') &&
-      (e.target.value.indexOf('e') !== -1 || e.target.value.indexOf('E') !== -1)) {
-      setErrorState(e, local.simpleIntegerTypeMismatch);
       return
     }
 
@@ -104,19 +96,15 @@ export default class NumberPropertyInput extends BasePropertyInput {
   };
 }
 
-const getNumberValue = function (value, meta) {
-  let numberValue = value;
-  if (meta.type === 'Double') {
-    try {
-      if (value.endsWith('.'))
-        numberValue = value;
-      else
-        numberValue = bigRat(value).toDecimal();
-    } catch (err) {
-      numberValue = value
-    }
+const convertENotationNumbers = function (value) {
+  try {
+    if (value.includes('e') || value.includes('E'))
+      return bigRat(value).toDecimal();
+    else
+      return value;
+  } catch (err) {
+    return value
   }
-  return numberValue;
 };
 
 const setErrorState = function (e, text) {

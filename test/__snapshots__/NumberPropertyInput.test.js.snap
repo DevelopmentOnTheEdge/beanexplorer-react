@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`getNumberValue 1`] = `
+exports[`convertENotationNumbers 1`] = `
 <input
   className="property-input form-control"
   data-info-range={undefined}
@@ -13,11 +13,11 @@ exports[`getNumberValue 1`] = `
   required={true}
   size={undefined}
   type="text"
-  value="1text"
+  value="110"
 />
 `;
 
-exports[`getNumberValue 2`] = `
+exports[`convertENotationNumbers 2`] = `
 <input
   className="property-input form-control"
   data-info-range={undefined}
@@ -30,6 +30,6 @@ exports[`getNumberValue 2`] = `
   required={true}
   size={undefined}
   type="text"
-  value="1."
+  value="text"
 />
 `;

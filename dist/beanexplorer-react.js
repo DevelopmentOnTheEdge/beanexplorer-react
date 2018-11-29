@@ -520,7 +520,7 @@ var NumberPropertyInput = function (_BasePropertyInput) {
         "data-info-type": type,
         "data-info-range": range && range.attr ? range.attr.min + ', ' + range.attr.max : undefined,
         "data-info-step": step ? step.attr : undefined,
-        value: getNumberValue(this.getValue(), meta),
+        value: convertENotationNumbers(this.getValue()),
         onChange: this.handleChange,
         placeholder: extraAttrsMap.placeholder
       }, this.getBaseProps()));
@@ -528,10 +528,8 @@ var NumberPropertyInput = function (_BasePropertyInput) {
   }, {
     key: "numberValidation",
     value: function numberValidation(e) {
-      var meta = this.getMeta();
       var range = this.getNumberValidationRule('range');
       var step = this.getNumberValidationRule('step');
-      var type = meta.type;
 
       var local = this.props.localization;
 
@@ -540,11 +538,6 @@ var NumberPropertyInput = function (_BasePropertyInput) {
         value = bigRat(e.target.value);
       } catch (err) {
         setErrorState(e, local.numberTypeMismatch);
-        return;
-      }
-
-      if ((type === 'Short' || type === 'Integer' || type === 'Long') && (e.target.value.indexOf('e') !== -1 || e.target.value.indexOf('E') !== -1)) {
-        setErrorState(e, local.simpleIntegerTypeMismatch);
         return;
       }
 
@@ -599,16 +592,12 @@ var NumberPropertyInput = function (_BasePropertyInput) {
   return NumberPropertyInput;
 }(BasePropertyInput);
 
-var getNumberValue = function getNumberValue(value, meta) {
-  var numberValue = value;
-  if (meta.type === 'Double') {
-    try {
-      if (value.endsWith('.')) numberValue = value;else numberValue = bigRat(value).toDecimal();
-    } catch (err) {
-      numberValue = value;
-    }
+var convertENotationNumbers = function convertENotationNumbers(value) {
+  try {
+    if (value.includes('e') || value.includes('E')) return bigRat(value).toDecimal();else return value;
+  } catch (err) {
+    return value;
   }
-  return numberValue;
 };
 
 var setErrorState = function setErrorState(e, text) {
@@ -617,11 +606,9 @@ var setErrorState = function setErrorState(e, text) {
 };
 
 var setMessagePlaceHolders = function setMessagePlaceHolders(source, params) {
-  if (params) {
-    params.forEach(function (item, i) {
-      source = source.replace(new RegExp("\\{" + i + "\\}", "g"), item);
-    });
-  }
+  params.forEach(function (item, i) {
+    source = source.replace(new RegExp("\\{" + i + "\\}", "g"), item);
+  });
   return source;
 };
 

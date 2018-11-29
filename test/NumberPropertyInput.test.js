@@ -34,22 +34,19 @@ test('textInputWithPatternAndMessage numbers', () => {
   wrapper.find('input').simulate('input', {target: {value: "1.1", setCustomValidity: handle}});
   expect(handle.mock.calls[5]).toEqual(["Please enter a valid value. The closest allowed values are 1 and 2."]);
 
-  wrapper.find('input').simulate('input', {target: {value: "1.1e2", setCustomValidity: handle}});
-  expect(handle.mock.calls[6]).toEqual(["\"E\" is not supported for simple integer types."]);
-
   wrapper.setProps({bean: validationTest, path: "/short"});
 
   ["/short","/integer","/long","/double","/doubleWithRangeAndStep","/integerWithRangeAndStep",].forEach(function(path) {
     wrapper.setProps({path: path});
     wrapper.find('input').simulate('input', {target: {value: "1", setCustomValidity: handle}});
   });
-  expect(spy.mock.calls.length).toEqual(13);
-  expect(handle.mock.calls.length).toEqual(13);
+  expect(spy.mock.calls.length).toEqual(12);
+  expect(handle.mock.calls.length).toEqual(12);
 });
 
-test('getNumberValue', () => {
+test('convertENotationNumbers', () => {
   const bean = {
-    "values": { "double": "1text" },
+    "values": { "double": "1.1e2" },
     "meta":   { "/double": {"type": "Double"} },
     "order":  [ "/double" ]
   };
@@ -60,7 +57,7 @@ test('getNumberValue', () => {
   expect(component.toJSON()).toMatchSnapshot();
 
   const bean2 = {
-    "values": { "double": "1." },
+    "values": { "double": "text" },
     "meta":   { "/double": {"type": "Double"} },
     "order":  [ "/double" ]
   };
