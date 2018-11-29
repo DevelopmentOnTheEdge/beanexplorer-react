@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`getNumberValue 1`] = `
+<input
+  className="property-input form-control"
+  data-info-range={undefined}
+  data-info-step={undefined}
+  data-info-type="Double"
+  id="doublePropertyInput"
+  onChange={[Function]}
+  onInput={[Function]}
+  placeholder={undefined}
+  required={true}
+  size={undefined}
+  type="text"
+  value="1text"
+/>
+`;
+
+exports[`getNumberValue 2`] = `
+<input
+  className="property-input form-control"
+  data-info-range={undefined}
+  data-info-step={undefined}
+  data-info-type="Double"
+  id="doublePropertyInput"
+  onChange={[Function]}
+  onInput={[Function]}
+  placeholder={undefined}
+  required={true}
+  size={undefined}
+  type="text"
+  value="1."
+/>
+`;

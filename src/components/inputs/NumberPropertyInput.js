@@ -125,10 +125,8 @@ const setErrorState = function (e, text) {
 };
 
 const setMessagePlaceHolders = function (source, params) {
-  if (params) {
-    params.forEach(function (item, i) {
-      source = source.replace(new RegExp("\\{" + i + "\\}", "g"), item);
-    });
-  }
+  params.forEach(function (item, i) {
+    source = source.replace(new RegExp("\\{" + i + "\\}", "g"), item);
+  });
   return source
 };

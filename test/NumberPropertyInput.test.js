@@ -4,6 +4,7 @@ import {shallow, mount, render} from 'enzyme';
 import bean from '../src/testJson.json';
 import validationTest from '../src/validationTest.json';
 import NumberPropertyInput from "../src/components/inputs/NumberPropertyInput";
+import renderer from 'react-test-renderer';
 
 
 test('textInputWithPatternAndMessage numbers', () => {
@@ -44,4 +45,28 @@ test('textInputWithPatternAndMessage numbers', () => {
   });
   expect(spy.mock.calls.length).toEqual(13);
   expect(handle.mock.calls.length).toEqual(13);
+});
+
+test('getNumberValue', () => {
+  const bean = {
+    "values": { "double": "1text" },
+    "meta":   { "/double": {"type": "Double"} },
+    "order":  [ "/double" ]
+  };
+
+  const component = renderer.create(
+    <PropertyInput path={"/double"} bean={bean}/>
+  );
+  expect(component.toJSON()).toMatchSnapshot();
+
+  const bean2 = {
+    "values": { "double": "1." },
+    "meta":   { "/double": {"type": "Double"} },
+    "order":  [ "/double" ]
+  };
+
+  const component2 = renderer.create(
+    <PropertyInput path={"/double"} bean={bean2}/>
+  );
+  expect(component2.toJSON()).toMatchSnapshot();
 });

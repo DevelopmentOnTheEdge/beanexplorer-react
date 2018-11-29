@@ -1773,7 +1773,13 @@ exports[`snapshot bean 1`] = `
               className="form-check-label radio-label"
               htmlFor="radioButtonsPropertyInputRadio0"
             >
-              Vanilla
+              <div
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "Vanilla <b>html</b>",
+                  }
+                }
+              />
             </label>
           </div>
           <div
@@ -1794,7 +1800,13 @@ exports[`snapshot bean 1`] = `
               className="form-check-label radio-label"
               htmlFor="radioButtonsPropertyInputRadio1"
             >
-              Chocolate
+              <div
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "Chocolate",
+                  }
+                }
+              />
             </label>
           </div>
         </div>
@@ -3591,7 +3603,13 @@ exports[`snapshot bean horizontal 1`] = `
               className="form-check-label radio-label"
               htmlFor="radioButtonsPropertyInputRadio0"
             >
-              Vanilla
+              <div
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "Vanilla <b>html</b>",
+                  }
+                }
+              />
             </label>
           </div>
           <div
@@ -3612,7 +3630,13 @@ exports[`snapshot bean horizontal 1`] = `
               className="form-check-label radio-label"
               htmlFor="radioButtonsPropertyInputRadio1"
             >
-              Chocolate
+              <div
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "Chocolate",
+                  }
+                }
+              />
             </label>
           </div>
         </div>
@@ -4440,7 +4464,13 @@ exports[`snapshot bean with readOnly 1`] = `
               className="form-check-label radio-label"
               htmlFor="radioButtonsPropertyInputRadio0"
             >
-              Vanilla
+              <div
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "Vanilla <b>html</b>",
+                  }
+                }
+              />
             </label>
           </div>
           <div
@@ -4461,7 +4491,13 @@ exports[`snapshot bean with readOnly 1`] = `
               className="form-check-label radio-label"
               htmlFor="radioButtonsPropertyInputRadio1"
             >
-              Chocolate
+              <div
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "Chocolate",
+                  }
+                }
+              />
             </label>
           </div>
         </div>

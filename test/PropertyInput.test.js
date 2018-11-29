@@ -276,3 +276,16 @@ test('test change path', () => {
 
   expect(wrapper.instance().getMeta()).toEqual({"displayName": "Number", "type": "Integer"});
 });
+
+test('getCorrectMulValue', () => {
+  const simpleBean = {
+    "values": { "select": "" },
+    "meta":   { "/select": {
+      "multipleSelectionList": true,
+      "tagList": [["vanilla","Vanilla"],["chocolate","Chocolate"]]
+    }},
+    "order":  [ "/select" ]
+  };
+  const wrapper = mount(<PropertyInput path={"/select"} bean={simpleBean} />);
+  expect(wrapper.instance().getCorrectMulValue()).toEqual([]);
+});

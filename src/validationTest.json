@@ -55,7 +55,7 @@
     },
     "/textInputWithPattern": {
       "displayName": "Text input with pattern",
-      "validationRules":[{"type":"pattern","attr":"^[A-Za-zА-Яа-яЁё]+$"}],
+      "validationRules": {"type":"pattern","attr":"^[A-Za-zА-Яа-яЁё]+$"},
       "canBeNull": true,
       "groupId": 2
     },
