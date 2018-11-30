@@ -1040,17 +1040,9 @@ var Property = function (_React$Component) {
         var validationClasses = classNames({ 'invalid-feedback': meta.status === 'error' }, { 'valid-feedback': meta.status === 'success' });
 
         if (validationClasses) {
-          messageElement = React.createElement(
-            'div',
-            { className: validationClasses },
-            meta.message
-          );
+          messageElement = React.createElement('div', { className: validationClasses, dangerouslySetInnerHTML: { __html: meta.message } });
         } else {
-          messageElement = React.createElement(
-            'small',
-            { className: 'form-text text-muted' },
-            meta.message
-          );
+          messageElement = React.createElement('small', { className: 'form-text text-muted', dangerouslySetInnerHTML: { __html: meta.message } });
         }
       }
 

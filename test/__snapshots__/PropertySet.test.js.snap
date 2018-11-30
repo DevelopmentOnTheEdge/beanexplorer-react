@@ -4756,9 +4756,12 @@ exports[`test outer 1`] = `
             />
             <small
               className="form-text text-muted"
-            >
-              Help text
-            </small>
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "Help text",
+                }
+              }
+            />
           </div>
         </div>
       </div>
@@ -4818,9 +4821,12 @@ exports[`test outer 1`] = `
           </label>
           <small
             className="form-text text-muted"
-          >
-            You must check before submitting.
-          </small>
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "You must check before submitting.",
+              }
+            }
+          />
         </div>
       </div>
       <div
@@ -4837,9 +4843,12 @@ exports[`test outer 1`] = `
           </label>
           <small
             className="form-text text-muted"
-          >
-            Help text.
-          </small>
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "Help text.",
+              }
+            }
+          />
         </div>
       </div>
     </div>
@@ -4889,9 +4898,12 @@ exports[`test outer 1`] = `
             />
             <div
               className="invalid-feedback"
-            >
-              The name is already in use.
-            </div>
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "The name is already in use.",
+                }
+              }
+            />
           </div>
         </div>
       </div>
@@ -5032,9 +5044,12 @@ exports[`test outer 1`] = `
             </div>
             <div
               className="invalid-feedback"
-            >
-              Error message.
-            </div>
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "Error message.",
+                }
+              }
+            />
           </div>
         </div>
       </div>
@@ -5061,9 +5076,12 @@ exports[`test outer 1`] = `
           </label>
           <div
             className="invalid-feedback"
-          >
-            This option is not available in the current state.
-          </div>
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "This option is not available in the current state.",
+              }
+            }
+          />
         </div>
       </div>
       <div
@@ -5080,9 +5098,12 @@ exports[`test outer 1`] = `
           </label>
           <div
             className="invalid-feedback"
-          >
-            Error sub message.
-          </div>
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "Error sub message.",
+              }
+            }
+          />
         </div>
       </div>
     </div>
@@ -5132,9 +5153,12 @@ exports[`test outer 1`] = `
             />
             <div
               className="valid-feedback"
-            >
-              Ok here
-            </div>
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "Ok here",
+                }
+              }
+            />
           </div>
         </div>
       </div>
@@ -5275,9 +5299,12 @@ exports[`test outer 1`] = `
             </div>
             <div
               className="valid-feedback"
-            >
-              Ok here
-            </div>
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "Ok here",
+                }
+              }
+            />
           </div>
         </div>
       </div>
@@ -5304,9 +5331,12 @@ exports[`test outer 1`] = `
           </label>
           <div
             className="valid-feedback"
-          >
-            Ok here
-          </div>
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "Ok here",
+              }
+            }
+          />
         </div>
       </div>
       <div
@@ -5323,9 +5353,12 @@ exports[`test outer 1`] = `
           </label>
           <div
             className="valid-feedback"
-          >
-            Ok here
-          </div>
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "Ok here",
+              }
+            }
+          />
         </div>
       </div>
     </div>

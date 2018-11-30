@@ -42,10 +42,10 @@ class Property extends React.Component {
       );
 
       if (validationClasses) {
-        messageElement = <div className={validationClasses}>{meta.message}</div>
+        messageElement = <div className={validationClasses} dangerouslySetInnerHTML={{__html: meta.message}}/>
       }
       else {
-        messageElement = <small className="form-text text-muted">{meta.message}</small>
+        messageElement = <small className="form-text text-muted" dangerouslySetInnerHTML={{__html: meta.message}}/>
       }
     }
 
