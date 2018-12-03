@@ -79,6 +79,7 @@ class PropertyInput extends BasePropertyInput {
         mask={validationRuleMask.attr}
         value={value}
         onChange={this.handleChange}
+        onBlur={this.reload}
         {...this.getBaseProps()}
       />;
     }

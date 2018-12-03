@@ -36,6 +36,7 @@ class AllPropertyTypes extends Component
     };
 
     this.handleFieldChange = this.handleFieldChange.bind(this);
+    this.reloadOnChange = this.reloadOnChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleJsonChange = this.handleJsonChange.bind(this);
   }
@@ -67,6 +68,12 @@ class AllPropertyTypes extends Component
     this.forceUpdate();
   }
 
+  reloadOnChange(path, value) {
+    console.log("reloadOnChange: ", path, value);
+    if (value !== undefined) JsonPointer.set(this.state.bean, "/values" + path, value);
+    this.forceUpdate();
+  }
+
   getBean(){
     if(this.state.readOnly){
       let beanJson = JSON.stringify(this.state.bean);
@@ -86,6 +93,7 @@ class AllPropertyTypes extends Component
         <PropertySet
           bean={this.getBean()}
           onChange={this.handleFieldChange}
+          reloadOnChange={this.reloadOnChange}
           bsSize={this.state.bsSize}
           horizontal={this.state.horizontal}
         />
@@ -252,6 +260,7 @@ class InlineForm extends AllPropertyTypes
     const commonProps = {
       bean: this.getBean(),
       onChange: this.handleFieldChange,
+      reloadOnChange: this.reloadOnChange,
       inline: true,
       rowClass:"d-flex",
     };
@@ -263,6 +272,7 @@ class InlineForm extends AllPropertyTypes
     const commonProps2 = {
       bean: layout2,
       onChange: this.handleFieldChange,
+      reloadOnChange: this.reloadOnChange,
       inline: true,
       rowClass:"d-flex",
     };

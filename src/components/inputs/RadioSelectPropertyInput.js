@@ -68,9 +68,9 @@ export default class RadioSelectPropertyInput extends BasePropertyInput {
       } else {
         newValue = value.filter(v => v !== tagName);
       }
-      this.callOnChange(newValue);
+      this.changeAndReload(newValue);
     } else {
-      this.callOnChange(tagName);
+      this.changeAndReload(tagName);
     }
   }
 

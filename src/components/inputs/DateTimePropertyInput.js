@@ -27,6 +27,7 @@ export default class DateTimePropertyInput extends BasePropertyInput {
           key={this.getID() + "Datetime"}
           value={dateFromISOFormat(value)}
           onChange={this.dateToISOFormat}
+          onBlur={this.reload}
           closeOnSelect={true}
           closeOnTab={true}
           locale={this.props.localization.locale}
@@ -64,6 +65,7 @@ export default class DateTimePropertyInput extends BasePropertyInput {
           key={this.getID() + "Datetime"}
           value={timestampFromISOFormat(value)}
           onChange={this.timestampToISOFormat}
+          onBlur={this.reload}
           closeOnSelect={true}
           closeOnTab={true}
           locale={this.props.localization.locale}

@@ -89,9 +89,9 @@ export default class SelectPropertyInput extends BasePropertyInput {
       Object.keys(object).forEach(function (key) {
         selectArray.push(object[key].value);
       });
-      this.callOnChange(selectArray);
+      this.changeAndReload(selectArray);
     } else {
-      this.callOnChange(object !== null ? object.value : "");
+      this.changeAndReload(object !== null ? object.value : "");
     }
   }
 }

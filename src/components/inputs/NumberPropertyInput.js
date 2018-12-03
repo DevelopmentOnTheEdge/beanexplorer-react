@@ -25,6 +25,7 @@ export default class NumberPropertyInput extends BasePropertyInput {
       data-info-step={step ? step.attr : undefined}
       value={convertENotationNumbers(this.getValue())}
       onChange={this.handleChange}
+      onBlur={this.reload}
       placeholder={extraAttrsMap.placeholder}
       {...this.getBaseProps()}
     />

@@ -23,6 +23,7 @@ exports[`contain property 1`] = `
           className="property-input form-control"
           id="textInputPropertyInput"
           maxLength={undefined}
+          onBlur={[Function]}
           onChange={[Function]}
           onInput={[Function]}
           onInvalid={[Function]}

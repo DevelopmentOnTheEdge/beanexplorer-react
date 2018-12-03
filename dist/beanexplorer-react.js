@@ -111,6 +111,7 @@ var BasePropertyInput = function (_React$Component) {
 
     _this.callOnChange = _this.callOnChange.bind(_this);
     _this.handleChange = _this.handleChange.bind(_this);
+    _this.reload = _this.reload.bind(_this);
     _this.patternValidationMessage = _this.patternValidationMessage.bind(_this);
     return _this;
   }
@@ -185,6 +186,16 @@ var BasePropertyInput = function (_React$Component) {
       this.callOnChange(event.target.value);
     }
   }, {
+    key: 'reload',
+    value: function reload() {
+      this.props.reloadOnChange(this.getPath());
+    }
+  }, {
+    key: 'changeAndReload',
+    value: function changeAndReload(value) {
+      this.props.reloadOnChange(this.getPath(), value);
+    }
+  }, {
     key: 'getValidationClasses',
     value: function getValidationClasses() {
       var meta = this.getMeta();
@@ -237,6 +248,7 @@ var BasePropertyInput = function (_React$Component) {
       return Object.assign({}, this.getBaseProps(), {
         value: value,
         onChange: this.handleChange,
+        onBlur: this.reload,
         placeholder: extraAttrsMap.placeholder
       });
     }
@@ -315,6 +327,7 @@ BasePropertyInput.propTypes = {
   inline: PropTypes.bool,
   bsSize: PropTypes.string,
   onChange: PropTypes.func,
+  reloadOnChange: PropTypes.func,
   localization: PropTypes.object,
   controlClassName: PropTypes.string
 };
@@ -389,9 +402,9 @@ var RadioSelectPropertyInput = function (_BasePropertyInput) {
             return v !== tagName;
           });
         }
-        this.callOnChange(newValue);
+        this.changeAndReload(newValue);
       } else {
-        this.callOnChange(tagName);
+        this.changeAndReload(tagName);
       }
     }
   }]);
@@ -484,9 +497,9 @@ var SelectPropertyInput = function (_BasePropertyInput) {
         Object.keys(object).forEach(function (key) {
           selectArray.push(object[key].value);
         });
-        this.callOnChange(selectArray);
+        this.changeAndReload(selectArray);
       } else {
-        this.callOnChange(object !== null ? object.value : "");
+        this.changeAndReload(object !== null ? object.value : "");
       }
     }
   }]);
@@ -522,6 +535,7 @@ var NumberPropertyInput = function (_BasePropertyInput) {
         "data-info-step": step ? step.attr : undefined,
         value: convertENotationNumbers(this.getValue()),
         onChange: this.handleChange,
+        onBlur: this.reload,
         placeholder: extraAttrsMap.placeholder
       }, this.getBaseProps()));
     }
@@ -644,6 +658,7 @@ var DateTimePropertyInput = function (_BasePropertyInput) {
             key: this.getID() + "Datetime",
             value: dateFromISOFormat(value),
             onChange: this.dateToISOFormat,
+            onBlur: this.reload,
             closeOnSelect: true,
             closeOnTab: true,
             locale: this.props.localization.locale,
@@ -677,6 +692,7 @@ var DateTimePropertyInput = function (_BasePropertyInput) {
             key: this.getID() + "Datetime",
             value: timestampFromISOFormat(value),
             onChange: this.timestampToISOFormat,
+            onBlur: this.reload,
             closeOnSelect: true,
             closeOnTab: true,
             locale: this.props.localization.locale,
@@ -776,10 +792,25 @@ var WYSIWYGPropertyInput = function (_BasePropertyInput) {
 
   function WYSIWYGPropertyInput(props) {
     classCallCheck(this, WYSIWYGPropertyInput);
-    return possibleConstructorReturn(this, (WYSIWYGPropertyInput.__proto__ || Object.getPrototypeOf(WYSIWYGPropertyInput)).call(this, props));
+
+    var _this = possibleConstructorReturn(this, (WYSIWYGPropertyInput.__proto__ || Object.getPrototypeOf(WYSIWYGPropertyInput)).call(this, props));
+
+    _this.editorOnChange = _this.editorOnChange.bind(_this);
+    _this.editorReload = _this.editorReload.bind(_this);
+    return _this;
   }
 
   createClass(WYSIWYGPropertyInput, [{
+    key: 'editorOnChange',
+    value: function editorOnChange(evt) {
+      this.callOnChange(evt.editor.getData());
+    }
+  }, {
+    key: 'editorReload',
+    value: function editorReload() {
+      this.reload();
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _this2 = this;
@@ -797,9 +828,8 @@ var WYSIWYGPropertyInput = function (_BasePropertyInput) {
         activeClass: 'p10',
         content: value,
         events: {
-          "change": function change(evt) {
-            _this2.callOnChange(evt.editor.getData());
-          }
+          "change": this.editorOnChange,
+          "blur": this.editorReload
         },
         config: {
           removeButtons: 'image',
@@ -987,7 +1017,8 @@ var PropertyInput = function (_BasePropertyInput) {
         return React.createElement(MaskedInput, _extends({
           mask: validationRuleMask.attr,
           value: value,
-          onChange: this.handleChange
+          onChange: this.handleChange,
+          onBlur: this.reload
         }, this.getBaseProps()));
       }
 

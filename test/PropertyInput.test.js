@@ -227,19 +227,22 @@ test('file', () => {
 
 test('multiSelect test', () => {
   const handle = jest.fn();
+  const reloadHandle = jest.fn();
 
   const wrapper = mount(
-    <SelectPropertyInput path={"/multiSelect"} bean={bean} onChange={handle} />
+    <SelectPropertyInput path={"/multiSelect"} bean={bean} onChange={handle} reloadOnChange={reloadHandle}/>
   );
 
   wrapper.instance().handleChangeSelect(null);
-  expect(handle.mock.calls[0]).toEqual(["/multiSelect", ""]);
+  expect(reloadHandle.mock.calls[0]).toEqual(["/multiSelect", ""]);
 
   wrapper.instance().handleChangeSelect({"value": "test"});
-  expect(handle.mock.calls[1]).toEqual(["/multiSelect", "test"]);
+  expect(reloadHandle.mock.calls[1]).toEqual(["/multiSelect", "test"]);
 
   wrapper.instance().handleChangeSelect([{"value": "test"},{"value": "test2"}]);
-  expect(handle.mock.calls[2]).toEqual(["/multiSelect", ["test", "test2"]]);
+  expect(reloadHandle.mock.calls[2]).toEqual(["/multiSelect", ["test", "test2"]]);
+
+  expect(handle.mock.calls.length).toEqual(0);
 });
 
 test('updateCkeditor', () => {

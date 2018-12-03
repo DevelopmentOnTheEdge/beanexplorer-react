@@ -8,6 +8,7 @@ export default class BasePropertyInput extends React.Component {
     super(props);
     this.callOnChange = this.callOnChange.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.reload = this.reload.bind(this);
     this.patternValidationMessage = this.patternValidationMessage.bind(this);
   }
 
@@ -71,6 +72,14 @@ export default class BasePropertyInput extends React.Component {
 
   handleChange(event) {
     this.callOnChange(event.target.value);
+  }
+
+  reload() {
+    this.props.reloadOnChange(this.getPath());
+  }
+
+  changeAndReload(value) {
+    this.props.reloadOnChange(this.getPath(), value);
   }
 
   static getExtraAttrsMap(meta) {
@@ -156,6 +165,7 @@ export default class BasePropertyInput extends React.Component {
       {
         value: value,
         onChange: this.handleChange,
+        onBlur: this.reload,
         placeholder: extraAttrsMap.placeholder
       }
     );
@@ -209,6 +219,7 @@ BasePropertyInput.propTypes = {
   inline: PropTypes.bool,
   bsSize: PropTypes.string,
   onChange: PropTypes.func,
+  reloadOnChange: PropTypes.func,
   localization: PropTypes.object,
   controlClassName: PropTypes.string,
 };

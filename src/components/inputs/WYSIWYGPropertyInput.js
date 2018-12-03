@@ -5,6 +5,16 @@ import BasePropertyInput from "./BasePropertyInput";
 export default class WYSIWYGPropertyInput extends BasePropertyInput {
   constructor(props) {
     super(props);
+    this.editorOnChange = this.editorOnChange.bind(this);
+    this.editorReload = this.editorReload.bind(this);
+  }
+
+  editorOnChange(evt){
+    this.callOnChange(evt.editor.getData());
+  }
+
+  editorReload(){
+    this.reload();
   }
 
   render() {
@@ -21,9 +31,8 @@ export default class WYSIWYGPropertyInput extends BasePropertyInput {
       activeClass="p10"
       content={value}
       events={{
-        "change": (evt) => {
-          this.callOnChange(evt.editor.getData())
-        }
+        "change": this.editorOnChange,
+        "blur": this.editorReload,
       }}
       config={{
         removeButtons: 'image',
