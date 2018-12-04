@@ -27,7 +27,7 @@ export default class DateTimePropertyInput extends BasePropertyInput {
           key={this.getID() + "Datetime"}
           value={dateFromISOFormat(value)}
           onChange={this.dateToISOFormat}
-          onBlur={this.reload}
+          onBlur={this.reload}//TODO reload only for valid date
           closeOnSelect={true}
           closeOnTab={true}
           locale={this.props.localization.locale}

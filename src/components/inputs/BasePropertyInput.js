@@ -74,8 +74,10 @@ export default class BasePropertyInput extends React.Component {
     this.callOnChange(event.target.value);
   }
 
-  reload() {
-    this.props.reloadOnChange(this.getPath());
+  reload(e) {
+    if (e === undefined || e.target === undefined || e.target.validity.valid === true) {
+      this.props.reloadOnChange(this.getPath());
+    }
   }
 
   changeAndReload(value) {

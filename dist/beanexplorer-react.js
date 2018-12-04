@@ -187,8 +187,10 @@ var BasePropertyInput = function (_React$Component) {
     }
   }, {
     key: 'reload',
-    value: function reload() {
-      this.props.reloadOnChange(this.getPath());
+    value: function reload(e) {
+      if (e === undefined || e.target === undefined || e.target.validity.valid === true) {
+        this.props.reloadOnChange(this.getPath());
+      }
     }
   }, {
     key: 'changeAndReload',
@@ -658,8 +660,8 @@ var DateTimePropertyInput = function (_BasePropertyInput) {
             key: this.getID() + "Datetime",
             value: dateFromISOFormat(value),
             onChange: this.dateToISOFormat,
-            onBlur: this.reload,
-            closeOnSelect: true,
+            onBlur: this.reload //TODO reload only for valid date
+            , closeOnSelect: true,
             closeOnTab: true,
             locale: this.props.localization.locale,
             inputProps: Object.assign({}, this.getBaseProps(), {
@@ -1203,6 +1205,7 @@ Property.propTypes = {
   rowClass: PropTypes.string,
   bsSize: PropTypes.string,
   onChange: PropTypes.func,
+  reloadOnChange: PropTypes.func,
   localization: PropTypes.object,
   className: PropTypes.string
 };
@@ -1227,7 +1230,7 @@ var Properties = function (_React$Component) {
 
       var fields = this.props.bean.order.map(function (path, i) {
         if (_this2.props.ids === undefined || _this2.props.ids.includes(i)) {
-          return React.createElement(Property, _extends({}, _this2.props, { path: path, key: path }));
+          return React.createElement(Property, _extends({ path: path, key: path }, _this2.props));
         } else {
           return null;
         }
@@ -1255,6 +1258,7 @@ Properties.propTypes = {
   inline: PropTypes.bool,
   bsSize: PropTypes.string,
   onChange: PropTypes.func,
+  reloadOnChange: PropTypes.func,
   localization: PropTypes.object
 };
 
@@ -1328,11 +1332,7 @@ var PropertySet$1 = function (_React$Component) {
             curGroupId = newGroupId;
           }
 
-          var field = React.createElement(Property, _extends({}, this.props, {
-            key: path,
-            path: path,
-            onChange: this.props.onChange
-          }));
+          var field = React.createElement(Property, _extends({ key: path, path: path }, this.props));
 
           curGroup.push(field);
         }
