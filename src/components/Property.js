@@ -180,6 +180,7 @@ Property.propTypes = {
   rowClass: PropTypes.string,
   bsSize: PropTypes.string,
   onChange: PropTypes.func,
+  reloadOnChange: PropTypes.func,
   localization: PropTypes.object,
   className: PropTypes.string
 };

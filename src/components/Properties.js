@@ -8,7 +8,7 @@ class Properties extends React.Component {
     let fields = this.props.bean.order.map((path, i) => {
       if (this.props.ids === undefined || this.props.ids.includes(i)) {
         return (
-          <Property {...this.props} path={path} key={path}/>
+          <Property path={path} key={path} {...this.props}/>
         )
       } else {
         return null;
@@ -32,6 +32,7 @@ Properties.propTypes = {
   inline: PropTypes.bool,
   bsSize: PropTypes.string,
   onChange: PropTypes.func,
+  reloadOnChange: PropTypes.func,
   localization: PropTypes.object
 };
 

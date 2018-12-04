@@ -63,12 +63,7 @@ class PropertySet extends React.Component {
       }
 
       const field = (
-        <Property
-          {...this.props}
-          key={path}
-          path={path}
-          onChange={this.props.onChange}
-        />
+        <Property key={path} path={path} {...this.props}/>
       );
 
       curGroup.push(field);
