@@ -11,6 +11,7 @@ export default class RadioSelectPropertyInput extends BasePropertyInput {
   }
 
   render() {
+    const id = this.getID();
     const meta = this.getMeta();
     const value = this.getCorrectMulValue();
     let radioButtons = [];
@@ -21,12 +22,12 @@ export default class RadioSelectPropertyInput extends BasePropertyInput {
       const onChange = this._onInputChange.bind(this, tagName);
 
       radioButtons.push(
-        <div className="form-check" key={this.getID() + "FormCheckWrapper" + i}>
+        <div className="form-check" key={id + "FormCheckWrapper" + i}>
           <input
-            id={this.getID() + "Radio" + i}
+            id={id + "_option" + i}
             className="form-check-input"
             type={meta.multipleSelectionList ? "checkbox" : "radio"}
-            name={this.getID()}
+            name={id}
             value={tagName}
             checked={meta.multipleSelectionList ? value.includes(tagName) : tagName === "" + value}
             onChange={onChange}
@@ -38,7 +39,7 @@ export default class RadioSelectPropertyInput extends BasePropertyInput {
               inputLabelSizeClasses(this.props, meta.type),
               "form-check-label radio-label"
             )}
-            htmlFor={this.getID() + "Radio" + i}
+            htmlFor={id + "_option" + i}
           >
             {!meta.rawValue ? tagLabel : <div dangerouslySetInnerHTML={{__html: tagLabel}}/>}
           </label>
@@ -47,6 +48,7 @@ export default class RadioSelectPropertyInput extends BasePropertyInput {
     }
 
     return <div
+      id={id}
       className={classNames(
         "radio-buttons-outer",
         'property-input',

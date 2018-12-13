@@ -11,10 +11,10 @@ test('radioButtons change', () => {
     <PropertyInput path={"/radioButtons"} bean={bean} onChange={handle} reloadOnChange={reloadHandle}/>
   );
 
-  wrapper.find('#radioButtonsPropertyInputRadio0').simulate('change',{ target: { checked: true } });
+  wrapper.find('#radioButtonsPropertyInput_option0').simulate('change',{ target: { checked: true } });
   expect(reloadHandle.mock.calls[0]).toEqual(["/radioButtons", "vanilla"]);
 
-  wrapper.find('#radioButtonsPropertyInputRadio1').simulate('change',{ target: { checked: false } });
+  wrapper.find('#radioButtonsPropertyInput_option1').simulate('change',{ target: { checked: false } });
   expect(reloadHandle.mock.calls[1]).toEqual(["/radioButtons", "chocolate"]);
 
   expect(handle.mock.calls.length).toEqual(0);
@@ -28,10 +28,10 @@ test('radioButtonsMultiSelect change', () => {
     <PropertyInput path={"/radioButtonsMultiSelect"} bean={bean} onChange={handle} reloadOnChange={reloadHandle}/>
   );
 
-  wrapper.find('#radioButtonsMultiSelectPropertyInputRadio0').simulate('change',{ target: { checked: true } });
+  wrapper.find('#radioButtonsMultiSelectPropertyInput_option0').simulate('change',{ target: { checked: true } });
   expect(reloadHandle.mock.calls[0]).toEqual(["/radioButtonsMultiSelect", ["chocolate", "strawberry", "vanilla"]]);
 
-  wrapper.find('#radioButtonsMultiSelectPropertyInputRadio1').simulate('change',{ target: { checked: false } });
+  wrapper.find('#radioButtonsMultiSelectPropertyInput_option1').simulate('change',{ target: { checked: false } });
   expect(reloadHandle.mock.calls[1]).toEqual(["/radioButtonsMultiSelect", ["strawberry"]]);
 
   expect(handle.mock.calls.length).toEqual(0);

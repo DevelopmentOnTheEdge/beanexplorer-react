@@ -1762,6 +1762,7 @@ exports[`snapshot bean 1`] = `
       >
         <div
           className="radio-buttons-outer property-input"
+          id="radioButtonsPropertyInput"
         >
           <div
             className="form-check"
@@ -1770,7 +1771,7 @@ exports[`snapshot bean 1`] = `
               checked={false}
               className="form-check-input"
               disabled={undefined}
-              id="radioButtonsPropertyInputRadio0"
+              id="radioButtonsPropertyInput_option0"
               name="radioButtonsPropertyInput"
               onChange={[Function]}
               required={true}
@@ -1779,7 +1780,7 @@ exports[`snapshot bean 1`] = `
             />
             <label
               className="form-check-label radio-label"
-              htmlFor="radioButtonsPropertyInputRadio0"
+              htmlFor="radioButtonsPropertyInput_option0"
             >
               <div
                 dangerouslySetInnerHTML={
@@ -1797,7 +1798,7 @@ exports[`snapshot bean 1`] = `
               checked={true}
               className="form-check-input"
               disabled={undefined}
-              id="radioButtonsPropertyInputRadio1"
+              id="radioButtonsPropertyInput_option1"
               name="radioButtonsPropertyInput"
               onChange={[Function]}
               required={true}
@@ -1806,7 +1807,7 @@ exports[`snapshot bean 1`] = `
             />
             <label
               className="form-check-label radio-label"
-              htmlFor="radioButtonsPropertyInputRadio1"
+              htmlFor="radioButtonsPropertyInput_option1"
             >
               <div
                 dangerouslySetInnerHTML={
@@ -1838,6 +1839,7 @@ exports[`snapshot bean 1`] = `
       >
         <div
           className="radio-buttons-outer property-input"
+          id="radioButtonsMultiSelectPropertyInput"
         >
           <div
             className="form-check"
@@ -1846,7 +1848,7 @@ exports[`snapshot bean 1`] = `
               checked={false}
               className="form-check-input"
               disabled={undefined}
-              id="radioButtonsMultiSelectPropertyInputRadio0"
+              id="radioButtonsMultiSelectPropertyInput_option0"
               name="radioButtonsMultiSelectPropertyInput"
               onChange={[Function]}
               required={false}
@@ -1855,7 +1857,7 @@ exports[`snapshot bean 1`] = `
             />
             <label
               className="form-check-label radio-label"
-              htmlFor="radioButtonsMultiSelectPropertyInputRadio0"
+              htmlFor="radioButtonsMultiSelectPropertyInput_option0"
             >
               Vanilla
             </label>
@@ -1867,7 +1869,7 @@ exports[`snapshot bean 1`] = `
               checked={true}
               className="form-check-input"
               disabled={undefined}
-              id="radioButtonsMultiSelectPropertyInputRadio1"
+              id="radioButtonsMultiSelectPropertyInput_option1"
               name="radioButtonsMultiSelectPropertyInput"
               onChange={[Function]}
               required={false}
@@ -1876,7 +1878,7 @@ exports[`snapshot bean 1`] = `
             />
             <label
               className="form-check-label radio-label"
-              htmlFor="radioButtonsMultiSelectPropertyInputRadio1"
+              htmlFor="radioButtonsMultiSelectPropertyInput_option1"
             >
               Chocolate
             </label>
@@ -1888,7 +1890,7 @@ exports[`snapshot bean 1`] = `
               checked={true}
               className="form-check-input"
               disabled={undefined}
-              id="radioButtonsMultiSelectPropertyInputRadio2"
+              id="radioButtonsMultiSelectPropertyInput_option2"
               name="radioButtonsMultiSelectPropertyInput"
               onChange={[Function]}
               required={false}
@@ -1897,7 +1899,7 @@ exports[`snapshot bean 1`] = `
             />
             <label
               className="form-check-label radio-label"
-              htmlFor="radioButtonsMultiSelectPropertyInputRadio2"
+              htmlFor="radioButtonsMultiSelectPropertyInput_option2"
             >
               Strawberry
             </label>
@@ -1909,7 +1911,7 @@ exports[`snapshot bean 1`] = `
               checked={false}
               className="form-check-input"
               disabled={undefined}
-              id="radioButtonsMultiSelectPropertyInputRadio3"
+              id="radioButtonsMultiSelectPropertyInput_option3"
               name="radioButtonsMultiSelectPropertyInput"
               onChange={[Function]}
               required={false}
@@ -1918,7 +1920,7 @@ exports[`snapshot bean 1`] = `
             />
             <label
               className="form-check-label radio-label"
-              htmlFor="radioButtonsMultiSelectPropertyInputRadio3"
+              htmlFor="radioButtonsMultiSelectPropertyInput_option3"
             >
               Cookies and Cream
             </label>
@@ -1930,7 +1932,7 @@ exports[`snapshot bean 1`] = `
               checked={false}
               className="form-check-input"
               disabled={undefined}
-              id="radioButtonsMultiSelectPropertyInputRadio4"
+              id="radioButtonsMultiSelectPropertyInput_option4"
               name="radioButtonsMultiSelectPropertyInput"
               onChange={[Function]}
               required={false}
@@ -1939,7 +1941,7 @@ exports[`snapshot bean 1`] = `
             />
             <label
               className="form-check-label radio-label"
-              htmlFor="radioButtonsMultiSelectPropertyInputRadio4"
+              htmlFor="radioButtonsMultiSelectPropertyInput_option4"
             >
               Caramel
             </label>
@@ -1951,7 +1953,7 @@ exports[`snapshot bean 1`] = `
               checked={false}
               className="form-check-input"
               disabled={undefined}
-              id="radioButtonsMultiSelectPropertyInputRadio5"
+              id="radioButtonsMultiSelectPropertyInput_option5"
               name="radioButtonsMultiSelectPropertyInput"
               onChange={[Function]}
               required={false}
@@ -1960,7 +1962,7 @@ exports[`snapshot bean 1`] = `
             />
             <label
               className="form-check-label radio-label"
-              htmlFor="radioButtonsMultiSelectPropertyInputRadio5"
+              htmlFor="radioButtonsMultiSelectPropertyInput_option5"
             >
               Peppermint
             </label>
@@ -3596,6 +3598,7 @@ exports[`snapshot bean horizontal 1`] = `
       >
         <div
           className="radio-buttons-outer property-input"
+          id="radioButtonsPropertyInput"
         >
           <div
             className="form-check"
@@ -3604,7 +3607,7 @@ exports[`snapshot bean horizontal 1`] = `
               checked={false}
               className="form-check-input"
               disabled={undefined}
-              id="radioButtonsPropertyInputRadio0"
+              id="radioButtonsPropertyInput_option0"
               name="radioButtonsPropertyInput"
               onChange={[Function]}
               required={true}
@@ -3613,7 +3616,7 @@ exports[`snapshot bean horizontal 1`] = `
             />
             <label
               className="form-check-label radio-label"
-              htmlFor="radioButtonsPropertyInputRadio0"
+              htmlFor="radioButtonsPropertyInput_option0"
             >
               <div
                 dangerouslySetInnerHTML={
@@ -3631,7 +3634,7 @@ exports[`snapshot bean horizontal 1`] = `
               checked={true}
               className="form-check-input"
               disabled={undefined}
-              id="radioButtonsPropertyInputRadio1"
+              id="radioButtonsPropertyInput_option1"
               name="radioButtonsPropertyInput"
               onChange={[Function]}
               required={true}
@@ -3640,7 +3643,7 @@ exports[`snapshot bean horizontal 1`] = `
             />
             <label
               className="form-check-label radio-label"
-              htmlFor="radioButtonsPropertyInputRadio1"
+              htmlFor="radioButtonsPropertyInput_option1"
             >
               <div
                 dangerouslySetInnerHTML={
@@ -3676,6 +3679,7 @@ exports[`snapshot bean horizontal 1`] = `
       >
         <div
           className="radio-buttons-outer property-input"
+          id="radioButtonsMultiSelectPropertyInput"
         >
           <div
             className="form-check"
@@ -3684,7 +3688,7 @@ exports[`snapshot bean horizontal 1`] = `
               checked={false}
               className="form-check-input"
               disabled={undefined}
-              id="radioButtonsMultiSelectPropertyInputRadio0"
+              id="radioButtonsMultiSelectPropertyInput_option0"
               name="radioButtonsMultiSelectPropertyInput"
               onChange={[Function]}
               required={false}
@@ -3693,7 +3697,7 @@ exports[`snapshot bean horizontal 1`] = `
             />
             <label
               className="form-check-label radio-label"
-              htmlFor="radioButtonsMultiSelectPropertyInputRadio0"
+              htmlFor="radioButtonsMultiSelectPropertyInput_option0"
             >
               Vanilla
             </label>
@@ -3705,7 +3709,7 @@ exports[`snapshot bean horizontal 1`] = `
               checked={true}
               className="form-check-input"
               disabled={undefined}
-              id="radioButtonsMultiSelectPropertyInputRadio1"
+              id="radioButtonsMultiSelectPropertyInput_option1"
               name="radioButtonsMultiSelectPropertyInput"
               onChange={[Function]}
               required={false}
@@ -3714,7 +3718,7 @@ exports[`snapshot bean horizontal 1`] = `
             />
             <label
               className="form-check-label radio-label"
-              htmlFor="radioButtonsMultiSelectPropertyInputRadio1"
+              htmlFor="radioButtonsMultiSelectPropertyInput_option1"
             >
               Chocolate
             </label>
@@ -3726,7 +3730,7 @@ exports[`snapshot bean horizontal 1`] = `
               checked={true}
               className="form-check-input"
               disabled={undefined}
-              id="radioButtonsMultiSelectPropertyInputRadio2"
+              id="radioButtonsMultiSelectPropertyInput_option2"
               name="radioButtonsMultiSelectPropertyInput"
               onChange={[Function]}
               required={false}
@@ -3735,7 +3739,7 @@ exports[`snapshot bean horizontal 1`] = `
             />
             <label
               className="form-check-label radio-label"
-              htmlFor="radioButtonsMultiSelectPropertyInputRadio2"
+              htmlFor="radioButtonsMultiSelectPropertyInput_option2"
             >
               Strawberry
             </label>
@@ -3747,7 +3751,7 @@ exports[`snapshot bean horizontal 1`] = `
               checked={false}
               className="form-check-input"
               disabled={undefined}
-              id="radioButtonsMultiSelectPropertyInputRadio3"
+              id="radioButtonsMultiSelectPropertyInput_option3"
               name="radioButtonsMultiSelectPropertyInput"
               onChange={[Function]}
               required={false}
@@ -3756,7 +3760,7 @@ exports[`snapshot bean horizontal 1`] = `
             />
             <label
               className="form-check-label radio-label"
-              htmlFor="radioButtonsMultiSelectPropertyInputRadio3"
+              htmlFor="radioButtonsMultiSelectPropertyInput_option3"
             >
               Cookies and Cream
             </label>
@@ -3768,7 +3772,7 @@ exports[`snapshot bean horizontal 1`] = `
               checked={false}
               className="form-check-input"
               disabled={undefined}
-              id="radioButtonsMultiSelectPropertyInputRadio4"
+              id="radioButtonsMultiSelectPropertyInput_option4"
               name="radioButtonsMultiSelectPropertyInput"
               onChange={[Function]}
               required={false}
@@ -3777,7 +3781,7 @@ exports[`snapshot bean horizontal 1`] = `
             />
             <label
               className="form-check-label radio-label"
-              htmlFor="radioButtonsMultiSelectPropertyInputRadio4"
+              htmlFor="radioButtonsMultiSelectPropertyInput_option4"
             >
               Caramel
             </label>
@@ -3789,7 +3793,7 @@ exports[`snapshot bean horizontal 1`] = `
               checked={false}
               className="form-check-input"
               disabled={undefined}
-              id="radioButtonsMultiSelectPropertyInputRadio5"
+              id="radioButtonsMultiSelectPropertyInput_option5"
               name="radioButtonsMultiSelectPropertyInput"
               onChange={[Function]}
               required={false}
@@ -3798,7 +3802,7 @@ exports[`snapshot bean horizontal 1`] = `
             />
             <label
               className="form-check-label radio-label"
-              htmlFor="radioButtonsMultiSelectPropertyInputRadio5"
+              htmlFor="radioButtonsMultiSelectPropertyInput_option5"
             >
               Peppermint
             </label>
@@ -4463,6 +4467,7 @@ exports[`snapshot bean with readOnly 1`] = `
       >
         <div
           className="radio-buttons-outer property-input"
+          id="radioButtonsPropertyInput"
         >
           <div
             className="form-check"
@@ -4471,7 +4476,7 @@ exports[`snapshot bean with readOnly 1`] = `
               checked={false}
               className="form-check-input"
               disabled={true}
-              id="radioButtonsPropertyInputRadio0"
+              id="radioButtonsPropertyInput_option0"
               name="radioButtonsPropertyInput"
               onChange={[Function]}
               required={true}
@@ -4480,7 +4485,7 @@ exports[`snapshot bean with readOnly 1`] = `
             />
             <label
               className="form-check-label radio-label"
-              htmlFor="radioButtonsPropertyInputRadio0"
+              htmlFor="radioButtonsPropertyInput_option0"
             >
               <div
                 dangerouslySetInnerHTML={
@@ -4498,7 +4503,7 @@ exports[`snapshot bean with readOnly 1`] = `
               checked={true}
               className="form-check-input"
               disabled={true}
-              id="radioButtonsPropertyInputRadio1"
+              id="radioButtonsPropertyInput_option1"
               name="radioButtonsPropertyInput"
               onChange={[Function]}
               required={true}
@@ -4507,7 +4512,7 @@ exports[`snapshot bean with readOnly 1`] = `
             />
             <label
               className="form-check-label radio-label"
-              htmlFor="radioButtonsPropertyInputRadio1"
+              htmlFor="radioButtonsPropertyInput_option1"
             >
               <div
                 dangerouslySetInnerHTML={
@@ -4539,6 +4544,7 @@ exports[`snapshot bean with readOnly 1`] = `
       >
         <div
           className="radio-buttons-outer property-input"
+          id="radioButtonsMultiSelectPropertyInput"
         >
           <div
             className="form-check"
@@ -4547,7 +4553,7 @@ exports[`snapshot bean with readOnly 1`] = `
               checked={false}
               className="form-check-input"
               disabled={true}
-              id="radioButtonsMultiSelectPropertyInputRadio0"
+              id="radioButtonsMultiSelectPropertyInput_option0"
               name="radioButtonsMultiSelectPropertyInput"
               onChange={[Function]}
               required={false}
@@ -4556,7 +4562,7 @@ exports[`snapshot bean with readOnly 1`] = `
             />
             <label
               className="form-check-label radio-label"
-              htmlFor="radioButtonsMultiSelectPropertyInputRadio0"
+              htmlFor="radioButtonsMultiSelectPropertyInput_option0"
             >
               Vanilla
             </label>
@@ -4568,7 +4574,7 @@ exports[`snapshot bean with readOnly 1`] = `
               checked={true}
               className="form-check-input"
               disabled={true}
-              id="radioButtonsMultiSelectPropertyInputRadio1"
+              id="radioButtonsMultiSelectPropertyInput_option1"
               name="radioButtonsMultiSelectPropertyInput"
               onChange={[Function]}
               required={false}
@@ -4577,7 +4583,7 @@ exports[`snapshot bean with readOnly 1`] = `
             />
             <label
               className="form-check-label radio-label"
-              htmlFor="radioButtonsMultiSelectPropertyInputRadio1"
+              htmlFor="radioButtonsMultiSelectPropertyInput_option1"
             >
               Chocolate
             </label>
@@ -4589,7 +4595,7 @@ exports[`snapshot bean with readOnly 1`] = `
               checked={true}
               className="form-check-input"
               disabled={true}
-              id="radioButtonsMultiSelectPropertyInputRadio2"
+              id="radioButtonsMultiSelectPropertyInput_option2"
               name="radioButtonsMultiSelectPropertyInput"
               onChange={[Function]}
               required={false}
@@ -4598,7 +4604,7 @@ exports[`snapshot bean with readOnly 1`] = `
             />
             <label
               className="form-check-label radio-label"
-              htmlFor="radioButtonsMultiSelectPropertyInputRadio2"
+              htmlFor="radioButtonsMultiSelectPropertyInput_option2"
             >
               Strawberry
             </label>
@@ -4610,7 +4616,7 @@ exports[`snapshot bean with readOnly 1`] = `
               checked={false}
               className="form-check-input"
               disabled={true}
-              id="radioButtonsMultiSelectPropertyInputRadio3"
+              id="radioButtonsMultiSelectPropertyInput_option3"
               name="radioButtonsMultiSelectPropertyInput"
               onChange={[Function]}
               required={false}
@@ -4619,7 +4625,7 @@ exports[`snapshot bean with readOnly 1`] = `
             />
             <label
               className="form-check-label radio-label"
-              htmlFor="radioButtonsMultiSelectPropertyInputRadio3"
+              htmlFor="radioButtonsMultiSelectPropertyInput_option3"
             >
               Cookies and Cream
             </label>
@@ -4631,7 +4637,7 @@ exports[`snapshot bean with readOnly 1`] = `
               checked={false}
               className="form-check-input"
               disabled={true}
-              id="radioButtonsMultiSelectPropertyInputRadio4"
+              id="radioButtonsMultiSelectPropertyInput_option4"
               name="radioButtonsMultiSelectPropertyInput"
               onChange={[Function]}
               required={false}
@@ -4640,7 +4646,7 @@ exports[`snapshot bean with readOnly 1`] = `
             />
             <label
               className="form-check-label radio-label"
-              htmlFor="radioButtonsMultiSelectPropertyInputRadio4"
+              htmlFor="radioButtonsMultiSelectPropertyInput_option4"
             >
               Caramel
             </label>
@@ -4652,7 +4658,7 @@ exports[`snapshot bean with readOnly 1`] = `
               checked={false}
               className="form-check-input"
               disabled={true}
-              id="radioButtonsMultiSelectPropertyInputRadio5"
+              id="radioButtonsMultiSelectPropertyInput_option5"
               name="radioButtonsMultiSelectPropertyInput"
               onChange={[Function]}
               required={false}
@@ -4661,7 +4667,7 @@ exports[`snapshot bean with readOnly 1`] = `
             />
             <label
               className="form-check-label radio-label"
-              htmlFor="radioButtonsMultiSelectPropertyInputRadio5"
+              htmlFor="radioButtonsMultiSelectPropertyInput_option5"
             >
               Peppermint
             </label>
