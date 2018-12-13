@@ -11,6 +11,7 @@ export default class SelectPropertyInput extends BasePropertyInput {
   }
 
   render() {
+    const id = this.getID();
     const meta = this.getMeta();
     const localization = this.props.localization;
     const extraAttrsMap = BasePropertyInput.getExtraAttrsMap(meta);
@@ -33,8 +34,9 @@ export default class SelectPropertyInput extends BasePropertyInput {
     }
 
     const selectAttr = {
-      ref: this.getID(),
-      name: this.getID(),
+      id: id,
+      ref: id,
+      name: id,
       value: this.getCorrectMulValue(),
       options: options,
       onChange: this.handleChangeSelect,
