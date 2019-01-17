@@ -126,6 +126,9 @@ export default class BasePropertyInput extends React.Component {
       case "Base64File":
         inputTypeClass = 'form-control-file';
         break;
+      case "File":
+        inputTypeClass = 'form-control-file';
+        break;
       default:
         inputTypeClass = 'form-control';
     }
