@@ -924,7 +924,7 @@ var Base64FilePropertyInput = function (_BasePropertyInput) {
       if (e.target.files && e.target.files.length === 1) {
         var fileName = e.target.files[0].name;
         Base64FilePropertyInput.getBase64(e.target.files[0]).then(function (data) {
-          _this2.callOnChange({ type: "Base64File", name: fileName, data: data });
+          _this2.callOnChange(JSON.stringify({ type: "Base64File", name: fileName, data: data }));
         });
       } else if (e.target.files && e.target.files.length === 0) {
         this.callOnChange("");

@@ -21,7 +21,7 @@ export default class Base64FilePropertyInput extends BasePropertyInput {
     if (e.target.files && e.target.files.length === 1) {
       const fileName = e.target.files[0].name;
       Base64FilePropertyInput.getBase64(e.target.files[0]).then(data => {
-        this.callOnChange({type: "Base64File", name: fileName, data: data})
+        this.callOnChange(JSON.stringify({type: "Base64File", name: fileName, data: data}))
       });
     }
     else if (e.target.files && e.target.files.length === 0) {
