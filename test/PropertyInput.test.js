@@ -292,3 +292,16 @@ test('getCorrectMulValue', () => {
   const wrapper = mount(<PropertyInput path={"/select"} bean={simpleBean} />);
   expect(wrapper.instance().getCorrectMulValue()).toEqual([]);
 });
+
+test('getCorrectMulValue single value', () => {
+  const simpleBean = {
+    "values": { "select": "value" },
+    "meta":   { "/select": {
+      "multipleSelectionList": true,
+      "tagList": [["vanilla","Vanilla"],["chocolate","Chocolate"]]
+    }},
+    "order":  [ "/select" ]
+  };
+  const wrapper = mount(<PropertyInput path={"/select"} bean={simpleBean} />);
+  expect(wrapper.instance().getCorrectMulValue()).toEqual(["value"]);
+});
