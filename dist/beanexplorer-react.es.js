@@ -163,6 +163,8 @@ var BasePropertyInput = function (_React$Component) {
           for (var i = 0; i < value.length; i++) {
             correctValue.push("" + value[i]);
           }
+        } else if (value.length > 0) {
+          correctValue.push("" + value);
         }
       } else {
         correctValue = "" + value;
@@ -210,6 +212,9 @@ var BasePropertyInput = function (_React$Component) {
           inputTypeClass = 'form-check-input';
           break;
         case "Base64File":
+          inputTypeClass = 'form-control-file';
+          break;
+        case "File":
           inputTypeClass = 'form-control-file';
           break;
         default:
@@ -343,6 +348,7 @@ var RadioSelectPropertyInput = function (_BasePropertyInput) {
   createClass(RadioSelectPropertyInput, [{
     key: 'render',
     value: function render() {
+      var id = this.getID();
       var meta = this.getMeta();
       var value = this.getCorrectMulValue();
       var radioButtons = [];
@@ -354,12 +360,12 @@ var RadioSelectPropertyInput = function (_BasePropertyInput) {
 
         radioButtons.push(React.createElement(
           'div',
-          { className: 'form-check', key: this.getID() + "FormCheckWrapper" + i },
+          { className: 'form-check', key: id + "FormCheckWrapper" + i },
           React.createElement('input', {
-            id: this.getID() + "Radio" + i,
+            id: id + "_option" + i,
             className: 'form-check-input',
             type: meta.multipleSelectionList ? "checkbox" : "radio",
-            name: this.getID(),
+            name: id,
             value: tagName,
             checked: meta.multipleSelectionList ? value.includes(tagName) : tagName === "" + value,
             onChange: onChange,
@@ -370,7 +376,7 @@ var RadioSelectPropertyInput = function (_BasePropertyInput) {
             'label',
             {
               className: classNames(inputLabelSizeClasses(this.props, meta.type), "form-check-label radio-label"),
-              htmlFor: this.getID() + "Radio" + i
+              htmlFor: id + "_option" + i
             },
             !meta.rawValue ? tagLabel : React.createElement('div', { dangerouslySetInnerHTML: { __html: tagLabel } })
           )
@@ -380,6 +386,7 @@ var RadioSelectPropertyInput = function (_BasePropertyInput) {
       return React.createElement(
         'div',
         {
+          id: id,
           className: classNames("radio-buttons-outer", 'property-input', { 'Select--sm': this.props.bsSize === "sm" }, { 'Select--lg': this.props.bsSize === "lg" }, this.getValidationClasses())
         },
         radioButtons
@@ -422,6 +429,7 @@ var SelectPropertyInput = function (_BasePropertyInput) {
   createClass(SelectPropertyInput, [{
     key: 'render',
     value: function render() {
+      var id = this.getID();
       var meta = this.getMeta();
       var localization = this.props.localization;
       var extraAttrsMap = BasePropertyInput.getExtraAttrsMap(meta);
@@ -444,8 +452,9 @@ var SelectPropertyInput = function (_BasePropertyInput) {
       }
 
       var selectAttr = {
-        ref: this.getID(),
-        name: this.getID(),
+        id: id,
+        ref: id,
+        name: id,
         value: this.getCorrectMulValue(),
         options: options,
         onChange: this.handleChangeSelect,
@@ -915,7 +924,7 @@ var Base64FilePropertyInput = function (_BasePropertyInput) {
       if (e.target.files && e.target.files.length === 1) {
         var fileName = e.target.files[0].name;
         Base64FilePropertyInput.getBase64(e.target.files[0]).then(function (data) {
-          _this2.callOnChange({ type: "Base64File", name: fileName, data: data });
+          _this2.callOnChange(JSON.stringify({ type: "Base64File", name: fileName, data: data }));
         });
       } else if (e.target.files && e.target.files.length === 0) {
         this.callOnChange("");
@@ -938,6 +947,37 @@ var Base64FilePropertyInput = function (_BasePropertyInput) {
     }
   }]);
   return Base64FilePropertyInput;
+}(BasePropertyInput);
+
+var FilePropertyInput = function (_BasePropertyInput) {
+  inherits(FilePropertyInput, _BasePropertyInput);
+
+  function FilePropertyInput(props) {
+    classCallCheck(this, FilePropertyInput);
+
+    var _this = possibleConstructorReturn(this, (FilePropertyInput.__proto__ || Object.getPrototypeOf(FilePropertyInput)).call(this, props));
+
+    _this.fileHandle = _this.fileHandle.bind(_this);
+    return _this;
+  }
+
+  createClass(FilePropertyInput, [{
+    key: "render",
+    value: function render() {
+      var meta = this.getMeta();
+      return React.createElement("input", _extends({
+        type: "file",
+        multiple: meta.multipleSelectionList,
+        onChange: this.fileHandle
+      }, this.getBaseProps()));
+    }
+  }, {
+    key: "fileHandle",
+    value: function fileHandle(e) {
+      this.callOnChange(e.target.files);
+    }
+  }]);
+  return FilePropertyInput;
 }(BasePropertyInput);
 
 var PropertyInput = function (_BasePropertyInput) {
@@ -986,6 +1026,10 @@ var PropertyInput = function (_BasePropertyInput) {
 
       if (meta.type === 'Base64File') {
         return React.createElement(Base64FilePropertyInput, this.props);
+      }
+
+      if (meta.type === 'File') {
+        return React.createElement(FilePropertyInput, this.props);
       }
 
       if (meta.type === 'Date' || meta.type === 'Timestamp') {

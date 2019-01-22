@@ -8,6 +8,7 @@ import BasePropertyInput from "./inputs/BasePropertyInput";
 import WYSIWYGPropertyInput from "./inputs/WYSIWYGPropertyInput";
 import LabelPropertyInput from "./inputs/LabelPropertyInput";
 import Base64FilePropertyInput from "./inputs/Base64FilePropertyInput";
+import FilePropertyInput from "./inputs/FilePropertyInput";
 
 
 class PropertyInput extends BasePropertyInput {
@@ -48,6 +49,10 @@ class PropertyInput extends BasePropertyInput {
 
     if (meta.type === 'Base64File') {
       return <Base64FilePropertyInput {...this.props}/>
+    }
+
+    if (meta.type === 'File') {
+      return <FilePropertyInput {...this.props}/>
     }
 
     if (meta.type === 'Date' || meta.type === 'Timestamp') {

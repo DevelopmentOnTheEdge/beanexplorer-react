@@ -59,6 +59,8 @@ export default class BasePropertyInput extends React.Component {
       correctValue = [];
       if (Array.isArray(value)) {
         for (let i = 0; i < value.length; i++) correctValue.push("" + value[i]);
+      } else if (value.length > 0) {
+        correctValue.push("" + value)
       }
     } else {
       correctValue = "" + value;
@@ -124,6 +126,9 @@ export default class BasePropertyInput extends React.Component {
         inputTypeClass = 'form-check-input';
         break;
       case "Base64File":
+        inputTypeClass = 'form-control-file';
+        break;
+      case "File":
         inputTypeClass = 'form-control-file';
         break;
       default:
