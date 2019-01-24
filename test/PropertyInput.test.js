@@ -12,7 +12,7 @@ test('checkBox', () => {
   const handle = jest.fn();
 
   const wrapper = mount(
-    <PropertyInput path={"/checkBox"} bean={bean} onChange={handle} />
+    <PropertyInput path={"/checkBox"} bean={bean} reloadOnChange={handle} />
   );
 
   wrapper.find('input').simulate('change');

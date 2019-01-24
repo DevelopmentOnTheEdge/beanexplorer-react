@@ -18,7 +18,7 @@ class PropertyInput extends BasePropertyInput {
   }
 
   handleChangeBoolean(event) {
-    this.callOnChange(event.target.checked);
+    this.changeAndReload(event.target.checked);
   }
 
   render() {
