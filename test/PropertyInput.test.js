@@ -202,11 +202,11 @@ test('timestamp init with no valid timestamp', () => {
   expect(input.get(0).value).toEqual('no timestamp');
 });
 
-test('file', () => {
+test('base64File', () => {
   const handle = jest.fn();//jest.fn((path, value) => { console.log(path, value); });
 
   const wrapper = mount(
-    <PropertyInput path={"/file"} bean={bean} onChange={handle} />
+    <PropertyInput path={"/base64File"} bean={bean} onChange={handle} />
   );
 
   const fileContents       = 'file contents';
@@ -222,7 +222,7 @@ test('file', () => {
 
   wrapper.find('input').simulate('change', {target: {files: []}});
 
-  expect(handle.mock.calls[0]).toEqual(["/file", ""]);
+  expect(handle.mock.calls[0]).toEqual(["/base64File", ""]);
 });
 
 test('multiSelect test', () => {

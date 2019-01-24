@@ -44,11 +44,14 @@ exports[`contain property 1`] = `
       className="property-label property form-group required"
     >
       <label
-        className="property-input text-warning"
-        id="labelFieldPropertyInput"
-      >
-        Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
-      </label>
+        className="property-input"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<p>Pellentesque habitant morbi tristique senectus et netus et <a href=\\"#test\\">Link</a> malesuada fames ac <b>turpis</b> egestas.</p>",
+          }
+        }
+        id="labelFieldRawPropertyInput"
+      />
     </div>
   </div>
 </div>

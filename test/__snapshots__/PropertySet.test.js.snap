@@ -1272,6 +1272,33 @@ exports[`snapshot bean 1`] = `
         <input
           className="property-input form-control-file"
           id="filePropertyInput"
+          multiple={true}
+          onChange={[Function]}
+          required={false}
+          size={undefined}
+          type="file"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="vertical-input col-lg-12"
+  >
+    <div
+      className="property form-group"
+    >
+      <label
+        className="form-control-label"
+        htmlFor="base64FilePropertyInput"
+      >
+        Base64File
+      </label>
+      <div
+        className="controls"
+      >
+        <input
+          className="property-input form-control-file"
+          id="base64FilePropertyInput"
           multiple={undefined}
           onChange={[Function]}
           required={false}
@@ -3092,6 +3119,37 @@ exports[`snapshot bean horizontal 1`] = `
         <input
           className="property-input form-control-file"
           id="filePropertyInput"
+          multiple={true}
+          onChange={[Function]}
+          required={false}
+          size={undefined}
+          type="file"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="horizontal-input col-lg-12"
+  >
+    <div
+      className="property form-group form-row"
+    >
+      <div
+        className="col-lg-3 col-form-control-label"
+      >
+        <label
+          className="form-control-label col-form-label"
+          htmlFor="base64FilePropertyInput"
+        >
+          Base64File
+        </label>
+      </div>
+      <div
+        className="col-lg-9"
+      >
+        <input
+          className="property-input form-control-file"
+          id="base64FilePropertyInput"
           multiple={undefined}
           onChange={[Function]}
           required={false}
@@ -4133,8 +4191,36 @@ exports[`snapshot bean with readOnly 1`] = `
       >
         <input
           className="property-input form-control-file"
-          disabled="disabled"
           id="filePropertyInput"
+          multiple={true}
+          onChange={[Function]}
+          readOnly="readonly"
+          required={false}
+          size={undefined}
+          type="file"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="vertical-input col-lg-12"
+  >
+    <div
+      className="property form-group"
+    >
+      <label
+        className="form-control-label"
+        htmlFor="base64FilePropertyInput"
+      >
+        Base64File
+      </label>
+      <div
+        className="controls"
+      >
+        <input
+          className="property-input form-control-file"
+          disabled="disabled"
+          id="base64FilePropertyInput"
           multiple={undefined}
           onChange={[Function]}
           required={false}

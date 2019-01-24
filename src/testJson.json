@@ -8,6 +8,7 @@
     "textArea": "test",
     "checkBox": true,
     "file": "",
+    "base64File": "",
     "select": "vanilla",
     "virtualizedSelect": "vanilla",
     "multiSelect": ["chocolate", "strawberry"],
@@ -47,6 +48,12 @@
     },
     "/file": {
       "displayName": "File",
+      "type": "File",
+      "multipleSelectionList": true,
+      "canBeNull": true
+    },
+    "/base64File": {
+      "displayName": "Base64File",
       "type": "Base64File",
       "canBeNull": true
     },
@@ -100,6 +107,7 @@
     "/textArea",
     "/checkBox",
     "/file",
+    "/base64File",
     "/select",
     "/virtualizedSelect",
     "/multiSelect",
