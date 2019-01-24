@@ -1001,7 +1001,7 @@ var PropertyInput = function (_BasePropertyInput) {
   createClass(PropertyInput, [{
     key: 'handleChangeBoolean',
     value: function handleChangeBoolean(event) {
-      this.callOnChange(event.target.checked);
+      this.changeAndReload(event.target.checked);
     }
   }, {
     key: 'render',
