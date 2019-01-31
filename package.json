@@ -6,7 +6,7 @@
   "jsnext:main": "dist/beanexplorer-react.es.js",
   "module": "dist/beanexplorer-react.es.js",
   "scripts": {
-    "start": "webpack-dev-server --host 127.0.0.1 --hot --history-api-fallback --open --open-page \"beanexplorer-react/\" --progress --profile --colors",
+    "start": "webpack-dev-server --host 127.0.0.1 --inline --hot --history-api-fallback --open --open-page \"beanexplorer-react/\" --progress --profile --colors",
     "test": "jest",
     "watch": "npm run test -- --watch",
     "coverage": "npm test -- --coverage",
