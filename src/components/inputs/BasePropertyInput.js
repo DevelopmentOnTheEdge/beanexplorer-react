@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import JsonPointer from 'json-pointer';
 import classNames from 'classnames';
 
 export default class BasePropertyInput extends React.Component {
@@ -48,7 +47,7 @@ export default class BasePropertyInput extends React.Component {
   }
 
   getValue() {
-    return JsonPointer.get(this.props.bean, "/values" + this.getPath())
+    return this.props.value
   }
 
   getCorrectMulValue() {

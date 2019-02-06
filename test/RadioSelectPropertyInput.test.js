@@ -8,7 +8,8 @@ test('radioButtons change', () => {
   const reloadHandle = jest.fn();
 
   const wrapper = mount(
-    <PropertyInput path={"/radioButtons"} bean={bean} onChange={handle} reloadOnChange={reloadHandle}/>
+    <PropertyInput path={"/radioButtons"} bean={bean} onChange={handle} reloadOnChange={reloadHandle}
+                   value={"chocolate"}/>
   );
 
   wrapper.find('#radioButtonsPropertyInput_option0').simulate('change',{ target: { checked: true } });
@@ -25,7 +26,8 @@ test('radioButtonsMultiSelect change', () => {
   const reloadHandle = jest.fn();
 
   const wrapper = mount(
-    <PropertyInput path={"/radioButtonsMultiSelect"} bean={bean} onChange={handle} reloadOnChange={reloadHandle}/>
+    <PropertyInput path={"/radioButtonsMultiSelect"} bean={bean} onChange={handle} reloadOnChange={reloadHandle}
+                   value={["chocolate", "strawberry"]}/>
   );
 
   wrapper.find('#radioButtonsMultiSelectPropertyInput_option0').simulate('change',{ target: { checked: true } });

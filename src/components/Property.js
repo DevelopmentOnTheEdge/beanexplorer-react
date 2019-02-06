@@ -6,7 +6,13 @@ import {inputLabelSizeClasses} from "./utils";
 
 
 class Property extends React.Component {
+
+  shouldComponentUpdate(nextProps) {
+    return this.props.bean !== nextProps.bean || this.props.value !== nextProps.value;
+  }
+
   getPath() {
+
     if (this.props.path) {
       return this.props.path;
     } else {
@@ -172,6 +178,7 @@ class Property extends React.Component {
 
 Property.propTypes = {
   bean: PropTypes.object.isRequired,
+  value: PropTypes.oneOfType([PropTypes.array, PropTypes.string, PropTypes.number, PropTypes.bool]).isRequired,
   path: PropTypes.string,
   id: PropTypes.number,
   inline: PropTypes.bool,

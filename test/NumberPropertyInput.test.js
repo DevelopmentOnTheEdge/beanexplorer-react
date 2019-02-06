@@ -12,7 +12,7 @@ test('textInputWithPatternAndMessage numbers', () => {
 
   const spy = jest.spyOn(NumberPropertyInput.prototype, "numberValidation");
   const wrapper = mount(
-    <PropertyInput path={"/number"} bean={bean} />
+    <PropertyInput path={"/number"} bean={bean} value={"123"}/>
   );
 
   wrapper.find('input').simulate('input', {target: {value: "1", setCustomValidity: handle}});
@@ -52,18 +52,12 @@ test('convertENotationNumbers', () => {
   };
 
   const component = renderer.create(
-    <PropertyInput path={"/double"} bean={bean}/>
+    <PropertyInput path={"/double"} bean={bean} value={"1.1e2"}/>
   );
   expect(component.toJSON()).toMatchSnapshot();
 
-  const bean2 = {
-    "values": { "double": "text" },
-    "meta":   { "/double": {"type": "Double"} },
-    "order":  [ "/double" ]
-  };
-
   const component2 = renderer.create(
-    <PropertyInput path={"/double"} bean={bean2}/>
+    <PropertyInput path={"/double"} bean={bean} value={"text"}/>
   );
   expect(component2.toJSON()).toMatchSnapshot();
 });

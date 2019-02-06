@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import MaskedInput from 'react-maskedinput';
 import RadioSelectPropertyInput from "./inputs/RadioSelectPropertyInput";
 import SelectPropertyInput from "./inputs/SelectPropertyInput";
@@ -96,5 +97,21 @@ class PropertyInput extends BasePropertyInput {
     />;
   }
 }
+
+PropertyInput.propTypes = {
+  bean: PropTypes.object.isRequired,
+  value: PropTypes.oneOfType([PropTypes.array, PropTypes.string, PropTypes.number, PropTypes.bool]).isRequired,
+  path: PropTypes.string,
+  id: PropTypes.number,
+  inline: PropTypes.bool,
+  horizontal: PropTypes.bool,
+  horizontalColSize: PropTypes.number,
+  rowClass: PropTypes.string,
+  bsSize: PropTypes.string,
+  onChange: PropTypes.func,
+  reloadOnChange: PropTypes.func,
+  localization: PropTypes.object,
+  className: PropTypes.string
+};
 
 export default PropertyInput;

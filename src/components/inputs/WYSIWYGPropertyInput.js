@@ -7,6 +7,11 @@ export default class WYSIWYGPropertyInput extends BasePropertyInput {
     super(props);
     this.editorOnChange = this.editorOnChange.bind(this);
     this.editorReload = this.editorReload.bind(this);
+    this.onInit = this.onInit.bind(this);
+  }
+
+  componentDidUpdate() {
+    this.onInit()
   }
 
   editorOnChange(evt){
@@ -21,9 +26,6 @@ export default class WYSIWYGPropertyInput extends BasePropertyInput {
     const meta = this.getMeta();
     const value = this.getValue();
 
-    if (this.ckeditor) {
-      WYSIWYGPropertyInput.updateCkeditor(this.ckeditor, value, meta.readOnly === true);
-    }
     return <CKEditor
       ref={instance => {
         this.ckeditor = instance;
@@ -33,6 +35,7 @@ export default class WYSIWYGPropertyInput extends BasePropertyInput {
       events={{
         "change": this.editorOnChange,
         "blur": this.editorReload,
+        "instanceReady": this.onInit,
       }}
       config={{
         removeButtons: 'image',
@@ -42,7 +45,13 @@ export default class WYSIWYGPropertyInput extends BasePropertyInput {
     />
   }
 
-  static updateCkeditor(ckeditor, value, readOnly) {
+  onInit() {
+    if (this.ckeditor && this.ckeditor.editorInstance) {
+      WYSIWYGPropertyInput.updateCKEditor(this.ckeditor, this.getValue(), this.getMeta().readOnly === true);
+    }
+  }
+
+  static updateCKEditor(ckeditor, value, readOnly) {
     if (ckeditor.editorInstance.getData() !== value) {
       ckeditor.editorInstance.setData(value);
     }

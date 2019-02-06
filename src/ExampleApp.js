@@ -32,7 +32,8 @@ class AllPropertyTypes extends Component
     super(props);
 
     this.state = {
-      bean: bean
+      bean: bean,
+      values: bean.values
     };
 
     this.handleFieldChange = this.handleFieldChange.bind(this);
@@ -54,24 +55,29 @@ class AllPropertyTypes extends Component
   }
 
   handleSubmit(event) {
-    console.log('submit:', this.state.bean.values);
+    console.log('submit:', this.state.values);
     event.preventDefault();
   }
 
-  handleJsonChange(event){
-    this.setState({bean: JSON.parse(event.target.value)});
+  handleJsonChange(event) {
+    const bean = JSON.parse(event.target.value);
+    this.setState({bean: bean, values : bean.values});
   }
 
   handleFieldChange(path, value) {
     console.log("onChange: ", path, value);
-    JsonPointer.set(this.state.bean, "/values" + path, value);
-    this.forceUpdate();
+    const nextValues = Object.assign({}, this.state.values);
+    JsonPointer.set(nextValues, path, value);
+    this.setState({values: nextValues});
   }
 
   reloadOnChange(path, value) {
     console.log("reloadOnChange: ", path, value);
-    if (value !== undefined) JsonPointer.set(this.state.bean, "/values" + path, value);
-    this.forceUpdate();
+    if (value !== undefined) {
+      const nextValues = Object.assign({}, this.state.values);
+      JsonPointer.set(nextValues, path, value);
+      this.setState({values: nextValues});
+    }
   }
 
   getBean(){
@@ -92,6 +98,7 @@ class AllPropertyTypes extends Component
       <form onSubmit={this.handleSubmit} className={classNames("bs-example", {"was-validated" : this.state.wasValidated})}>
         <PropertySet
           bean={this.getBean()}
+          values={this.state.values}
           onChange={this.handleFieldChange}
           reloadOnChange={this.reloadOnChange}
           bsSize={this.state.bsSize}
@@ -219,7 +226,8 @@ class PropertyOuter extends AllPropertyTypes
     super(props);
 
     this.state = {
-      bean: testOuter
+      bean: testOuter,
+      values: testOuter.values
     };
   }
 }
@@ -230,7 +238,8 @@ class Validation extends AllPropertyTypes
     super(props);
 
     this.state = {
-      bean: validationTest
+      bean: validationTest,
+      values: validationTest.values
     };
   }
 }
@@ -241,7 +250,8 @@ class DevForm extends AllPropertyTypes
     super(props);
 
     this.state = {
-      bean: devJson
+      bean: devJson,
+      values: devJson.values
     };
   }
 }
@@ -252,7 +262,8 @@ class InlineForm extends AllPropertyTypes
     super(props);
 
     this.state = {
-      bean: layout1
+      bean: layout1,
+      values: layout1.values
     };
   }
 

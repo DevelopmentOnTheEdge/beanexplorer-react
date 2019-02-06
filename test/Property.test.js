@@ -8,7 +8,7 @@ test('get by id', () => {
   const handle = jest.fn();
 
   const wrapper = mount(
-    <Property id={0} bean={bean} onChange={handle} />
+    <Property id={0} bean={bean} onChange={handle} value={"test"}/>
   );
 
   expect(wrapper.instance().getPath()).toEqual('/textInput');

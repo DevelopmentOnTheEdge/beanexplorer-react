@@ -6,13 +6,14 @@ import validationTest from '../src/validationTest.json';
 import WYSIWYGPropertyInput from "../src/components/inputs/WYSIWYGPropertyInput";
 import SelectPropertyInput from "../src/components/inputs/SelectPropertyInput";
 import DateTimePropertyInput from "../src/components/inputs/DateTimePropertyInput";
-
+import JsonPointer from 'json-pointer';
 
 test('checkBox', () => {
   const handle = jest.fn();
 
   const wrapper = mount(
-    <PropertyInput path={"/checkBox"} bean={bean} reloadOnChange={handle} />
+    <PropertyInput path={"/checkBox"} bean={bean} reloadOnChange={handle}
+                   value={JsonPointer.get(bean.values, "/checkBox")}/>
   );
 
   wrapper.find('input').simulate('change');
@@ -24,7 +25,8 @@ test('textInput', () => {
   const handle = jest.fn();
 
   const wrapper = mount(
-    <PropertyInput path={"/textInput"} bean={bean} onChange={handle} />
+    <PropertyInput path={"/textInput"} bean={bean} onChange={handle}
+                   value={JsonPointer.get(bean.values, "/textInput")}/>
   );
 
   wrapper.find('input').simulate('change', {target: {value: 'newValue'}});
@@ -40,7 +42,8 @@ test('textInputWithPatternAndMessage', () => {
 
   const spy = jest.spyOn(PropertyInput.prototype, "patternValidationMessage");
   let wrapper = mount(
-    <PropertyInput path={"/textInputWithPatternAndMessage"} bean={validationTest} />
+    <PropertyInput path={"/textInputWithPatternAndMessage"} bean={validationTest}
+                   value={JsonPointer.get(validationTest.values, "/textInputWithPatternAndMessage")}/>
   );
 
   wrapper.find('input').simulate('input', {target: {setCustomValidity: handle, validity: {patternMismatch: true}}});
@@ -52,7 +55,8 @@ test('textInputWithPatternAndMessage', () => {
   expect(handle.mock.calls[1]).toEqual([""]);
 
   wrapper = mount(
-    <PropertyInput path={"/textInputWithPattern"} bean={validationTest} />
+    <PropertyInput path={"/textInputWithPattern"} bean={validationTest}
+                   value={JsonPointer.get(validationTest.values, "/textInputWithPattern")}/>
   );
 
   wrapper.find('input').simulate('input', {target: {setCustomValidity: handle, validity: {patternMismatch: true}}});
@@ -64,7 +68,8 @@ test('date', () => {
   const handle = jest.fn();
 
   const wrapper = mount(
-    <PropertyInput path={"/date"} bean={bean} onChange={handle} />
+    <PropertyInput path={"/date"} bean={bean} onChange={handle}
+                   value={JsonPointer.get(bean.values, "/date")}/>
   );
 
   wrapper.find('input').simulate('change', {target: {value: '20.07.2017'}});
@@ -85,7 +90,8 @@ test('date dateValidationMessage', () => {
   const handle = jest.fn();
 
   const wrapper = shallow(
-    <DateTimePropertyInput path={"/date"} bean={bean} onChange={handle} />
+    <DateTimePropertyInput path={"/date"} bean={bean} onChange={handle}
+                           value={JsonPointer.get(bean.values, "/date")}/>
   );
 
   wrapper.instance().dateValidationMessage(
@@ -107,7 +113,8 @@ test('date init with no valid date', () => {
     "meta":   { "/date": {"type": "Date"} },
     "order":  [ "/date" ]
   };
-  const wrapper = mount(<PropertyInput path={"/date"} bean={simpleBean} />);
+  const wrapper = mount(<PropertyInput path={"/date"} bean={simpleBean}
+                                       value={JsonPointer.get(simpleBean.values, "/date")}/>);
   const input = wrapper.find('input');
 
   expect(input.get(0).value).toEqual('no date');
@@ -117,7 +124,8 @@ test('timestamp', () => {
   const handle = jest.fn();
 
   const wrapper = mount(
-    <PropertyInput path={"/timestamp"} bean={bean} onChange={handle} />
+    <PropertyInput path={"/timestamp"} bean={bean} onChange={handle}
+                   value={JsonPointer.get(bean.values, "/timestamp")}/>
   );
 
   wrapper.find('input').simulate('change', {target: {value: '20.07.2017 17:05'}});
@@ -138,7 +146,8 @@ test('timestamp timestampValidationMessage', () => {
   const handle = jest.fn();
 
   const wrapper = shallow(
-    <DateTimePropertyInput path={"/timestamp"} bean={bean} onChange={handle} />
+    <DateTimePropertyInput path={"/timestamp"} bean={bean} onChange={handle}
+                           value={JsonPointer.get(bean.values, "/timestamp")}/>
   );
 
   wrapper.instance().timestampValidationMessage(
@@ -160,7 +169,8 @@ test('3 Fractional seconds digits', () => {
     "meta":   { "/timestamp": {"type": "Timestamp"} },
     "order":  [ "/timestamp" ]
   };
-  const wrapper = mount(<PropertyInput path={"/timestamp"} bean={simpleBean} />);
+  const wrapper = mount(<PropertyInput path={"/timestamp"} bean={simpleBean}
+                                       value={JsonPointer.get(simpleBean.values, "/timestamp")}/>);
   const input = wrapper.find('input');
 
   expect(input.get(0).value).toEqual('20.07.2017 17:05');
@@ -172,7 +182,8 @@ test('2 Fractional seconds digits', () => {
     "meta":   { "/timestamp": {"type": "Timestamp"} },
     "order":  [ "/timestamp" ]
   };
-  const wrapper = mount(<PropertyInput path={"/timestamp"} bean={simpleBean} />);
+  const wrapper = mount(<PropertyInput path={"/timestamp"} bean={simpleBean}
+                                       value={JsonPointer.get(simpleBean.values, "/timestamp")}/>);
   const input = wrapper.find('input');
 
   expect(input.get(0).value).toEqual('20.07.2017 17:05');
@@ -184,7 +195,8 @@ test('1 Fractional seconds digits', () => {
     "meta":   { "/timestamp": {"type": "Timestamp"} },
     "order":  [ "/timestamp" ]
   };
-  const wrapper = mount(<PropertyInput path={"/timestamp"} bean={simpleBean} />);
+  const wrapper = mount(<PropertyInput path={"/timestamp"} bean={simpleBean}
+                                       value={JsonPointer.get(simpleBean.values, "/timestamp")}/>);
   const input = wrapper.find('input');
 
   expect(input.get(0).value).toEqual('20.07.2017 17:05');
@@ -196,7 +208,8 @@ test('timestamp init with no valid timestamp', () => {
     "meta":   { "/timestamp": {"type": "Timestamp"} },
     "order":  [ "/timestamp" ]
   };
-  const wrapper = mount(<PropertyInput path={"/timestamp"} bean={simpleBean} />);
+  const wrapper = mount(<PropertyInput path={"/timestamp"} bean={simpleBean}
+                                       value={JsonPointer.get(simpleBean.values, "/timestamp")}/>);
   const input = wrapper.find('input');
 
   expect(input.get(0).value).toEqual('no timestamp');
@@ -206,7 +219,8 @@ test('base64File', () => {
   const handle = jest.fn();//jest.fn((path, value) => { console.log(path, value); });
 
   const wrapper = mount(
-    <PropertyInput path={"/base64File"} bean={bean} onChange={handle} />
+    <PropertyInput path={"/base64File"} bean={bean} onChange={handle}
+                   value={JsonPointer.get(bean.values, "/base64File")}/>
   );
 
   const fileContents       = 'file contents';
@@ -230,7 +244,8 @@ test('multiSelect test', () => {
   const reloadHandle = jest.fn();
 
   const wrapper = mount(
-    <SelectPropertyInput path={"/multiSelect"} bean={bean} onChange={handle} reloadOnChange={reloadHandle}/>
+    <SelectPropertyInput path={"/multiSelect"} bean={bean} onChange={handle} reloadOnChange={reloadHandle}
+                         value={JsonPointer.get(bean.values, "/multiSelect")}/>
   );
 
   wrapper.instance().handleChangeSelect(null);
@@ -249,7 +264,7 @@ test('updateCkeditor', () => {
   const setData = jest.fn();
   const setReadOnly = jest.fn();
 
-  WYSIWYGPropertyInput.updateCkeditor({editorInstance: {
+  WYSIWYGPropertyInput.updateCKEditor({editorInstance: {
     setReadOnly: setReadOnly,
     setData: setData,
     getData: () => {return 'test'}}}, "test2", true);
@@ -257,7 +272,7 @@ test('updateCkeditor', () => {
   expect(setData.mock.calls[0]).toEqual(["test2"]);
   expect(setReadOnly.mock.calls[0]).toEqual([true]);
 
-  WYSIWYGPropertyInput.updateCkeditor({editorInstance: {
+  WYSIWYGPropertyInput.updateCKEditor({editorInstance: {
     setReadOnly: setReadOnly,
     setData: setData,
     getData: () => {return 'test'}}}, "test", true);
@@ -270,7 +285,8 @@ test('test change path', () => {
   const handle = jest.fn();
 
   const wrapper = mount(
-    <PropertyInput path={"/textInput"} bean={bean} onChange={handle} />
+    <PropertyInput path={"/textInput"} bean={bean} onChange={handle}
+                   value={JsonPointer.get(bean.values, "/textInput")}/>
   );
 
   expect(wrapper.instance().getMeta()).toEqual({"displayName": "Text input"});
@@ -289,7 +305,7 @@ test('getCorrectMulValue', () => {
     }},
     "order":  [ "/select" ]
   };
-  const wrapper = mount(<PropertyInput path={"/select"} bean={simpleBean} />);
+  const wrapper = mount(<PropertyInput path={"/select"} bean={simpleBean} value={""}/>);
   expect(wrapper.instance().getCorrectMulValue()).toEqual([]);
 });
 
@@ -302,6 +318,6 @@ test('getCorrectMulValue single value', () => {
     }},
     "order":  [ "/select" ]
   };
-  const wrapper = mount(<PropertyInput path={"/select"} bean={simpleBean} />);
+  const wrapper = mount(<PropertyInput path={"/select"} bean={simpleBean} value={"value"}/>);
   expect(wrapper.instance().getCorrectMulValue()).toEqual(["value"]);
 });

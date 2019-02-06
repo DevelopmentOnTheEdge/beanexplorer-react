@@ -2,9 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Property from './Property';
 import classNames from 'classnames';
-
+import JsonPointer from 'json-pointer';
 
 class PropertySet extends React.Component {
+
+  shouldComponentUpdate(nextProps) {
+    return this.props.bean !== nextProps.bean || this.props.values !== nextProps.values;
+  }
+
   static getName(name) {
     if (name) {
       return <h5 className='property-group__title'>{name}</h5>
@@ -63,7 +68,7 @@ class PropertySet extends React.Component {
       }
 
       const field = (
-        <Property key={path} path={path} {...this.props}/>
+        <Property key={path} path={path} {...this.props} value={this.getValue(path)}/>
       );
 
       curGroup.push(field);
@@ -77,6 +82,11 @@ class PropertySet extends React.Component {
     );
   }
 
+  getValue(path) {
+    const values = this.props.values || this.props.bean.values;
+    return JsonPointer.get(values, path)
+  }
+
 }
 
 PropertySet.defaultProps = {
@@ -85,6 +95,7 @@ PropertySet.defaultProps = {
 
 PropertySet.propTypes = {
   bean: PropTypes.object.isRequired,
+  values: PropTypes.object,
   onChange: PropTypes.func,
   inline: PropTypes.bool,
   bsSize: PropTypes.string,
