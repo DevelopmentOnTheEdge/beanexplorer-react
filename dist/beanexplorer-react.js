@@ -1,14 +1,13 @@
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('react'), require('prop-types'), require('classnames'), require('react-maskedinput'), require('json-pointer'), require('react-select'), require('react-virtualized-select'), require('big-integer'), require('big-rational'), require('react-datetime'), require('moment'), require('react-ckeditor-component')) :
-	typeof define === 'function' && define.amd ? define(['react', 'prop-types', 'classnames', 'react-maskedinput', 'json-pointer', 'react-select', 'react-virtualized-select', 'big-integer', 'big-rational', 'react-datetime', 'moment', 'react-ckeditor-component'], factory) :
-	(global.PropertySet = factory(global.React,global.PropTypes,global.classNames,global.MaskedInput,global.JsonPointer,global.Select,global.VirtualizedSelect,global.bigInt,global.bigRat,global.Datetime,global.moment,global.CKEditor));
-}(this, (function (React,PropTypes,classNames,MaskedInput,JsonPointer,Select,VirtualizedSelect,bigInt,bigRat,Datetime,moment,CKEditor) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('react'), require('prop-types'), require('classnames'), require('react-maskedinput'), require('react-select'), require('react-virtualized-select'), require('big-integer'), require('big-rational'), require('react-datetime'), require('moment'), require('react-ckeditor-component'), require('json-pointer')) :
+	typeof define === 'function' && define.amd ? define(['react', 'prop-types', 'classnames', 'react-maskedinput', 'react-select', 'react-virtualized-select', 'big-integer', 'big-rational', 'react-datetime', 'moment', 'react-ckeditor-component', 'json-pointer'], factory) :
+	(global.PropertySet = factory(global.React,global.PropTypes,global.classNames,global.MaskedInput,global.Select,global.VirtualizedSelect,global.bigInt,global.bigRat,global.Datetime,global.moment,global.CKEditor,global.JsonPointer));
+}(this, (function (React,PropTypes,classNames,MaskedInput,Select,VirtualizedSelect,bigInt,bigRat,Datetime,moment,CKEditor,JsonPointer) { 'use strict';
 
 React = React && React.hasOwnProperty('default') ? React['default'] : React;
 PropTypes = PropTypes && PropTypes.hasOwnProperty('default') ? PropTypes['default'] : PropTypes;
 classNames = classNames && classNames.hasOwnProperty('default') ? classNames['default'] : classNames;
 MaskedInput = MaskedInput && MaskedInput.hasOwnProperty('default') ? MaskedInput['default'] : MaskedInput;
-JsonPointer = JsonPointer && JsonPointer.hasOwnProperty('default') ? JsonPointer['default'] : JsonPointer;
 var Select__default = 'default' in Select ? Select['default'] : Select;
 VirtualizedSelect = VirtualizedSelect && VirtualizedSelect.hasOwnProperty('default') ? VirtualizedSelect['default'] : VirtualizedSelect;
 bigInt = bigInt && bigInt.hasOwnProperty('default') ? bigInt['default'] : bigInt;
@@ -16,6 +15,7 @@ bigRat = bigRat && bigRat.hasOwnProperty('default') ? bigRat['default'] : bigRat
 Datetime = Datetime && Datetime.hasOwnProperty('default') ? Datetime['default'] : Datetime;
 moment = moment && moment.hasOwnProperty('default') ? moment['default'] : moment;
 CKEditor = CKEditor && CKEditor.hasOwnProperty('default') ? CKEditor['default'] : CKEditor;
+JsonPointer = JsonPointer && JsonPointer.hasOwnProperty('default') ? JsonPointer['default'] : JsonPointer;
 
 var inputLabelSizeClasses = function inputLabelSizeClasses(props) {
   return classNames({ 'col-form-label-sm': props.bsSize === "sm" }, { 'col-form-label-lg': props.bsSize === "lg" });
@@ -155,7 +155,7 @@ var BasePropertyInput = function (_React$Component) {
   }, {
     key: 'getValue',
     value: function getValue() {
-      return JsonPointer.get(this.props.bean, "/values" + this.getPath());
+      return this.props.value;
     }
   }, {
     key: 'getCorrectMulValue',
@@ -808,10 +808,16 @@ var WYSIWYGPropertyInput = function (_BasePropertyInput) {
 
     _this.editorOnChange = _this.editorOnChange.bind(_this);
     _this.editorReload = _this.editorReload.bind(_this);
+    _this.onInit = _this.onInit.bind(_this);
     return _this;
   }
 
   createClass(WYSIWYGPropertyInput, [{
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate() {
+      this.onInit();
+    }
+  }, {
     key: 'editorOnChange',
     value: function editorOnChange(evt) {
       this.callOnChange(evt.editor.getData());
@@ -829,9 +835,6 @@ var WYSIWYGPropertyInput = function (_BasePropertyInput) {
       var meta = this.getMeta();
       var value = this.getValue();
 
-      if (this.ckeditor) {
-        WYSIWYGPropertyInput.updateCkeditor(this.ckeditor, value, meta.readOnly === true);
-      }
       return React.createElement(CKEditor, {
         ref: function ref(instance) {
           _this2.ckeditor = instance;
@@ -840,7 +843,8 @@ var WYSIWYGPropertyInput = function (_BasePropertyInput) {
         content: value,
         events: {
           "change": this.editorOnChange,
-          "blur": this.editorReload
+          "blur": this.editorReload,
+          "instanceReady": this.onInit
         },
         config: {
           removeButtons: 'image',
@@ -849,9 +853,16 @@ var WYSIWYGPropertyInput = function (_BasePropertyInput) {
         }
       });
     }
+  }, {
+    key: 'onInit',
+    value: function onInit() {
+      if (this.ckeditor && this.ckeditor.editorInstance) {
+        WYSIWYGPropertyInput.updateCKEditor(this.ckeditor, this.getValue(), this.getMeta().readOnly === true);
+      }
+    }
   }], [{
-    key: 'updateCkeditor',
-    value: function updateCkeditor(ckeditor, value, readOnly) {
+    key: 'updateCKEditor',
+    value: function updateCKEditor(ckeditor, value, readOnly) {
       if (ckeditor.editorInstance.getData() !== value) {
         ckeditor.editorInstance.setData(value);
       }
@@ -1076,6 +1087,22 @@ var PropertyInput = function (_BasePropertyInput) {
   return PropertyInput;
 }(BasePropertyInput);
 
+PropertyInput.propTypes = {
+  bean: PropTypes.object.isRequired,
+  value: PropTypes.oneOfType([PropTypes.array, PropTypes.string, PropTypes.number, PropTypes.bool]).isRequired,
+  path: PropTypes.string,
+  id: PropTypes.number,
+  inline: PropTypes.bool,
+  horizontal: PropTypes.bool,
+  horizontalColSize: PropTypes.number,
+  rowClass: PropTypes.string,
+  bsSize: PropTypes.string,
+  onChange: PropTypes.func,
+  reloadOnChange: PropTypes.func,
+  localization: PropTypes.object,
+  className: PropTypes.string
+};
+
 var Property = function (_React$Component) {
   inherits(Property, _React$Component);
 
@@ -1085,8 +1112,14 @@ var Property = function (_React$Component) {
   }
 
   createClass(Property, [{
+    key: 'shouldComponentUpdate',
+    value: function shouldComponentUpdate(nextProps) {
+      return this.props.bean !== nextProps.bean || this.props.value !== nextProps.value;
+    }
+  }, {
     key: 'getPath',
     value: function getPath() {
+
       if (this.props.path) {
         return this.props.path;
       } else {
@@ -1241,6 +1274,7 @@ var Property = function (_React$Component) {
 
 Property.propTypes = {
   bean: PropTypes.object.isRequired,
+  value: PropTypes.oneOfType([PropTypes.array, PropTypes.string, PropTypes.number, PropTypes.bool]).isRequired,
   path: PropTypes.string,
   id: PropTypes.number,
   inline: PropTypes.bool,
@@ -1268,13 +1302,18 @@ var Properties = function (_React$Component) {
   }
 
   createClass(Properties, [{
+    key: 'shouldComponentUpdate',
+    value: function shouldComponentUpdate(nextProps) {
+      return this.props.bean !== nextProps.bean || this.props.values !== nextProps.values;
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _this2 = this;
 
       var fields = this.props.bean.order.map(function (path, i) {
         if (_this2.props.ids === undefined || _this2.props.ids.includes(i)) {
-          return React.createElement(Property, _extends({ path: path, key: path }, _this2.props));
+          return React.createElement(Property, _extends({ path: path, key: path }, _this2.props, { value: _this2.getValue(path) }));
         } else {
           return null;
         }
@@ -1286,6 +1325,12 @@ var Properties = function (_React$Component) {
         { className: this.props.rowClass },
         fields
       );
+    }
+  }, {
+    key: 'getValue',
+    value: function getValue(path) {
+      var values = this.props.values || this.props.bean.values;
+      return JsonPointer.get(values, path);
     }
   }]);
   return Properties;
@@ -1315,6 +1360,11 @@ var PropertySet$1 = function (_React$Component) {
   }
 
   createClass(PropertySet, [{
+    key: 'shouldComponentUpdate',
+    value: function shouldComponentUpdate(nextProps) {
+      return this.props.bean !== nextProps.bean || this.props.values !== nextProps.values;
+    }
+  }, {
     key: 'createGroup',
     value: function createGroup(curGroup, curGroupId, curGroupName, curGroupClasses) {
       return React.createElement(
@@ -1376,7 +1426,7 @@ var PropertySet$1 = function (_React$Component) {
             curGroupId = newGroupId;
           }
 
-          var field = React.createElement(Property, _extends({ key: path, path: path }, this.props));
+          var field = React.createElement(Property, _extends({ key: path, path: path }, this.props, { value: this.getValue(path) }));
 
           curGroup.push(field);
         }
@@ -1403,6 +1453,12 @@ var PropertySet$1 = function (_React$Component) {
         fields
       );
     }
+  }, {
+    key: 'getValue',
+    value: function getValue(path) {
+      var values = this.props.values || this.props.bean.values;
+      return JsonPointer.get(values, path);
+    }
   }], [{
     key: 'getName',
     value: function getName(name) {
@@ -1426,6 +1482,7 @@ PropertySet$1.defaultProps = {
 
 PropertySet$1.propTypes = {
   bean: PropTypes.object.isRequired,
+  values: PropTypes.object,
   onChange: PropTypes.func,
   inline: PropTypes.bool,
   bsSize: PropTypes.string,
