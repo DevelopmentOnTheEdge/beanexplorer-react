@@ -1089,7 +1089,7 @@ var PropertyInput = function (_BasePropertyInput) {
 
 PropertyInput.propTypes = {
   bean: PropTypes.object.isRequired,
-  value: PropTypes.oneOfType([PropTypes.array, PropTypes.string, PropTypes.number, PropTypes.bool]).isRequired,
+  value: PropTypes.any.isRequired,
   path: PropTypes.string,
   id: PropTypes.number,
   inline: PropTypes.bool,
@@ -1274,7 +1274,7 @@ var Property = function (_React$Component) {
 
 Property.propTypes = {
   bean: PropTypes.object.isRequired,
-  value: PropTypes.oneOfType([PropTypes.array, PropTypes.string, PropTypes.number, PropTypes.bool]).isRequired,
+  value: PropTypes.any.isRequired,
   path: PropTypes.string,
   id: PropTypes.number,
   inline: PropTypes.bool,
