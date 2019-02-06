@@ -1,6 +1,6 @@
 {
   "name": "beanexplorer-react",
-  "version": "1.0.23",
+  "version": "1.0.24",
   "description": "React component for BeanExplorer beans",
   "main": "dist/beanexplorer-react.js",
   "jsnext:main": "dist/beanexplorer-react.es.js",
