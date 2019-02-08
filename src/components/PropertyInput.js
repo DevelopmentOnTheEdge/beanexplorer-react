@@ -18,6 +18,10 @@ class PropertyInput extends BasePropertyInput {
     this.handleChangeBoolean = this.handleChangeBoolean.bind(this);
   }
 
+  shouldComponentUpdate(nextProps) {
+    return this.props.bean !== nextProps.bean || this.props.value !== nextProps.value;
+  }
+
   handleChangeBoolean(event) {
     this.changeAndReload(event.target.checked);
   }
