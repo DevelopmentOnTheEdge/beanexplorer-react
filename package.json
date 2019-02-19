@@ -12,7 +12,7 @@
     "coverage": "npm test -- --coverage",
     "coveralls": "npm run-script coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "up": "npm version patch && npm publish",
-    "example": "webpack --config webpack.example.config.js",
+    "example": "BABEL_ENV=production webpack --config webpack.example.config.js",
     "lib": "rollup -c rollup.config.js"
   },
   "repository": {
