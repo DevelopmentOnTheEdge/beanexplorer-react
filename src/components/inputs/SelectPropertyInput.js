@@ -16,11 +16,6 @@ export default class SelectPropertyInput extends BasePropertyInput {
     const localization = this.props.localization;
     const extraAttrsMap = BasePropertyInput.getExtraAttrsMap(meta);
 
-    let options = [];
-    for (let i = 0; i < meta.tagList.length; i++) {
-      options.push({value: meta.tagList[i][0], label: meta.tagList[i][1]});
-    }
-
     let style;
     if (this.props.inline) {
       //константы подобраны для совпадения с длиной стандартного input
@@ -38,7 +33,7 @@ export default class SelectPropertyInput extends BasePropertyInput {
       ref: id,
       name: id,
       value: this.getCorrectMulValue(),
-      options: options,
+      options: this.getOptions(),
       onChange: this.handleChangeSelect,
       clearAllText: localization.clearAllText,
       clearValueText: localization.clearValueText,
@@ -83,6 +78,15 @@ export default class SelectPropertyInput extends BasePropertyInput {
     >
       {select}
     </div>
+  }
+
+  getOptions() {
+    const meta = this.getMeta();
+    let options = [];
+    for (let i = 0; i < meta.tagList.length; i++) {
+      options.push({value: meta.tagList[i][0], label: meta.tagList[i][1]});
+    }
+    return options;
   }
 
   handleChangeSelect(object) {

@@ -440,11 +440,6 @@ var SelectPropertyInput = function (_BasePropertyInput) {
       var localization = this.props.localization;
       var extraAttrsMap = BasePropertyInput.getExtraAttrsMap(meta);
 
-      var options = [];
-      for (var i = 0; i < meta.tagList.length; i++) {
-        options.push({ value: meta.tagList[i][0], label: meta.tagList[i][1] });
-      }
-
       var style = void 0;
       if (this.props.inline) {
         //константы подобраны для совпадения с длиной стандартного input
@@ -462,7 +457,7 @@ var SelectPropertyInput = function (_BasePropertyInput) {
         ref: id,
         name: id,
         value: this.getCorrectMulValue(),
-        options: options,
+        options: this.getOptions(),
         onChange: this.handleChangeSelect,
         clearAllText: localization.clearAllText,
         clearValueText: localization.clearValueText,
@@ -499,6 +494,16 @@ var SelectPropertyInput = function (_BasePropertyInput) {
         },
         select
       );
+    }
+  }, {
+    key: 'getOptions',
+    value: function getOptions() {
+      var meta = this.getMeta();
+      var options = [];
+      for (var i = 0; i < meta.tagList.length; i++) {
+        options.push({ value: meta.tagList[i][0], label: meta.tagList[i][1] });
+      }
+      return options;
     }
   }, {
     key: 'handleChangeSelect',
