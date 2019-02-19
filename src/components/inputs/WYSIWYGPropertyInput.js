@@ -23,7 +23,6 @@ export default class WYSIWYGPropertyInput extends BasePropertyInput {
   }
 
   render() {
-    const meta = this.getMeta();
     const value = this.getValue();
 
     return <CKEditor
@@ -32,17 +31,31 @@ export default class WYSIWYGPropertyInput extends BasePropertyInput {
       }}
       activeClass="p10"
       content={value}
-      events={{
-        "change": this.editorOnChange,
-        "blur": this.editorReload,
-        "instanceReady": this.onInit,
-      }}
-      config={{
-        removeButtons: 'image',
-        language: this.props.localization.locale,
-        readOnly: meta.readOnly
-      }}
+      events={this.getEvents()}
+      config={this.getConfig()}
+      scriptUrl={this.getScriptUrl()}
     />
+  }
+
+  getConfig() {
+    const meta = this.getMeta();
+    return {
+      removeButtons: 'image',
+      language: this.props.localization.locale,
+      readOnly: meta.readOnly
+    }
+  }
+
+  getScriptUrl() {
+    return undefined;
+  }
+
+  getEvents() {
+    return {
+      "change": this.editorOnChange,
+      "blur": this.editorReload,
+      "instanceReady": this.onInit,
+    }
   }
 
   onInit() {
