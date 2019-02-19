@@ -10,6 +10,7 @@ import WYSIWYGPropertyInput from "./inputs/WYSIWYGPropertyInput";
 import LabelPropertyInput from "./inputs/LabelPropertyInput";
 import Base64FilePropertyInput from "./inputs/Base64FilePropertyInput";
 import FilePropertyInput from "./inputs/FilePropertyInput";
+import {getPropertyInput} from "./propertyInputRegister";
 
 
 class PropertyInput extends BasePropertyInput {
@@ -30,6 +31,11 @@ class PropertyInput extends BasePropertyInput {
     const meta = this.getMeta();
     const value = this.getValue();
     const extraAttrsMap = BasePropertyInput.getExtraAttrsMap(meta);
+
+    if (extraAttrsMap.inputType !== undefined && getPropertyInput(extraAttrsMap.inputType) !== undefined) {
+      const CustomPropertyInput = getPropertyInput(extraAttrsMap.inputType);
+      return <CustomPropertyInput {...this.props}/>
+    }
 
     if (meta.tagList) {
       if (extraAttrsMap.inputType === "radio") {

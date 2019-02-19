@@ -832,7 +832,6 @@ var WYSIWYGPropertyInput = function (_BasePropertyInput) {
     value: function render() {
       var _this2 = this;
 
-      var meta = this.getMeta();
       var value = this.getValue();
 
       return React.createElement(CKEditor, {
@@ -841,17 +840,34 @@ var WYSIWYGPropertyInput = function (_BasePropertyInput) {
         },
         activeClass: 'p10',
         content: value,
-        events: {
-          "change": this.editorOnChange,
-          "blur": this.editorReload,
-          "instanceReady": this.onInit
-        },
-        config: {
-          removeButtons: 'image',
-          language: this.props.localization.locale,
-          readOnly: meta.readOnly
-        }
+        events: this.getEvents(),
+        config: this.getConfig(),
+        scriptUrl: this.getScriptUrl()
       });
+    }
+  }, {
+    key: 'getConfig',
+    value: function getConfig() {
+      var meta = this.getMeta();
+      return {
+        removeButtons: 'image',
+        language: this.props.localization.locale,
+        readOnly: meta.readOnly
+      };
+    }
+  }, {
+    key: 'getScriptUrl',
+    value: function getScriptUrl() {
+      return undefined;
+    }
+  }, {
+    key: 'getEvents',
+    value: function getEvents() {
+      return {
+        "change": this.editorOnChange,
+        "blur": this.editorReload,
+        "instanceReady": this.onInit
+      };
     }
   }, {
     key: 'onInit',
@@ -997,6 +1013,12 @@ var FilePropertyInput = function (_BasePropertyInput) {
   return FilePropertyInput;
 }(BasePropertyInput);
 
+var propertyInputs = {};
+
+var getPropertyInput = function getPropertyInput(name) {
+  return propertyInputs[name];
+};
+
 var PropertyInput = function (_BasePropertyInput) {
   inherits(PropertyInput, _BasePropertyInput);
 
@@ -1010,6 +1032,11 @@ var PropertyInput = function (_BasePropertyInput) {
   }
 
   createClass(PropertyInput, [{
+    key: 'shouldComponentUpdate',
+    value: function shouldComponentUpdate(nextProps) {
+      return this.props.bean !== nextProps.bean || this.props.value !== nextProps.value;
+    }
+  }, {
     key: 'handleChangeBoolean',
     value: function handleChangeBoolean(event) {
       this.changeAndReload(event.target.checked);
@@ -1020,6 +1047,11 @@ var PropertyInput = function (_BasePropertyInput) {
       var meta = this.getMeta();
       var value = this.getValue();
       var extraAttrsMap = BasePropertyInput.getExtraAttrsMap(meta);
+
+      if (extraAttrsMap.inputType !== undefined && getPropertyInput(extraAttrsMap.inputType) !== undefined) {
+        var CustomPropertyInput = getPropertyInput(extraAttrsMap.inputType);
+        return React.createElement(CustomPropertyInput, this.props);
+      }
 
       if (meta.tagList) {
         if (extraAttrsMap.inputType === "radio") {

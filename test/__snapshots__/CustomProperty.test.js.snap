@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`get by id 1`] = `
+<div
+  className="vertical-input col-lg-12"
+>
+  <div
+    className="property form-group required"
+  >
+    <div
+      className="controls"
+    >
+      <div>
+        <div
+          className="input-group mb-3"
+        >
+          <div
+            className="input-group-prepend"
+          >
+            <span
+              className="input-group-text"
+            >
+              $
+            </span>
+          </div>
+          <input
+            className="property-input form-control"
+            data-info-range={undefined}
+            data-info-step={undefined}
+            data-info-type="Date"
+            id="inputPropertyInput"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onInput={[Function]}
+            placeholder={undefined}
+            required={true}
+            size={undefined}
+            type="text"
+            value="test"
+          />
+          <div
+            className="input-group-append"
+          >
+            <span
+              className="input-group-text"
+            >
+              .00
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
