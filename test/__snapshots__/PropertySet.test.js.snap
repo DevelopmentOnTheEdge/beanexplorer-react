@@ -298,6 +298,7 @@ exports[`snapshot bean 1`] = `
           className="rdt Datetime-outer"
         >
           <input
+            autoComplete="off"
             className="property-input form-control"
             id="datePropertyInput"
             onChange={[Function]}
@@ -719,6 +720,7 @@ exports[`snapshot bean 1`] = `
           className="rdt Datetime-outer"
         >
           <input
+            autoComplete="off"
             className="property-input form-control"
             id="timestampPropertyInput"
             onChange={[Function]}
@@ -2117,6 +2119,7 @@ exports[`snapshot bean horizontal 1`] = `
           className="rdt Datetime-outer"
         >
           <input
+            autoComplete="off"
             className="property-input form-control"
             id="datePropertyInput"
             onChange={[Function]}
@@ -2542,6 +2545,7 @@ exports[`snapshot bean horizontal 1`] = `
           className="rdt Datetime-outer"
         >
           <input
+            autoComplete="off"
             className="property-input form-control"
             id="timestampPropertyInput"
             onChange={[Function]}

@@ -40,7 +40,8 @@ export default class DateTimePropertyInput extends BasePropertyInput {
               pattern: "(^$|\\d{1,2}\\.\\d{1,2}\\.\\d{4})",
               placeholder: extraAttrsMap.placeholder,
               onInput: this.dateValidationMessage,
-              onInvalid: this.dateValidationMessage
+              onInvalid: this.dateValidationMessage,
+              autoComplete: "off"
             }
           )}
           className="Datetime-outer"
@@ -78,7 +79,8 @@ export default class DateTimePropertyInput extends BasePropertyInput {
               pattern: "(^$|\\d{1,2}\\.\\d{1,2}\\.\\d{4}\\s\\d{2}:\\d{2})",
               placeholder: extraAttrsMap.placeholder,
               onInput: this.timestampValidationMessage,
-              onInvalid: this.timestampValidationMessage
+              onInvalid: this.timestampValidationMessage,
+              autoComplete: "off"
             }
           )}
           className="Datetime-outer"
