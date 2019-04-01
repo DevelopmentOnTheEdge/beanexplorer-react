@@ -45,7 +45,8 @@ export default class SelectPropertyInput extends BasePropertyInput {
       disabled: meta.readOnly,
       multi: meta.multipleSelectionList,
       matchPos: extraAttrsMap.matchPos || "any",
-      required: !meta.canBeNull
+      required: !meta.canBeNull,
+      inputProps: {autoComplete: 'off'}
     };
 
     let select;
