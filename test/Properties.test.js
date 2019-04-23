@@ -6,7 +6,7 @@ import bean from '../src/testJson.json';
 
 test('contain property', () => {
 	const component = renderer.create(
-    <Properties bean={bean} ids={[0,15]}/>
+    <Properties bean={bean} ids={[0]}/>
   );
   expect(component.toJSON()).toMatchSnapshot();
 });

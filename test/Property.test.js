@@ -13,3 +13,13 @@ test('get by id', () => {
 
   expect(wrapper.instance().getPath()).toEqual('/textInput');
 });
+
+test('get by path', () => {
+  const handle = jest.fn();
+
+  const wrapper = mount(
+    <Property path={"/labelField"} bean={bean} onChange={handle} value={""}/>
+  );
+
+  expect(wrapper.instance().getPath()).toEqual('/labelField');
+});

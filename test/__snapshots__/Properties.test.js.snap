@@ -37,23 +37,6 @@ exports[`contain property 1`] = `
       </div>
     </div>
   </div>
-  <div
-    className="vertical-input col-lg-12"
-  >
-    <div
-      className="property-label property form-group required"
-    >
-      <label
-        className="property-input"
-        dangerouslySetInnerHTML={
-          Object {
-            "__html": "<p>Pellentesque habitant morbi tristique senectus et netus et <a href=\\"#test\\">Link</a> malesuada fames ac <b>turpis</b> egestas.</p>",
-          }
-        }
-        id="labelFieldRawPropertyInput"
-      />
-    </div>
-  </div>
 </div>
 `;
 
