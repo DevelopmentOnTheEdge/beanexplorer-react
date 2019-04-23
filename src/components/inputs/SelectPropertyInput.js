@@ -8,7 +8,14 @@ import BasePropertyInput from "./BasePropertyInput";
 export default class SelectPropertyInput extends BasePropertyInput {
   constructor(props) {
     super(props);
+    this.state = {value: this.getCorrectMulValue()};
     this.handleChangeSelect = this.handleChangeSelect.bind(this);
+    this.loadOptions = this.loadOptions.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log(this.state, nextProps, this.getCorrectMulValue());
+    //TODO remove this.state if this.getCorrectMulValue() different
   }
 
   render() {
@@ -52,8 +59,16 @@ export default class SelectPropertyInput extends BasePropertyInput {
 
     let select;
     if (extraAttrsMap.inputType === "AsyncSelect" && this.props.selectLoadOptions !== undefined) {
-      select = <Async {...selectAttr} loadOptions={(input, callback) => this.props.selectLoadOptions(
-          Object.assign({input: input}, extraAttrsMap), callback)}
+      select = <Async
+        {...selectAttr}
+        value={this.state.value}
+        onChange={this.handleChangeSelect}
+        loadOptions={this.loadOptions}
+        filterOptions={(options, filter, currentValues) => {
+          // Do no filtering, just return all options
+          return options;
+        }}
+        cache={false}
       />
     }
     else if (extraAttrsMap.inputType === "Creatable") {
@@ -87,6 +102,13 @@ export default class SelectPropertyInput extends BasePropertyInput {
     </div>
   }
 
+  loadOptions(input, callback) {
+    const meta = this.getMeta();
+    const extraAttrsMap = BasePropertyInput.getExtraAttrsMap(meta);
+    this.props.selectLoadOptions(
+      Object.assign({input: input, curValue: this.getCorrectMulValue()}, extraAttrsMap), callback)
+  }
+
   getOptions() {
     const meta = this.getMeta();
     if (meta.tagList === undefined) return undefined;
@@ -99,15 +121,17 @@ export default class SelectPropertyInput extends BasePropertyInput {
   }
 
   handleChangeSelect(object) {
-    if (Array.isArray(object)) {
-      let selectArray = [];
-      Object.keys(object).forEach(function (key) {
-        selectArray.push(object[key].value);
-      });
-      this.changeAndReload(selectArray);
-    } else {
-      this.changeAndReload(object !== null ? object.value : "");
-    }
+    this.setState({value: object}, function () {
+      if (Array.isArray(object)) {
+        let selectArray = [];
+        Object.keys(object).forEach(function (key) {
+          selectArray.push(object[key].value);
+        });
+        this.changeAndReload(selectArray);
+      } else {
+        this.changeAndReload(object !== null ? object.value : "");
+      }
+    });
   }
 }
 

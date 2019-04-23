@@ -100,6 +100,7 @@ class AllPropertyTypes extends Component
         const options = [
           { value: 'one', label: 'One' },
           { value: 'two', label: 'Two' },
+          { value: input, label: input },
         ];
         console.log('selectLoadOptions for ' + JSON.stringify(params) + ' - ' + JSON.stringify(options));
         callback(null, {
