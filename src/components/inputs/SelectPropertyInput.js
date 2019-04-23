@@ -1,6 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Select, {Creatable} from 'react-select';
+import Select, {Async, Creatable} from 'react-select';
 import VirtualizedSelect from 'react-virtualized-select'
 import BasePropertyInput from "./BasePropertyInput";
 
@@ -50,7 +51,12 @@ export default class SelectPropertyInput extends BasePropertyInput {
     };
 
     let select;
-    if (extraAttrsMap.inputType === "Creatable") {
+    if (extraAttrsMap.inputType === "AsyncSelect" && this.props.selectLoadOptions !== undefined) {
+      select = <Async {...selectAttr} loadOptions={(input, callback) => this.props.selectLoadOptions(
+          Object.assign({input: input}, extraAttrsMap), callback)}
+      />
+    }
+    else if (extraAttrsMap.inputType === "Creatable") {
       select = <Creatable {...selectAttr} />
     }
     else if (extraAttrsMap.inputType === "VirtualizedSelect"
@@ -83,6 +89,8 @@ export default class SelectPropertyInput extends BasePropertyInput {
 
   getOptions() {
     const meta = this.getMeta();
+    if (meta.tagList === undefined) return undefined;
+
     let options = [];
     for (let i = 0; i < meta.tagList.length; i++) {
       options.push({value: meta.tagList[i][0], label: meta.tagList[i][1]});
@@ -102,3 +110,7 @@ export default class SelectPropertyInput extends BasePropertyInput {
     }
   }
 }
+
+SelectPropertyInput.propTypes = {
+  selectLoadOptions: PropTypes.func,
+};

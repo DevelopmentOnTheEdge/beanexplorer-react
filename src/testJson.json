@@ -10,6 +10,7 @@
     "file": "",
     "base64File": "",
     "select": "vanilla",
+    "asyncSelect": "",
     "virtualizedSelect": "vanilla",
     "multiSelect": ["chocolate", "strawberry"],
     "radioButtons": "chocolate",
@@ -61,6 +62,10 @@
       "displayName": "Select",
       "tagList": [["vanilla","Vanilla"],["chocolate","Chocolate"],["strawberry","Strawberry"],["cookiescream","Cookies and Cream"],["caramel","Caramel"],["peppermint","Peppermint"]]
     },
+    "/asyncSelect": {
+      "displayName": "AsyncSelect",
+      "extraAttrs": [["inputType", "AsyncSelect"], ["entity", "testEntity"], ["query", "testQuery"]]
+    },
     "/virtualizedSelect": {
       "displayName": "VirtualizedSelect",
       "tagList": [["vanilla","Vanilla"],["chocolate","Chocolate"],["strawberry","Strawberry"],["cookiescream","Cookies and Cream"],["caramel","Caramel"],["peppermint","Peppermint"]],
@@ -109,6 +114,7 @@
     "/file",
     "/base64File",
     "/select",
+    "/asyncSelect",
     "/virtualizedSelect",
     "/multiSelect",
     "/radioButtons",

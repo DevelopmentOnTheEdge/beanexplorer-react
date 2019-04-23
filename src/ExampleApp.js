@@ -94,6 +94,23 @@ class AllPropertyTypes extends Component
   }
 
   getForm(){
+    const selectLoadOptions = (params, callback) => {
+      const {input, entity, query} = params;
+      setTimeout(() => {
+        const options = [
+          { value: 'one', label: 'One' },
+          { value: 'two', label: 'Two' },
+        ];
+        console.log('selectLoadOptions for ' + JSON.stringify(params) + ' - ' + JSON.stringify(options));
+        callback(null, {
+          options: options,
+          // CAREFUL! Only set this to true when there are no more options,
+          // or more specific queries will not be sent to the server.
+          complete: false
+        });
+      }, 500);
+    };
+
     return (
       <form onSubmit={this.handleSubmit} className={classNames("bs-example", {"was-validated" : this.state.wasValidated})}>
         <PropertySet
@@ -103,6 +120,7 @@ class AllPropertyTypes extends Component
           reloadOnChange={this.reloadOnChange}
           bsSize={this.state.bsSize}
           horizontal={this.state.horizontal}
+          selectLoadOptions={selectLoadOptions}
         />
         {this.getSubmitBtn()}
       </form>

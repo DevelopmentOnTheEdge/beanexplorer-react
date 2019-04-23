@@ -37,7 +37,7 @@ class PropertyInput extends BasePropertyInput {
       return <CustomPropertyInput {...this.props}/>
     }
 
-    if (meta.tagList) {
+    if (meta.tagList || extraAttrsMap.inputType === 'AsyncSelect') {
       if (extraAttrsMap.inputType === "radio") {
         return <RadioSelectPropertyInput {...this.props}/>
       } else {
