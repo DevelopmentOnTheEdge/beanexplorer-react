@@ -122,18 +122,22 @@ export default class SelectPropertyInput extends BasePropertyInput {
 
   handleChangeSelect(object) {
     this.setState({value: object}, function () {
-      if (Array.isArray(object)) {
-        let selectArray = [];
-        Object.keys(object).forEach(function (key) {
-          selectArray.push(object[key].value);
-        });
-        this.changeAndReload(selectArray);
-      } else {
-        this.changeAndReload(object !== null ? object.value : "");
-      }
+      this.changeAndReload(getRawValue(object));
     });
   }
 }
+
+const getRawValue = (object) => {
+  if (Array.isArray(object)) {
+    let selectArray = [];
+    Object.keys(object).forEach(function (key) {
+      selectArray.push(object[key].value);
+    });
+    return selectArray;
+  } else {
+    return object !== null ? object.value : "";
+  }
+};
 
 SelectPropertyInput.propTypes = {
   selectLoadOptions: PropTypes.func,
