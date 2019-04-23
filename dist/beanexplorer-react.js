@@ -435,6 +435,8 @@ var SelectPropertyInput = function (_BasePropertyInput) {
   createClass(SelectPropertyInput, [{
     key: 'render',
     value: function render() {
+      var _this2 = this;
+
       var id = this.getID();
       var meta = this.getMeta();
       var localization = this.props.localization;
@@ -474,7 +476,12 @@ var SelectPropertyInput = function (_BasePropertyInput) {
       };
 
       var select = void 0;
-      if (extraAttrsMap.inputType === "Creatable") {
+      if (extraAttrsMap.inputType === "AsyncSelect" && this.props.selectLoadOptions !== undefined) {
+        select = React.createElement(Select.Async, _extends({}, selectAttr, { loadOptions: function loadOptions(input, callback) {
+            return _this2.props.selectLoadOptions(Object.assign({ input: input }, extraAttrsMap), callback);
+          }
+        }));
+      } else if (extraAttrsMap.inputType === "Creatable") {
         select = React.createElement(Select.Creatable, selectAttr);
       } else if (extraAttrsMap.inputType === "VirtualizedSelect" || extraAttrsMap.inputType === undefined && meta.tagList.length >= 100) {
         select = React.createElement(VirtualizedSelect, _extends({
@@ -500,6 +507,8 @@ var SelectPropertyInput = function (_BasePropertyInput) {
     key: 'getOptions',
     value: function getOptions() {
       var meta = this.getMeta();
+      if (meta.tagList === undefined) return undefined;
+
       var options = [];
       for (var i = 0; i < meta.tagList.length; i++) {
         options.push({ value: meta.tagList[i][0], label: meta.tagList[i][1] });
@@ -522,6 +531,10 @@ var SelectPropertyInput = function (_BasePropertyInput) {
   }]);
   return SelectPropertyInput;
 }(BasePropertyInput);
+
+SelectPropertyInput.propTypes = {
+  selectLoadOptions: PropTypes.func
+};
 
 var NumberPropertyInput = function (_BasePropertyInput) {
   inherits(NumberPropertyInput, _BasePropertyInput);
@@ -1061,7 +1074,7 @@ var PropertyInput = function (_BasePropertyInput) {
         return React.createElement(CustomPropertyInput, this.props);
       }
 
-      if (meta.tagList) {
+      if (meta.tagList || extraAttrsMap.inputType === 'AsyncSelect') {
         if (extraAttrsMap.inputType === "radio") {
           return React.createElement(RadioSelectPropertyInput, this.props);
         } else {
