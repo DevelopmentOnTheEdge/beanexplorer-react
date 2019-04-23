@@ -14,8 +14,9 @@ export default class SelectPropertyInput extends BasePropertyInput {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(this.state, nextProps, this.getCorrectMulValue());
-    //TODO remove this.state if this.getCorrectMulValue() different
+    //console.log(this.state, nextProps, this.getCorrectMulValue());
+    //TODO try change only if this.state if different
+    this.setState({value: nextProps.value})
   }
 
   render() {
