@@ -16,6 +16,7 @@ export default class SelectPropertyInput extends BasePropertyInput {
   componentWillReceiveProps(nextProps) {
     //console.log(this.state, nextProps, this.getCorrectMulValue());
     //TODO try change only if this.state if different
+    //console.log(nextProps.value);
     this.setState({value: nextProps.value})
   }
 
@@ -65,11 +66,11 @@ export default class SelectPropertyInput extends BasePropertyInput {
         value={this.state.value}
         onChange={this.handleChangeSelect}
         loadOptions={this.loadOptions}
+        autoload={false}
         filterOptions={(options, filter, currentValues) => {
           // Do no filtering, just return all options
           return options;
         }}
-        cache={false}
       />
     }
     else if (extraAttrsMap.inputType === "Creatable") {
@@ -107,7 +108,7 @@ export default class SelectPropertyInput extends BasePropertyInput {
     const meta = this.getMeta();
     const extraAttrsMap = BasePropertyInput.getExtraAttrsMap(meta);
     this.props.selectLoadOptions(
-      Object.assign({input: input, curValue: this.getCorrectMulValue()}, extraAttrsMap), callback)
+      Object.assign({input: input}, extraAttrsMap), callback)
   }
 
   getOptions() {

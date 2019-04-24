@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom';
 import classNames    from 'classnames';
 import Cookies       from 'universal-cookie';
+import fetch from 'isomorphic-fetch';
 
 import JsonPointer   from 'json-pointer';
 import PropertySet   from './components/PropertySet';
@@ -112,6 +113,25 @@ class AllPropertyTypes extends Component
       }, 500);
     };
 
+    const selectLoadGithubUsers = (params, callback) => {
+      const {input, entity, query} = params;
+      fetch('https://api.github.com/search/users?q=' + (input || 'a'))
+        .then(response => {
+          return response.json().then(json => {
+            const options = [];
+            json.items.forEach(x => {
+              options.push({value: x.id, label: x.login})
+            });
+            callback(null, {
+              options: options,
+              // CAREFUL! Only set this to true when there are no more options,
+              // or more specific queries will not be sent to the server.
+              complete: false
+            });
+          });
+        });
+    };
+
     return (
       <form onSubmit={this.handleSubmit} className={classNames("bs-example", {"was-validated" : this.state.wasValidated})}>
         <PropertySet
@@ -121,7 +141,7 @@ class AllPropertyTypes extends Component
           reloadOnChange={this.reloadOnChange}
           bsSize={this.state.bsSize}
           horizontal={this.state.horizontal}
-          selectLoadOptions={selectLoadOptions}
+          selectLoadOptions={selectLoadGithubUsers}
         />
         {this.getSubmitBtn()}
       </form>

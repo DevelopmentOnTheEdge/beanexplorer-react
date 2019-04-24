@@ -24,6 +24,7 @@
     "big-integer": "^1.6.26",
     "big-rational": "^0.10.7",
     "classnames": "2.2.5",
+    "isomorphic-fetch": "^2.2.1",
     "json-pointer": "^0.6.0",
     "moment": "2.20.1",
     "prop-types": "15.6.1",

@@ -10,7 +10,7 @@
     "file": "",
     "base64File": "",
     "select": "vanilla",
-    "asyncSelect": "",
+    "asyncSelect": "31712",
     "virtualizedSelect": "vanilla",
     "multiSelect": ["chocolate", "strawberry"],
     "radioButtons": "chocolate",
@@ -64,6 +64,7 @@
     },
     "/asyncSelect": {
       "displayName": "AsyncSelect",
+      "tagList": [["31712","b"]],
       "extraAttrs": [["inputType", "AsyncSelect"], ["entity", "testEntity"], ["query", "testQuery"]]
     },
     "/virtualizedSelect": {
