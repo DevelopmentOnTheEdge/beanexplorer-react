@@ -132,6 +132,27 @@ class AllPropertyTypes extends Component
         });
     };
 
+    const selectLoadBe5Query = (params, callback) => {
+      const {input, entity, query} = params;
+      fetch('http://localhost:8888/api/table?_en_=customers&_qn_=***%20Selection%20view%20***&_params_=' +
+        '%7B%22asyncValue%22%3A%22' + input + '%22%7D&_ts_=1556103737910')
+        .then(response => {
+          return response.json().then(json => {
+            const options = [];
+            json.data.attributes.rows.forEach(x => {
+              options.push({value: x.cells[0].content, label: x.cells[1].content})
+            });
+
+            callback(null, {
+              options: options,
+              // CAREFUL! Only set this to true when there are no more options,
+              // or more specific queries will not be sent to the server.
+              complete: false
+            });
+          });
+        });
+    };
+
     return (
       <form onSubmit={this.handleSubmit} className={classNames("bs-example", {"was-validated" : this.state.wasValidated})}>
         <PropertySet
@@ -141,7 +162,7 @@ class AllPropertyTypes extends Component
           reloadOnChange={this.reloadOnChange}
           bsSize={this.state.bsSize}
           horizontal={this.state.horizontal}
-          selectLoadOptions={selectLoadGithubUsers}
+          selectLoadOptions={selectLoadBe5Query}
         />
         {this.getSubmitBtn()}
       </form>

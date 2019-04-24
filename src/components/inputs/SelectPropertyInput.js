@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import Select, {Async, Creatable} from 'react-select';
 import VirtualizedSelect from 'react-virtualized-select'
 import BasePropertyInput from "./BasePropertyInput";
+import {arraysEqual} from "../utils";
 
 export default class SelectPropertyInput extends BasePropertyInput {
   constructor(props) {
@@ -14,10 +15,14 @@ export default class SelectPropertyInput extends BasePropertyInput {
   }
 
   componentWillReceiveProps(nextProps) {
-    //console.log(this.state, nextProps, this.getCorrectMulValue());
-    //TODO try change only if this.state if different
-    //console.log(nextProps.value);
-    this.setState({value: nextProps.value})
+    const rawValue = getRawValue(this.state.value);
+    if (Array.isArray(nextProps.value)) {
+      if (!arraysEqual(rawValue, nextProps.value))
+        this.setState({value: nextProps.value});
+    } else {
+      if (rawValue !== nextProps.value)
+        this.setState({value: nextProps.value});
+    }
   }
 
   render() {
@@ -64,7 +69,6 @@ export default class SelectPropertyInput extends BasePropertyInput {
       select = <Async
         {...selectAttr}
         value={this.state.value}
-        onChange={this.handleChangeSelect}
         loadOptions={this.loadOptions}
         autoload={false}
         filterOptions={(options, filter, currentValues) => {
