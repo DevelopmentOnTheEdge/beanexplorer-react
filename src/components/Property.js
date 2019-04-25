@@ -8,7 +8,7 @@ import {inputLabelSizeClasses, shouldPropertyUpdate} from "./utils";
 class Property extends React.Component {
 
   shouldComponentUpdate(nextProps) {
-    return shouldPropertyUpdate(this.props, nextProps);
+    return shouldPropertyUpdate(this.props, nextProps) || this.props.value !== nextProps.value;
   }
 
   getPath() {

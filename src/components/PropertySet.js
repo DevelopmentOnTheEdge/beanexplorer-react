@@ -3,15 +3,12 @@ import PropTypes from 'prop-types';
 import Property from './Property';
 import classNames from 'classnames';
 import JsonPointer from 'json-pointer';
+import {shouldPropertyUpdate} from "./utils";
 
 class PropertySet extends React.Component {
 
   shouldComponentUpdate(nextProps) {
-    return this.props.bean !== nextProps.bean
-      || this.props.values !== nextProps.values
-      || this.props.horizontal !== nextProps.horizontal
-      || this.props.inline !== nextProps.inline
-      || this.props.bsSize !== nextProps.bsSize;
+    return shouldPropertyUpdate(this.props, nextProps) || this.props.values !== nextProps.values;
   }
 
   static getName(name) {

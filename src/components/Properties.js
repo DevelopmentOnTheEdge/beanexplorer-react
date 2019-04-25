@@ -7,7 +7,7 @@ import {shouldPropertyUpdate} from "./utils";
 class Properties extends React.Component {
 
   shouldComponentUpdate(nextProps) {
-    return shouldPropertyUpdate(this.props, nextProps);
+    return shouldPropertyUpdate(this.props, nextProps) || this.props.values !== nextProps.values;
   }
 
   render() {
@@ -38,6 +38,7 @@ Properties.defaultProps = {
 Properties.propTypes = {
   rowClass: PropTypes.string,
   bean: PropTypes.object.isRequired,
+  values: PropTypes.object,
   ids: PropTypes.array,
   inline: PropTypes.bool,
   bsSize: PropTypes.string,

@@ -22,7 +22,7 @@ class PropertyInput extends BasePropertyInput {
   }
 
   shouldComponentUpdate(nextProps) {
-    return shouldPropertyUpdate(this.props, nextProps);
+    return shouldPropertyUpdate(this.props, nextProps) || this.props.value !== nextProps.value;
   }
 
   handleChangeBoolean(event) {
