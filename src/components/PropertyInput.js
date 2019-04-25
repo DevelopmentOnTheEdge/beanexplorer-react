@@ -11,6 +11,7 @@ import LabelPropertyInput from "./inputs/LabelPropertyInput";
 import Base64FilePropertyInput from "./inputs/Base64FilePropertyInput";
 import FilePropertyInput from "./inputs/FilePropertyInput";
 import {getPropertyInput} from "./propertyInputRegister";
+import AsyncSelectPropertyInput from "./inputs/AsyncSelectPropertyInput";
 
 
 class PropertyInput extends BasePropertyInput {
@@ -37,7 +38,12 @@ class PropertyInput extends BasePropertyInput {
       return <CustomPropertyInput {...this.props}/>
     }
 
-    if (meta.tagList || extraAttrsMap.inputType === 'AsyncSelect') {
+    if (extraAttrsMap.inputType === "AsyncSelect" && this.props.selectLoadOptions !== undefined)
+    {
+      return <AsyncSelectPropertyInput {...this.props}/>
+    }
+
+    if (meta.tagList) {
       if (extraAttrsMap.inputType === "radio") {
         return <RadioSelectPropertyInput {...this.props}/>
       } else {

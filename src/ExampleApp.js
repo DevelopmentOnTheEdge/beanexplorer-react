@@ -99,8 +99,6 @@ class AllPropertyTypes extends Component
       const {input, entity, query} = params;
       setTimeout(() => {
         const options = [
-          { value: 'one', label: 'One' },
-          { value: 'two', label: 'Two' },
           { value: input, label: input },
         ];
         console.log('selectLoadOptions for ' + JSON.stringify(params) + ' - ' + JSON.stringify(options));
@@ -134,7 +132,7 @@ class AllPropertyTypes extends Component
 
     const selectLoadBe5Query = (params, callback) => {
       const {input, entity, query} = params;
-      fetch('http://localhost:8888/api/table?_en_=customers&_qn_=***%20Selection%20view%20***&_params_=' +
+      fetch('http://localhost:8200/api/table?_en_=customers&_qn_=***%20Selection%20view%20***&_params_=' +
         '%7B%22asyncValue%22%3A%22' + input + '%22%7D&_ts_=1556103737910')
         .then(response => {
           return response.json().then(json => {
@@ -162,7 +160,7 @@ class AllPropertyTypes extends Component
           reloadOnChange={this.reloadOnChange}
           bsSize={this.state.bsSize}
           horizontal={this.state.horizontal}
-          selectLoadOptions={selectLoadBe5Query}
+          selectLoadOptions={selectLoadOptions}
         />
         {this.getSubmitBtn()}
       </form>

@@ -11,6 +11,7 @@ import FilePropertyInput from './components/inputs/FilePropertyInput';
 import LabelPropertyInput from './components/inputs/LabelPropertyInput';
 import RadioSelectPropertyInput from './components/inputs/RadioSelectPropertyInput';
 import SelectPropertyInput from './components/inputs/SelectPropertyInput';
+import AsyncSelectPropertyInput from './components/inputs/AsyncSelectPropertyInput';
 
 import {getAllPropertyInputs, getPropertyInput, registerPropertyInput} from './components/propertyInputRegister';
 
@@ -29,5 +30,6 @@ export {
   LabelPropertyInput,
   RadioSelectPropertyInput,
   SelectPropertyInput,
+  AsyncSelectPropertyInput,
   getAllPropertyInputs, getPropertyInput, registerPropertyInput
 }

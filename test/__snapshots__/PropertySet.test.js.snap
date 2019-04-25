@@ -1470,9 +1470,15 @@ exports[`snapshot bean 1`] = `
           style={undefined}
         >
           <div
-            className="Select is-clearable is-searchable Select--single"
+            className="Select has-value is-clearable is-searchable Select--single"
             style={undefined}
           >
+            <input
+              disabled={false}
+              name="asyncSelectPropertyInput"
+              type="hidden"
+              value="31712"
+            />
             <div
               className="Select-control"
               onKeyDown={[Function]}
@@ -1487,9 +1493,18 @@ exports[`snapshot bean 1`] = `
                 id="react-select-15--value"
               >
                 <div
-                  className="Select-placeholder"
+                  className="Select-value"
+                  style={undefined}
+                  title={undefined}
                 >
-                  Select ...
+                  <span
+                    aria-selected="true"
+                    className="Select-value-label"
+                    id="react-select-15--value-item"
+                    role="option"
+                  >
+                    b
+                  </span>
                 </div>
                 <div
                   className="Select-input"
@@ -1513,7 +1528,7 @@ exports[`snapshot bean 1`] = `
                     onBlur={[Function]}
                     onChange={[Function]}
                     onFocus={[Function]}
-                    required={true}
+                    required={false}
                     role="combobox"
                     style={
                       Object {
@@ -1541,6 +1556,24 @@ exports[`snapshot bean 1`] = `
                   </div>
                 </div>
               </div>
+              <span
+                aria-label="Clear value"
+                className="Select-clear-zone"
+                onMouseDown={[Function]}
+                onTouchEnd={[Function]}
+                onTouchMove={[Function]}
+                onTouchStart={[Function]}
+                title="Clear value"
+              >
+                <span
+                  className="Select-clear"
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "&times;",
+                    }
+                  }
+                />
+              </span>
               <span
                 className="Select-arrow-zone"
                 onMouseDown={[Function]}
@@ -3440,9 +3473,15 @@ exports[`snapshot bean horizontal 1`] = `
           style={undefined}
         >
           <div
-            className="Select is-clearable is-searchable Select--single"
+            className="Select has-value is-clearable is-searchable Select--single"
             style={undefined}
           >
+            <input
+              disabled={false}
+              name="asyncSelectPropertyInput"
+              type="hidden"
+              value="31712"
+            />
             <div
               className="Select-control"
               onKeyDown={[Function]}
@@ -3457,9 +3496,18 @@ exports[`snapshot bean horizontal 1`] = `
                 id="react-select-19--value"
               >
                 <div
-                  className="Select-placeholder"
+                  className="Select-value"
+                  style={undefined}
+                  title={undefined}
                 >
-                  Select ...
+                  <span
+                    aria-selected="true"
+                    className="Select-value-label"
+                    id="react-select-19--value-item"
+                    role="option"
+                  >
+                    b
+                  </span>
                 </div>
                 <div
                   className="Select-input"
@@ -3483,7 +3531,7 @@ exports[`snapshot bean horizontal 1`] = `
                     onBlur={[Function]}
                     onChange={[Function]}
                     onFocus={[Function]}
-                    required={true}
+                    required={false}
                     role="combobox"
                     style={
                       Object {
@@ -3511,6 +3559,24 @@ exports[`snapshot bean horizontal 1`] = `
                   </div>
                 </div>
               </div>
+              <span
+                aria-label="Clear value"
+                className="Select-clear-zone"
+                onMouseDown={[Function]}
+                onTouchEnd={[Function]}
+                onTouchMove={[Function]}
+                onTouchStart={[Function]}
+                title="Clear value"
+              >
+                <span
+                  className="Select-clear"
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "&times;",
+                    }
+                  }
+                />
+              </span>
               <span
                 className="Select-arrow-zone"
                 onMouseDown={[Function]}
@@ -4570,9 +4636,15 @@ exports[`snapshot bean with readOnly 1`] = `
           style={undefined}
         >
           <div
-            className="Select is-clearable is-disabled is-searchable Select--single"
+            className="Select has-value is-clearable is-disabled is-searchable Select--single"
             style={undefined}
           >
+            <input
+              disabled={true}
+              name="asyncSelectPropertyInput"
+              type="hidden"
+              value="31712"
+            />
             <div
               className="Select-control"
               onKeyDown={[Function]}
@@ -4587,9 +4659,18 @@ exports[`snapshot bean with readOnly 1`] = `
                 id="react-select-23--value"
               >
                 <div
-                  className="Select-placeholder"
+                  className="Select-value"
+                  style={undefined}
+                  title={undefined}
                 >
-                  Select ...
+                  <span
+                    aria-selected="true"
+                    className="Select-value-label"
+                    id="react-select-23--value-item"
+                    role="option"
+                  >
+                    b
+                  </span>
                 </div>
                 <div
                   aria-activedescendant="react-select-23--value"
