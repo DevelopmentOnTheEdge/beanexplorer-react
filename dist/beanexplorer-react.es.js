@@ -15,6 +15,24 @@ var inputLabelSizeClasses = function inputLabelSizeClasses(props) {
   return classNames({ 'col-form-label-sm': props.bsSize === "sm" }, { 'col-form-label-lg': props.bsSize === "lg" });
 };
 
+var arraysEqual = function arraysEqual(a, b) {
+  if (a === b) return true;
+  if (a === null || b === null) return false;
+  if (a.length !== b.length) return false;
+
+  a.sort();
+  b.sort();
+
+  for (var i = 0; i < a.length; ++i) {
+    if (a[i] !== b[i]) return false;
+  }
+  return true;
+};
+
+var shouldPropertyUpdate = function shouldPropertyUpdate(props, nextProps) {
+  return props.bean !== nextProps.bean || props.values !== nextProps.values || props.horizontal !== nextProps.horizontal || props.inline !== nextProps.inline || props.bsSize !== nextProps.bsSize;
+};
+
 var classCallCheck = function (instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
@@ -429,24 +447,43 @@ var SelectPropertyInput = function (_BasePropertyInput) {
   createClass(SelectPropertyInput, [{
     key: 'render',
     value: function render() {
-      var _this2 = this;
+      var _getAttr = this.getAttr(),
+          meta = _getAttr.meta,
+          extraAttrsMap = _getAttr.extraAttrsMap,
+          selectAttr = _getAttr.selectAttr;
 
+      return React.createElement(
+        'div',
+        {
+          className: classNames("Select-outer", 'property-input', { 'Select--sm': this.props.bsSize === "sm" }, { 'Select--lg': this.props.bsSize === "lg" }, this.getValidationClasses()),
+          style: this.getStyle(meta)
+        },
+        this.getSelect(selectAttr, meta, extraAttrsMap)
+      );
+    }
+  }, {
+    key: 'getSelect',
+    value: function getSelect(selectAttr, meta, extraAttrsMap) {
+      if (extraAttrsMap.inputType === "Creatable") {
+        return React.createElement(Creatable, selectAttr);
+      } else if (extraAttrsMap.inputType === "VirtualizedSelect" || extraAttrsMap.inputType === undefined && meta.tagList.length >= 100) {
+        return React.createElement(VirtualizedSelect, _extends({
+          clearable: true,
+          searchable: true,
+          labelKey: 'label',
+          valueKey: 'value'
+        }, selectAttr));
+      } else {
+        return React.createElement(Select, selectAttr);
+      }
+    }
+  }, {
+    key: 'getAttr',
+    value: function getAttr() {
       var id = this.getID();
       var meta = this.getMeta();
       var localization = this.props.localization;
       var extraAttrsMap = BasePropertyInput.getExtraAttrsMap(meta);
-
-      var style = void 0;
-      if (this.props.inline) {
-        //константы подобраны для совпадения с длиной стандартного input
-        var k = 11;
-        if (this.props.bsSize === "sm") k = 8.95;
-        if (this.props.bsSize === "lg") k = 14.65;
-        style = {
-          width: k * (meta.inputSize || 16) + 68 + 'px',
-          maxWidth: '100%'
-        };
-      }
 
       var selectAttr = {
         id: id,
@@ -468,34 +505,7 @@ var SelectPropertyInput = function (_BasePropertyInput) {
         required: !meta.canBeNull,
         inputProps: { autoComplete: 'off' }
       };
-
-      var select = void 0;
-      if (extraAttrsMap.inputType === "AsyncSelect" && this.props.selectLoadOptions !== undefined) {
-        select = React.createElement(Async, _extends({}, selectAttr, { loadOptions: function loadOptions(input, callback) {
-            return _this2.props.selectLoadOptions(Object.assign({ input: input }, extraAttrsMap), callback);
-          }
-        }));
-      } else if (extraAttrsMap.inputType === "Creatable") {
-        select = React.createElement(Creatable, selectAttr);
-      } else if (extraAttrsMap.inputType === "VirtualizedSelect" || extraAttrsMap.inputType === undefined && meta.tagList.length >= 100) {
-        select = React.createElement(VirtualizedSelect, _extends({
-          clearable: true,
-          searchable: true,
-          labelKey: 'label',
-          valueKey: 'value'
-        }, selectAttr));
-      } else {
-        select = React.createElement(Select, selectAttr);
-      }
-
-      return React.createElement(
-        'div',
-        {
-          className: classNames("Select-outer", 'property-input', { 'Select--sm': this.props.bsSize === "sm" }, { 'Select--lg': this.props.bsSize === "lg" }, this.getValidationClasses()),
-          style: style
-        },
-        select
-      );
+      return { meta: meta, extraAttrsMap: extraAttrsMap, selectAttr: selectAttr };
     }
   }, {
     key: 'getOptions',
@@ -512,14 +522,37 @@ var SelectPropertyInput = function (_BasePropertyInput) {
   }, {
     key: 'handleChangeSelect',
     value: function handleChangeSelect(object) {
+      this.setState({ value: object }, function () {
+        this.changeAndReload(SelectPropertyInput.getRawValue(object));
+      });
+    }
+  }, {
+    key: 'getStyle',
+    value: function getStyle(meta) {
+      var style = void 0;
+      if (this.props.inline) {
+        //константы подобраны для совпадения с длиной стандартного input
+        var k = 11;
+        if (this.props.bsSize === "sm") k = 8.95;
+        if (this.props.bsSize === "lg") k = 14.65;
+        style = {
+          width: k * (meta.inputSize || 16) + 68 + 'px',
+          maxWidth: '100%'
+        };
+      }
+      return style;
+    }
+  }], [{
+    key: 'getRawValue',
+    value: function getRawValue(object) {
       if (Array.isArray(object)) {
         var selectArray = [];
         Object.keys(object).forEach(function (key) {
           selectArray.push(object[key].value);
         });
-        this.changeAndReload(selectArray);
+        return selectArray;
       } else {
-        this.changeAndReload(object !== null ? object.value : "");
+        return object !== null ? object.value : "";
       }
     }
   }]);
@@ -1042,6 +1075,57 @@ var getAllPropertyInputs = function getAllPropertyInputs() {
   return Object.keys(propertyInputs);
 };
 
+var AsyncSelectPropertyInput = function (_SelectPropertyInput) {
+  inherits(AsyncSelectPropertyInput, _SelectPropertyInput);
+
+  function AsyncSelectPropertyInput(props) {
+    classCallCheck(this, AsyncSelectPropertyInput);
+
+    var _this = possibleConstructorReturn(this, (AsyncSelectPropertyInput.__proto__ || Object.getPrototypeOf(AsyncSelectPropertyInput)).call(this, props));
+
+    _this.state = { value: _this.getCorrectMulValue() };
+    _this.loadOptions = _this.loadOptions.bind(_this);
+    return _this;
+  }
+
+  createClass(AsyncSelectPropertyInput, [{
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      var rawValue = SelectPropertyInput.getRawValue(this.state.value);
+      if (Array.isArray(nextProps.value)) {
+        if (!arraysEqual(rawValue, nextProps.value)) this.setState({ value: nextProps.value });
+      } else {
+        if (rawValue !== nextProps.value) this.setState({ value: nextProps.value });
+      }
+    }
+  }, {
+    key: 'getSelect',
+    value: function getSelect(selectAttr, meta, extraAttrsMap) {
+      return React.createElement(Async, _extends({}, selectAttr, {
+        value: this.state.value,
+        loadOptions: this.loadOptions,
+        autoload: extraAttrsMap.autoload === "true",
+        filterOptions: function filterOptions(options, filter, currentValues) {
+          // Do no filtering, just return all options
+          return options;
+        }
+      }));
+    }
+  }, {
+    key: 'loadOptions',
+    value: function loadOptions(input, callback) {
+      var meta = this.getMeta();
+      var extraAttrsMap = BasePropertyInput.getExtraAttrsMap(meta);
+      this.props.selectLoadOptions(Object.assign({ input: input }, extraAttrsMap), callback);
+    }
+  }]);
+  return AsyncSelectPropertyInput;
+}(SelectPropertyInput);
+
+AsyncSelectPropertyInput.propTypes = {
+  selectLoadOptions: PropTypes.func
+};
+
 var PropertyInput = function (_BasePropertyInput) {
   inherits(PropertyInput, _BasePropertyInput);
 
@@ -1057,7 +1141,7 @@ var PropertyInput = function (_BasePropertyInput) {
   createClass(PropertyInput, [{
     key: 'shouldComponentUpdate',
     value: function shouldComponentUpdate(nextProps) {
-      return this.props.bean !== nextProps.bean || this.props.value !== nextProps.value;
+      return shouldPropertyUpdate(this.props, nextProps);
     }
   }, {
     key: 'handleChangeBoolean',
@@ -1076,7 +1160,11 @@ var PropertyInput = function (_BasePropertyInput) {
         return React.createElement(CustomPropertyInput, this.props);
       }
 
-      if (meta.tagList || extraAttrsMap.inputType === 'AsyncSelect') {
+      if (extraAttrsMap.inputType === "AsyncSelect" && this.props.selectLoadOptions !== undefined) {
+        return React.createElement(AsyncSelectPropertyInput, this.props);
+      }
+
+      if (meta.tagList) {
         if (extraAttrsMap.inputType === "radio") {
           return React.createElement(RadioSelectPropertyInput, this.props);
         } else {
@@ -1169,7 +1257,7 @@ var Property = function (_React$Component) {
   createClass(Property, [{
     key: 'shouldComponentUpdate',
     value: function shouldComponentUpdate(nextProps) {
-      return this.props.bean !== nextProps.bean || this.props.value !== nextProps.value;
+      return shouldPropertyUpdate(this.props, nextProps);
     }
   }, {
     key: 'getPath',
@@ -1359,7 +1447,7 @@ var Properties = function (_React$Component) {
   createClass(Properties, [{
     key: 'shouldComponentUpdate',
     value: function shouldComponentUpdate(nextProps) {
-      return this.props.bean !== nextProps.bean || this.props.values !== nextProps.values;
+      return shouldPropertyUpdate(this.props, nextProps);
     }
   }, {
     key: 'render',
@@ -1417,7 +1505,7 @@ var PropertySet$1 = function (_React$Component) {
   createClass(PropertySet, [{
     key: 'shouldComponentUpdate',
     value: function shouldComponentUpdate(nextProps) {
-      return this.props.bean !== nextProps.bean || this.props.values !== nextProps.values;
+      return this.props.bean !== nextProps.bean || this.props.values !== nextProps.values || this.props.horizontal !== nextProps.horizontal || this.props.inline !== nextProps.inline || this.props.bsSize !== nextProps.bsSize;
     }
   }, {
     key: 'createGroup',
@@ -1540,10 +1628,11 @@ PropertySet$1.propTypes = {
   values: PropTypes.object,
   onChange: PropTypes.func,
   inline: PropTypes.bool,
+  horizontal: PropTypes.bool,
   bsSize: PropTypes.string,
   localization: PropTypes.object,
   rowClass: PropTypes.string
 };
 
-export { Property, Properties, PropertyInput, WYSIWYGPropertyInput, BasePropertyInput, DateTimePropertyInput, NumberPropertyInput, Base64FilePropertyInput, FilePropertyInput, LabelPropertyInput, RadioSelectPropertyInput, SelectPropertyInput, getAllPropertyInputs, getPropertyInput, registerPropertyInput };
+export { Property, Properties, PropertyInput, WYSIWYGPropertyInput, BasePropertyInput, DateTimePropertyInput, NumberPropertyInput, Base64FilePropertyInput, FilePropertyInput, LabelPropertyInput, RadioSelectPropertyInput, SelectPropertyInput, AsyncSelectPropertyInput, getAllPropertyInputs, getPropertyInput, registerPropertyInput };
 export default PropertySet$1;

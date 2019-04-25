@@ -863,6 +863,9 @@ input:required, textarea:required {
 .radio-label {
   margin-bottom: 0.3rem;
 }
+.form-control-file {
+  padding: 0;
+}
 /****************************************************************************/
 .horizontal-input .form-check.property{
   margin-bottom: 1rem;
