@@ -28,7 +28,7 @@ export default class AsyncSelectPropertyInput extends SelectPropertyInput {
       {...selectAttr}
       value={this.state.value}
       loadOptions={this.loadOptions}
-      autoload={false}
+      autoload={extraAttrsMap.autoload === "true"}
       filterOptions={(options, filter, currentValues) => {
         // Do no filtering, just return all options
         return options;
