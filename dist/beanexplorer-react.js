@@ -36,7 +36,7 @@ var arraysEqual = function arraysEqual(a, b) {
 };
 
 var shouldPropertyUpdate = function shouldPropertyUpdate(props, nextProps) {
-  return props.bean !== nextProps.bean || props.values !== nextProps.values || props.horizontal !== nextProps.horizontal || props.inline !== nextProps.inline || props.bsSize !== nextProps.bsSize;
+  return props.bean !== nextProps.bean || props.horizontal !== nextProps.horizontal || props.inline !== nextProps.inline || props.bsSize !== nextProps.bsSize;
 };
 
 var classCallCheck = function (instance, Constructor) {
@@ -1139,7 +1139,7 @@ var PropertyInput = function (_BasePropertyInput) {
   createClass(PropertyInput, [{
     key: 'shouldComponentUpdate',
     value: function shouldComponentUpdate(nextProps) {
-      return shouldPropertyUpdate(this.props, nextProps);
+      return shouldPropertyUpdate(this.props, nextProps) || this.props.value !== nextProps.value;
     }
   }, {
     key: 'handleChangeBoolean',
@@ -1255,7 +1255,7 @@ var Property = function (_React$Component) {
   createClass(Property, [{
     key: 'shouldComponentUpdate',
     value: function shouldComponentUpdate(nextProps) {
-      return shouldPropertyUpdate(this.props, nextProps);
+      return shouldPropertyUpdate(this.props, nextProps) || this.props.value !== nextProps.value;
     }
   }, {
     key: 'getPath',
@@ -1445,7 +1445,7 @@ var Properties = function (_React$Component) {
   createClass(Properties, [{
     key: 'shouldComponentUpdate',
     value: function shouldComponentUpdate(nextProps) {
-      return shouldPropertyUpdate(this.props, nextProps);
+      return shouldPropertyUpdate(this.props, nextProps) || this.props.values !== nextProps.values;
     }
   }, {
     key: 'render',
@@ -1484,6 +1484,7 @@ Properties.defaultProps = {
 Properties.propTypes = {
   rowClass: PropTypes.string,
   bean: PropTypes.object.isRequired,
+  values: PropTypes.object,
   ids: PropTypes.array,
   inline: PropTypes.bool,
   bsSize: PropTypes.string,
@@ -1503,7 +1504,7 @@ var PropertySet$1 = function (_React$Component) {
   createClass(PropertySet, [{
     key: 'shouldComponentUpdate',
     value: function shouldComponentUpdate(nextProps) {
-      return this.props.bean !== nextProps.bean || this.props.values !== nextProps.values || this.props.horizontal !== nextProps.horizontal || this.props.inline !== nextProps.inline || this.props.bsSize !== nextProps.bsSize;
+      return shouldPropertyUpdate(this.props, nextProps) || this.props.values !== nextProps.values;
     }
   }, {
     key: 'createGroup',
