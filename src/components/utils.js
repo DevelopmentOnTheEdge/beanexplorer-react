@@ -20,3 +20,11 @@ export const arraysEqual = function (a, b) {
   }
   return true;
 };
+
+export const shouldPropertyUpdate = function (props, nextProps) {
+  return props.bean !== nextProps.bean
+    || props.values !== nextProps.values
+    || props.horizontal !== nextProps.horizontal
+    || props.inline !== nextProps.inline
+    || props.bsSize !== nextProps.bsSize;
+};

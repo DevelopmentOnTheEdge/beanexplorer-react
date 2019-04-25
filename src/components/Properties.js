@@ -2,11 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Property from './Property';
 import JsonPointer from 'json-pointer';
+import {shouldPropertyUpdate} from "./utils";
 
 class Properties extends React.Component {
 
   shouldComponentUpdate(nextProps) {
-    return this.props.bean !== nextProps.bean || this.props.values !== nextProps.values;
+    return shouldPropertyUpdate(this.props, nextProps);
   }
 
   render() {

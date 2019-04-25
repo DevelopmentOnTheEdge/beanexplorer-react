@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import PropertyInput from './PropertyInput'
-import {inputLabelSizeClasses} from "./utils";
+import {inputLabelSizeClasses, shouldPropertyUpdate} from "./utils";
 
 
 class Property extends React.Component {
 
   shouldComponentUpdate(nextProps) {
-    return this.props.bean !== nextProps.bean || this.props.value !== nextProps.value;
+    return shouldPropertyUpdate(this.props, nextProps);
   }
 
   getPath() {

@@ -7,7 +7,11 @@ import JsonPointer from 'json-pointer';
 class PropertySet extends React.Component {
 
   shouldComponentUpdate(nextProps) {
-    return this.props.bean !== nextProps.bean || this.props.values !== nextProps.values;
+    return this.props.bean !== nextProps.bean
+      || this.props.values !== nextProps.values
+      || this.props.horizontal !== nextProps.horizontal
+      || this.props.inline !== nextProps.inline
+      || this.props.bsSize !== nextProps.bsSize;
   }
 
   static getName(name) {
@@ -98,6 +102,7 @@ PropertySet.propTypes = {
   values: PropTypes.object,
   onChange: PropTypes.func,
   inline: PropTypes.bool,
+  horizontal: PropTypes.bool,
   bsSize: PropTypes.string,
   localization: PropTypes.object,
   rowClass: PropTypes.string

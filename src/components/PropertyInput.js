@@ -12,6 +12,7 @@ import Base64FilePropertyInput from "./inputs/Base64FilePropertyInput";
 import FilePropertyInput from "./inputs/FilePropertyInput";
 import {getPropertyInput} from "./propertyInputRegister";
 import AsyncSelectPropertyInput from "./inputs/AsyncSelectPropertyInput";
+import {shouldPropertyUpdate} from "./utils";
 
 
 class PropertyInput extends BasePropertyInput {
@@ -21,7 +22,7 @@ class PropertyInput extends BasePropertyInput {
   }
 
   shouldComponentUpdate(nextProps) {
-    return this.props.bean !== nextProps.bean || this.props.value !== nextProps.value;
+    return shouldPropertyUpdate(this.props, nextProps);
   }
 
   handleChangeBoolean(event) {
