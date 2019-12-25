@@ -130,27 +130,42 @@ test('inline layout2', () => {
 });
 
 test('simple property set', () => {
-	const simpleBean = {
+    const simpleBean = {
     "values": { "number": "" },
     "meta":   { "/number": {} },
     "order":  [ "/number" ]
-	};
+    };
 
-	const component = renderer.create(
+    const component = renderer.create(
     <PropertySet bean={simpleBean} />
   );
   expect(component.toJSON()).toMatchSnapshot();
 });
 
 test('empty property set', () => {
-	const emptyBean = {
-		 "values": {},
-		 "meta": {},
-		 "order": []
-	};
+    const emptyBean = {
+         "values": {},
+         "meta": {},
+         "order": []
+    };
 
-	const component = renderer.create(
+    const component = renderer.create(
     <PropertySet bean={emptyBean} />
+  );
+  expect(component.toJSON()).toMatchSnapshot();
+});
+
+test('horizontal cssClass', () => {
+    const simpleBean = {
+      "values": { "select": "value" },
+      "meta":   { "/select": {
+        "cssClasses": "col-lg-6",
+      }},
+      "order":  [ "/select" ]
+    };
+
+    const component = renderer.create(
+    <PropertySet bean={simpleBean} horizontal col-lg-6/>
   );
   expect(component.toJSON()).toMatchSnapshot();
 });

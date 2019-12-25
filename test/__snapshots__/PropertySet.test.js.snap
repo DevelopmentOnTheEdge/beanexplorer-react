@@ -6,6 +6,43 @@ exports[`empty property set 1`] = `
 />
 `;
 
+exports[`horizontal cssClass 1`] = `
+<div
+  className="property-set form-row"
+>
+  <div
+    className="horizontal-input col-lg-6"
+  >
+    <div
+      className="property form-group required form-row"
+    >
+      <div
+        className="col-lg-3 col-form-control-label"
+      />
+      <div
+        className="col-lg-9"
+      >
+        <input
+          className="property-input form-control"
+          id="selectPropertyInput"
+          maxLength={undefined}
+          onBlur={[Function]}
+          onChange={[Function]}
+          onInput={[Function]}
+          onInvalid={[Function]}
+          pattern={undefined}
+          placeholder={undefined}
+          required={true}
+          size={undefined}
+          type="text"
+          value="value"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`inline layout1 1`] = `
 <div
   className="property-set"

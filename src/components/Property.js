@@ -114,7 +114,7 @@ class Property extends React.Component {
       }
       else {
         return (
-          <div className={classNames(outerClasses, 'col-lg-12')}>
+          <div className={classNames(outerClasses, meta.cssClasses && meta.cssClasses.includes('col-lg-')?'':'col-lg-12')}>
             <div className={classNames(formGroupClasses, this.props.rowClass)}>
               <div
                 className={classNames('col-lg-' + this.props.horizontalColSize, 'col-form-control-label')}>{label}</div>
@@ -132,7 +132,7 @@ class Property extends React.Component {
         'vertical-input',
         {'vertical-input--sm': this.props.bsSize === "sm"},
         {'vertical-input--lg': this.props.bsSize === "lg"},
-        meta.cssClasses || this.props.className || 'col-lg-12',
+        meta.cssClasses || this.props.className || (meta.cssClasses && meta.cssClasses.includes('col-lg-')?'':'col-lg-12'),
         {'display-none': meta.hidden}
       );
 

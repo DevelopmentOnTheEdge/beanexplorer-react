@@ -1347,7 +1347,7 @@ var Property = function (_React$Component) {
         } else {
           return React.createElement(
             'div',
-            { className: classNames(_outerClasses, 'col-lg-12') },
+            { className: classNames(_outerClasses, meta.cssClasses && meta.cssClasses.includes('col-lg-') ? '' : 'col-lg-12') },
             React.createElement(
               'div',
               { className: classNames(formGroupClasses, this.props.rowClass) },
@@ -1367,7 +1367,7 @@ var Property = function (_React$Component) {
           );
         }
       } else {
-        var _outerClasses2 = classNames('vertical-input', { 'vertical-input--sm': this.props.bsSize === "sm" }, { 'vertical-input--lg': this.props.bsSize === "lg" }, meta.cssClasses || this.props.className || 'col-lg-12', { 'display-none': meta.hidden });
+        var _outerClasses2 = classNames('vertical-input', { 'vertical-input--sm': this.props.bsSize === "sm" }, { 'vertical-input--lg': this.props.bsSize === "lg" }, meta.cssClasses || this.props.className || (meta.cssClasses && meta.cssClasses.includes('col-lg-') ? '' : 'col-lg-12'), { 'display-none': meta.hidden });
 
         if (meta.type === "Boolean") {
           return React.createElement(
