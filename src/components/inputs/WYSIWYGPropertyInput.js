@@ -11,7 +11,7 @@ export default class WYSIWYGPropertyInput extends BasePropertyInput {
   }
 
   componentDidUpdate() {
-    this.onInit()
+    this.onInit();
   }
 
   editorOnChange(evt){
@@ -32,6 +32,7 @@ export default class WYSIWYGPropertyInput extends BasePropertyInput {
       events={this.getEvents()}
       config={this.getConfig()}
       scriptUrl={this.getScriptUrl()}
+      onChange={evt=>this.editorOnChange(evt)}
     />
   }
 

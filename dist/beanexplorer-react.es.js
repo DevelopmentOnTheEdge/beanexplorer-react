@@ -890,7 +890,10 @@ var WYSIWYGPropertyInput = function (_BasePropertyInput) {
         data: this.getValue(),
         events: this.getEvents(),
         config: this.getConfig(),
-        scriptUrl: this.getScriptUrl()
+        scriptUrl: this.getScriptUrl(),
+        onChange: function onChange(evt) {
+          return _this2.editorOnChange(evt);
+        }
       });
     }
   }, {
