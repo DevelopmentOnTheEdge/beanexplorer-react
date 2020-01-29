@@ -1,6 +1,6 @@
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('react'), require('prop-types'), require('classnames'), require('react-maskedinput'), require('react-select'), require('react-virtualized-select'), require('big-integer'), require('big-rational'), require('react-datetime'), require('moment'), require('react-ckeditor-component'), require('json-pointer')) :
-	typeof define === 'function' && define.amd ? define(['react', 'prop-types', 'classnames', 'react-maskedinput', 'react-select', 'react-virtualized-select', 'big-integer', 'big-rational', 'react-datetime', 'moment', 'react-ckeditor-component', 'json-pointer'], factory) :
+	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('react'), require('prop-types'), require('classnames'), require('react-maskedinput'), require('react-select'), require('react-virtualized-select'), require('big-integer'), require('big-rational'), require('react-datetime'), require('moment'), require('ckeditor4-react'), require('json-pointer')) :
+	typeof define === 'function' && define.amd ? define(['react', 'prop-types', 'classnames', 'react-maskedinput', 'react-select', 'react-virtualized-select', 'big-integer', 'big-rational', 'react-datetime', 'moment', 'ckeditor4-react', 'json-pointer'], factory) :
 	(global.PropertySet = factory(global.React,global.PropTypes,global.classNames,global.MaskedInput,global.Select,global.VirtualizedSelect,global.bigInt,global.bigRat,global.Datetime,global.moment,global.CKEditor,global.JsonPointer));
 }(this, (function (React,PropTypes,classNames,MaskedInput,Select,VirtualizedSelect,bigInt,bigRat,Datetime,moment,CKEditor,JsonPointer) { 'use strict';
 
@@ -889,10 +889,12 @@ var WYSIWYGPropertyInput = function (_BasePropertyInput) {
       var value = this.getValue();
 
       return React.createElement(CKEditor, {
+        onBeforeLoad: function onBeforeLoad(CKEDITOR) {
+          return CKEDITOR.disableAutoInline = true;
+        },
         ref: function ref(instance) {
           _this2.ckeditor = instance;
         },
-        activeClass: 'p10',
         content: value,
         events: this.getEvents(),
         config: this.getConfig(),
@@ -904,7 +906,14 @@ var WYSIWYGPropertyInput = function (_BasePropertyInput) {
     value: function getConfig() {
       var meta = this.getMeta();
       return {
-        removeButtons: 'image',
+        disableAutoInline: true,
+        toolbar: [{ name: 'row1',
+          items: ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', 'CopyFormatting', 'RemoveFormat', '-', 'Undo', 'Redo', '-', '-', 'Image', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'Image Resizer', '-', 'Link', 'Unlink', 'Anchor'] }, '/', { name: 'row2',
+          items: ['NumberedList', 'BulletedList', 'Blockquote', '-', 'Styles', 'Format', 'Font', 'FontSize'] }, '/', { name: 'row3',
+          items: ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'TextColor', 'BGColor', '-', 'Source', 'Maximize'] }],
+        extraPlugins: 'colorbutton,copyformatting,font,justify,image2,maximize,smiley',
+        removePlugins: 'image',
+        removeButtons: '',
         language: this.props.localization.locale,
         readOnly: meta.readOnly
       };

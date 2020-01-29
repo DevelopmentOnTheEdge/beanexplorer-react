@@ -1,5 +1,5 @@
 import React from 'react';
-import CKEditor from 'react-ckeditor-component';
+import CKEditor from 'ckeditor4-react';
 import BasePropertyInput from "./BasePropertyInput";
 
 export default class WYSIWYGPropertyInput extends BasePropertyInput {
@@ -26,10 +26,10 @@ export default class WYSIWYGPropertyInput extends BasePropertyInput {
     const value = this.getValue();
 
     return <CKEditor
+      onBeforeLoad={ ( CKEDITOR ) => ( CKEDITOR.disableAutoInline = true ) }
       ref={instance => {
         this.ckeditor = instance;
       }}
-      activeClass="p10"
       content={value}
       events={this.getEvents()}
       config={this.getConfig()}
@@ -40,7 +40,27 @@ export default class WYSIWYGPropertyInput extends BasePropertyInput {
   getConfig() {
     const meta = this.getMeta();
     return {
-      removeButtons: 'image',
+      disableAutoInline: true,
+      toolbar: [
+          { name: 'row1', 
+            items: [ 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', 'CopyFormatting', 'RemoveFormat', 
+                '-', 'Undo', 'Redo', '-',
+                '-', 'Image', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'Image Resizer',
+                '-', 'Link', 'Unlink', 'Anchor' ] },
+          '/',
+          { name: 'row2', 
+            items: [ 'NumberedList', 'BulletedList', 'Blockquote',
+                '-', 'Styles', 'Format', 'Font', 'FontSize' ] },
+          '/',
+          { name: 'row3', 
+            items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript',
+                '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock',
+                '-', 'TextColor', 'BGColor',
+                '-', 'Source', 'Maximize' ] },
+      ],
+      extraPlugins: 'colorbutton,copyformatting,font,justify,image2,maximize,smiley',
+      removePlugins: 'image',
+      removeButtons: '',
       language: this.props.localization.locale,
       readOnly: meta.readOnly
     }

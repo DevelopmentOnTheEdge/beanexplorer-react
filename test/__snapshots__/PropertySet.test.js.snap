@@ -2227,7 +2227,8 @@ exports[`snapshot bean 1`] = `
         className="controls"
       >
         <div
-          className="p10"
+          contentEditable="true"
+          style={undefined}
         />
       </div>
     </div>
@@ -4264,7 +4265,8 @@ exports[`snapshot bean horizontal 1`] = `
         className="col-lg-9"
       >
         <div
-          className="p10"
+          contentEditable="true"
+          style={undefined}
         />
       </div>
     </div>
@@ -5235,7 +5237,8 @@ exports[`snapshot bean with readOnly 1`] = `
         className="controls"
       >
         <div
-          className="p10"
+          contentEditable="true"
+          style={undefined}
         />
       </div>
     </div>

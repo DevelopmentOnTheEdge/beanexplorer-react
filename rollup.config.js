@@ -19,7 +19,7 @@ const globals = {
   'moment': 'moment',
   'json-pointer': 'JsonPointer',
   'react-datetime': 'Datetime',
-  'react-ckeditor-component': 'CKEditor',
+  'ckeditor4-react': 'CKEditor',
   'react-maskedinput': 'MaskedInput',
   'react-select': 'Select',
   'react-virtualized-select': 'VirtualizedSelect',
