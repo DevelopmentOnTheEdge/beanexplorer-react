@@ -23,14 +23,12 @@ export default class WYSIWYGPropertyInput extends BasePropertyInput {
   }
 
   render() {
-    const value = this.getValue();
-
     return <CKEditor
       onBeforeLoad={ ( CKEDITOR ) => ( CKEDITOR.disableAutoInline = true ) }
       ref={instance => {
         this.ckeditor = instance;
       }}
-      content={value}
+      data={this.getValue()}
       events={this.getEvents()}
       config={this.getConfig()}
       scriptUrl={this.getScriptUrl()}
@@ -40,7 +38,6 @@ export default class WYSIWYGPropertyInput extends BasePropertyInput {
   getConfig() {
     const meta = this.getMeta();
     return {
-      disableAutoInline: true,
       toolbar: [
           { name: 'row1', 
             items: [ 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', 'CopyFormatting', 'RemoveFormat', 

@@ -886,8 +886,6 @@ var WYSIWYGPropertyInput = function (_BasePropertyInput) {
     value: function render() {
       var _this2 = this;
 
-      var value = this.getValue();
-
       return React.createElement(CKEditor, {
         onBeforeLoad: function onBeforeLoad(CKEDITOR) {
           return CKEDITOR.disableAutoInline = true;
@@ -895,7 +893,7 @@ var WYSIWYGPropertyInput = function (_BasePropertyInput) {
         ref: function ref(instance) {
           _this2.ckeditor = instance;
         },
-        content: value,
+        data: this.getValue(),
         events: this.getEvents(),
         config: this.getConfig(),
         scriptUrl: this.getScriptUrl()
@@ -906,7 +904,6 @@ var WYSIWYGPropertyInput = function (_BasePropertyInput) {
     value: function getConfig() {
       var meta = this.getMeta();
       return {
-        disableAutoInline: true,
         toolbar: [{ name: 'row1',
           items: ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', 'CopyFormatting', 'RemoveFormat', '-', 'Undo', 'Redo', '-', '-', 'Image', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'Image Resizer', '-', 'Link', 'Unlink', 'Anchor'] }, '/', { name: 'row2',
           items: ['NumberedList', 'BulletedList', 'Blockquote', '-', 'Styles', 'Format', 'Font', 'FontSize'] }, '/', { name: 'row3',
