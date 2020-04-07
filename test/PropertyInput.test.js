@@ -120,6 +120,49 @@ test('date init with no valid date', () => {
   expect(input.get(0).value).toEqual('no date');
 });
 
+test('time', () => {
+  const handle = jest.fn();
+
+  const wrapper = mount(
+    <PropertyInput path={"/time"} bean={bean} onChange={handle}
+                   value={JsonPointer.get(bean.values, "/time")}/>
+  );
+
+  wrapper.find('input').simulate('change', {target: {value: '21.11.2018 17:14'}});
+  expect(handle.mock.calls[0]).toEqual(["/time", "2018-11-21 17:14:00"]);
+
+
+  wrapper.find('input').simulate('change', {target: {value: ''}});
+  expect(handle.mock.calls[1]).toEqual(["/time", ""]);
+
+
+  wrapper.find('input').simulate('change', {target: {value: '20.07.20 17:05'}});
+  expect(handle.mock.calls[2]).toEqual(["/time", "20.07.20 17:05"]);
+
+  expect(handle.mock.calls.length).toEqual(3);
+});
+
+test('time timeValidationMessage', () => {
+  const handle = jest.fn();
+
+  const wrapper = shallow(
+    <DateTimePropertyInput path={"/time"} bean={bean} onChange={handle}
+                           value={JsonPointer.get(bean.values, "/time")}/>
+  );
+
+  wrapper.instance().timeValidationMessage(
+    {target:{value: '21.07.2017 17:05', setCustomValidity: handle, validity: {patternMismatch: true}}});
+
+  expect(handle.mock.calls[0]).toEqual(["Please enter a valid date with time in the format dd.mm.yyyy hh:mm"]);
+
+  wrapper.instance().timeValidationMessage(
+    {target:{setCustomValidity: handle, validity: {patternMismatch: false}}});
+
+  expect(handle.mock.calls[1]).toEqual([""]);
+
+  expect(handle.mock.calls.length).toEqual(2);
+});
+
 test('timestamp', () => {
   const handle = jest.fn();
 
