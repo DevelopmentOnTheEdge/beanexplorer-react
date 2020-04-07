@@ -335,6 +335,7 @@ BasePropertyInput.defaultProps = {
     rangeUnderflow: 'The value must be greater than or equal to {0}.',
     loadingPlaceholder: 'Loading...',
     datePatternError: 'Please enter a valid date in the format dd.mm.yyyy',
+    timePatternError: 'Please enter a valid date with time in the format dd.mm.yyyy hh:mm',
     timestampPatternError: 'Please enter a valid date with time in the format dd.mm.yyyy hh:mm'
   }
 };
@@ -693,6 +694,8 @@ var DateTimePropertyInput = function (_BasePropertyInput) {
 
     _this.dateValidationMessage = _this.dateValidationMessage.bind(_this);
     _this.dateToISOFormat = _this.dateToISOFormat.bind(_this);
+    _this.timeValidationMessage = _this.timeValidationMessage.bind(_this);
+    _this.timeToISOFormat = _this.timeToISOFormat.bind(_this);
     _this.timestampValidationMessage = _this.timestampValidationMessage.bind(_this);
     _this.timestampToISOFormat = _this.timestampToISOFormat.bind(_this);
     return _this;
@@ -742,6 +745,41 @@ var DateTimePropertyInput = function (_BasePropertyInput) {
         }
       }
 
+      if (meta.type === 'Time') {
+        if (meta.readOnly !== true) {
+          return React.createElement(Datetime, {
+            dateFormat: 'DD.MM.YYYY',
+            timeFormat: 'HH:mm',
+            key: this.getID() + "Datetime",
+            value: timeFromISOFormat(value),
+            onChange: this.timeToISOFormat,
+            onBlur: this.reload,
+            closeOnSelect: true,
+            closeOnTab: true,
+            locale: this.props.localization.locale,
+            inputProps: Object.assign({}, this.getBaseProps(), {
+              ref: function ref(instance) {
+                _this2.timeInput = instance;
+              },
+              pattern: "(^$|\\d{1,2}\\.\\d{1,2}\\.\\d{4}\\s\\d{2}:\\d{2})",
+              placeholder: extraAttrsMap.placeholder,
+              onInput: this.timeValidationMessage,
+              onInvalid: this.timeValidationMessage,
+              autoComplete: "off"
+            }),
+            className: 'Datetime-outer'
+          });
+        } else {
+          var _rawInputProps = this.getRawInputProps(value, extraAttrsMap);
+          var _rawTextValidation = this.getRawTextValidation(meta);
+          return React.createElement('input', _extends({
+            type: 'text'
+          }, _rawInputProps, _rawTextValidation, {
+            value: timeFromISOFormat(value)
+          }));
+        }
+      }
+
       if (meta.type === 'Timestamp') {
         if (meta.readOnly !== true) {
           return React.createElement(Datetime, {
@@ -767,11 +805,11 @@ var DateTimePropertyInput = function (_BasePropertyInput) {
             className: 'Datetime-outer'
           });
         } else {
-          var _rawInputProps = this.getRawInputProps(value, extraAttrsMap);
-          var _rawTextValidation = this.getRawTextValidation(meta);
+          var _rawInputProps2 = this.getRawInputProps(value, extraAttrsMap);
+          var _rawTextValidation2 = this.getRawTextValidation(meta);
           return React.createElement('input', _extends({
             type: 'text'
-          }, _rawInputProps, _rawTextValidation, {
+          }, _rawInputProps2, _rawTextValidation2, {
             value: timestampFromISOFormat(value)
           }));
         }
@@ -786,6 +824,17 @@ var DateTimePropertyInput = function (_BasePropertyInput) {
         this.callOnChange(date);
       } else {
         this.callOnChange(date.format('YYYY-MM-DD'));
+      }
+    }
+  }, {
+    key: 'timeToISOFormat',
+    value: function timeToISOFormat(date) {
+      this.timeInput.focus();
+
+      if (typeof date === "string") {
+        this.callOnChange(date);
+      } else {
+        this.callOnChange(date.format('YYYY-MM-DD HH:mm:ss'));
       }
     }
   }, {
@@ -809,6 +858,15 @@ var DateTimePropertyInput = function (_BasePropertyInput) {
       }
     }
   }, {
+    key: 'timeValidationMessage',
+    value: function timeValidationMessage(e) {
+      if (e.target.validity.patternMismatch) {
+        e.target.setCustomValidity(this.props.localization.timePatternError);
+      } else {
+        e.target.setCustomValidity('');
+      }
+    }
+  }, {
     key: 'timestampValidationMessage',
     value: function timestampValidationMessage(e) {
       if (e.target.validity.patternMismatch) {
@@ -825,6 +883,15 @@ var dateFromISOFormat = function dateFromISOFormat(stringDate) {
   var date = moment(stringDate, 'YYYY-MM-DD', true);
   if (date.isValid()) {
     return date.format('DD.MM.YYYY');
+  } else {
+    return stringDate;
+  }
+};
+
+var timeFromISOFormat = function timeFromISOFormat(stringDate) {
+  var date = moment(stringDate, 'YYYY-MM-DD HH:mm:ss', true);
+  if (date.isValid()) {
+    return date.format('DD.MM.YYYY HH:mm');
   } else {
     return stringDate;
   }
@@ -1201,7 +1268,7 @@ var PropertyInput = function (_BasePropertyInput) {
         return React.createElement(FilePropertyInput, this.props);
       }
 
-      if (meta.type === 'Date' || meta.type === 'Timestamp') {
+      if (meta.type === 'Date' || meta.type === 'Time' || meta.type === 'Timestamp') {
         return React.createElement(DateTimePropertyInput, this.props);
       }
 
