@@ -73,7 +73,7 @@ class PropertyInput extends BasePropertyInput {
       return <FilePropertyInput {...this.props}/>
     }
 
-    if (meta.type === 'Date' || meta.type === 'Timestamp') {
+    if (meta.type === 'Date' || meta.type === 'Time' || meta.type === 'Timestamp') {
       return <DateTimePropertyInput {...this.props}/>
     }
 

@@ -214,6 +214,7 @@ BasePropertyInput.defaultProps = {
     rangeUnderflow: 'The value must be greater than or equal to {0}.',
     loadingPlaceholder: 'Loading...',
     datePatternError: 'Please enter a valid date in the format dd.mm.yyyy',
+    timePatternError: 'Please enter a valid date with time in the format dd.mm.yyyy hh:mm',
     timestampPatternError: 'Please enter a valid date with time in the format dd.mm.yyyy hh:mm'
   },
 };
