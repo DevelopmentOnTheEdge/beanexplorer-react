@@ -38,7 +38,7 @@ class PropertySet extends React.Component {
     );
   }
 
-  render() {
+  processingGroups(){
     let curGroup = [];
     let curGroupName = null, curGroupId = null, curGroupClasses = null;
     let fields = [];
@@ -69,13 +69,17 @@ class PropertySet extends React.Component {
       }
 
       const field = (
-        <Property key={path} path={path} {...this.props} value={this.getValue(path)}/>
+          <Property key={path} path={path} {...this.props} value={this.getValue(path)}/>
       );
 
       curGroup.push(field);
     }
     finishGroup();
+    return  fields;
+  }
 
+  render() {
+    let fields = this.processingGroups();
     return (
       <div className={classNames('property-set', this.props.rowClass)}>
         {fields}
