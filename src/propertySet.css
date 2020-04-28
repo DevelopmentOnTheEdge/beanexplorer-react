@@ -1,3 +1,5 @@
+/******************************** GROUP CONTAINER CSS*******************************/
+
 .property-group {
   position: relative;
 }
@@ -21,6 +23,39 @@
 }
 
 .property-group__title {
+  top: -0.9em;
+  position: absolute;
+  background-color: white;
+  padding: 3pt;
+  /*font-size: 1.6em;*/
+  margin: 0 0 0 -3px;
+}
+
+/******************************** PARENTS CONTAINER CSS*******************************/
+
+.property-parent {
+  position: relative;
+}
+
+.property-parent__top-line{
+  margin-top: 1.2em;
+}
+
+.property-parent__top-line-row{
+  display: none;
+}
+
+.property-parent__top-line .property-parent__top-line-row {
+  border-top: 1px solid rgb(216, 216, 216);
+  padding-top: 1em;
+  display: block;
+}
+
+.property-parent:first-child .property-parent__top-line .property-parent__top-line-row{
+  border-top: none;
+}
+
+.property-parent__title {
   top: -0.9em;
   position: absolute;
   background-color: white;

@@ -11,30 +11,46 @@ class PropertySet extends React.Component {
     return shouldPropertyUpdate(this.props, nextProps) || this.props.values !== nextProps.values;
   }
 
-  static getName(name) {
+  static getName(name, type = 'group') {
     if (name) {
-      return <h5 className='property-group__title'>{name}</h5>
+      return <h5 className={`property-${type}__title`}>{name}</h5>
     } else {
       return null
     }
   }
-
-  createGroup(curGroup, curGroupId, curGroupName, curGroupClasses) {
+  hasGroup(){
+    for (const path of this.props.bean.order) {
+      const meta = this.props.bean.meta[path];
+      if(meta.groupId){
+        return true;
+      }
+    }
+    return false;
+  }
+  hasNestedDPS(){
+    for (const path of this.props.bean.order) {
+      const meta = this.props.bean.meta[path];
+      if(meta.isDPS){
+        return true;
+      }
+    }
+    return false;
+  }
+  createContainer(curContainer, curContainerId, curContainerName, curContainerClasses, type = 'group') {
     return (
-      <div
-        className={classNames(
-          'property-group',
-          curGroupClasses || 'property-group__top-line col-12'
-        )}
-        key={curGroupId}
-        ref={curGroupId}
-      >
-        <div className="property-group__top-line-row row"/>
-        {PropertySet.getName(curGroupName)}
-        <div className={classNames('property-group__row', this.props.rowClass)}>
-          {curGroup}
+        <div
+            className={classNames(
+                `property-${type}`,
+                curContainerClasses || `property-${type}__top-line col-12`
+            )}
+            key={curContainerId}
+            ref={curContainerId}>
+          <div className={`property-${type}__top-line-row row`}/>
+          {PropertySet.getName(curContainerName)}
+          <div className={classNames(`property-${type}__row`, this.props.rowClass)}>
+            {curContainer}
+          </div>
         </div>
-      </div>
     );
   }
 
@@ -46,7 +62,7 @@ class PropertySet extends React.Component {
     const finishGroup = () => {
       if (curGroup.length > 0) {
         if (curGroupId) {
-          fields.push(this.createGroup(curGroup, curGroupId, curGroupName, curGroupClasses));
+          fields.push(this.createContainer(curGroup, curGroupId, curGroupName, curGroupClasses));
         } else {
           Array.prototype.push.apply(fields, curGroup);
         }
@@ -78,12 +94,41 @@ class PropertySet extends React.Component {
     return  fields;
   }
 
+  processingNestedProperties() {
+    const fields = [];
+    let curContainer = []
+    for (const path of this.props.bean.order) {
+      const meta = this.props.bean.meta[path];
+      if (meta.isDPS) {
+        meta.hidden = true;
+        curContainer.push(<Property key={path} path={path} {...this.props} value={this.getValue(path)}/>)
+        const propID = path.substring(path.lastIndexOf("/") + 1);
+        fields.push(this.createContainer(curContainer, propID, meta.displayName));
+        curContainer = []
+      } else {
+        fields.push(<Property key={path} path={path} {...this.props} value={this.getValue(path)}/>)
+      }
+    }
+    return fields;
+  }
+
   render() {
-    let fields = this.processingGroups();
+    let fields = [];
+    if (this.hasGroup()) {
+      fields = this.processingGroups();
+    } else if( this.hasNestedDPS()){
+      fields = this.processingNestedProperties();
+    }
+    else {
+      for (const path of this.props.bean.order) {
+        fields.push(<Property key={path} path={path} {...this.props} value={this.getValue(path)}/>);
+      }
+    }
+
     return (
-      <div className={classNames('property-set', this.props.rowClass)}>
-        {fields}
-      </div>
+        <div className={classNames('property-set', this.props.rowClass)}>
+          {fields}
+        </div>
     );
   }
 
