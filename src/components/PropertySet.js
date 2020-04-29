@@ -115,9 +115,14 @@ class PropertySet extends React.Component {
             meta.hidden = true;
             let idxAndNestedPropContainer = this.createNestedPropContainer(i, list, path)
             i = idxAndNestedPropContainer[0];
-            startIdx = i;
             nestedPropsContainer.push(idxAndNestedPropContainer[1]);
+            //get last element and checked for rerun if elements position after nested DPS
+            if (this.props.bean.meta[list[i]].parent == parentPropId) {
+              i--;
+            }
+            startIdx = i;
           } else {
+            startIdx = i;
             nestedPropsContainer.push(<Property key={path} path={path} {...this.props} value={this.getValue(path)}/>);
           }
         } else {
