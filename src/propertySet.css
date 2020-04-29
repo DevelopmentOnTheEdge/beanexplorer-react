@@ -31,31 +31,39 @@
   margin: 0 0 0 -3px;
 }
 
-/******************************** PARENTS CONTAINER CSS*******************************/
+/******************************** NESTED DPS CONTAINER CSS*******************************/
 
-.property-parent {
+.property-nested-dps {
   position: relative;
 }
 
-.property-parent__top-line{
+.property-nested-dps__border-line{
   margin-top: 1.2em;
 }
 
-.property-parent__top-line-row{
+.property-nested-dps__border-line-row{
   display: none;
 }
 
-.property-parent__top-line .property-parent__top-line-row {
+.property-nested-dps__border-line .property-nested-dps__border-line-row {
   border-top: 1px solid rgb(216, 216, 216);
   padding-top: 1em;
   display: block;
 }
 
-.property-parent:first-child .property-parent__top-line .property-parent__top-line-row{
+.property-nested-dps:first-child .property-nested-dps__border-line .property-nested-dps__border-line-row{
   border-top: none;
 }
 
-.property-parent__title {
+.property-nested-dps__border{
+  border-bottom: 1px solid rgb(216, 216, 216);
+  margin-bottom: 1em;
+}
+
+div.property-nested-dps__border div.property-nested-dps__border{
+  margin-left: 2em;
+}
+.property-nested-dps__title {
   top: -0.9em;
   position: absolute;
   background-color: white;

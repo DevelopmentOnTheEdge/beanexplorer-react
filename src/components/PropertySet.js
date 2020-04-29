@@ -39,18 +39,18 @@ class PropertySet extends React.Component {
     return false;
   }
 
-  createContainer(curContainer, curContainerId, curContainerName, curContainerClasses, type = 'group') {
+  createContainer(curContainer, curContainerId, curContainerName, curContainerClasses, type = 'group__top') {
     return (
         <div
             className={classNames(
                 `property-${type}`,
-                curContainerClasses || `property-${type}__top-line col-12`
+                curContainerClasses || `property-${type}-line col-12`
             )}
             key={curContainerId}
             ref={curContainerId}>
-          <div className={`property-${type}__top-line-row row`}/>
+          <div className={`property-${type}-line-row row`}/>
           {PropertySet.getName(curContainerName)}
-          <div className={classNames(`property-${type}__row`, this.props.rowClass)}>
+          <div className={classNames(`property-${type.split("__")[0]}__row`, this.props.rowClass)}>
             {curContainer}
           </div>
         </div>
@@ -131,7 +131,7 @@ class PropertySet extends React.Component {
       }
     }
     const parentMeta = this.props.bean.meta[parentPath]
-    return [startIdx, this.createContainer(nestedPropsContainer, parentPropId, parentMeta.displayName)];
+    return [startIdx, this.createContainer(nestedPropsContainer, parentPropId, parentMeta.displayName,parentMeta.dpsClasses,"nested-dps__border")];
   }
 
   processingNestedProperties() {
