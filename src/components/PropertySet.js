@@ -18,24 +18,27 @@ class PropertySet extends React.Component {
       return null
     }
   }
-  hasGroup(){
+
+  hasGroup() {
     for (const path of this.props.bean.order) {
       const meta = this.props.bean.meta[path];
-      if(meta.groupId){
+      if (meta.groupId) {
         return true;
       }
     }
     return false;
   }
-  hasNestedDPS(){
+
+  hasNestedDPS() {
     for (const path of this.props.bean.order) {
       const meta = this.props.bean.meta[path];
-      if(meta.isDPS){
+      if (meta.isDPS) {
         return true;
       }
     }
     return false;
   }
+
   createContainer(curContainer, curContainerId, curContainerName, curContainerClasses, type = 'group') {
     return (
         <div
@@ -54,7 +57,7 @@ class PropertySet extends React.Component {
     );
   }
 
-  processingGroups(){
+  processingGroups() {
     let curGroup = [];
     let curGroupName = null, curGroupId = null, curGroupClasses = null;
     let fields = [];
@@ -91,20 +94,58 @@ class PropertySet extends React.Component {
       curGroup.push(field);
     }
     finishGroup();
-    return  fields;
+    return fields;
+  }
+
+  createNestedPropContainer(startIdx, list, parentPath) {
+    const parentPropId = parentPath.substring(parentPath.lastIndexOf("/") + 1);
+    const nestedPropsContainer = [];
+    startIdx++;
+    if (list.length > startIdx) {
+      for (let i = startIdx; i < list.length; i++) {
+        const path = list[i];
+        const meta = this.props.bean.meta[path];
+        startIdx = i
+        if (meta.parent == parentPropId) {
+          if (nestedPropsContainer.length === 0) {
+            nestedPropsContainer.push([<Property key={parentPath} path={parentPath} {...this.props}
+                                                 value={this.getValue(parentPath)}/>]);
+          }
+          if (meta.isDPS) {
+            meta.hidden = true;
+            let idxAndNestedPropContainer = this.createNestedPropContainer(i, list, path)
+            i = idxAndNestedPropContainer[0];
+            startIdx = i;
+            nestedPropsContainer.push(idxAndNestedPropContainer[1]);
+          } else {
+            nestedPropsContainer.push(<Property key={path} path={path} {...this.props} value={this.getValue(path)}/>);
+          }
+        } else {
+          break;
+        }
+      }
+    }
+    const parentMeta = this.props.bean.meta[parentPath]
+    return [startIdx, this.createContainer(nestedPropsContainer, parentPropId, parentMeta.displayName)];
   }
 
   processingNestedProperties() {
     const fields = [];
     let curContainer = []
-    for (const path of this.props.bean.order) {
+    const orderList = this.props.bean.order;
+    for (let i = 0; i < orderList.length; i++) {
+      const path = orderList[i];
       const meta = this.props.bean.meta[path];
       if (meta.isDPS) {
+        //todo create DPSProperty where dps element already hidden
         meta.hidden = true;
-        curContainer.push(<Property key={path} path={path} {...this.props} value={this.getValue(path)}/>)
-        const propID = path.substring(path.lastIndexOf("/") + 1);
-        fields.push(this.createContainer(curContainer, propID, meta.displayName));
-        curContainer = []
+        const idxAndNestedPropContainer = this.createNestedPropContainer(i, orderList, path);
+        i = idxAndNestedPropContainer[0];
+        fields.push(idxAndNestedPropContainer[1]);
+        //get last element and checked for rerun if element doesn't have parent
+        if (!this.props.bean.meta[orderList[i]].parent) {
+          i--;
+        }
       } else {
         fields.push(<Property key={path} path={path} {...this.props} value={this.getValue(path)}/>)
       }
@@ -116,10 +157,9 @@ class PropertySet extends React.Component {
     let fields = [];
     if (this.hasGroup()) {
       fields = this.processingGroups();
-    } else if( this.hasNestedDPS()){
+    } else if (this.hasNestedDPS()) {
       fields = this.processingNestedProperties();
-    }
-    else {
+    } else {
       for (const path of this.props.bean.order) {
         fields.push(<Property key={path} path={path} {...this.props} value={this.getValue(path)}/>);
       }
