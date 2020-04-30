@@ -27,3 +27,8 @@ export const shouldPropertyUpdate = function (props, nextProps) {
     || props.inline !== nextProps.inline
     || props.bsSize !== nextProps.bsSize;
 };
+
+//experemental, try check nested DPS
+export const isDPS = function (meta) {
+  return meta && meta.type && meta.type.indexOf('DynamicPropertySet') !== -1
+}

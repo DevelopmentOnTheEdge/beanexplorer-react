@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Property from './Property';
 import classNames from 'classnames';
 import JsonPointer from 'json-pointer';
-import {shouldPropertyUpdate} from "./utils";
+import {isDPS,shouldPropertyUpdate} from "./utils";
 
 class PropertySet extends React.Component {
 
@@ -32,7 +32,7 @@ class PropertySet extends React.Component {
   hasNestedDPS() {
     for (const path of this.props.bean.order) {
       const meta = this.props.bean.meta[path];
-      if (meta.isDPS) {
+      if (isDPS(meta)) {
         return true;
       }
     }
@@ -111,7 +111,7 @@ class PropertySet extends React.Component {
             nestedPropsContainer.push([<Property key={parentPath} path={parentPath} {...this.props}
                                                  value={this.getValue(parentPath)}/>]);
           }
-          if (meta.isDPS) {
+          if (isDPS(meta)) {
             meta.hidden = true;
             let idxAndNestedPropContainer = this.createNestedPropContainer(i, list, path)
             i = idxAndNestedPropContainer[0];
@@ -141,7 +141,7 @@ class PropertySet extends React.Component {
     for (let i = 0; i < orderList.length; i++) {
       const path = orderList[i];
       const meta = this.props.bean.meta[path];
-      if (meta.isDPS) {
+      if (isDPS(meta)) {
         //todo create DPSProperty where dps element already hidden
         meta.hidden = true;
         const idxAndNestedPropContainer = this.createNestedPropContainer(i, orderList, path);
