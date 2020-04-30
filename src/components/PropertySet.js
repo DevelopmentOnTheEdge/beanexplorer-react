@@ -112,7 +112,6 @@ class PropertySet extends React.Component {
                                                  value={this.getValue(parentPath)}/>]);
           }
           if (isDPS(meta)) {
-            meta.hidden = true;
             let idxAndNestedPropContainer = this.createNestedPropContainer(i, list, path)
             i = idxAndNestedPropContainer[0];
             nestedPropsContainer.push(idxAndNestedPropContainer[1]);
@@ -142,8 +141,6 @@ class PropertySet extends React.Component {
       const path = orderList[i];
       const meta = this.props.bean.meta[path];
       if (isDPS(meta)) {
-        //todo create DPSProperty where dps element already hidden
-        meta.hidden = true;
         const idxAndNestedPropContainer = this.createNestedPropContainer(i, orderList, path);
         i = idxAndNestedPropContainer[0];
         fields.push(idxAndNestedPropContainer[1]);

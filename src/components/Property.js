@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import PropertyInput from './PropertyInput'
-import {inputLabelSizeClasses, shouldPropertyUpdate} from "./utils";
+import {inputLabelSizeClasses, isDPS, shouldPropertyUpdate} from "./utils";
 
 
 class Property extends React.Component {
@@ -61,6 +61,10 @@ class Property extends React.Component {
       {'form-check': meta.type === 'Boolean'},
       {'required': meta.canBeNull !== true}
     );
+
+    if (isDPS(meta)) {
+      meta.hidden = true;
+    }
 
     if (this.props.inline) {
       const outerClasses = classNames(

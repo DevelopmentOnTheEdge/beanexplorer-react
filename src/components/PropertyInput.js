@@ -12,7 +12,7 @@ import Base64FilePropertyInput from "./inputs/Base64FilePropertyInput";
 import FilePropertyInput from "./inputs/FilePropertyInput";
 import {getPropertyInput} from "./propertyInputRegister";
 import AsyncSelectPropertyInput from "./inputs/AsyncSelectPropertyInput";
-import {shouldPropertyUpdate} from "./utils";
+import {isDPS, shouldPropertyUpdate} from "./utils";
 
 
 class PropertyInput extends BasePropertyInput {
@@ -83,6 +83,14 @@ class PropertyInput extends BasePropertyInput {
         checked={value === true || value === "true"}
         onChange={this.handleChangeBoolean}
         {...this.getBaseProps()}
+      />
+    }
+
+    if (isDPS(meta)) {
+      meta.hidden = true;
+      return <input
+          value={JSON.stringify(value)}
+          {...this.getBaseProps()}
       />
     }
 
