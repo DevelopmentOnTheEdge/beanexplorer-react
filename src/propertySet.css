@@ -37,32 +37,32 @@
   position: relative;
 }
 
-.property-nested-dps__border-line{
+.property-nested-dps__top-line {
   margin-top: 1.2em;
 }
 
-.property-nested-dps__border-line-row{
+.property-nested-dps__top-line-row .property-nested-dps__bottom-line-row {
   display: none;
 }
 
-.property-nested-dps__border-line .property-nested-dps__border-line-row {
+.property-nested-dps__top-line .property-nested-dps__top-line-row {
   border-top: 1px solid rgb(216, 216, 216);
   padding-top: 1em;
   display: block;
 }
 
-.property-nested-dps:first-child .property-nested-dps__border-line .property-nested-dps__border-line-row{
+.property-nested-dps:first-child .property-nested-dps__top-line .property-nested-dps__top-line-row {
   border-top: none;
 }
 
-.property-nested-dps__border{
-  border-bottom: 1px solid rgb(216, 216, 216);
-  margin-bottom: 1em;
+.property-nested-dps__row {
+  padding-left: 4em;
 }
 
-div.property-nested-dps__border div.property-nested-dps__border{
-  margin-left: 2em;
+.property-nested-dps__row .horizontal-input {
+  margin-left: -4em;
 }
+
 .property-nested-dps__title {
   top: -0.9em;
   position: absolute;
