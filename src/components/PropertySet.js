@@ -107,8 +107,14 @@ class PropertySet extends React.Component {
             key={curContainerId}
             ref={curContainerId}>
           <div className={'property-nested-dps__top-line-row row'}/>
-          {PropertySet.getName(curContainerName)}
-          <div className={classNames('property-nested-dps__row', this.props.rowClass)}>
+
+          <a className={'property-nested-dps__link'} data-toggle="collapse" href={"#" + curContainerId} role="button"
+             aria-expanded="false" aria-controls={curContainerId}>
+
+            {PropertySet.getName(curContainerName)}
+          </a>
+          <div id={curContainerId}
+               className={classNames('collapse', 'show', 'property-nested-dps__row', this.props.rowClass)}>
             {curContainer}
           </div>
           <div className={'property-nested-dps__top-line-row row'}/>
@@ -172,7 +178,6 @@ class PropertySet extends React.Component {
         fields.push(<Property key={path} path={path} {...this.props} value={this.getValue(path)}/>)
       }
     }
-    // return <div className="accordion" id={containerId}>{fields}</div>;
     return fields;
   }
 
