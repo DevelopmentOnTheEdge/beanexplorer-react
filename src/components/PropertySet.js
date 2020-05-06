@@ -11,9 +11,9 @@ class PropertySet extends React.Component {
     return shouldPropertyUpdate(this.props, nextProps) || this.props.values !== nextProps.values;
   }
 
-  static getName(name) {
+  static getName(name, css) {
     if (name) {
-      return <h5 className={'property-group__title'}>{name}</h5>
+      return <h5 className={css}>{name}</h5>
     } else {
       return null
     }
@@ -49,7 +49,7 @@ class PropertySet extends React.Component {
             key={curContainerId}
             ref={curContainerId}>
           <div className={'property-group__top-line-row row'}/>
-          {PropertySet.getName(curContainerName)}
+          {PropertySet.getName(curContainerName,'property-group__title')}
           <div className={classNames('property-group__row', this.props.rowClass)}>
             {curContainer}
           </div>
@@ -57,7 +57,7 @@ class PropertySet extends React.Component {
     );
   }
 
-   processingGroups() {
+  processingGroups() {
     let curGroup = [];
     let curGroupName = null, curGroupId = null, curGroupClasses = null;
     let fields = [];
@@ -98,31 +98,56 @@ class PropertySet extends React.Component {
   }
 
   createNestedPropsContainer(curContainer, curContainerId, curContainerName, curContainerClasses) {
-    return (
-        <div
-            className={classNames(
-                'property-nested-dps__top',
-                curContainerClasses || 'property-nested-dps__top-line col-12'
-            )}
-            key={curContainerId}
-            ref={curContainerId}>
-          <div className={'property-nested-dps__top-line-row row'}/>
+    debugger;
+    if (this.props.horizontal) {
+      return (
+          <div
+              className={classNames(
+                  'property-nested-dps__top',
+                  curContainerClasses || 'property-nested-dps__border col-12'
+              )}
+              key={curContainerId}
+              ref={curContainerId}>
+            <div className={'property-nested-dps__border-row row'}>
 
-          <a className={'property-nested-dps__link'} data-toggle="collapse" href={"#" + curContainerId} role="button"
-             aria-expanded="false" aria-controls={curContainerId}>
-
-            {PropertySet.getName(curContainerName)}
-          </a>
-          <div id={curContainerId}
-               className={classNames('collapse', 'show', 'property-nested-dps__row', this.props.rowClass)}>
-            {curContainer}
+              <a className={'property-nested-dps__link'} data-toggle="collapse" href={"#" + curContainerId}
+                 role="button"
+                 aria-expanded="false" aria-controls={curContainerId}>
+                {PropertySet.getName(curContainerName, 'property-group__title')}
+              </a>
+              <div id={curContainerId}
+                   className={classNames('collapse', 'show', 'property-nested-dps__row', this.props.rowClass)}>
+                {curContainer}
+              </div>
+            </div>
           </div>
-          <div className={'property-nested-dps__top-line-row row'}/>
-        </div>
-    );
+      )
+    } else {
+      return (
+          <div
+              className={classNames(
+                  'property-nested-dps__top',
+                  curContainerClasses || 'property-nested-dps__top-line col-12'
+              )}
+              key={curContainerId}
+              ref={curContainerId}>
+            <div className={'property-nested-dps__top-line-row row'}/>
+
+            <a className={'property-nested-dps__link'} data-toggle="collapse" href={"#" + curContainerId} role="button"
+               aria-expanded="false" aria-controls={curContainerId}>
+              {PropertySet.getName(curContainerName, 'property-group__title')}
+            </a>
+            <div id={curContainerId}
+                 className={classNames('collapse', 'show', 'property-nested-dps__row', this.props.rowClass)}>
+              {curContainer}
+            </div>
+            <div className={'property-nested-dps__top-line-row row'}/>
+          </div>
+      )
+    }
   }
 
-  createNestedProps(startIdx, list, parentPath, containerId) {
+  createNestedProps(startIdx, list, parentPath) {
     const parentPropId = parentPath.substring(parentPath.lastIndexOf("/") + 1);
     const nestedPropsContainer = [];
     startIdx++;
@@ -155,13 +180,12 @@ class PropertySet extends React.Component {
       }
     }
     const parentMeta = this.props.bean.meta[parentPath]
-    return [startIdx, this.createNestedPropsContainer(nestedPropsContainer, parentPropId, parentMeta.displayName,parentMeta.dpsClasses)];
+    return [startIdx, this.createNestedPropsContainer(nestedPropsContainer, parentPropId, parentMeta.displayName, parentMeta.dpsClasses)];
   }
 
   processingNestedProperties() {
     const fields = [];
     let curContainer = []
-    const containerId = "dps-accordion-container";
     const orderList = this.props.bean.order;
     for (let i = 0; i < orderList.length; i++) {
       const path = orderList[i];

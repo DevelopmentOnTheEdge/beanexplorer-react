@@ -40,7 +40,9 @@
   position: relative;
 }
 
-.property-nested-dps__top-line {
+.property-nested-dps__top-line,
+.property-nested-dps__border
+{
   margin-top: 1.2em;
 }
 
@@ -54,16 +56,21 @@
   display: block;
 }
 
+.property-nested-dps__border .property-nested-dps__border-row {
+  border: 1px solid rgb(216, 216, 216);
+  border-right: 0;
+  padding: 1em 1em 0;
+  display: block;
+  margin-bottom: 1.2em;
+}
+/*
 .property-nested-dps:first-child .property-nested-dps__top-line .property-nested-dps__top-line-row {
   border-top: none;
 }
+*/
 
 .property-nested-dps__row {
-  padding-left: 4em;
-}
-
-.property-nested-dps__row .horizontal-input {
-  margin-left: -4em;
+  padding-left: 3em;
 }
 
 .property-nested-dps__title {
