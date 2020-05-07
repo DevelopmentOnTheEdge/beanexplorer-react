@@ -43,7 +43,7 @@ class PropertySet extends React.Component {
     return (
         <div
             className={classNames(
-                'property-group__top',
+                'property-group',
                 curContainerClasses || 'property-group__top-line col-12'
             )}
             key={curContainerId}
@@ -103,7 +103,7 @@ class PropertySet extends React.Component {
       return (
           <div
               className={classNames(
-                  'property-nested-dps__top',
+                  'property-nested-dps',
                   curContainerClasses || 'property-nested-dps__border col-12'
               )}
               key={curContainerId}
@@ -126,7 +126,7 @@ class PropertySet extends React.Component {
       return (
           <div
               className={classNames(
-                  'property-nested-dps__top',
+                  'property-nested-dps',
                   curContainerClasses || 'property-nested-dps__top-line col-12'
               )}
               key={curContainerId}
