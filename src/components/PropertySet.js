@@ -39,6 +39,76 @@ class PropertySet extends React.Component {
     return false;
   }
 
+  getTabs() {
+    const tabs = [];
+    const tabIds = [];
+    for (const path of this.props.bean.order) {
+      const meta = this.props.bean.meta[path];
+      if (!meta.tabId && tabIds.indexOf(-1) === -1) {
+        tabIds.push(-1);
+        tabs.push({tabId: "-1", tabName: "main"});
+      } else if (meta.tabId && tabIds.indexOf(+meta.tabId) === -1) {
+        tabIds.push(+meta.tabId);
+        tabs.push({tabId: meta.tabId, tabName: (meta.tabName ? meta.tabName : `tab ${meta.tabId}`)});
+      }
+    }
+    return tabs.sort(function (a, b) {
+      return +a.tabId - +b.tabId;
+    })
+  }
+
+  getTabsHeader(tabs) {
+    return (
+        <ul key="property_tabs_header" className="nav nav-tabs col-12">
+          {tabs.map((tabInfo, idx) => {
+            return (
+                <li key={`tab_li_header_${tabInfo.tabId}`} className="nav-item">
+                  <a key={`tab_a_header_${tabInfo.tabId}`}
+                     className={classNames("nav-link", idx === 0 ? " active" : "")}
+                     data-toggle="tab"
+                     href={"#tab_" + tabInfo.tabId}>{tabInfo.tabName}</a>
+                </li>)
+          })}
+        </ul>
+    )
+  }
+
+  getTabsContent(tabs, tabContent) {
+    return (
+        <div key="property_tabs_content" className={classNames("tab-content property-tabs",
+            this.props.horizontal ? "col-9" : "col-12")}>
+          {tabs.map((tabInfo, idx) => {
+            return (
+                <div key={`tab_content_${tabInfo.tabId}`} className={"tab-pane fade" + (idx === 0 ? "show active" : "")}
+                     id={"tab_" + tabInfo.tabId}>
+                  {tabContent[tabInfo.tabId]}
+                </div>)
+          })}
+        </div>
+    )
+  }
+
+  processingTabs(tabs) {
+    const orderList = this.props.bean.order;
+    const tabsContent = {};
+    for (const path of this.props.bean.order) {
+      const meta = this.props.bean.meta[path];
+      const prop = <Property key={path} path={path} {...this.props} value={this.getValue(path)}/>;
+      const tabId = meta.tabId ? meta.tabId : "-1";
+      if (!tabsContent[tabId]) {
+        tabsContent[tabId] = [prop]
+      } else {
+        const content = tabsContent[tabId]
+        content.push(prop);
+        tabsContent[tabId] = content
+      }
+    }
+    const content = [];
+    content.push(this.getTabsHeader(tabs))
+    content.push(this.getTabsContent(tabs, tabsContent))
+    return content;
+  }
+
   createGroupContainer(curContainer, curContainerId, curContainerName, curContainerClasses) {
     return (
         <div
@@ -98,7 +168,6 @@ class PropertySet extends React.Component {
   }
 
   createNestedPropsContainer(curContainer, curContainerId, curContainerName, curContainerClasses) {
-    debugger;
     if (this.props.horizontal) {
       return (
           <div
@@ -207,7 +276,11 @@ class PropertySet extends React.Component {
 
   render() {
     let fields = [];
-    if (this.hasGroup()) {
+    const tabs = this.getTabs();
+    if (tabs.length > 1) {
+      fields = this.processingTabs(tabs);
+    }
+    else if (this.hasGroup()) {
       fields = this.processingGroups();
     } else if (this.hasNestedDPS()) {
       fields = this.processingNestedProperties();
