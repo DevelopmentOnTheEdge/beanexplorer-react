@@ -1056,6 +1056,9 @@ var LabelPropertyInput = function (_BasePropertyInput) {
   return LabelPropertyInput;
 }(BasePropertyInput);
 
+//var Promise = require('pinkie-promise');
+//import Promise from 'pinkie-promise';
+
 var Base64FilePropertyInput = function (_BasePropertyInput) {
   inherits(Base64FilePropertyInput, _BasePropertyInput);
 
