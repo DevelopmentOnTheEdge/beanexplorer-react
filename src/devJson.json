@@ -1,7 +1,8 @@
 {
   "values": {
     "name": "1.00000001234567E12",
-    "radioButtons": ""
+    "radioButtons": "",
+    "multiSelectViaCheckboxes": "chocolate"
   },
   "meta": {
     "/name": {
@@ -15,13 +16,19 @@
     "/radioButtons": {
       "displayName": "Test Radio buttons",
       "extraAttrs": [["inputType", "radio"]],
+      "tagList": [["vanilla","Vanilla"],["chocolate","Chocolate"]]
+    },
+    "/multiSelectViaCheckboxes": {
+      "displayName": "Test Multi Select Via CheckBoxes",
+      "extraAttrs": [["inputType", "radio"]],
       "multipleSelectionList": true,
-      "canBeNull": false,
+      "canBeNull": true,
       "tagList": [["vanilla","Vanilla"],["chocolate","Chocolate"]]
     }
   },
   "order": [
     "/name",
-    "/radioButtons"
+    "/radioButtons",
+    "/multiSelectViaCheckboxes"
   ]
 }

@@ -1,5 +1,7 @@
 import React from 'react';
 import BasePropertyInput from "./BasePropertyInput";
+//var Promise = require('pinkie-promise');
+//import Promise from 'pinkie-promise';
 
 export default class Base64FilePropertyInput extends BasePropertyInput {
   constructor(props) {
