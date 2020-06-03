@@ -801,6 +801,8 @@ td.rdtYear:hover {
   letter-spacing: 1px;
   content: "Example";
 }
+/******************************** GROUP CONTAINER CSS*******************************/
+
 .property-group {
   position: relative;
 }
@@ -831,6 +833,62 @@ td.rdtYear:hover {
   /*font-size: 1.6em;*/
   margin: 0 0 0 -3px;
 }
+
+.property-nested-dps__link{
+ color: inherit;
+}
+/******************************** NESTED DPS CONTAINER CSS*******************************/
+
+.property-nested-dps {
+  position: relative;
+}
+
+.property-nested-dps__top-line,
+.property-nested-dps__border
+{
+  margin-top: 1.2em;
+}
+
+.property-nested-dps__top-line-row .property-nested-dps__bottom-line-row {
+  display: none;
+}
+
+.property-nested-dps__top-line .property-nested-dps__top-line-row {
+  border-top: 1px solid rgb(216, 216, 216);
+  padding-top: 1em;
+  display: block;
+}
+
+.property-nested-dps__border .property-nested-dps__border-row {
+  border: 1px solid rgb(216, 216, 216);
+  border-right: 0;
+  padding: 1em 1em 0;
+  display: block;
+  margin-bottom: 1.2em;
+}
+/*
+.property-nested-dps:first-child .property-nested-dps__top-line .property-nested-dps__top-line-row {
+  border-top: none;
+}
+*/
+
+.property-nested-dps__row {
+  padding-left: 3em;
+}
+
+.property-nested-dps__title {
+  top: -0.9em;
+  position: absolute;
+  background-color: white;
+  padding: 3pt;
+  /*font-size: 1.6em;*/
+  margin: 0 0 0 -3px;
+}
+/******************************** TABS  CSS*******************************/
+.property-tabs {
+  padding-top: 2em;
+}
+
 
 /****************************************************************************/
 

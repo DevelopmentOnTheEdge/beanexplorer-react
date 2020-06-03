@@ -39,6 +39,11 @@ var shouldPropertyUpdate = function shouldPropertyUpdate(props, nextProps) {
   return props.bean !== nextProps.bean || props.horizontal !== nextProps.horizontal || props.inline !== nextProps.inline || props.bsSize !== nextProps.bsSize;
 };
 
+//experemental, try check nested DPS
+var isDPS = function isDPS(meta) {
+  return meta && meta.type && meta.type.indexOf('DynamicPropertySet') !== -1;
+};
+
 var classCallCheck = function (instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
@@ -1278,6 +1283,13 @@ var PropertyInput = function (_BasePropertyInput) {
         }, this.getBaseProps()));
       }
 
+      if (isDPS(meta)) {
+        meta.hidden = true;
+        return React.createElement('input', _extends({
+          value: JSON.stringify(value)
+        }, this.getBaseProps()));
+      }
+
       var rawInputProps = this.getRawInputProps(value, extraAttrsMap);
       var rawTextValidation = this.getRawTextValidation(meta);
       if (extraAttrsMap.inputType === 'textArea') {
@@ -1374,6 +1386,10 @@ var Property = function (_React$Component) {
       }
 
       var formGroupClasses = classNames('property', { 'form-group': meta.type !== 'Boolean' }, { 'form-check': meta.type === 'Boolean' }, { 'required': meta.canBeNull !== true });
+
+      if (isDPS(meta)) {
+        meta.hidden = true;
+      }
 
       if (this.props.inline) {
         var outerClasses = classNames(formGroupClasses, meta.cssClasses || this.props.className || 'mb-2 mr-sm-2', { 'display-none': meta.hidden });
@@ -1583,27 +1599,215 @@ var PropertySet$1 = function (_React$Component) {
       return shouldPropertyUpdate(this.props, nextProps) || this.props.values !== nextProps.values;
     }
   }, {
-    key: 'createGroup',
-    value: function createGroup(curGroup, curGroupId, curGroupName, curGroupClasses) {
+    key: 'hasGroup',
+    value: function hasGroup() {
+      var _iteratorNormalCompletion = true;
+      var _didIteratorError = false;
+      var _iteratorError = undefined;
+
+      try {
+        for (var _iterator = this.props.bean.order[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          var path = _step.value;
+
+          var meta = this.props.bean.meta[path];
+          if (meta.groupId) {
+            return true;
+          }
+        }
+      } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion && _iterator.return) {
+            _iterator.return();
+          }
+        } finally {
+          if (_didIteratorError) {
+            throw _iteratorError;
+          }
+        }
+      }
+
+      return false;
+    }
+  }, {
+    key: 'hasNestedDPS',
+    value: function hasNestedDPS() {
+      var _iteratorNormalCompletion2 = true;
+      var _didIteratorError2 = false;
+      var _iteratorError2 = undefined;
+
+      try {
+        for (var _iterator2 = this.props.bean.order[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+          var path = _step2.value;
+
+          var meta = this.props.bean.meta[path];
+          if (isDPS(meta)) {
+            return true;
+          }
+        }
+      } catch (err) {
+        _didIteratorError2 = true;
+        _iteratorError2 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion2 && _iterator2.return) {
+            _iterator2.return();
+          }
+        } finally {
+          if (_didIteratorError2) {
+            throw _iteratorError2;
+          }
+        }
+      }
+
+      return false;
+    }
+  }, {
+    key: 'getTabs',
+    value: function getTabs() {
+      var tabs = [];
+      var tabIds = [];
+      var _iteratorNormalCompletion3 = true;
+      var _didIteratorError3 = false;
+      var _iteratorError3 = undefined;
+
+      try {
+        for (var _iterator3 = this.props.bean.order[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+          var path = _step3.value;
+
+          var meta = this.props.bean.meta[path];
+          if (!meta.tabId && tabIds.indexOf(-1) === -1) {
+            tabIds.push(-1);
+            tabs.push({ tabId: "-1", tabName: "main" });
+          } else if (meta.tabId && tabIds.indexOf(+meta.tabId) === -1) {
+            tabIds.push(+meta.tabId);
+            tabs.push({ tabId: meta.tabId, tabName: meta.tabName ? meta.tabName : 'tab ' + meta.tabId });
+          }
+        }
+      } catch (err) {
+        _didIteratorError3 = true;
+        _iteratorError3 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion3 && _iterator3.return) {
+            _iterator3.return();
+          }
+        } finally {
+          if (_didIteratorError3) {
+            throw _iteratorError3;
+          }
+        }
+      }
+
+      return tabs.sort(function (a, b) {
+        return +a.tabId - +b.tabId;
+      });
+    }
+  }, {
+    key: 'getTabsHeader',
+    value: function getTabsHeader(tabs) {
+      return React.createElement(
+        'ul',
+        { key: 'property_tabs_header', className: 'nav nav-tabs col-12' },
+        tabs.map(function (tabInfo, idx) {
+          return React.createElement(
+            'li',
+            { key: 'tab_li_header_' + tabInfo.tabId, className: 'nav-item' },
+            React.createElement(
+              'a',
+              { key: 'tab_a_header_' + tabInfo.tabId,
+                className: classNames("nav-link", idx === 0 ? " active" : ""),
+                'data-toggle': 'tab',
+                href: "#tab_" + tabInfo.tabId },
+              tabInfo.tabName
+            )
+          );
+        })
+      );
+    }
+  }, {
+    key: 'getTabsContent',
+    value: function getTabsContent(tabs, tabContent) {
+      return React.createElement(
+        'div',
+        { key: 'property_tabs_content', className: classNames("tab-content property-tabs", this.props.horizontal ? "col-9" : "col-12") },
+        tabs.map(function (tabInfo, idx) {
+          return React.createElement(
+            'div',
+            { key: 'tab_content_' + tabInfo.tabId, className: "tab-pane fade" + (idx === 0 ? "show active" : ""),
+              id: "tab_" + tabInfo.tabId },
+            tabContent[tabInfo.tabId]
+          );
+        })
+      );
+    }
+  }, {
+    key: 'processingTabs',
+    value: function processingTabs(tabs) {
+      var orderList = this.props.bean.order;
+      var tabsContent = {};
+      var _iteratorNormalCompletion4 = true;
+      var _didIteratorError4 = false;
+      var _iteratorError4 = undefined;
+
+      try {
+        for (var _iterator4 = this.props.bean.order[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+          var path = _step4.value;
+
+          var meta = this.props.bean.meta[path];
+          var prop = React.createElement(Property, _extends({ key: path, path: path }, this.props, { value: this.getValue(path) }));
+          var tabId = meta.tabId ? meta.tabId : "-1";
+          if (!tabsContent[tabId]) {
+            tabsContent[tabId] = [prop];
+          } else {
+            var _content = tabsContent[tabId];
+            _content.push(prop);
+            tabsContent[tabId] = _content;
+          }
+        }
+      } catch (err) {
+        _didIteratorError4 = true;
+        _iteratorError4 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion4 && _iterator4.return) {
+            _iterator4.return();
+          }
+        } finally {
+          if (_didIteratorError4) {
+            throw _iteratorError4;
+          }
+        }
+      }
+
+      var content = [];
+      content.push(this.getTabsHeader(tabs));
+      content.push(this.getTabsContent(tabs, tabsContent));
+      return content;
+    }
+  }, {
+    key: 'createGroupContainer',
+    value: function createGroupContainer(curContainer, curContainerId, curContainerName, curContainerClasses) {
       return React.createElement(
         'div',
         {
-          className: classNames('property-group', curGroupClasses || 'property-group__top-line col-12'),
-          key: curGroupId,
-          ref: curGroupId
-        },
+          className: classNames('property-group', curContainerClasses || 'property-group__top-line col-12'),
+          key: curContainerId,
+          ref: curContainerId },
         React.createElement('div', { className: 'property-group__top-line-row row' }),
-        PropertySet.getName(curGroupName),
+        PropertySet.getName(curContainerName, 'property-group__title'),
         React.createElement(
           'div',
           { className: classNames('property-group__row', this.props.rowClass) },
-          curGroup
+          curContainer
         )
       );
     }
   }, {
-    key: 'render',
-    value: function render() {
+    key: 'processingGroups',
+    value: function processingGroups() {
       var _this2 = this;
 
       var curGroup = [];
@@ -1615,7 +1819,7 @@ var PropertySet$1 = function (_React$Component) {
       var finishGroup = function finishGroup() {
         if (curGroup.length > 0) {
           if (curGroupId) {
-            fields.push(_this2.createGroup(curGroup, curGroupId, curGroupName, curGroupClasses));
+            fields.push(_this2.createGroupContainer(curGroup, curGroupId, curGroupName, curGroupClasses));
           } else {
             Array.prototype.push.apply(fields, curGroup);
           }
@@ -1623,13 +1827,13 @@ var PropertySet$1 = function (_React$Component) {
         curGroup = [];
       };
 
-      var _iteratorNormalCompletion = true;
-      var _didIteratorError = false;
-      var _iteratorError = undefined;
+      var _iteratorNormalCompletion5 = true;
+      var _didIteratorError5 = false;
+      var _iteratorError5 = undefined;
 
       try {
-        for (var _iterator = this.props.bean.order[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-          var path = _step.value;
+        for (var _iterator5 = this.props.bean.order[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
+          var path = _step5.value;
 
           var meta = this.props.bean.meta[path];
 
@@ -1649,21 +1853,171 @@ var PropertySet$1 = function (_React$Component) {
           curGroup.push(field);
         }
       } catch (err) {
-        _didIteratorError = true;
-        _iteratorError = err;
+        _didIteratorError5 = true;
+        _iteratorError5 = err;
       } finally {
         try {
-          if (!_iteratorNormalCompletion && _iterator.return) {
-            _iterator.return();
+          if (!_iteratorNormalCompletion5 && _iterator5.return) {
+            _iterator5.return();
           }
         } finally {
-          if (_didIteratorError) {
-            throw _iteratorError;
+          if (_didIteratorError5) {
+            throw _iteratorError5;
           }
         }
       }
 
       finishGroup();
+      return fields;
+    }
+  }, {
+    key: 'createNestedPropsContainer',
+    value: function createNestedPropsContainer(curContainer, curContainerId, curContainerName, curContainerClasses) {
+      if (this.props.horizontal) {
+        return React.createElement(
+          'div',
+          {
+            className: classNames('property-nested-dps', curContainerClasses || 'property-nested-dps__border col-12'),
+            key: curContainerId,
+            ref: curContainerId },
+          React.createElement(
+            'div',
+            { className: 'property-nested-dps__border-row row' },
+            React.createElement(
+              'a',
+              { className: 'property-nested-dps__link', 'data-toggle': 'collapse', href: "#" + curContainerId,
+                role: 'button',
+                'aria-expanded': 'false', 'aria-controls': curContainerId },
+              PropertySet.getName(curContainerName, 'property-group__title')
+            ),
+            React.createElement(
+              'div',
+              { id: curContainerId,
+                className: classNames('collapse', 'show', 'property-nested-dps__row', this.props.rowClass) },
+              curContainer
+            )
+          )
+        );
+      } else {
+        return React.createElement(
+          'div',
+          {
+            className: classNames('property-nested-dps', curContainerClasses || 'property-nested-dps__top-line col-12'),
+            key: curContainerId,
+            ref: curContainerId },
+          React.createElement('div', { className: 'property-nested-dps__top-line-row row' }),
+          React.createElement(
+            'a',
+            { className: 'property-nested-dps__link', 'data-toggle': 'collapse', href: "#" + curContainerId, role: 'button',
+              'aria-expanded': 'false', 'aria-controls': curContainerId },
+            PropertySet.getName(curContainerName, 'property-group__title')
+          ),
+          React.createElement(
+            'div',
+            { id: curContainerId,
+              className: classNames('collapse', 'show', 'property-nested-dps__row', this.props.rowClass) },
+            curContainer
+          ),
+          React.createElement('div', { className: 'property-nested-dps__top-line-row row' })
+        );
+      }
+    }
+  }, {
+    key: 'createNestedProps',
+    value: function createNestedProps(startIdx, list, parentPath) {
+      var parentPropId = parentPath.substring(parentPath.lastIndexOf("/") + 1);
+      var nestedPropsContainer = [];
+      startIdx++;
+      if (list.length > startIdx) {
+        for (var i = startIdx; i < list.length; i++) {
+          var path = list[i];
+          var meta = this.props.bean.meta[path];
+          startIdx = i;
+          if (meta.parent == parentPropId) {
+            if (nestedPropsContainer.length === 0) {
+              nestedPropsContainer.push([React.createElement(Property, _extends({ key: parentPath, path: parentPath }, this.props, {
+                value: this.getValue(parentPath) }))]);
+            }
+            if (isDPS(meta)) {
+              var idxAndNestedPropContainer = this.createNestedProps(i, list, path);
+              i = idxAndNestedPropContainer[0];
+              nestedPropsContainer.push(idxAndNestedPropContainer[1]);
+              //get last element and checked for rerun if elements position after nested DPS
+              if (this.props.bean.meta[list[i]].parent == parentPropId) {
+                i--;
+              }
+              startIdx = i;
+            } else {
+              startIdx = i;
+              nestedPropsContainer.push(React.createElement(Property, _extends({ key: path, path: path }, this.props, { value: this.getValue(path) })));
+            }
+          } else {
+            break;
+          }
+        }
+      }
+      var parentMeta = this.props.bean.meta[parentPath];
+      return [startIdx, this.createNestedPropsContainer(nestedPropsContainer, parentPropId, parentMeta.displayName, parentMeta.dpsClasses)];
+    }
+  }, {
+    key: 'processingNestedProperties',
+    value: function processingNestedProperties() {
+      var fields = [];
+      var orderList = this.props.bean.order;
+      for (var i = 0; i < orderList.length; i++) {
+        var path = orderList[i];
+        var meta = this.props.bean.meta[path];
+        if (isDPS(meta)) {
+          var idxAndNestedPropContainer = this.createNestedProps(i, orderList, path);
+          i = idxAndNestedPropContainer[0];
+          fields.push(idxAndNestedPropContainer[1]);
+          //get last element and checked for rerun if element doesn't have parent
+          if (!this.props.bean.meta[orderList[i]].parent) {
+            i--;
+          }
+        } else {
+          fields.push(React.createElement(Property, _extends({ key: path, path: path }, this.props, { value: this.getValue(path) })));
+        }
+      }
+      return fields;
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var fields = [];
+      var tabs = this.getTabs();
+      if (tabs.length > 1) {
+        fields = this.processingTabs(tabs);
+      } else if (this.hasGroup()) {
+        fields = this.processingGroups();
+      } else if (this.hasNestedDPS()) {
+        fields = this.processingNestedProperties();
+      } else {
+        var _iteratorNormalCompletion6 = true;
+        var _didIteratorError6 = false;
+        var _iteratorError6 = undefined;
+
+        try {
+          for (var _iterator6 = this.props.bean.order[Symbol.iterator](), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
+            var path = _step6.value;
+
+            fields.push(React.createElement(Property, _extends({ key: path, path: path }, this.props, { value: this.getValue(path) })));
+          }
+        } catch (err) {
+          _didIteratorError6 = true;
+          _iteratorError6 = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion6 && _iterator6.return) {
+              _iterator6.return();
+            }
+          } finally {
+            if (_didIteratorError6) {
+              throw _iteratorError6;
+            }
+          }
+        }
+      }
 
       return React.createElement(
         'div',
@@ -1679,11 +2033,11 @@ var PropertySet$1 = function (_React$Component) {
     }
   }], [{
     key: 'getName',
-    value: function getName(name) {
+    value: function getName(name, css) {
       if (name) {
         return React.createElement(
           'h5',
-          { className: 'property-group__title' },
+          { className: css },
           name
         );
       } else {
