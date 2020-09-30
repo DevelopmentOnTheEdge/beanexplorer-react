@@ -98,7 +98,8 @@ class Property extends React.Component {
         'horizontal-input',
         {'horizontal-input--sm': this.props.bsSize === "sm"},
         {'horizontal-input--lg': this.props.bsSize === "lg"},
-          meta.cssClasses || this.props.className || (meta.cssClasses && meta.cssClasses.includes('col-lg-')?'':'col-lg-12'),
+          meta.cssClasses || this.props.className,
+          meta.cssClasses && meta.cssClasses.includes('col-lg-')?'':'col-lg-12',
         {'display-none': meta.hidden}
       );
       if (meta.type === "Boolean" || inputTypeButton) {
@@ -138,7 +139,8 @@ class Property extends React.Component {
         'vertical-input',
         {'vertical-input--sm': this.props.bsSize === "sm"},
         {'vertical-input--lg': this.props.bsSize === "lg"},
-        meta.cssClasses || this.props.className || (meta.cssClasses && meta.cssClasses.includes('col-lg-')?'':'col-lg-12'),
+        meta.cssClasses || this.props.className,
+        meta.cssClasses && meta.cssClasses.includes('col-lg-')?'':'col-lg-12',
         {'display-none': meta.hidden}
       );
 
