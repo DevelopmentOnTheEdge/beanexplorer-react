@@ -99,10 +99,11 @@ class Property extends React.Component {
         {'horizontal-input--sm': this.props.bsSize === "sm"},
         {'horizontal-input--lg': this.props.bsSize === "lg"},
           meta.cssClasses || this.props.className,
+          //todo check col-any-?
           meta.cssClasses && meta.cssClasses.includes('col-lg-')?'':'col-lg-12',
         {'display-none': meta.hidden}
       );
-      if (meta.type === "Boolean" || inputTypeButton) {
+      if (meta.type === "Boolean" || inputTypeButton && !(meta.cssClasses && meta.cssClasses.includes('col-lg-'))) {
         const colTag = 'col-lg-' + (12 - this.props.horizontalColSize);
         const offsetTag = 'offset-lg-' + this.props.horizontalColSize;
         return (
@@ -117,6 +118,17 @@ class Property extends React.Component {
               </div>
             </div>
           </div>
+        );
+      }
+      else if (inputTypeButton && meta.cssClasses && meta.cssClasses.includes('col-lg-')) {
+        return (
+            <div className={classNames(outerClasses, 'offset-lg-' + this.props.horizontalColSize, "text-nowrap")}>
+              <div className={classNames(formGroupClasses)}>
+                <PropertyInput {...this.props} />
+                {!inputTypeButton ? label : ""}
+                {messageElement}
+              </div>
+            </div>
         );
       }
       else {
