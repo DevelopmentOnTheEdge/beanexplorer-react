@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import PropertyInput from './PropertyInput'
 import {inputLabelSizeClasses, isDPS, shouldPropertyUpdate} from "./utils";
+import BasePropertyInput from "./inputs/BasePropertyInput";
 
 
 class Property extends React.Component {
@@ -24,6 +25,7 @@ class Property extends React.Component {
     const path = this.getPath();
     const meta = this.props.bean.meta[path];
     const id = path.substring(path.lastIndexOf("/") + 1) + "PropertyInput";
+    const extraAttrsMap = BasePropertyInput.getExtraAttrsMap(meta);
 
     let label;
     if (meta.displayName) {
@@ -66,6 +68,7 @@ class Property extends React.Component {
       meta.hidden = true;
     }
 
+    const inputTypeButton = ['Button','button'].includes(extraAttrsMap.inputType);
     if (this.props.inline) {
       const outerClasses = classNames(
         formGroupClasses,
@@ -95,20 +98,19 @@ class Property extends React.Component {
         'horizontal-input',
         {'horizontal-input--sm': this.props.bsSize === "sm"},
         {'horizontal-input--lg': this.props.bsSize === "lg"},
-        meta.cssClasses || this.props.className,
+          meta.cssClasses || this.props.className || (meta.cssClasses && meta.cssClasses.includes('col-lg-')?'':'col-lg-12'),
         {'display-none': meta.hidden}
       );
-
-      if (meta.type === "Boolean") {
+      if (meta.type === "Boolean" || inputTypeButton) {
         const colTag = 'col-lg-' + (12 - this.props.horizontalColSize);
         const offsetTag = 'offset-lg-' + this.props.horizontalColSize;
         return (
-          <div className={classNames(outerClasses, 'col-lg-12')}>
+          <div className={classNames(outerClasses)}>
             <div className={this.props.rowClass}>
               <div className={classNames(colTag, offsetTag)}>
                 <div className={classNames(formGroupClasses)}>
                   <PropertyInput {...this.props} />
-                  {label}
+                  {!inputTypeButton ? label : ""}
                   {messageElement}
                 </div>
               </div>
@@ -118,7 +120,7 @@ class Property extends React.Component {
       }
       else {
         return (
-          <div className={classNames(outerClasses, meta.cssClasses && meta.cssClasses.includes('col-lg-')?'':'col-lg-12')}>
+          <div className={classNames(outerClasses)}>
             <div className={classNames(formGroupClasses, this.props.rowClass)}>
               <div
                 className={classNames('col-lg-' + this.props.horizontalColSize, 'col-form-control-label')}>{label}</div>
@@ -140,12 +142,12 @@ class Property extends React.Component {
         {'display-none': meta.hidden}
       );
 
-      if (meta.type === "Boolean") {
+      if (meta.type === "Boolean" || inputTypeButton) {
         return (
           <div className={outerClasses}>
             <div className={formGroupClasses}>
               <PropertyInput {...this.props} />
-              {label}
+              {!inputTypeButton ? label : ""}
               {messageElement}
             </div>
           </div>

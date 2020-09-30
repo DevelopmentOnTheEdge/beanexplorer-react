@@ -8,6 +8,7 @@ import DateTimePropertyInput from "./inputs/DateTimePropertyInput";
 import BasePropertyInput from "./inputs/BasePropertyInput";
 import WYSIWYGPropertyInput from "./inputs/WYSIWYGPropertyInput";
 import LabelPropertyInput from "./inputs/LabelPropertyInput";
+import ButtonPropertyInput from "./inputs/ButtonPropertyInput";
 import Base64FilePropertyInput from "./inputs/Base64FilePropertyInput";
 import FilePropertyInput from "./inputs/FilePropertyInput";
 import {getPropertyInput} from "./propertyInputRegister";
@@ -42,6 +43,10 @@ class PropertyInput extends BasePropertyInput {
     if (extraAttrsMap.inputType === "AsyncSelect" && this.props.selectLoadOptions !== undefined)
     {
       return <AsyncSelectPropertyInput {...this.props}/>
+    }
+
+    if (['Button', 'button'].includes(extraAttrsMap.inputType)) {
+      return <ButtonPropertyInput {...this.props}/>
     }
 
     if (meta.tagList) {
