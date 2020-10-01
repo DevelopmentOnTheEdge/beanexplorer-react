@@ -4,14 +4,27 @@
   position: relative;
 }
 
-.property-group a[aria-expanded="false"]  svg.bi-dash,
-.property-group a[aria-expanded="true"]  svg.bi-plus{
-  display: inline;
+.property-group a[aria-expanded="true"] .group-plus-minus{
+  display: inline-block;
+  content: "";
+  /*plus svg*/
+  background-image: url("data:image/svg+xml,<svg viewBox='0 0 16 16' fill='%23333' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z' clip-rule='evenodd'/></svg>");
+  background-repeat: no-repeat;
+  background-size: 1.5rem 1.5rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  vertical-align: middle;
 }
-.property-group  a[aria-expanded="true"]  svg.bi-dash,
-.property-group  a[aria-expanded="false"]  svg.bi-plus
-{
-  display: none;
+.property-group a[aria-expanded="false"] .group-plus-minus{
+  display: inline-block;
+  content: "";
+  /*minus svg*/
+  background-image: url("data:image/svg+xml,<svg viewBox='0 0 16 16' fill='%23333' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' d='M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z' clip-rule='evenodd'/></svg>");
+  background-repeat: no-repeat;
+  background-size: 1.5rem 1.5rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  vertical-align: middle;
 }
 
 .property-group__top-line{
