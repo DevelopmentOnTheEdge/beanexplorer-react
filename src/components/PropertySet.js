@@ -4,6 +4,9 @@ import Property from './Property';
 import classNames from 'classnames';
 import JsonPointer from 'json-pointer';
 import {isDPS, shouldPropertyUpdate} from "./utils";
+import BIMinus from "./icons/BIMinus";
+import BIPlus from "./icons/BIPlus";
+
 
 class PropertySet extends React.Component {
 
@@ -120,8 +123,11 @@ class PropertySet extends React.Component {
             ref={curContainerId}>
           <div className={'property-group__top-line-row row'}/>
           {PropertySet.getName(
-              <a data-toggle="collapse" href={`#group-collapse-${curContainerId}`} role="button" aria-expanded="false"
-                 aria-controls={`group-collapse-${curContainerId}`}>{curContainerName}</a>
+              <a data-toggle="collapse" href={`#group-collapse-${curContainerId}`} role="button" aria-expanded="true"
+                 aria-controls={`group-collapse-${curContainerId}`}>
+                <BIPlus width="1em" height="1em"/>
+                <BIMinus width="1em" height="1em"/>
+                {curContainerName}</a>
               , 'property-group__title')}
           <div className="collapse show" id={`group-collapse-${curContainerId}`}>
             <div className={classNames('property-group__row', this.props.rowClass)}>

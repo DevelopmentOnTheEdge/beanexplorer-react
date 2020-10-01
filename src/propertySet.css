@@ -4,6 +4,16 @@
   position: relative;
 }
 
+.property-group a[aria-expanded="false"]  svg.bi-dash,
+.property-group a[aria-expanded="true"]  svg.bi-plus{
+  display: inline;
+}
+.property-group  a[aria-expanded="true"]  svg.bi-dash,
+.property-group  a[aria-expanded="false"]  svg.bi-plus
+{
+  display: none;
+}
+
 .property-group__top-line{
   margin-top: 1.2em;
 }
