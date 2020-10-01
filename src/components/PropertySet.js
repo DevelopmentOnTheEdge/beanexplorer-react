@@ -116,7 +116,7 @@ class PropertySet extends React.Component {
                 'property-group',
                 curContainerClasses || 'property-group__top-line col-12'
             )}
-            key={curContainerId}
+            key={`group_${curContainerId}`}
             ref={curContainerId}>
           <div className={'property-group__top-line-row row'}/>
           {PropertySet.getName(

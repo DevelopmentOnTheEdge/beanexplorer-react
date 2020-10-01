@@ -57,18 +57,18 @@ class Property extends React.Component {
       }
     }
 
+    const inputTypeButton = ['Button','button'].includes(extraAttrsMap.inputType);
     const formGroupClasses = classNames(
       'property',
       {'form-group': meta.type !== 'Boolean'},
       {'form-check': meta.type === 'Boolean'},
-      {'required': meta.canBeNull !== true}
+      {'required': !inputTypeButton && meta.canBeNull !== true }
     );
 
     if (isDPS(meta)) {
       meta.hidden = true;
     }
 
-    const inputTypeButton = ['Button','button'].includes(extraAttrsMap.inputType);
     if (this.props.inline) {
       const outerClasses = classNames(
         formGroupClasses,

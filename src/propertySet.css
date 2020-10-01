@@ -31,7 +31,10 @@
   margin: 0 0 0 -3px;
 }
 
-.property-nested-dps__link{
+.property-nested-dps__link,
+.property-group__title a,
+.property-group__title a:hover
+{
  color: inherit;
 }
 /******************************** NESTED DPS CONTAINER CSS*******************************/
