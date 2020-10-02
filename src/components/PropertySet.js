@@ -120,12 +120,12 @@ class PropertySet extends React.Component {
             ref={curContainerId}>
           <div className={'property-group__top-line-row row'}/>
           {PropertySet.getName(
-              <a data-toggle="collapse" href={`#group-collapse-${curContainerId}`} role="button" aria-expanded="true"
-                 aria-controls={`group-collapse-${curContainerId}`}>
-                <span className="group-plus-minus"/>
+              <a data-toggle="collapse" href={`#property-group__collapse-${curContainerId}`} role="button" aria-expanded="true"
+                 aria-controls={`property-group__collapse-${curContainerId}`}>
+                <span className="property-group__plus-minus-icon"/>
                 {curContainerName}</a>
               , 'property-group__title')}
-          <div className="collapse show" id={`group-collapse-${curContainerId}`}>
+          <div className="collapse show" id={`property-group__collapse-${curContainerId}`}>
             <div className={classNames('property-group__row', this.props.rowClass)}>
               {curContainer}
             </div>
