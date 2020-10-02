@@ -64,3 +64,8 @@ Build example or library:
 $ npm run example
 $ npm run lib
 ```
+### Deploy
+```sh
+sh build.sh
+npm up
+```
