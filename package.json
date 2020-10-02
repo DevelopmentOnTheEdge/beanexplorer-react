@@ -29,7 +29,7 @@
     "isomorphic-fetch": "^2.2.1",
     "json-pointer": "^0.6.1",
     "moment": "^2.29.0",
-    "prop-types": "15.6.1",
+    "prop-types": "^15.7.2",
     "react": "15.6.1",
     "react-datetime": "^2.8.10",
     "react-dom": "15.6.1",
@@ -73,10 +73,10 @@
     "style-loader": "^0.18.0",
     "universal-cookie": "^2.1.2",
     "webpack": "^2.7.0",
-    "webpack-bundle-analyzer": "^3.3.2",
+    "webpack-bundle-analyzer": "^3.9.0",
     "webpack-cleanup-plugin": "^0.5.1",
     "webpack-dashboard": "^0.3.0",
-    "webpack-dev-server": "^3.1.11",
+    "webpack-dev-server": "^3.11.0",
     "yargs": "7.1.0"
   },
   "jest": {
