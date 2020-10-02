@@ -1056,6 +1056,37 @@ var LabelPropertyInput = function (_BasePropertyInput) {
   return LabelPropertyInput;
 }(BasePropertyInput);
 
+var ButtonPropertyInput = function (_BasePropertyInput) {
+    inherits(ButtonPropertyInput, _BasePropertyInput);
+
+    function ButtonPropertyInput(props) {
+        classCallCheck(this, ButtonPropertyInput);
+        return possibleConstructorReturn(this, (ButtonPropertyInput.__proto__ || Object.getPrototypeOf(ButtonPropertyInput)).call(this, props));
+    }
+
+    createClass(ButtonPropertyInput, [{
+        key: 'render',
+        value: function render() {
+            var id = this.getID();
+            var meta = this.getMeta();
+            var value = this.getValue();
+            var labelPropertyClasses = classNames('property-input', 'btn btn-primary', this.props.controlClassName);
+            return React.createElement(
+                'button',
+                {
+                    type: 'button',
+                    className: labelPropertyClasses,
+                    id: id,
+                    key: id,
+                    onClick: this.reload
+                },
+                value || meta.displayName || id
+            );
+        }
+    }]);
+    return ButtonPropertyInput;
+}(BasePropertyInput);
+
 //var Promise = require('pinkie-promise');
 //import Promise from 'pinkie-promise';
 
@@ -1248,6 +1279,10 @@ var PropertyInput = function (_BasePropertyInput) {
         return React.createElement(AsyncSelectPropertyInput, this.props);
       }
 
+      if (['Button', 'button'].includes(extraAttrsMap.inputType)) {
+        return React.createElement(ButtonPropertyInput, this.props);
+      }
+
       if (meta.tagList) {
         if (extraAttrsMap.inputType === "radio") {
           return React.createElement(RadioSelectPropertyInput, this.props);
@@ -1366,6 +1401,7 @@ var Property = function (_React$Component) {
       var path = this.getPath();
       var meta = this.props.bean.meta[path];
       var id = path.substring(path.lastIndexOf("/") + 1) + "PropertyInput";
+      var extraAttrsMap = BasePropertyInput.getExtraAttrsMap(meta);
 
       var label = void 0;
       if (meta.displayName) {
@@ -1390,7 +1426,8 @@ var Property = function (_React$Component) {
         }
       }
 
-      var formGroupClasses = classNames('property', { 'form-group': meta.type !== 'Boolean' }, { 'form-check': meta.type === 'Boolean' }, { 'required': meta.canBeNull !== true });
+      var inputTypeButton = ['Button', 'button'].includes(extraAttrsMap.inputType);
+      var formGroupClasses = classNames('property', { 'form-group': meta.type !== 'Boolean' }, { 'form-check': meta.type === 'Boolean' }, { 'required': !inputTypeButton && meta.canBeNull !== true });
 
       if (isDPS(meta)) {
         meta.hidden = true;
@@ -1415,14 +1452,15 @@ var Property = function (_React$Component) {
           );
         }
       } else if (this.props.horizontal) {
-        var _outerClasses = classNames('horizontal-input', { 'horizontal-input--sm': this.props.bsSize === "sm" }, { 'horizontal-input--lg': this.props.bsSize === "lg" }, meta.cssClasses || this.props.className, { 'display-none': meta.hidden });
-
-        if (meta.type === "Boolean") {
+        var _outerClasses = classNames('horizontal-input', { 'horizontal-input--sm': this.props.bsSize === "sm" }, { 'horizontal-input--lg': this.props.bsSize === "lg" }, meta.cssClasses || this.props.className,
+        //todo check col-any-?
+        meta.cssClasses && meta.cssClasses.includes('col-lg-') ? '' : 'col-lg-12', { 'display-none': meta.hidden });
+        if (meta.type === "Boolean" || inputTypeButton && !(meta.cssClasses && meta.cssClasses.includes('col-lg-'))) {
           var colTag = 'col-lg-' + (12 - this.props.horizontalColSize);
           var offsetTag = 'offset-lg-' + this.props.horizontalColSize;
           return React.createElement(
             'div',
-            { className: classNames(_outerClasses, 'col-lg-12') },
+            { className: classNames(_outerClasses) },
             React.createElement(
               'div',
               { className: this.props.rowClass },
@@ -1433,16 +1471,28 @@ var Property = function (_React$Component) {
                   'div',
                   { className: classNames(formGroupClasses) },
                   React.createElement(PropertyInput, this.props),
-                  label,
+                  !inputTypeButton ? label : "",
                   messageElement
                 )
               )
             )
           );
+        } else if (inputTypeButton && meta.cssClasses && meta.cssClasses.includes('col-lg-')) {
+          return React.createElement(
+            'div',
+            { className: classNames(_outerClasses, 'offset-lg-' + this.props.horizontalColSize, "text-nowrap") },
+            React.createElement(
+              'div',
+              { className: classNames(formGroupClasses) },
+              React.createElement(PropertyInput, this.props),
+              !inputTypeButton ? label : "",
+              messageElement
+            )
+          );
         } else {
           return React.createElement(
             'div',
-            { className: classNames(_outerClasses, meta.cssClasses && meta.cssClasses.includes('col-lg-') ? '' : 'col-lg-12') },
+            { className: classNames(_outerClasses) },
             React.createElement(
               'div',
               { className: classNames(formGroupClasses, this.props.rowClass) },
@@ -1462,9 +1512,9 @@ var Property = function (_React$Component) {
           );
         }
       } else {
-        var _outerClasses2 = classNames('vertical-input', { 'vertical-input--sm': this.props.bsSize === "sm" }, { 'vertical-input--lg': this.props.bsSize === "lg" }, meta.cssClasses || this.props.className || (meta.cssClasses && meta.cssClasses.includes('col-lg-') ? '' : 'col-lg-12'), { 'display-none': meta.hidden });
+        var _outerClasses2 = classNames('vertical-input', { 'vertical-input--sm': this.props.bsSize === "sm" }, { 'vertical-input--lg': this.props.bsSize === "lg" }, meta.cssClasses || this.props.className, meta.cssClasses && meta.cssClasses.includes('col-lg-') ? '' : 'col-lg-12', { 'display-none': meta.hidden });
 
-        if (meta.type === "Boolean") {
+        if (meta.type === "Boolean" || inputTypeButton) {
           return React.createElement(
             'div',
             { className: _outerClasses2 },
@@ -1472,7 +1522,7 @@ var Property = function (_React$Component) {
               'div',
               { className: formGroupClasses },
               React.createElement(PropertyInput, this.props),
-              label,
+              !inputTypeButton ? label : "",
               messageElement
             )
           );
@@ -1794,19 +1844,31 @@ var PropertySet$1 = function (_React$Component) {
     }
   }, {
     key: 'createGroupContainer',
-    value: function createGroupContainer(curContainer, curContainerId, curContainerName, curContainerClasses) {
+    value: function createGroupContainer(curContainer, curContainerId, curContainerName, curContainerClasses, groupInitiallyClosed) {
       return React.createElement(
         'div',
         {
           className: classNames('property-group', curContainerClasses || 'property-group__top-line col-12'),
-          key: curContainerId,
+          key: 'group_' + curContainerId,
           ref: curContainerId },
         React.createElement('div', { className: 'property-group__top-line-row row' }),
-        PropertySet.getName(curContainerName, 'property-group__title'),
+        PropertySet.getName(React.createElement(
+          'a',
+          { 'data-toggle': 'collapse', href: '#property-group__collapse-' + curContainerId, role: 'button',
+            className: 'property-group__title-link',
+            'aria-expanded': !groupInitiallyClosed,
+            'aria-controls': 'property-group__collapse-' + curContainerId },
+          curContainerName
+        ), 'property-group__title'),
         React.createElement(
           'div',
-          { className: classNames('property-group__row', this.props.rowClass) },
-          curContainer
+          { className: classNames('collapse', { 'show': !groupInitiallyClosed }),
+            id: 'property-group__collapse-' + curContainerId },
+          React.createElement(
+            'div',
+            { className: classNames('property-group__row', this.props.rowClass) },
+            curContainer
+          )
         )
       );
     }
@@ -1818,13 +1880,14 @@ var PropertySet$1 = function (_React$Component) {
       var curGroup = [];
       var curGroupName = null,
           curGroupId = null,
-          curGroupClasses = null;
+          curGroupClasses = null,
+          groupInitiallyClosed = null;
       var fields = [];
 
       var finishGroup = function finishGroup() {
         if (curGroup.length > 0) {
           if (curGroupId) {
-            fields.push(_this2.createGroupContainer(curGroup, curGroupId, curGroupName, curGroupClasses));
+            fields.push(_this2.createGroupContainer(curGroup, curGroupId, curGroupName, curGroupClasses, groupInitiallyClosed));
           } else {
             Array.prototype.push.apply(fields, curGroup);
           }
@@ -1845,12 +1908,14 @@ var PropertySet$1 = function (_React$Component) {
           var newGroupId = meta.groupId;
           var newGroupName = meta.groupName;
           var newGroupClasses = meta.groupClasses;
+          var newGroupInitiallyClosed = meta.groupInitiallyClosed;
 
           if (newGroupId !== curGroupId) {
             finishGroup();
             curGroupName = newGroupName;
             curGroupClasses = newGroupClasses;
             curGroupId = newGroupId;
+            groupInitiallyClosed = newGroupInitiallyClosed;
           }
 
           var field = React.createElement(Property, _extends({ key: path, path: path }, this.props, { value: this.getValue(path) }));

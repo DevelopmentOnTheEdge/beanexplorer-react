@@ -671,26 +671,20 @@ td.rdtYear:hover {
   font-weight: 700;
   text-transform: uppercase;
   display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-      -ms-flex-direction: row;
           flex-direction: row;
   -webkit-box-align: center;
-      -ms-flex-align: center;
           align-items: center;
 }
 .ReactVirtualized__Table__row {
   display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-      -ms-flex-direction: row;
           flex-direction: row;
   -webkit-box-align: center;
-      -ms-flex-align: center;
           align-items: center;
 }
 
@@ -722,15 +716,12 @@ td.rdtYear:hover {
 
 .ReactVirtualized__Table__sortableHeaderIconContainer {
   display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-      -ms-flex-align: center;
           align-items: center;
 }
 .ReactVirtualized__Table__sortableHeaderIcon {
   -webkit-box-flex: 0;
-      -ms-flex: 0 0 24px;
           flex: 0 0 24px;
   height: 1em;
   width: 1em;
@@ -807,6 +798,27 @@ td.rdtYear:hover {
   position: relative;
 }
 
+/**
+* bootstrap 5 own icons @see https://icons.getbootstrap.com/
+*/
+.property-group a[aria-expanded="true"].property-group__title-link::before,
+.property-group a[aria-expanded="false"].property-group__title-link::before{
+  display: inline-block;
+  content: "";
+  /*minus svg*/
+  background-image: url("data:image/svg+xml,<svg viewBox='0 0 16 16' fill='inherit' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' d='M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z' clip-rule='evenodd'/></svg>");
+  background-repeat: no-repeat;
+  background-size: 1.5rem 1.5rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  vertical-align: middle;
+}
+
+.property-group a[aria-expanded="false"].property-group__title-link::before{
+  /*plus svg*/
+  background-image: url("data:image/svg+xml,<svg viewBox='0 0 16 16' fill='inherit' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z' clip-rule='evenodd'/></svg>");
+}
+
 .property-group__top-line{
   margin-top: 1.2em;
 }
@@ -819,6 +831,7 @@ td.rdtYear:hover {
   border-top: 1px solid rgb(216, 216, 216);
   padding-top: 1em;
   display: block;
+  margin-left: 0;
 }
 
 .property-group:first-child .property-group__top-line .property-group__top-line-row{
@@ -831,10 +844,13 @@ td.rdtYear:hover {
   background-color: white;
   padding: 3pt;
   /*font-size: 1.6em;*/
-  margin: 0 0 0 -3px;
+  margin: 0 0 0 -10px;
 }
 
-.property-nested-dps__link{
+.property-nested-dps__link,
+.property-group__title a,
+.property-group__title a:hover
+{
  color: inherit;
 }
 /******************************** NESTED DPS CONTAINER CSS*******************************/
