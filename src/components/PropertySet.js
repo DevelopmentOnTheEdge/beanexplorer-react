@@ -121,9 +121,9 @@ class PropertySet extends React.Component {
           <div className={'property-group__top-line-row row'}/>
           {PropertySet.getName(
               <a data-toggle="collapse" href={`#property-group__collapse-${curContainerId}`} role="button"
+                 className="property-group__title-link"
                  aria-expanded={!groupInitiallyClosed}
                  aria-controls={`property-group__collapse-${curContainerId}`}>
-                <span className="property-group__plus-minus-icon"/>
                 {curContainerName}</a>
               , 'property-group__title')}
           <div className={classNames('collapse', {'show': !groupInitiallyClosed})}
