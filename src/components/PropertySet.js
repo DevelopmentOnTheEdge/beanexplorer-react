@@ -109,7 +109,7 @@ class PropertySet extends React.Component {
     return content;
   }
 
-  createGroupContainer(curContainer, curContainerId, curContainerName, curContainerClasses) {
+  createGroupContainer(curContainer, curContainerId, curContainerName, curContainerClasses, groupInitiallyClosed) {
     return (
         <div
             className={classNames(
@@ -120,12 +120,14 @@ class PropertySet extends React.Component {
             ref={curContainerId}>
           <div className={'property-group__top-line-row row'}/>
           {PropertySet.getName(
-              <a data-toggle="collapse" href={`#property-group__collapse-${curContainerId}`} role="button" aria-expanded="true"
+              <a data-toggle="collapse" href={`#property-group__collapse-${curContainerId}`} role="button"
+                 aria-expanded={!groupInitiallyClosed}
                  aria-controls={`property-group__collapse-${curContainerId}`}>
                 <span className="property-group__plus-minus-icon"/>
                 {curContainerName}</a>
               , 'property-group__title')}
-          <div className="collapse show" id={`property-group__collapse-${curContainerId}`}>
+          <div className={classNames('collapse', {'show': !groupInitiallyClosed})}
+               id={`property-group__collapse-${curContainerId}`}>
             <div className={classNames('property-group__row', this.props.rowClass)}>
               {curContainer}
             </div>
@@ -136,13 +138,13 @@ class PropertySet extends React.Component {
 
   processingGroups() {
     let curGroup = [];
-    let curGroupName = null, curGroupId = null, curGroupClasses = null;
+    let curGroupName = null, curGroupId = null, curGroupClasses = null, groupInitiallyClosed = null;
     let fields = [];
 
     const finishGroup = () => {
       if (curGroup.length > 0) {
         if (curGroupId) {
-          fields.push(this.createGroupContainer(curGroup, curGroupId, curGroupName, curGroupClasses));
+          fields.push(this.createGroupContainer(curGroup, curGroupId, curGroupName, curGroupClasses, groupInitiallyClosed));
         } else {
           Array.prototype.push.apply(fields, curGroup);
         }
@@ -156,12 +158,14 @@ class PropertySet extends React.Component {
       const newGroupId = meta.groupId;
       const newGroupName = meta.groupName;
       const newGroupClasses = meta.groupClasses;
+      const newGroupInitiallyClosed = meta.groupInitiallyClosed;
 
       if (newGroupId !== curGroupId) {
         finishGroup();
         curGroupName = newGroupName;
         curGroupClasses = newGroupClasses;
         curGroupId = newGroupId;
+        groupInitiallyClosed = newGroupInitiallyClosed;
       }
 
       const field = (
