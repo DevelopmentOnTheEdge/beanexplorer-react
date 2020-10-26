@@ -65,8 +65,8 @@ class PropertyInput extends BasePropertyInput {
       return <WYSIWYGPropertyInput {...this.props}/>
     }
 
-    if (meta.type === 'Short' || meta.type === 'Integer' || meta.type === 'Long' || meta.type === 'Double'
-      || this.getValidationRule('range') !== undefined || this.getValidationRule('step') !== undefined) {
+    if (['Short', 'Integer', 'Long', 'Double'].includes(meta.type)
+        || this.getValidationRule('range') !== undefined || this.getValidationRule('step') !== undefined) {
       return <NumberPropertyInput {...this.props}/>
     }
 
@@ -84,10 +84,10 @@ class PropertyInput extends BasePropertyInput {
 
     if (meta.type === 'Boolean') {
       return <input
-        type="checkbox"
-        checked={value === true || value === "true"}
-        onChange={this.handleChangeBoolean}
-        {...this.getBaseProps()}
+          type="checkbox"
+          checked={value === true || value === "true"}
+          onChange={this.handleChangeBoolean}
+          {...this.getBaseProps()}
       />
     }
 
@@ -103,27 +103,27 @@ class PropertyInput extends BasePropertyInput {
     const rawTextValidation = this.getRawTextValidation(meta);
     if (extraAttrsMap.inputType === 'textArea') {
       return <textarea
-        rows={extraAttrsMap.rows || 3}
-        {...rawInputProps}
-        {...rawTextValidation}
+          rows={extraAttrsMap.rows || 3}
+          {...rawInputProps}
+          {...rawTextValidation}
       />
     }
 
     const validationRuleMask = this.getValidationRule('mask');
     if (validationRuleMask !== undefined) {
       return <MaskedInput
-        mask={validationRuleMask.attr}
-        value={value}
-        onChange={this.handleChange}
-        onBlur={this.reload}
-        {...this.getBaseProps()}
+          mask={validationRuleMask.attr}
+          value={value}
+          onChange={this.handleChange}
+          onBlur={this.reload}
+          {...this.getBaseProps()}
       />;
     }
 
     return <input
-      type={extraAttrsMap.inputType || 'text'}
-      {...rawInputProps}
-      {...rawTextValidation}
+        type={extraAttrsMap.inputType || 'text'}
+        {...rawInputProps}
+        {...rawTextValidation}
     />;
   }
 }
