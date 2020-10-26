@@ -1,7 +1,7 @@
 import React from 'react';
 import PropertySet from '../src/components/PropertySet';
 import renderer from 'react-test-renderer';
-import {mount, render} from 'enzyme';
+import {shallow, mount, render} from 'enzyme';
 import bean from '../src/testJson.json';
 import testOuter from '../src/testOuter.json';
 import validationTest from '../src/validationTest.json';

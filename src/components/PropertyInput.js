@@ -65,8 +65,8 @@ class PropertyInput extends BasePropertyInput {
       return <WYSIWYGPropertyInput {...this.props}/>
     }
 
-    if (['Short', 'Integer', 'Long', 'Double'].includes(meta.type)
-        || this.getValidationRule('range') !== undefined || this.getValidationRule('step') !== undefined) {
+    if (meta.type === 'Short' || meta.type === 'Integer' || meta.type === 'Long' || meta.type === 'Double'
+      || this.getValidationRule('range') !== undefined || this.getValidationRule('step') !== undefined) {
       return <NumberPropertyInput {...this.props}/>
     }
 

@@ -12,7 +12,7 @@ export default class AsyncSelectPropertyInput extends SelectPropertyInput {
     this.loadOptions = this.loadOptions.bind(this);
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps) {
     const rawValue = SelectPropertyInput.getRawValue(this.state.value);
     if (Array.isArray(nextProps.value)) {
       if (!arraysEqual(rawValue, nextProps.value))
