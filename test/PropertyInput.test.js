@@ -115,9 +115,8 @@ test('date init with no valid date', () => {
   };
   const wrapper = mount(<PropertyInput path={"/date"} bean={simpleBean}
                                        value={JsonPointer.get(simpleBean.values, "/date")}/>);
-  const input = wrapper.find('input');
-
-  expect(input.get(0).value).toEqual('no date');
+  const input = wrapper.find('input').instance();
+  expect(input.value).toEqual('no date');
 });
 
 test('time', () => {
@@ -214,9 +213,9 @@ test('3 Fractional seconds digits', () => {
   };
   const wrapper = mount(<PropertyInput path={"/timestamp"} bean={simpleBean}
                                        value={JsonPointer.get(simpleBean.values, "/timestamp")}/>);
-  const input = wrapper.find('input');
+  const input = wrapper.find('input').instance();
 
-  expect(input.get(0).value).toEqual('20.07.2017 17:05');
+  expect(input.value).toEqual('20.07.2017 17:05');
 });
 
 test('2 Fractional seconds digits', () => {
@@ -227,9 +226,9 @@ test('2 Fractional seconds digits', () => {
   };
   const wrapper = mount(<PropertyInput path={"/timestamp"} bean={simpleBean}
                                        value={JsonPointer.get(simpleBean.values, "/timestamp")}/>);
-  const input = wrapper.find('input');
+  const input = wrapper.find('input').instance();
 
-  expect(input.get(0).value).toEqual('20.07.2017 17:05');
+  expect(input.value).toEqual('20.07.2017 17:05');
 });
 
 test('1 Fractional seconds digits', () => {
@@ -240,9 +239,9 @@ test('1 Fractional seconds digits', () => {
   };
   const wrapper = mount(<PropertyInput path={"/timestamp"} bean={simpleBean}
                                        value={JsonPointer.get(simpleBean.values, "/timestamp")}/>);
-  const input = wrapper.find('input');
+  const input = wrapper.find('input').instance();
 
-  expect(input.get(0).value).toEqual('20.07.2017 17:05');
+  expect(input.value).toEqual('20.07.2017 17:05');
 });
 
 test('timestamp init with no valid timestamp', () => {
@@ -253,9 +252,8 @@ test('timestamp init with no valid timestamp', () => {
   };
   const wrapper = mount(<PropertyInput path={"/timestamp"} bean={simpleBean}
                                        value={JsonPointer.get(simpleBean.values, "/timestamp")}/>);
-  const input = wrapper.find('input');
-
-  expect(input.get(0).value).toEqual('no timestamp');
+  const input = wrapper.find('input').instance();
+  expect(input.value).toEqual('no timestamp');
 });
 
 test('base64File', () => {

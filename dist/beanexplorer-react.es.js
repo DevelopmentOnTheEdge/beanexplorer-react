@@ -1204,8 +1204,8 @@ var AsyncSelectPropertyInput = function (_SelectPropertyInput) {
   }
 
   createClass(AsyncSelectPropertyInput, [{
-    key: 'componentWillReceiveProps',
-    value: function componentWillReceiveProps(nextProps) {
+    key: 'UNSAFE_componentWillReceiveProps',
+    value: function UNSAFE_componentWillReceiveProps(nextProps) {
       var rawValue = SelectPropertyInput.getRawValue(this.state.value);
       if (Array.isArray(nextProps.value)) {
         if (!arraysEqual(rawValue, nextProps.value)) this.setState({ value: nextProps.value });
@@ -1299,7 +1299,7 @@ var PropertyInput = function (_BasePropertyInput) {
         return React.createElement(WYSIWYGPropertyInput, this.props);
       }
 
-      if (meta.type === 'Short' || meta.type === 'Integer' || meta.type === 'Long' || meta.type === 'Double' || this.getValidationRule('range') !== undefined || this.getValidationRule('step') !== undefined) {
+      if (['Short', 'Integer', 'Long', 'Double'].includes(meta.type) || this.getValidationRule('range') !== undefined || this.getValidationRule('step') !== undefined) {
         return React.createElement(NumberPropertyInput, this.props);
       }
 
