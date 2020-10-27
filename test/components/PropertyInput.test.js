@@ -1,11 +1,11 @@
 import React from 'react';
-import PropertyInput from '../src/components/PropertyInput';
+import PropertyInput from '../../src/components/PropertyInput';
 import {shallow, mount, render} from 'enzyme';
-import bean from '../src/testJson.json';
-import validationTest from '../src/validationTest.json';
-import WYSIWYGPropertyInput from "../src/components/inputs/WYSIWYGPropertyInput";
-import SelectPropertyInput from "../src/components/inputs/SelectPropertyInput";
-import DateTimePropertyInput from "../src/components/inputs/DateTimePropertyInput";
+import bean from '../../src/testJson.json';
+import validationTest from '../../src/validationTest.json';
+import WYSIWYGPropertyInput from "../../src/components/inputs/WYSIWYGPropertyInput";
+import SelectPropertyInput from "../../src/components/inputs/SelectPropertyInput";
+import DateTimePropertyInput from "../../src/components/inputs/DateTimePropertyInput";
 import JsonPointer from 'json-pointer';
 
 test('checkBox', () => {

@@ -1,7 +1,7 @@
 import React from 'react';
-import Properties from '../src/components/Properties';
+import Properties from '../../src/components/Properties';
 import renderer from 'react-test-renderer';
-import bean from '../src/testJson.json';
+import bean from '../../src/testJson.json';
 
 
 test('contain property', () => {

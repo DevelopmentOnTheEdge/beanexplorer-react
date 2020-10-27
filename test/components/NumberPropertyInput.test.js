@@ -1,9 +1,9 @@
 import React from 'react';
-import PropertyInput from '../src/components/PropertyInput';
+import PropertyInput from '../../src/components/PropertyInput';
 import {shallow, mount, render} from 'enzyme';
-import bean from '../src/testJson.json';
-import validationTest from '../src/validationTest.json';
-import NumberPropertyInput from "../src/components/inputs/NumberPropertyInput";
+import bean from '../../src/testJson.json';
+import validationTest from '../../src/validationTest.json';
+import NumberPropertyInput from "../../src/components/inputs/NumberPropertyInput";
 import renderer from 'react-test-renderer';
 
 

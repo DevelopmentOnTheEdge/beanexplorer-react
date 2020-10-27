@@ -1,8 +1,8 @@
 import React from 'react';
-import Property from '../src/components/Property';
+import Property from '../../src/components/Property';
 import renderer from 'react-test-renderer';
-import NumberPropertyInput from "../src/components/inputs/NumberPropertyInput";
-import {registerPropertyInput, getAllPropertyInputs} from "../src/components/propertyInputRegister";
+import NumberPropertyInput from "../../src/components/inputs/NumberPropertyInput";
+import {registerPropertyInput, getAllPropertyInputs} from "../../src/components/propertyInputRegister";
 
 
 class NumberInputGroup extends NumberPropertyInput {

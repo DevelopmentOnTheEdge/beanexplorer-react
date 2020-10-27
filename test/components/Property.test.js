@@ -1,7 +1,7 @@
 import React from 'react';
-import Property from '../src/components/Property';
+import Property from '../../src/components/Property';
 import {mount} from 'enzyme';
-import bean from '../src/testJson.json';
+import bean from '../../src/testJson.json';
 
 
 test('get by id', () => {
