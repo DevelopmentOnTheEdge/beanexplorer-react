@@ -43,7 +43,7 @@ class AllPropertyTypes extends Component
     this.handleJsonChange = this.handleJsonChange.bind(this);
   }
 
-  UNSAFE_componentWillMount(){
+  componentDidMount(){
     const cookies = new Cookies();
 
     this.setState({
