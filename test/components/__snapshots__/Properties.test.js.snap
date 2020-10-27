@@ -22,15 +22,11 @@ exports[`contain property 1`] = `
         <input
           className="property-input form-control"
           id="textInputPropertyInput"
-          maxLength={undefined}
           onBlur={[Function]}
           onChange={[Function]}
           onInput={[Function]}
           onInvalid={[Function]}
-          pattern={undefined}
-          placeholder={undefined}
           required={true}
-          size={undefined}
           type="text"
           value="test"
         />

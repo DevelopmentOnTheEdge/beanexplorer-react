@@ -44,7 +44,7 @@
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-external-helpers": "6.18.0",
     "babel-polyfill": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
+    "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "bootstrap-icons": "^1.0.0",
     "chai": "3.5.0",
@@ -57,7 +57,7 @@
     "eslint-plugin-react": "^7.21.5",
     "extract-text-webpack-plugin": "^2.1.2",
     "html-webpack-plugin": "^2.28.0",
-    "jest": "^20.0.3",
+    "jest": "^24.9.0",
     "mocha": "3.3.0",
     "react-hot-loader": "^3.0.0-beta.6",
     "react-router-dom": "4.2.2",
@@ -80,6 +80,7 @@
     "yargs": "7.1.0"
   },
   "jest": {
+    "testURL": "http://localhost/",
     "globals": {
       "NODE_ENV": "test"
     },

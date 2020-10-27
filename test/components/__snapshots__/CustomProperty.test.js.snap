@@ -25,16 +25,12 @@ exports[`get by id 1`] = `
           </div>
           <input
             className="property-input form-control"
-            data-info-range={undefined}
-            data-info-step={undefined}
             data-info-type="Date"
             id="inputPropertyInput"
             onBlur={[Function]}
             onChange={[Function]}
             onInput={[Function]}
-            placeholder={undefined}
             required={true}
-            size={undefined}
             type="text"
             value="test"
           />

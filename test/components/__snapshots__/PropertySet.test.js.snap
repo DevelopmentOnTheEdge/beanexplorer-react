@@ -25,15 +25,11 @@ exports[`horizontal cssClass 1`] = `
         <input
           className="property-input form-control"
           id="selectPropertyInput"
-          maxLength={undefined}
           onBlur={[Function]}
           onChange={[Function]}
           onInput={[Function]}
           onInvalid={[Function]}
-          pattern={undefined}
-          placeholder={undefined}
           required={true}
-          size={undefined}
           type="text"
           value="value"
         />
@@ -53,15 +49,12 @@ exports[`inline layout1 1`] = `
     <input
       className="property-input form-control"
       id="namePropertyInput"
-      maxLength={undefined}
       onBlur={[Function]}
       onChange={[Function]}
       onInput={[Function]}
       onInvalid={[Function]}
-      pattern={undefined}
       placeholder="Name"
       required={true}
-      size={undefined}
       type="text"
       value=""
     />
@@ -80,7 +73,6 @@ exports[`inline layout1 1`] = `
     >
       <div
         className="Select is-clearable is-searchable Select--single"
-        style={undefined}
       >
         <div
           className="Select-control"
@@ -89,7 +81,6 @@ exports[`inline layout1 1`] = `
           onTouchEnd={[Function]}
           onTouchMove={[Function]}
           onTouchStart={[Function]}
-          style={undefined}
         >
           <div
             className="Select-multi-value-wrapper"
@@ -110,14 +101,10 @@ exports[`inline layout1 1`] = `
             >
               <input
                 aria-activedescendant="react-select-32--value"
-                aria-describedby={undefined}
                 aria-expanded="false"
                 aria-haspopup="false"
-                aria-label={undefined}
-                aria-labelledby={undefined}
                 aria-owns=""
                 autoComplete="off"
-                className={undefined}
                 id="subjectPropertyInput"
                 onBlur={[Function]}
                 onChange={[Function]}
@@ -130,7 +117,6 @@ exports[`inline layout1 1`] = `
                     "width": "5px",
                   }
                 }
-                tabIndex={undefined}
                 value=""
               />
               <div
@@ -182,13 +168,10 @@ exports[`inline layout2 1`] = `
     <input
       className="property-input form-control"
       id="name2PropertyInput"
-      maxLength={undefined}
       onBlur={[Function]}
       onChange={[Function]}
       onInput={[Function]}
       onInvalid={[Function]}
-      pattern={undefined}
-      placeholder={undefined}
       required={true}
       size={10}
       type="text"
@@ -204,7 +187,6 @@ exports[`inline layout2 1`] = `
       id="subject2PropertyInput"
       onChange={[Function]}
       required={true}
-      size={undefined}
       type="checkbox"
     />
     <label
@@ -230,15 +212,12 @@ exports[`inline layout2 1`] = `
     <input
       className="property-input form-control"
       id="hiddenInputPropertyInput"
-      maxLength={undefined}
       onBlur={[Function]}
       onChange={[Function]}
       onInput={[Function]}
       onInvalid={[Function]}
-      pattern={undefined}
       placeholder="hidden"
       required={true}
-      size={undefined}
       type="text"
       value=""
     />
@@ -262,15 +241,11 @@ exports[`simple property set 1`] = `
         <input
           className="property-input form-control"
           id="numberPropertyInput"
-          maxLength={undefined}
           onBlur={[Function]}
           onChange={[Function]}
           onInput={[Function]}
           onInvalid={[Function]}
-          pattern={undefined}
-          placeholder={undefined}
           required={true}
-          size={undefined}
           type="text"
           value=""
         />
@@ -302,15 +277,11 @@ exports[`snapshot bean 1`] = `
         <input
           className="property-input form-control"
           id="textInputPropertyInput"
-          maxLength={undefined}
           onBlur={[Function]}
           onChange={[Function]}
           onInput={[Function]}
           onInvalid={[Function]}
-          pattern={undefined}
-          placeholder={undefined}
           required={true}
-          size={undefined}
           type="text"
           value="test"
         />
@@ -346,9 +317,7 @@ exports[`snapshot bean 1`] = `
             onInvalid={[Function]}
             onKeyDown={[Function]}
             pattern="(^$|\\\\d{1,2}\\\\.\\\\d{1,2}\\\\.\\\\d{4})"
-            placeholder={undefined}
             required={true}
-            size={undefined}
             type="text"
             value="20.07.2017"
           />
@@ -852,9 +821,7 @@ exports[`snapshot bean 1`] = `
             onInvalid={[Function]}
             onKeyDown={[Function]}
             pattern="(^$|\\\\d{1,2}\\\\.\\\\d{1,2}\\\\.\\\\d{4}\\\\s\\\\d{2}:\\\\d{2})"
-            placeholder={undefined}
             required={true}
-            size={undefined}
             type="text"
             value="29.02.2020 23:59"
           />
@@ -1369,9 +1336,7 @@ exports[`snapshot bean 1`] = `
             onInvalid={[Function]}
             onKeyDown={[Function]}
             pattern="(^$|\\\\d{1,2}\\\\.\\\\d{1,2}\\\\.\\\\d{4}\\\\s\\\\d{2}:\\\\d{2})"
-            placeholder={undefined}
             required={true}
-            size={undefined}
             type="text"
             value="14.07.2018 13:33"
           />
@@ -1881,9 +1846,7 @@ exports[`snapshot bean 1`] = `
           onBlur={[Function]}
           onChange={[Function]}
           onInput={[Function]}
-          placeholder={undefined}
           required={true}
-          size={undefined}
           type="text"
           value="123"
         />
@@ -1941,16 +1904,12 @@ exports[`snapshot bean 1`] = `
         <textarea
           className="property-input form-control"
           id="textAreaPropertyInput"
-          maxLength={undefined}
           onBlur={[Function]}
           onChange={[Function]}
           onInput={[Function]}
           onInvalid={[Function]}
-          pattern={undefined}
-          placeholder={undefined}
           required={true}
           rows={3}
-          size={undefined}
           value="test"
         />
       </div>
@@ -1968,7 +1927,6 @@ exports[`snapshot bean 1`] = `
         id="checkBoxPropertyInput"
         onChange={[Function]}
         required={true}
-        size={undefined}
         type="checkbox"
       />
       <label
@@ -2000,7 +1958,6 @@ exports[`snapshot bean 1`] = `
           multiple={true}
           onChange={[Function]}
           required={false}
-          size={undefined}
           type="file"
         />
       </div>
@@ -2024,10 +1981,8 @@ exports[`snapshot bean 1`] = `
         <input
           className="property-input form-control-file"
           id="base64FilePropertyInput"
-          multiple={undefined}
           onChange={[Function]}
           required={false}
-          size={undefined}
           type="file"
         />
       </div>
@@ -2050,11 +2005,9 @@ exports[`snapshot bean 1`] = `
       >
         <div
           className="Select-outer property-input"
-          style={undefined}
         >
           <div
             className="Select has-value is-clearable is-searchable Select--single"
-            style={undefined}
           >
             <input
               disabled={false}
@@ -2069,7 +2022,6 @@ exports[`snapshot bean 1`] = `
               onTouchEnd={[Function]}
               onTouchMove={[Function]}
               onTouchStart={[Function]}
-              style={undefined}
             >
               <div
                 className="Select-multi-value-wrapper"
@@ -2077,8 +2029,6 @@ exports[`snapshot bean 1`] = `
               >
                 <div
                   className="Select-value"
-                  style={undefined}
-                  title={undefined}
                 >
                   <span
                     aria-selected="true"
@@ -2099,14 +2049,10 @@ exports[`snapshot bean 1`] = `
                 >
                   <input
                     aria-activedescendant="react-select-14--value"
-                    aria-describedby={undefined}
                     aria-expanded="false"
                     aria-haspopup="false"
-                    aria-label={undefined}
-                    aria-labelledby={undefined}
                     aria-owns=""
                     autoComplete="off"
-                    className={undefined}
                     id="selectPropertyInput"
                     onBlur={[Function]}
                     onChange={[Function]}
@@ -2119,7 +2065,6 @@ exports[`snapshot bean 1`] = `
                         "width": "5px",
                       }
                     }
-                    tabIndex={undefined}
                     value=""
                   />
                   <div
@@ -2189,11 +2134,9 @@ exports[`snapshot bean 1`] = `
       >
         <div
           className="Select-outer property-input"
-          style={undefined}
         >
           <div
             className="Select has-value is-clearable is-searchable Select--single"
-            style={undefined}
           >
             <input
               disabled={false}
@@ -2208,7 +2151,6 @@ exports[`snapshot bean 1`] = `
               onTouchEnd={[Function]}
               onTouchMove={[Function]}
               onTouchStart={[Function]}
-              style={undefined}
             >
               <div
                 className="Select-multi-value-wrapper"
@@ -2216,8 +2158,6 @@ exports[`snapshot bean 1`] = `
               >
                 <div
                   className="Select-value"
-                  style={undefined}
-                  title={undefined}
                 >
                   <span
                     aria-selected="true"
@@ -2238,14 +2178,10 @@ exports[`snapshot bean 1`] = `
                 >
                   <input
                     aria-activedescendant="react-select-15--value"
-                    aria-describedby={undefined}
                     aria-expanded="false"
                     aria-haspopup="false"
-                    aria-label={undefined}
-                    aria-labelledby={undefined}
                     aria-owns=""
                     autoComplete="off"
-                    className={undefined}
                     id="asyncSelectPropertyInput"
                     onBlur={[Function]}
                     onChange={[Function]}
@@ -2258,7 +2194,6 @@ exports[`snapshot bean 1`] = `
                         "width": "5px",
                       }
                     }
-                    tabIndex={undefined}
                     value=""
                   />
                   <div
@@ -2328,11 +2263,9 @@ exports[`snapshot bean 1`] = `
       >
         <div
           className="Select-outer property-input"
-          style={undefined}
         >
           <div
             className="Select has-value is-clearable is-searchable Select--single"
-            style={undefined}
           >
             <input
               disabled={false}
@@ -2347,7 +2280,6 @@ exports[`snapshot bean 1`] = `
               onTouchEnd={[Function]}
               onTouchMove={[Function]}
               onTouchStart={[Function]}
-              style={undefined}
             >
               <div
                 className="Select-multi-value-wrapper"
@@ -2355,8 +2287,6 @@ exports[`snapshot bean 1`] = `
               >
                 <div
                   className="Select-value"
-                  style={undefined}
-                  title={undefined}
                 >
                   <span
                     aria-selected="true"
@@ -2377,14 +2307,10 @@ exports[`snapshot bean 1`] = `
                 >
                   <input
                     aria-activedescendant="react-select-16--value"
-                    aria-describedby={undefined}
                     aria-expanded="false"
                     aria-haspopup="false"
-                    aria-label={undefined}
-                    aria-labelledby={undefined}
                     aria-owns=""
                     autoComplete="off"
-                    className={undefined}
                     id="virtualizedSelectPropertyInput"
                     onBlur={[Function]}
                     onChange={[Function]}
@@ -2397,7 +2323,6 @@ exports[`snapshot bean 1`] = `
                         "width": "5px",
                       }
                     }
-                    tabIndex={undefined}
                     value=""
                   />
                   <div
@@ -2467,11 +2392,9 @@ exports[`snapshot bean 1`] = `
       >
         <div
           className="Select-outer property-input"
-          style={undefined}
         >
           <div
             className="Select has-value is-clearable is-searchable Select--multi"
-            style={undefined}
           >
             <input
               disabled={false}
@@ -2492,7 +2415,6 @@ exports[`snapshot bean 1`] = `
               onTouchEnd={[Function]}
               onTouchMove={[Function]}
               onTouchStart={[Function]}
-              style={undefined}
             >
               <div
                 className="Select-multi-value-wrapper"
@@ -2500,8 +2422,6 @@ exports[`snapshot bean 1`] = `
               >
                 <div
                   className="Select-value"
-                  style={undefined}
-                  title={undefined}
                 >
                   <span
                     aria-hidden="true"
@@ -2529,8 +2449,6 @@ exports[`snapshot bean 1`] = `
                 </div>
                 <div
                   className="Select-value"
-                  style={undefined}
-                  title={undefined}
                 >
                   <span
                     aria-hidden="true"
@@ -2566,14 +2484,10 @@ exports[`snapshot bean 1`] = `
                 >
                   <input
                     aria-activedescendant="react-select-17--value"
-                    aria-describedby={undefined}
                     aria-expanded="false"
                     aria-haspopup="false"
-                    aria-label={undefined}
-                    aria-labelledby={undefined}
                     aria-owns=""
                     autoComplete="off"
-                    className={undefined}
                     id="multiSelectPropertyInput"
                     onBlur={[Function]}
                     onChange={[Function]}
@@ -2586,7 +2500,6 @@ exports[`snapshot bean 1`] = `
                         "width": "5px",
                       }
                     }
-                    tabIndex={undefined}
                     value=""
                   />
                   <div
@@ -2664,7 +2577,6 @@ exports[`snapshot bean 1`] = `
             <input
               checked={false}
               className="form-check-input"
-              disabled={undefined}
               id="radioButtonsPropertyInput_option0"
               name="radioButtonsPropertyInput"
               onChange={[Function]}
@@ -2691,7 +2603,6 @@ exports[`snapshot bean 1`] = `
             <input
               checked={true}
               className="form-check-input"
-              disabled={undefined}
               id="radioButtonsPropertyInput_option1"
               name="radioButtonsPropertyInput"
               onChange={[Function]}
@@ -2741,7 +2652,6 @@ exports[`snapshot bean 1`] = `
             <input
               checked={false}
               className="form-check-input"
-              disabled={undefined}
               id="multiSelectViaCheckboxesPropertyInput_option0"
               name="multiSelectViaCheckboxesPropertyInput"
               onChange={[Function]}
@@ -2762,7 +2672,6 @@ exports[`snapshot bean 1`] = `
             <input
               checked={true}
               className="form-check-input"
-              disabled={undefined}
               id="multiSelectViaCheckboxesPropertyInput_option1"
               name="multiSelectViaCheckboxesPropertyInput"
               onChange={[Function]}
@@ -2783,7 +2692,6 @@ exports[`snapshot bean 1`] = `
             <input
               checked={true}
               className="form-check-input"
-              disabled={undefined}
               id="multiSelectViaCheckboxesPropertyInput_option2"
               name="multiSelectViaCheckboxesPropertyInput"
               onChange={[Function]}
@@ -2804,7 +2712,6 @@ exports[`snapshot bean 1`] = `
             <input
               checked={false}
               className="form-check-input"
-              disabled={undefined}
               id="multiSelectViaCheckboxesPropertyInput_option3"
               name="multiSelectViaCheckboxesPropertyInput"
               onChange={[Function]}
@@ -2825,7 +2732,6 @@ exports[`snapshot bean 1`] = `
             <input
               checked={false}
               className="form-check-input"
-              disabled={undefined}
               id="multiSelectViaCheckboxesPropertyInput_option4"
               name="multiSelectViaCheckboxesPropertyInput"
               onChange={[Function]}
@@ -2846,7 +2752,6 @@ exports[`snapshot bean 1`] = `
             <input
               checked={false}
               className="form-check-input"
-              disabled={undefined}
               id="multiSelectViaCheckboxesPropertyInput_option5"
               name="multiSelectViaCheckboxesPropertyInput"
               onChange={[Function]}
@@ -2911,9 +2816,7 @@ exports[`snapshot bean 1`] = `
       <div
         className="controls"
       >
-        <div
-          style={undefined}
-        />
+        <div />
       </div>
     </div>
   </div>
@@ -2946,15 +2849,11 @@ exports[`snapshot bean horizontal 1`] = `
         <input
           className="property-input form-control"
           id="textInputPropertyInput"
-          maxLength={undefined}
           onBlur={[Function]}
           onChange={[Function]}
           onInput={[Function]}
           onInvalid={[Function]}
-          pattern={undefined}
-          placeholder={undefined}
           required={true}
-          size={undefined}
           type="text"
           value="test"
         />
@@ -2994,9 +2893,7 @@ exports[`snapshot bean horizontal 1`] = `
             onInvalid={[Function]}
             onKeyDown={[Function]}
             pattern="(^$|\\\\d{1,2}\\\\.\\\\d{1,2}\\\\.\\\\d{4})"
-            placeholder={undefined}
             required={true}
-            size={undefined}
             type="text"
             value="20.07.2017"
           />
@@ -3504,9 +3401,7 @@ exports[`snapshot bean horizontal 1`] = `
             onInvalid={[Function]}
             onKeyDown={[Function]}
             pattern="(^$|\\\\d{1,2}\\\\.\\\\d{1,2}\\\\.\\\\d{4}\\\\s\\\\d{2}:\\\\d{2})"
-            placeholder={undefined}
             required={true}
-            size={undefined}
             type="text"
             value="29.02.2020 23:59"
           />
@@ -4025,9 +3920,7 @@ exports[`snapshot bean horizontal 1`] = `
             onInvalid={[Function]}
             onKeyDown={[Function]}
             pattern="(^$|\\\\d{1,2}\\\\.\\\\d{1,2}\\\\.\\\\d{4}\\\\s\\\\d{2}:\\\\d{2})"
-            placeholder={undefined}
             required={true}
-            size={undefined}
             type="text"
             value="14.07.2018 13:33"
           />
@@ -4541,9 +4434,7 @@ exports[`snapshot bean horizontal 1`] = `
           onBlur={[Function]}
           onChange={[Function]}
           onInput={[Function]}
-          placeholder={undefined}
           required={true}
-          size={undefined}
           type="text"
           value="123"
         />
@@ -4609,16 +4500,12 @@ exports[`snapshot bean horizontal 1`] = `
         <textarea
           className="property-input form-control"
           id="textAreaPropertyInput"
-          maxLength={undefined}
           onBlur={[Function]}
           onChange={[Function]}
           onInput={[Function]}
           onInvalid={[Function]}
-          pattern={undefined}
-          placeholder={undefined}
           required={true}
           rows={3}
-          size={undefined}
           value="test"
         />
       </div>
@@ -4642,7 +4529,6 @@ exports[`snapshot bean horizontal 1`] = `
             id="checkBoxPropertyInput"
             onChange={[Function]}
             required={true}
-            size={undefined}
             type="checkbox"
           />
           <label
@@ -4680,7 +4566,6 @@ exports[`snapshot bean horizontal 1`] = `
           multiple={true}
           onChange={[Function]}
           required={false}
-          size={undefined}
           type="file"
         />
       </div>
@@ -4708,10 +4593,8 @@ exports[`snapshot bean horizontal 1`] = `
         <input
           className="property-input form-control-file"
           id="base64FilePropertyInput"
-          multiple={undefined}
           onChange={[Function]}
           required={false}
-          size={undefined}
           type="file"
         />
       </div>
@@ -4738,11 +4621,9 @@ exports[`snapshot bean horizontal 1`] = `
       >
         <div
           className="Select-outer property-input"
-          style={undefined}
         >
           <div
             className="Select has-value is-clearable is-searchable Select--single"
-            style={undefined}
           >
             <input
               disabled={false}
@@ -4757,7 +4638,6 @@ exports[`snapshot bean horizontal 1`] = `
               onTouchEnd={[Function]}
               onTouchMove={[Function]}
               onTouchStart={[Function]}
-              style={undefined}
             >
               <div
                 className="Select-multi-value-wrapper"
@@ -4765,8 +4645,6 @@ exports[`snapshot bean horizontal 1`] = `
               >
                 <div
                   className="Select-value"
-                  style={undefined}
-                  title={undefined}
                 >
                   <span
                     aria-selected="true"
@@ -4787,14 +4665,10 @@ exports[`snapshot bean horizontal 1`] = `
                 >
                   <input
                     aria-activedescendant="react-select-18--value"
-                    aria-describedby={undefined}
                     aria-expanded="false"
                     aria-haspopup="false"
-                    aria-label={undefined}
-                    aria-labelledby={undefined}
                     aria-owns=""
                     autoComplete="off"
-                    className={undefined}
                     id="selectPropertyInput"
                     onBlur={[Function]}
                     onChange={[Function]}
@@ -4807,7 +4681,6 @@ exports[`snapshot bean horizontal 1`] = `
                         "width": "5px",
                       }
                     }
-                    tabIndex={undefined}
                     value=""
                   />
                   <div
@@ -4881,11 +4754,9 @@ exports[`snapshot bean horizontal 1`] = `
       >
         <div
           className="Select-outer property-input"
-          style={undefined}
         >
           <div
             className="Select has-value is-clearable is-searchable Select--single"
-            style={undefined}
           >
             <input
               disabled={false}
@@ -4900,7 +4771,6 @@ exports[`snapshot bean horizontal 1`] = `
               onTouchEnd={[Function]}
               onTouchMove={[Function]}
               onTouchStart={[Function]}
-              style={undefined}
             >
               <div
                 className="Select-multi-value-wrapper"
@@ -4908,8 +4778,6 @@ exports[`snapshot bean horizontal 1`] = `
               >
                 <div
                   className="Select-value"
-                  style={undefined}
-                  title={undefined}
                 >
                   <span
                     aria-selected="true"
@@ -4930,14 +4798,10 @@ exports[`snapshot bean horizontal 1`] = `
                 >
                   <input
                     aria-activedescendant="react-select-19--value"
-                    aria-describedby={undefined}
                     aria-expanded="false"
                     aria-haspopup="false"
-                    aria-label={undefined}
-                    aria-labelledby={undefined}
                     aria-owns=""
                     autoComplete="off"
-                    className={undefined}
                     id="asyncSelectPropertyInput"
                     onBlur={[Function]}
                     onChange={[Function]}
@@ -4950,7 +4814,6 @@ exports[`snapshot bean horizontal 1`] = `
                         "width": "5px",
                       }
                     }
-                    tabIndex={undefined}
                     value=""
                   />
                   <div
@@ -5024,11 +4887,9 @@ exports[`snapshot bean horizontal 1`] = `
       >
         <div
           className="Select-outer property-input"
-          style={undefined}
         >
           <div
             className="Select has-value is-clearable is-searchable Select--single"
-            style={undefined}
           >
             <input
               disabled={false}
@@ -5043,7 +4904,6 @@ exports[`snapshot bean horizontal 1`] = `
               onTouchEnd={[Function]}
               onTouchMove={[Function]}
               onTouchStart={[Function]}
-              style={undefined}
             >
               <div
                 className="Select-multi-value-wrapper"
@@ -5051,8 +4911,6 @@ exports[`snapshot bean horizontal 1`] = `
               >
                 <div
                   className="Select-value"
-                  style={undefined}
-                  title={undefined}
                 >
                   <span
                     aria-selected="true"
@@ -5073,14 +4931,10 @@ exports[`snapshot bean horizontal 1`] = `
                 >
                   <input
                     aria-activedescendant="react-select-20--value"
-                    aria-describedby={undefined}
                     aria-expanded="false"
                     aria-haspopup="false"
-                    aria-label={undefined}
-                    aria-labelledby={undefined}
                     aria-owns=""
                     autoComplete="off"
-                    className={undefined}
                     id="virtualizedSelectPropertyInput"
                     onBlur={[Function]}
                     onChange={[Function]}
@@ -5093,7 +4947,6 @@ exports[`snapshot bean horizontal 1`] = `
                         "width": "5px",
                       }
                     }
-                    tabIndex={undefined}
                     value=""
                   />
                   <div
@@ -5167,11 +5020,9 @@ exports[`snapshot bean horizontal 1`] = `
       >
         <div
           className="Select-outer property-input"
-          style={undefined}
         >
           <div
             className="Select has-value is-clearable is-searchable Select--multi"
-            style={undefined}
           >
             <input
               disabled={false}
@@ -5192,7 +5043,6 @@ exports[`snapshot bean horizontal 1`] = `
               onTouchEnd={[Function]}
               onTouchMove={[Function]}
               onTouchStart={[Function]}
-              style={undefined}
             >
               <div
                 className="Select-multi-value-wrapper"
@@ -5200,8 +5050,6 @@ exports[`snapshot bean horizontal 1`] = `
               >
                 <div
                   className="Select-value"
-                  style={undefined}
-                  title={undefined}
                 >
                   <span
                     aria-hidden="true"
@@ -5229,8 +5077,6 @@ exports[`snapshot bean horizontal 1`] = `
                 </div>
                 <div
                   className="Select-value"
-                  style={undefined}
-                  title={undefined}
                 >
                   <span
                     aria-hidden="true"
@@ -5266,14 +5112,10 @@ exports[`snapshot bean horizontal 1`] = `
                 >
                   <input
                     aria-activedescendant="react-select-21--value"
-                    aria-describedby={undefined}
                     aria-expanded="false"
                     aria-haspopup="false"
-                    aria-label={undefined}
-                    aria-labelledby={undefined}
                     aria-owns=""
                     autoComplete="off"
-                    className={undefined}
                     id="multiSelectPropertyInput"
                     onBlur={[Function]}
                     onChange={[Function]}
@@ -5286,7 +5128,6 @@ exports[`snapshot bean horizontal 1`] = `
                         "width": "5px",
                       }
                     }
-                    tabIndex={undefined}
                     value=""
                   />
                   <div
@@ -5368,7 +5209,6 @@ exports[`snapshot bean horizontal 1`] = `
             <input
               checked={false}
               className="form-check-input"
-              disabled={undefined}
               id="radioButtonsPropertyInput_option0"
               name="radioButtonsPropertyInput"
               onChange={[Function]}
@@ -5395,7 +5235,6 @@ exports[`snapshot bean horizontal 1`] = `
             <input
               checked={true}
               className="form-check-input"
-              disabled={undefined}
               id="radioButtonsPropertyInput_option1"
               name="radioButtonsPropertyInput"
               onChange={[Function]}
@@ -5449,7 +5288,6 @@ exports[`snapshot bean horizontal 1`] = `
             <input
               checked={false}
               className="form-check-input"
-              disabled={undefined}
               id="multiSelectViaCheckboxesPropertyInput_option0"
               name="multiSelectViaCheckboxesPropertyInput"
               onChange={[Function]}
@@ -5470,7 +5308,6 @@ exports[`snapshot bean horizontal 1`] = `
             <input
               checked={true}
               className="form-check-input"
-              disabled={undefined}
               id="multiSelectViaCheckboxesPropertyInput_option1"
               name="multiSelectViaCheckboxesPropertyInput"
               onChange={[Function]}
@@ -5491,7 +5328,6 @@ exports[`snapshot bean horizontal 1`] = `
             <input
               checked={true}
               className="form-check-input"
-              disabled={undefined}
               id="multiSelectViaCheckboxesPropertyInput_option2"
               name="multiSelectViaCheckboxesPropertyInput"
               onChange={[Function]}
@@ -5512,7 +5348,6 @@ exports[`snapshot bean horizontal 1`] = `
             <input
               checked={false}
               className="form-check-input"
-              disabled={undefined}
               id="multiSelectViaCheckboxesPropertyInput_option3"
               name="multiSelectViaCheckboxesPropertyInput"
               onChange={[Function]}
@@ -5533,7 +5368,6 @@ exports[`snapshot bean horizontal 1`] = `
             <input
               checked={false}
               className="form-check-input"
-              disabled={undefined}
               id="multiSelectViaCheckboxesPropertyInput_option4"
               name="multiSelectViaCheckboxesPropertyInput"
               onChange={[Function]}
@@ -5554,7 +5388,6 @@ exports[`snapshot bean horizontal 1`] = `
             <input
               checked={false}
               className="form-check-input"
-              disabled={undefined}
               id="multiSelectViaCheckboxesPropertyInput_option5"
               name="multiSelectViaCheckboxesPropertyInput"
               onChange={[Function]}
@@ -5637,9 +5470,7 @@ exports[`snapshot bean horizontal 1`] = `
       <div
         className="col-lg-9"
       >
-        <div
-          style={undefined}
-        />
+        <div />
       </div>
     </div>
   </div>
@@ -5668,16 +5499,12 @@ exports[`snapshot bean with readOnly 1`] = `
         <input
           className="property-input form-control"
           id="textInputPropertyInput"
-          maxLength={undefined}
           onBlur={[Function]}
           onChange={[Function]}
           onInput={[Function]}
           onInvalid={[Function]}
-          pattern={undefined}
-          placeholder={undefined}
           readOnly="readonly"
           required={true}
-          size={undefined}
           type="text"
           value="test"
         />
@@ -5702,16 +5529,12 @@ exports[`snapshot bean with readOnly 1`] = `
         <input
           className="property-input form-control"
           id="datePropertyInput"
-          maxLength={undefined}
           onBlur={[Function]}
           onChange={[Function]}
           onInput={[Function]}
           onInvalid={[Function]}
-          pattern={undefined}
-          placeholder={undefined}
           readOnly="readonly"
           required={true}
-          size={undefined}
           type="text"
           value="20.07.2017"
         />
@@ -5736,16 +5559,12 @@ exports[`snapshot bean with readOnly 1`] = `
         <input
           className="property-input form-control"
           id="timePropertyInput"
-          maxLength={undefined}
           onBlur={[Function]}
           onChange={[Function]}
           onInput={[Function]}
           onInvalid={[Function]}
-          pattern={undefined}
-          placeholder={undefined}
           readOnly="readonly"
           required={true}
-          size={undefined}
           type="text"
           value="29.02.2020 23:59"
         />
@@ -5770,16 +5589,12 @@ exports[`snapshot bean with readOnly 1`] = `
         <input
           className="property-input form-control"
           id="timestampPropertyInput"
-          maxLength={undefined}
           onBlur={[Function]}
           onChange={[Function]}
           onInput={[Function]}
           onInvalid={[Function]}
-          pattern={undefined}
-          placeholder={undefined}
           readOnly="readonly"
           required={true}
-          size={undefined}
           type="text"
           value="14.07.2018 13:33"
         />
@@ -5810,10 +5625,8 @@ exports[`snapshot bean with readOnly 1`] = `
           onBlur={[Function]}
           onChange={[Function]}
           onInput={[Function]}
-          placeholder={undefined}
           readOnly="readonly"
           required={true}
-          size={undefined}
           type="text"
           value="123"
         />
@@ -5872,17 +5685,13 @@ exports[`snapshot bean with readOnly 1`] = `
         <textarea
           className="property-input form-control"
           id="textAreaPropertyInput"
-          maxLength={undefined}
           onBlur={[Function]}
           onChange={[Function]}
           onInput={[Function]}
           onInvalid={[Function]}
-          pattern={undefined}
-          placeholder={undefined}
           readOnly="readonly"
           required={true}
           rows={3}
-          size={undefined}
           value="test"
         />
       </div>
@@ -5901,7 +5710,6 @@ exports[`snapshot bean with readOnly 1`] = `
         id="checkBoxPropertyInput"
         onChange={[Function]}
         required={true}
-        size={undefined}
         type="checkbox"
       />
       <label
@@ -5934,7 +5742,6 @@ exports[`snapshot bean with readOnly 1`] = `
           onChange={[Function]}
           readOnly="readonly"
           required={false}
-          size={undefined}
           type="file"
         />
       </div>
@@ -5959,10 +5766,8 @@ exports[`snapshot bean with readOnly 1`] = `
           className="property-input form-control-file"
           disabled="disabled"
           id="base64FilePropertyInput"
-          multiple={undefined}
           onChange={[Function]}
           required={false}
-          size={undefined}
           type="file"
         />
       </div>
@@ -5985,11 +5790,9 @@ exports[`snapshot bean with readOnly 1`] = `
       >
         <div
           className="Select-outer property-input"
-          style={undefined}
         >
           <div
             className="Select has-value is-clearable is-disabled is-searchable Select--single"
-            style={undefined}
           >
             <input
               disabled={true}
@@ -6004,7 +5807,6 @@ exports[`snapshot bean with readOnly 1`] = `
               onTouchEnd={[Function]}
               onTouchMove={[Function]}
               onTouchStart={[Function]}
-              style={undefined}
             >
               <div
                 className="Select-multi-value-wrapper"
@@ -6012,8 +5814,6 @@ exports[`snapshot bean with readOnly 1`] = `
               >
                 <div
                   className="Select-value"
-                  style={undefined}
-                  title={undefined}
                 >
                   <span
                     aria-selected="true"
@@ -6028,8 +5828,6 @@ exports[`snapshot bean with readOnly 1`] = `
                   aria-activedescendant="react-select-22--value"
                   aria-disabled="true"
                   aria-expanded={false}
-                  aria-label={undefined}
-                  aria-labelledby={undefined}
                   aria-owns=""
                   autoComplete="off"
                   className="Select-input"
@@ -6078,11 +5876,9 @@ exports[`snapshot bean with readOnly 1`] = `
       >
         <div
           className="Select-outer property-input"
-          style={undefined}
         >
           <div
             className="Select has-value is-clearable is-disabled is-searchable Select--single"
-            style={undefined}
           >
             <input
               disabled={true}
@@ -6097,7 +5893,6 @@ exports[`snapshot bean with readOnly 1`] = `
               onTouchEnd={[Function]}
               onTouchMove={[Function]}
               onTouchStart={[Function]}
-              style={undefined}
             >
               <div
                 className="Select-multi-value-wrapper"
@@ -6105,8 +5900,6 @@ exports[`snapshot bean with readOnly 1`] = `
               >
                 <div
                   className="Select-value"
-                  style={undefined}
-                  title={undefined}
                 >
                   <span
                     aria-selected="true"
@@ -6121,8 +5914,6 @@ exports[`snapshot bean with readOnly 1`] = `
                   aria-activedescendant="react-select-23--value"
                   aria-disabled="true"
                   aria-expanded={false}
-                  aria-label={undefined}
-                  aria-labelledby={undefined}
                   aria-owns=""
                   autoComplete="off"
                   className="Select-input"
@@ -6171,11 +5962,9 @@ exports[`snapshot bean with readOnly 1`] = `
       >
         <div
           className="Select-outer property-input"
-          style={undefined}
         >
           <div
             className="Select has-value is-clearable is-disabled is-searchable Select--single"
-            style={undefined}
           >
             <input
               disabled={true}
@@ -6190,7 +5979,6 @@ exports[`snapshot bean with readOnly 1`] = `
               onTouchEnd={[Function]}
               onTouchMove={[Function]}
               onTouchStart={[Function]}
-              style={undefined}
             >
               <div
                 className="Select-multi-value-wrapper"
@@ -6198,8 +5986,6 @@ exports[`snapshot bean with readOnly 1`] = `
               >
                 <div
                   className="Select-value"
-                  style={undefined}
-                  title={undefined}
                 >
                   <span
                     aria-selected="true"
@@ -6214,8 +6000,6 @@ exports[`snapshot bean with readOnly 1`] = `
                   aria-activedescendant="react-select-24--value"
                   aria-disabled="true"
                   aria-expanded={false}
-                  aria-label={undefined}
-                  aria-labelledby={undefined}
                   aria-owns=""
                   autoComplete="off"
                   className="Select-input"
@@ -6264,11 +6048,9 @@ exports[`snapshot bean with readOnly 1`] = `
       >
         <div
           className="Select-outer property-input"
-          style={undefined}
         >
           <div
             className="Select has-value is-clearable is-disabled is-searchable Select--multi"
-            style={undefined}
           >
             <input
               disabled={true}
@@ -6289,7 +6071,6 @@ exports[`snapshot bean with readOnly 1`] = `
               onTouchEnd={[Function]}
               onTouchMove={[Function]}
               onTouchStart={[Function]}
-              style={undefined}
             >
               <div
                 className="Select-multi-value-wrapper"
@@ -6297,8 +6078,6 @@ exports[`snapshot bean with readOnly 1`] = `
               >
                 <div
                   className="Select-value"
-                  style={undefined}
-                  title={undefined}
                 >
                   <span
                     aria-selected="true"
@@ -6316,8 +6095,6 @@ exports[`snapshot bean with readOnly 1`] = `
                 </div>
                 <div
                   className="Select-value"
-                  style={undefined}
-                  title={undefined}
                 >
                   <span
                     aria-selected="true"
@@ -6337,8 +6114,6 @@ exports[`snapshot bean with readOnly 1`] = `
                   aria-activedescendant="react-select-25--value"
                   aria-disabled="true"
                   aria-expanded={false}
-                  aria-label={undefined}
-                  aria-labelledby={undefined}
                   aria-owns=""
                   autoComplete="off"
                   className="Select-input"
@@ -6642,9 +6417,7 @@ exports[`snapshot bean with readOnly 1`] = `
       <div
         className="controls"
       >
-        <div
-          style={undefined}
-        />
+        <div />
       </div>
     </div>
   </div>
@@ -6700,15 +6473,11 @@ exports[`test outer 1`] = `
               <input
                 className="property-input form-control"
                 id="textInputPropertyInput"
-                maxLength={undefined}
                 onBlur={[Function]}
                 onChange={[Function]}
                 onInput={[Function]}
                 onInvalid={[Function]}
-                pattern={undefined}
-                placeholder={undefined}
                 required={true}
-                size={undefined}
                 type="text"
                 value="test"
               />
@@ -6741,16 +6510,12 @@ exports[`test outer 1`] = `
               <input
                 className="property-input form-control-plaintext"
                 id="readonlyPlainTextPropertyInput"
-                maxLength={undefined}
                 onBlur={[Function]}
                 onChange={[Function]}
                 onInput={[Function]}
                 onInvalid={[Function]}
-                pattern={undefined}
-                placeholder={undefined}
                 readOnly="readonly"
                 required={true}
-                size={undefined}
                 type="form-control-plaintext"
                 value="email@example.com"
               />
@@ -6769,7 +6534,6 @@ exports[`test outer 1`] = `
               id="checkBoxPropertyInput"
               onChange={[Function]}
               required={true}
-              size={undefined}
               type="checkbox"
             />
             <label
@@ -6858,15 +6622,11 @@ exports[`test outer 1`] = `
               <input
                 className="property-input form-control is-invalid"
                 id="textInput2PropertyInput"
-                maxLength={undefined}
                 onBlur={[Function]}
                 onChange={[Function]}
                 onInput={[Function]}
                 onInvalid={[Function]}
-                pattern={undefined}
-                placeholder={undefined}
                 required={true}
-                size={undefined}
                 type="text"
                 value="test"
               />
@@ -6898,11 +6658,9 @@ exports[`test outer 1`] = `
             >
               <div
                 className="Select-outer property-input is-invalid"
-                style={undefined}
               >
                 <div
                   className="Select has-value is-clearable is-searchable Select--single"
-                  style={undefined}
                 >
                   <input
                     disabled={false}
@@ -6917,7 +6675,6 @@ exports[`test outer 1`] = `
                     onTouchEnd={[Function]}
                     onTouchMove={[Function]}
                     onTouchStart={[Function]}
-                    style={undefined}
                   >
                     <div
                       className="Select-multi-value-wrapper"
@@ -6925,8 +6682,6 @@ exports[`test outer 1`] = `
                     >
                       <div
                         className="Select-value"
-                        style={undefined}
-                        title={undefined}
                       >
                         <span
                           aria-selected="true"
@@ -6947,14 +6702,10 @@ exports[`test outer 1`] = `
                       >
                         <input
                           aria-activedescendant="react-select-30--value"
-                          aria-describedby={undefined}
                           aria-expanded="false"
                           aria-haspopup="false"
-                          aria-label={undefined}
-                          aria-labelledby={undefined}
                           aria-owns=""
                           autoComplete="off"
-                          className={undefined}
                           id="select2PropertyInput"
                           onBlur={[Function]}
                           onChange={[Function]}
@@ -6967,7 +6718,6 @@ exports[`test outer 1`] = `
                               "width": "5px",
                             }
                           }
-                          tabIndex={undefined}
                           value=""
                         />
                         <div
@@ -7040,7 +6790,6 @@ exports[`test outer 1`] = `
               id="checkBox2PropertyInput"
               onChange={[Function]}
               required={false}
-              size={undefined}
               type="checkbox"
             />
             <label
@@ -7129,15 +6878,11 @@ exports[`test outer 1`] = `
               <input
                 className="property-input form-control is-valid"
                 id="textInput3PropertyInput"
-                maxLength={undefined}
                 onBlur={[Function]}
                 onChange={[Function]}
                 onInput={[Function]}
                 onInvalid={[Function]}
-                pattern={undefined}
-                placeholder={undefined}
                 required={true}
-                size={undefined}
                 type="text"
                 value="test"
               />
@@ -7169,11 +6914,9 @@ exports[`test outer 1`] = `
             >
               <div
                 className="Select-outer property-input is-valid"
-                style={undefined}
               >
                 <div
                   className="Select has-value is-clearable is-searchable Select--single"
-                  style={undefined}
                 >
                   <input
                     disabled={false}
@@ -7188,7 +6931,6 @@ exports[`test outer 1`] = `
                     onTouchEnd={[Function]}
                     onTouchMove={[Function]}
                     onTouchStart={[Function]}
-                    style={undefined}
                   >
                     <div
                       className="Select-multi-value-wrapper"
@@ -7196,8 +6938,6 @@ exports[`test outer 1`] = `
                     >
                       <div
                         className="Select-value"
-                        style={undefined}
-                        title={undefined}
                       >
                         <span
                           aria-selected="true"
@@ -7218,14 +6958,10 @@ exports[`test outer 1`] = `
                       >
                         <input
                           aria-activedescendant="react-select-31--value"
-                          aria-describedby={undefined}
                           aria-expanded="false"
                           aria-haspopup="false"
-                          aria-label={undefined}
-                          aria-labelledby={undefined}
                           aria-owns=""
                           autoComplete="off"
-                          className={undefined}
                           id="select3PropertyInput"
                           onBlur={[Function]}
                           onChange={[Function]}
@@ -7238,7 +6974,6 @@ exports[`test outer 1`] = `
                               "width": "5px",
                             }
                           }
-                          tabIndex={undefined}
                           value=""
                         />
                         <div
@@ -7311,7 +7046,6 @@ exports[`test outer 1`] = `
               id="checkBox3PropertyInput"
               onChange={[Function]}
               required={true}
-              size={undefined}
               type="checkbox"
             />
             <label
@@ -7400,15 +7134,11 @@ exports[`test outer 1`] = `
               <input
                 className="property-input form-control"
                 id="textInput4PropertyInput"
-                maxLength={undefined}
                 onBlur={[Function]}
                 onChange={[Function]}
                 onInput={[Function]}
                 onInvalid={[Function]}
-                pattern={undefined}
-                placeholder={undefined}
                 required={false}
-                size={undefined}
                 type="text"
                 value=""
               />
@@ -7463,16 +7193,12 @@ exports[`test outer 1`] = `
               <textarea
                 className="property-input form-control"
                 id="customSizeTextAreaPropertyInput"
-                maxLength={undefined}
                 onBlur={[Function]}
                 onChange={[Function]}
                 onInput={[Function]}
                 onInvalid={[Function]}
-                pattern={undefined}
-                placeholder={undefined}
                 required={true}
                 rows="5"
-                size={undefined}
                 value=""
               />
             </div>
@@ -7496,15 +7222,11 @@ exports[`test outer 1`] = `
               <input
                 className="property-input form-control"
                 id="namePropertyInput"
-                maxLength={undefined}
                 onBlur={[Function]}
                 onChange={[Function]}
                 onInput={[Function]}
                 onInvalid={[Function]}
-                pattern={undefined}
-                placeholder={undefined}
                 required={true}
-                size={undefined}
                 type="text"
                 value=""
               />
@@ -7529,15 +7251,11 @@ exports[`test outer 1`] = `
               <input
                 className="property-input form-control"
                 id="subjectPropertyInput"
-                maxLength={undefined}
                 onBlur={[Function]}
                 onChange={[Function]}
                 onInput={[Function]}
                 onInvalid={[Function]}
-                pattern={undefined}
-                placeholder={undefined}
                 required={true}
-                size={undefined}
                 type="text"
                 value=""
               />
@@ -7590,16 +7308,12 @@ exports[`test outer 1`] = `
               <textarea
                 className="property-input form-control"
                 id="customSizeTextArea2PropertyInput"
-                maxLength={undefined}
                 onBlur={[Function]}
                 onChange={[Function]}
                 onInput={[Function]}
                 onInvalid={[Function]}
-                pattern={undefined}
-                placeholder={undefined}
                 required={true}
                 rows="5"
-                size={undefined}
                 value=""
               />
             </div>
@@ -7651,15 +7365,11 @@ exports[`test outer 1`] = `
               <input
                 className="property-input form-control"
                 id="name2PropertyInput"
-                maxLength={undefined}
                 onBlur={[Function]}
                 onChange={[Function]}
                 onInput={[Function]}
                 onInvalid={[Function]}
-                pattern={undefined}
-                placeholder={undefined}
                 required={true}
-                size={undefined}
                 type="text"
                 value=""
               />
@@ -7684,15 +7394,11 @@ exports[`test outer 1`] = `
               <input
                 className="property-input form-control"
                 id="subject2PropertyInput"
-                maxLength={undefined}
                 onBlur={[Function]}
                 onChange={[Function]}
                 onInput={[Function]}
                 onInvalid={[Function]}
-                pattern={undefined}
-                placeholder={undefined}
                 required={true}
-                size={undefined}
                 type="text"
                 value=""
               />
@@ -7760,9 +7466,7 @@ exports[`validationTest 1`] = `
                 onBlur={[Function]}
                 onChange={[Function]}
                 onInput={[Function]}
-                placeholder={undefined}
                 required={true}
-                size={undefined}
                 type="text"
                 value="32767"
               />
@@ -7793,9 +7497,7 @@ exports[`validationTest 1`] = `
                 onBlur={[Function]}
                 onChange={[Function]}
                 onInput={[Function]}
-                placeholder={undefined}
                 required={true}
-                size={undefined}
                 type="text"
                 value="2147483647"
               />
@@ -7826,9 +7528,7 @@ exports[`validationTest 1`] = `
                 onBlur={[Function]}
                 onChange={[Function]}
                 onInput={[Function]}
-                placeholder={undefined}
                 required={true}
-                size={undefined}
                 type="text"
                 value="9223372036854775807"
               />
@@ -7852,16 +7552,12 @@ exports[`validationTest 1`] = `
             >
               <input
                 className="property-input form-control"
-                data-info-range={undefined}
-                data-info-step={undefined}
                 data-info-type="Double"
                 id="doublePropertyInput"
                 onBlur={[Function]}
                 onChange={[Function]}
                 onInput={[Function]}
-                placeholder={undefined}
                 required={true}
-                size={undefined}
                 type="text"
                 value="1000000012345.67"
               />
@@ -7887,14 +7583,11 @@ exports[`validationTest 1`] = `
                 className="property-input form-control"
                 data-info-range="0, 1000"
                 data-info-step="0.5"
-                data-info-type={undefined}
                 id="doubleWithRangeAndStepPropertyInput"
                 onBlur={[Function]}
                 onChange={[Function]}
                 onInput={[Function]}
-                placeholder={undefined}
                 required={true}
-                size={undefined}
                 type="text"
                 value="100.5"
               />
@@ -7925,9 +7618,7 @@ exports[`validationTest 1`] = `
                 onBlur={[Function]}
                 onChange={[Function]}
                 onInput={[Function]}
-                placeholder={undefined}
                 required={false}
-                size={undefined}
                 type="text"
                 value=""
               />
@@ -7987,10 +7678,7 @@ exports[`validationTest 1`] = `
                 onChange={[Function]}
                 onInput={[Function]}
                 onInvalid={[Function]}
-                pattern={undefined}
-                placeholder={undefined}
                 required={true}
-                size={undefined}
                 type="text"
                 value="qwerty7890"
               />
@@ -8015,15 +7703,12 @@ exports[`validationTest 1`] = `
               <input
                 className="property-input form-control"
                 id="textInputWithPatternPropertyInput"
-                maxLength={undefined}
                 onBlur={[Function]}
                 onChange={[Function]}
                 onInput={[Function]}
                 onInvalid={[Function]}
                 pattern="^[A-Za-zА-Яа-яЁё]+$"
-                placeholder={undefined}
                 required={false}
-                size={undefined}
                 type="text"
                 value="AZazАЯаяЁё"
               />
@@ -8048,7 +7733,6 @@ exports[`validationTest 1`] = `
               <input
                 className="property-input form-control"
                 id="textInputWithPatternAndMessagePropertyInput"
-                maxLength={undefined}
                 onBlur={[Function]}
                 onChange={[Function]}
                 onInput={[Function]}
@@ -8056,7 +7740,6 @@ exports[`validationTest 1`] = `
                 pattern="\\\\d{3}"
                 placeholder="999"
                 required={false}
-                size={undefined}
                 type="text"
                 value=""
               />
@@ -8081,15 +7764,11 @@ exports[`validationTest 1`] = `
               <input
                 className="property-input form-control"
                 id="passwordPropertyInput"
-                maxLength={undefined}
                 onBlur={[Function]}
                 onChange={[Function]}
                 onInput={[Function]}
                 onInvalid={[Function]}
-                pattern={undefined}
-                placeholder={undefined}
                 required={true}
-                size={undefined}
                 type="password"
                 value="123"
               />
@@ -8114,15 +7793,11 @@ exports[`validationTest 1`] = `
               <input
                 className="property-input form-control"
                 id="passwordInValidationRulesPropertyInput"
-                maxLength={undefined}
                 onBlur={[Function]}
                 onChange={[Function]}
                 onInput={[Function]}
                 onInvalid={[Function]}
-                pattern={undefined}
-                placeholder={undefined}
                 required={true}
-                size={undefined}
                 type="password"
                 value="123"
               />
@@ -8147,15 +7822,11 @@ exports[`validationTest 1`] = `
               <input
                 className="property-input form-control"
                 id="emailPropertyInput"
-                maxLength={undefined}
                 onBlur={[Function]}
                 onChange={[Function]}
                 onInput={[Function]}
                 onInvalid={[Function]}
-                pattern={undefined}
-                placeholder={undefined}
                 required={true}
-                size={undefined}
                 type="email"
                 value="test@mail.ru"
               />

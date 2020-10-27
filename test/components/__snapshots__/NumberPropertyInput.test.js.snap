@@ -3,16 +3,12 @@
 exports[`convertENotationNumbers 1`] = `
 <input
   className="property-input form-control"
-  data-info-range={undefined}
-  data-info-step={undefined}
   data-info-type="Double"
   id="doublePropertyInput"
   onBlur={[Function]}
   onChange={[Function]}
   onInput={[Function]}
-  placeholder={undefined}
   required={true}
-  size={undefined}
   type="text"
   value="110"
 />
@@ -21,16 +17,12 @@ exports[`convertENotationNumbers 1`] = `
 exports[`convertENotationNumbers 2`] = `
 <input
   className="property-input form-control"
-  data-info-range={undefined}
-  data-info-step={undefined}
   data-info-type="Double"
   id="doublePropertyInput"
   onBlur={[Function]}
   onChange={[Function]}
   onInput={[Function]}
-  placeholder={undefined}
   required={true}
-  size={undefined}
   type="text"
   value="text"
 />
