@@ -1,5 +1,6 @@
-import babel       from 'rollup-plugin-babel'
-import resolve     from 'rollup-plugin-node-resolve'
+import babel       from '@rollup/plugin-babel'
+import resolve     from '@rollup/plugin-node-resolve'
+// import {terser}    from 'rollup-plugin-terser';
 
 
 const name = 'PropertySet';
@@ -8,8 +9,10 @@ const path = 'dist/beanexplorer-react';
 const babelOptions = {
   babelrc: false,
   exclude: 'node_modules/**',
-  presets: [ [ 'env', { modules: false } ], 'react' ],
-  plugins: [ 'external-helpers' ]
+  presets: [ [ '@babel/env', { modules: false } ], '@babel/react' ],
+  // todo make babelHelpers: external, now insert undefinied var babelHelpers
+  // plugins: [ '@babel/external-helpers' ],
+  babelHelpers: 'inline',
 };
 const globals = {
   'react': 'React',
@@ -28,7 +31,6 @@ const globals = {
 };
 const external = Object.keys(globals);
 
-
 export default [
   {
     input: 'src/index.js',
@@ -45,9 +47,9 @@ export default [
       name: name,
       file: path + '.js',
       format: 'umd',
+      globals: globals,
     },
-    globals: globals,
     external: external,
-    plugins: [babel(babelOptions), resolve()],
+    plugins: [babel(babelOptions),resolve()],
   }
 ];

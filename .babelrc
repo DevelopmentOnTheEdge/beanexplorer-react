@@ -1,12 +1,13 @@
 {
-  "presets": ["react", ["env", { "modules": false }]],
+  "presets": ["@babel/react", ["@babel/env", { "modules": false }]],
   "plugins": ["add-module-exports", "react-hot-loader/babel"],
   "env": {
     "test": {
-      "plugins": ["transform-es2015-modules-commonjs"]
+      "plugins": ["@babel/plugin-transform-modules-commonjs"
+      ]
     },
     "production": {
-      "presets": ["env", "react"]
+      "presets": ["@babel/env", "@babel/react"]
     }
   }
 }
