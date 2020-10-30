@@ -1,18 +1,18 @@
 "use strict";
 const webpack = require('webpack');
 const path = require('path');
-const loaders = require('./webpack.loaders');
+const rules = require('./webpack.loaders');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const DashboardPlugin = require('webpack-dashboard/plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const HOST = process.env.HOST || "127.0.0.1";
 const PORT = process.env.PORT || "8887";
 
-loaders.push({
+rules.push({
   test: /\.scss$/,
-  loaders: ['style-loader', 'css-loader?importLoaders=1', 'sass-loader'],
-  exclude: ['node_modules']
+  use: ['style-loader',{loader: 'css-loader', options: {importLoaders: '1'}},'sass-loader'],
+  exclude: /node_modules/
 });
 
 module.exports = {
@@ -31,7 +31,7 @@ module.exports = {
     extensions: ['.js', '.jsx']
   },
   module: {
-    loaders
+    rules
   },
   devServer: {
     contentBase: "./public",
@@ -47,11 +47,7 @@ module.exports = {
     host: HOST
   },
   plugins: [
-    new webpack.NoEmitOnErrorsPlugin(),
-    new ExtractTextPlugin({
-      filename: 'style.css',
-      allChunks: true
-    }),
+    new MiniCssExtractPlugin({filename: 'style.css'}),
     new DashboardPlugin(),
     new HtmlWebpackPlugin({
       template: './src/template.html',

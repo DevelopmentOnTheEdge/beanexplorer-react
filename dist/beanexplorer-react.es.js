@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import MaskedInput from 'react-maskedinput';
-import Select, { Async, Creatable } from 'react-select';
+import Select, { Creatable, Async } from 'react-select';
 import VirtualizedSelect from 'react-virtualized-select';
 import bigInt from 'big-integer';
 import bigRat from 'big-rational';
@@ -12,131 +12,78 @@ import CKEditor from 'ckeditor4-react';
 import JsonPointer from 'json-pointer';
 
 var inputLabelSizeClasses = function inputLabelSizeClasses(props) {
-  return classNames({ 'col-form-label-sm': props.bsSize === "sm" }, { 'col-form-label-lg': props.bsSize === "lg" });
+  return classNames({
+    'col-form-label-sm': props.bsSize === "sm"
+  }, {
+    'col-form-label-lg': props.bsSize === "lg"
+  });
 };
-
 var arraysEqual = function arraysEqual(a, b) {
   if (a === b) return true;
   if (a === null || b === null) return false;
   if (a.length !== b.length) return false;
-
   a.sort();
   b.sort();
 
   for (var i = 0; i < a.length; ++i) {
     if (a[i] !== b[i]) return false;
   }
+
   return true;
 };
-
 var shouldPropertyUpdate = function shouldPropertyUpdate(props, nextProps) {
   return props.bean !== nextProps.bean || props.horizontal !== nextProps.horizontal || props.inline !== nextProps.inline || props.bsSize !== nextProps.bsSize;
-};
+}; //experemental, try check nested DPS
 
-//experemental, try check nested DPS
 var isDPS = function isDPS(meta) {
   return meta && meta.type && meta.type.indexOf('DynamicPropertySet') !== -1;
 };
 
-var classCallCheck = function (instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-};
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-var createClass = function () {
-  function defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];
-      descriptor.enumerable = descriptor.enumerable || false;
-      descriptor.configurable = true;
-      if ("value" in descriptor) descriptor.writable = true;
-      Object.defineProperty(target, descriptor.key, descriptor);
-    }
-  }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-  return function (Constructor, protoProps, staticProps) {
-    if (protoProps) defineProperties(Constructor.prototype, protoProps);
-    if (staticProps) defineProperties(Constructor, staticProps);
-    return Constructor;
-  };
-}();
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
 
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-var _extends = Object.assign || function (target) {
-  for (var i = 1; i < arguments.length; i++) {
-    var source = arguments[i];
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
-    for (var key in source) {
-      if (Object.prototype.hasOwnProperty.call(source, key)) {
-        target[key] = source[key];
-      }
-    }
-  }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
-  return target;
-};
+var BasePropertyInput = /*#__PURE__*/function (_React$Component) {
+  _inherits(BasePropertyInput, _React$Component);
 
-
-
-var inherits = function (subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-  }
-
-  subClass.prototype = Object.create(superClass && superClass.prototype, {
-    constructor: {
-      value: subClass,
-      enumerable: false,
-      writable: true,
-      configurable: true
-    }
-  });
-  if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-};
-
-
-
-
-
-
-
-
-
-
-
-var possibleConstructorReturn = function (self, call) {
-  if (!self) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
-
-  return call && (typeof call === "object" || typeof call === "function") ? call : self;
-};
-
-var BasePropertyInput = function (_React$Component) {
-  inherits(BasePropertyInput, _React$Component);
+  var _super = _createSuper(BasePropertyInput);
 
   function BasePropertyInput(props) {
-    classCallCheck(this, BasePropertyInput);
+    var _this;
 
-    var _this = possibleConstructorReturn(this, (BasePropertyInput.__proto__ || Object.getPrototypeOf(BasePropertyInput)).call(this, props));
+    _classCallCheck(this, BasePropertyInput);
 
-    _this.callOnChange = _this.callOnChange.bind(_this);
-    _this.handleChange = _this.handleChange.bind(_this);
-    _this.reload = _this.reload.bind(_this);
-    _this.patternValidationMessage = _this.patternValidationMessage.bind(_this);
+    _this = _super.call(this, props);
+    _this.callOnChange = _this.callOnChange.bind(_assertThisInitialized(_this));
+    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
+    _this.reload = _this.reload.bind(_assertThisInitialized(_this));
+    _this.patternValidationMessage = _this.patternValidationMessage.bind(_assertThisInitialized(_this));
     return _this;
   }
 
-  createClass(BasePropertyInput, [{
-    key: 'getPath',
+  _createClass(BasePropertyInput, [{
+    key: "getPath",
     value: function getPath() {
       var props = this.props;
+
       if (props.path) {
         return props.path;
       } else {
@@ -144,20 +91,21 @@ var BasePropertyInput = function (_React$Component) {
       }
     }
   }, {
-    key: 'getMeta',
+    key: "getMeta",
     value: function getMeta() {
       return this.props.bean.meta[this.getPath()];
     }
   }, {
-    key: 'getID',
+    key: "getID",
     value: function getID() {
       var path = this.getPath();
       return path.substring(path.lastIndexOf("/") + 1) + "PropertyInput";
     }
   }, {
-    key: 'getValidationRule',
+    key: "getValidationRule",
     value: function getValidationRule(type) {
       var rules = this.getMeta().validationRules;
+
       if (rules !== undefined) {
         if (Array.isArray(rules)) {
           for (var i = 0; i < rules.length; i++) {
@@ -167,21 +115,24 @@ var BasePropertyInput = function (_React$Component) {
           if (rules.type === type) return rules;
         }
       }
+
       return undefined;
     }
   }, {
-    key: 'getValue',
+    key: "getValue",
     value: function getValue() {
       return this.props.value;
     }
   }, {
-    key: 'getCorrectMulValue',
+    key: "getCorrectMulValue",
     value: function getCorrectMulValue() {
       var value = this.getValue();
       var meta = this.getMeta();
-      var correctValue = void 0;
+      var correctValue;
+
       if (meta.multipleSelectionList === true) {
         correctValue = [];
+
         if (Array.isArray(value)) {
           for (var i = 0; i < value.length; i++) {
             correctValue.push("" + value[i]);
@@ -192,54 +143,62 @@ var BasePropertyInput = function (_React$Component) {
       } else {
         correctValue = "" + value;
       }
+
       return correctValue;
     }
   }, {
-    key: 'callOnChange',
+    key: "callOnChange",
     value: function callOnChange(value) {
       this.props.onChange(this.getPath(), value);
     }
   }, {
-    key: 'handleChange',
+    key: "handleChange",
     value: function handleChange(event) {
       this.callOnChange(event.target.value);
     }
   }, {
-    key: 'reload',
+    key: "reload",
     value: function reload(e) {
       if (e === undefined || e.target === undefined || e.target.validity.valid === true) {
         this.props.reloadOnChange(this.getPath());
       }
     }
   }, {
-    key: 'changeAndReload',
+    key: "changeAndReload",
     value: function changeAndReload(value) {
       this.props.reloadOnChange(this.getPath(), value);
     }
   }, {
-    key: 'getValidationClasses',
+    key: "getValidationClasses",
     value: function getValidationClasses() {
       var meta = this.getMeta();
-      return classNames({ 'is-invalid': meta.status === 'error' }, { 'is-valid': meta.status === 'success' });
+      return classNames({
+        'is-invalid': meta.status === 'error'
+      }, {
+        'is-valid': meta.status === 'success'
+      });
     }
   }, {
-    key: 'getBaseProps',
+    key: "getBaseProps",
     value: function getBaseProps() {
       var meta = this.getMeta();
       var id = this.getID();
       var extraAttrsMap = BasePropertyInput.getExtraAttrsMap(meta);
+      var inputTypeClass;
 
-      var inputTypeClass = void 0;
       switch (meta.type) {
         case "Boolean":
           inputTypeClass = 'form-check-input';
           break;
+
         case "Base64File":
           inputTypeClass = 'form-control-file';
           break;
+
         case "File":
           inputTypeClass = 'form-control-file';
           break;
+
         default:
           inputTypeClass = 'form-control';
       }
@@ -248,8 +207,11 @@ var BasePropertyInput = function (_React$Component) {
         inputTypeClass = 'form-control-plaintext';
       }
 
-      var basePropsClasses = classNames('property-input', inputTypeClass, this.getValidationClasses(), this.props.controlClassName, { 'form-control-sm': this.props.bsSize === "sm" && meta.type !== "Boolean" }, { 'form-control-lg': this.props.bsSize === "lg" && meta.type !== "Boolean" });
-
+      var basePropsClasses = classNames('property-input', inputTypeClass, this.getValidationClasses(), this.props.controlClassName, {
+        'form-control-sm': this.props.bsSize === "sm" && meta.type !== "Boolean"
+      }, {
+        'form-control-lg': this.props.bsSize === "lg" && meta.type !== "Boolean"
+      });
       var baseProps = {
         id: id,
         key: id,
@@ -257,6 +219,7 @@ var BasePropertyInput = function (_React$Component) {
         size: meta.inputSize,
         className: basePropsClasses
       };
+
       if (meta.readOnly === true) {
         if (meta.type === 'Boolean' || meta.type === 'Base64File') {
           baseProps['disabled'] = 'disabled';
@@ -264,10 +227,11 @@ var BasePropertyInput = function (_React$Component) {
           baseProps['readOnly'] = 'readonly';
         }
       }
+
       return baseProps;
     }
   }, {
-    key: 'getRawInputProps',
+    key: "getRawInputProps",
     value: function getRawInputProps(value, extraAttrsMap) {
       return Object.assign({}, this.getBaseProps(), {
         value: value,
@@ -277,7 +241,7 @@ var BasePropertyInput = function (_React$Component) {
       });
     }
   }, {
-    key: 'getRawTextValidation',
+    key: "getRawTextValidation",
     value: function getRawTextValidation() {
       var validationRulePattern = this.getValidationRule('pattern');
       return {
@@ -288,9 +252,10 @@ var BasePropertyInput = function (_React$Component) {
       };
     }
   }, {
-    key: 'patternValidationMessage',
+    key: "patternValidationMessage",
     value: function patternValidationMessage(e) {
       var pattern = this.getValidationRule('pattern');
+
       if (pattern && pattern.customMessage) {
         if (e.target.validity.patternMismatch) {
           e.target.setCustomValidity(pattern.customMessage);
@@ -300,7 +265,7 @@ var BasePropertyInput = function (_React$Component) {
       }
     }
   }], [{
-    key: 'getExtraAttrsMap',
+    key: "getExtraAttrsMap",
     value: function getExtraAttrsMap(meta) {
       var extraAttrs = meta.extraAttrs;
       var map = {};
@@ -322,9 +287,9 @@ var BasePropertyInput = function (_React$Component) {
       return map;
     }
   }]);
+
   return BasePropertyInput;
 }(React.Component);
-
 BasePropertyInput.defaultProps = {
   localization: {
     locale: 'en',
@@ -343,8 +308,7 @@ BasePropertyInput.defaultProps = {
     timePatternError: 'Please enter a valid date with time in the format dd.mm.yyyy hh:mm',
     timestampPatternError: 'Please enter a valid date with time in the format dd.mm.yyyy hh:mm'
   }
-};
-//  localization: {checkBoxRequired: "Select at least one item"}
+}; //  localization: {checkBoxRequired: "Select at least one item"}
 
 BasePropertyInput.propTypes = {
   bean: PropTypes.object.isRequired,
@@ -357,20 +321,45 @@ BasePropertyInput.propTypes = {
   controlClassName: PropTypes.string
 };
 
-var RadioSelectPropertyInput = function (_BasePropertyInput) {
-  inherits(RadioSelectPropertyInput, _BasePropertyInput);
+function _typeof$1(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof$1 = function _typeof(obj) { return typeof obj; }; } else { _typeof$1 = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof$1(obj); }
+
+function _classCallCheck$1(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties$1(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass$1(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties$1(Constructor.prototype, protoProps); if (staticProps) _defineProperties$1(Constructor, staticProps); return Constructor; }
+
+function _inherits$1(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf$1(subClass, superClass); }
+
+function _setPrototypeOf$1(o, p) { _setPrototypeOf$1 = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf$1(o, p); }
+
+function _createSuper$1(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$1(); return function _createSuperInternal() { var Super = _getPrototypeOf$1(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf$1(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn$1(this, result); }; }
+
+function _possibleConstructorReturn$1(self, call) { if (call && (_typeof$1(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized$1(self); }
+
+function _assertThisInitialized$1(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct$1() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf$1(o) { _getPrototypeOf$1 = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf$1(o); }
+
+var RadioSelectPropertyInput = /*#__PURE__*/function (_BasePropertyInput) {
+  _inherits$1(RadioSelectPropertyInput, _BasePropertyInput);
+
+  var _super = _createSuper$1(RadioSelectPropertyInput);
 
   function RadioSelectPropertyInput(props) {
-    classCallCheck(this, RadioSelectPropertyInput);
+    var _this;
 
-    var _this = possibleConstructorReturn(this, (RadioSelectPropertyInput.__proto__ || Object.getPrototypeOf(RadioSelectPropertyInput)).call(this, props));
+    _classCallCheck$1(this, RadioSelectPropertyInput);
 
-    _this._onInputChange = _this._onInputChange.bind(_this);
+    _this = _super.call(this, props);
+    _this._onInputChange = _this._onInputChange.bind(_assertThisInitialized$1(_this));
     return _this;
   }
 
-  createClass(RadioSelectPropertyInput, [{
-    key: 'render',
+  _createClass$1(RadioSelectPropertyInput, [{
+    key: "render",
     value: function render() {
       var id = this.getID();
       var meta = this.getMeta();
@@ -380,48 +369,49 @@ var RadioSelectPropertyInput = function (_BasePropertyInput) {
       for (var i = 0; i < meta.tagList.length; i++) {
         var tagName = meta.tagList[i][0];
         var tagLabel = meta.tagList[i][1];
+
         var onChange = this._onInputChange.bind(this, tagName);
 
-        radioButtons.push(React.createElement(
-          'div',
-          { className: 'form-check', key: id + "FormCheckWrapper" + i },
-          React.createElement('input', {
-            id: id + "_option" + i,
-            className: 'form-check-input',
-            type: meta.multipleSelectionList ? "checkbox" : "radio",
-            name: id,
-            value: tagName,
-            checked: meta.multipleSelectionList ? value.includes(tagName) : tagName === "" + value,
-            onChange: onChange,
-            required: !meta.multipleSelectionList && !meta.canBeNull,
-            disabled: meta.readOnly
-          }),
-          React.createElement(
-            'label',
-            {
-              className: classNames(inputLabelSizeClasses(this.props, meta.type), "form-check-label radio-label"),
-              htmlFor: id + "_option" + i
-            },
-            !meta.rawValue ? tagLabel : React.createElement('div', { dangerouslySetInnerHTML: { __html: tagLabel } })
-          )
-        ));
+        radioButtons.push( /*#__PURE__*/React.createElement("div", {
+          className: "form-check",
+          key: id + "FormCheckWrapper" + i
+        }, /*#__PURE__*/React.createElement("input", {
+          id: id + "_option" + i,
+          className: "form-check-input",
+          type: meta.multipleSelectionList ? "checkbox" : "radio",
+          name: id,
+          value: tagName,
+          checked: meta.multipleSelectionList ? value.includes(tagName) : tagName === "" + value,
+          onChange: onChange,
+          required: !meta.multipleSelectionList && !meta.canBeNull,
+          disabled: meta.readOnly
+        }), /*#__PURE__*/React.createElement("label", {
+          className: classNames(inputLabelSizeClasses(this.props, meta.type), "form-check-label radio-label"),
+          htmlFor: id + "_option" + i
+        }, !meta.rawValue ? tagLabel : /*#__PURE__*/React.createElement("div", {
+          dangerouslySetInnerHTML: {
+            __html: tagLabel
+          }
+        }))));
       }
 
-      return React.createElement(
-        'div',
-        {
-          id: id,
-          className: classNames("radio-buttons-outer", 'property-input', { 'Select--sm': this.props.bsSize === "sm" }, { 'Select--lg': this.props.bsSize === "lg" }, this.getValidationClasses())
-        },
-        radioButtons
-      );
+      return /*#__PURE__*/React.createElement("div", {
+        id: id,
+        className: classNames("radio-buttons-outer", 'property-input', {
+          'Select--sm': this.props.bsSize === "sm"
+        }, {
+          'Select--lg': this.props.bsSize === "lg"
+        }, this.getValidationClasses())
+      }, radioButtons);
     }
   }, {
-    key: '_onInputChange',
+    key: "_onInputChange",
     value: function _onInputChange(tagName, event) {
       var value = this.getCorrectMulValue();
+
       if (this.getMeta().multipleSelectionList) {
-        var newValue = void 0;
+        var newValue;
+
         if (event.target.checked) {
           newValue = value.concat(tagName);
         } else {
@@ -429,68 +419,96 @@ var RadioSelectPropertyInput = function (_BasePropertyInput) {
             return v !== tagName;
           });
         }
+
         this.changeAndReload(newValue);
       } else {
         this.changeAndReload(tagName);
       }
     }
   }]);
+
   return RadioSelectPropertyInput;
 }(BasePropertyInput);
 
-var SelectPropertyInput = function (_BasePropertyInput) {
-  inherits(SelectPropertyInput, _BasePropertyInput);
+function _typeof$2(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof$2 = function _typeof(obj) { return typeof obj; }; } else { _typeof$2 = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof$2(obj); }
+
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+function _classCallCheck$2(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties$2(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass$2(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties$2(Constructor.prototype, protoProps); if (staticProps) _defineProperties$2(Constructor, staticProps); return Constructor; }
+
+function _inherits$2(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf$2(subClass, superClass); }
+
+function _setPrototypeOf$2(o, p) { _setPrototypeOf$2 = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf$2(o, p); }
+
+function _createSuper$2(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$2(); return function _createSuperInternal() { var Super = _getPrototypeOf$2(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf$2(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn$2(this, result); }; }
+
+function _possibleConstructorReturn$2(self, call) { if (call && (_typeof$2(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized$2(self); }
+
+function _assertThisInitialized$2(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct$2() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf$2(o) { _getPrototypeOf$2 = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf$2(o); }
+
+var SelectPropertyInput = /*#__PURE__*/function (_BasePropertyInput) {
+  _inherits$2(SelectPropertyInput, _BasePropertyInput);
+
+  var _super = _createSuper$2(SelectPropertyInput);
 
   function SelectPropertyInput(props) {
-    classCallCheck(this, SelectPropertyInput);
+    var _this;
 
-    var _this = possibleConstructorReturn(this, (SelectPropertyInput.__proto__ || Object.getPrototypeOf(SelectPropertyInput)).call(this, props));
+    _classCallCheck$2(this, SelectPropertyInput);
 
-    _this.handleChangeSelect = _this.handleChangeSelect.bind(_this);
+    _this = _super.call(this, props);
+    _this.handleChangeSelect = _this.handleChangeSelect.bind(_assertThisInitialized$2(_this));
     return _this;
   }
 
-  createClass(SelectPropertyInput, [{
-    key: 'render',
+  _createClass$2(SelectPropertyInput, [{
+    key: "render",
     value: function render() {
-      var _getAttr = this.getAttr(),
-          meta = _getAttr.meta,
-          extraAttrsMap = _getAttr.extraAttrsMap,
-          selectAttr = _getAttr.selectAttr;
+      var _this$getAttr = this.getAttr(),
+          meta = _this$getAttr.meta,
+          extraAttrsMap = _this$getAttr.extraAttrsMap,
+          selectAttr = _this$getAttr.selectAttr;
 
-      return React.createElement(
-        'div',
-        {
-          className: classNames("Select-outer", 'property-input', { 'Select--sm': this.props.bsSize === "sm" }, { 'Select--lg': this.props.bsSize === "lg" }, this.getValidationClasses()),
-          style: this.getStyle(meta)
-        },
-        this.getSelect(selectAttr, meta, extraAttrsMap)
-      );
+      return /*#__PURE__*/React.createElement("div", {
+        className: classNames("Select-outer", 'property-input', {
+          'Select--sm': this.props.bsSize === "sm"
+        }, {
+          'Select--lg': this.props.bsSize === "lg"
+        }, this.getValidationClasses()),
+        style: this.getStyle(meta)
+      }, this.getSelect(selectAttr, meta, extraAttrsMap));
     }
   }, {
-    key: 'getSelect',
+    key: "getSelect",
     value: function getSelect(selectAttr, meta, extraAttrsMap) {
       if (extraAttrsMap.inputType === "Creatable") {
-        return React.createElement(Creatable, selectAttr);
+        return /*#__PURE__*/React.createElement(Creatable, selectAttr);
       } else if (extraAttrsMap.inputType === "VirtualizedSelect" || extraAttrsMap.inputType === undefined && meta.tagList.length >= 100) {
-        return React.createElement(VirtualizedSelect, _extends({
+        return /*#__PURE__*/React.createElement(VirtualizedSelect, _extends({
           clearable: true,
           searchable: true,
-          labelKey: 'label',
-          valueKey: 'value'
+          labelKey: "label",
+          valueKey: "value"
         }, selectAttr));
       } else {
-        return React.createElement(Select, selectAttr);
+        return /*#__PURE__*/React.createElement(Select, selectAttr);
       }
     }
   }, {
-    key: 'getAttr',
+    key: "getAttr",
     value: function getAttr() {
       var id = this.getID();
       var meta = this.getMeta();
       var localization = this.props.localization;
       var extraAttrsMap = BasePropertyInput.getExtraAttrsMap(meta);
-
       var selectAttr = {
         id: id,
         ref: id,
@@ -509,33 +527,46 @@ var SelectPropertyInput = function (_BasePropertyInput) {
         multi: meta.multipleSelectionList,
         matchPos: extraAttrsMap.matchPos || "any",
         required: !meta.canBeNull,
-        inputProps: { autoComplete: 'off' }
+        inputProps: {
+          autoComplete: 'off'
+        }
       };
-      return { meta: meta, extraAttrsMap: extraAttrsMap, selectAttr: selectAttr };
+      return {
+        meta: meta,
+        extraAttrsMap: extraAttrsMap,
+        selectAttr: selectAttr
+      };
     }
   }, {
-    key: 'getOptions',
+    key: "getOptions",
     value: function getOptions() {
       var meta = this.getMeta();
       if (meta.tagList === undefined) return undefined;
-
       var options = [];
+
       for (var i = 0; i < meta.tagList.length; i++) {
-        options.push({ value: meta.tagList[i][0], label: meta.tagList[i][1] });
+        options.push({
+          value: meta.tagList[i][0],
+          label: meta.tagList[i][1]
+        });
       }
+
       return options;
     }
   }, {
-    key: 'handleChangeSelect',
+    key: "handleChangeSelect",
     value: function handleChangeSelect(object) {
-      this.setState({ value: object }, function () {
+      this.setState({
+        value: object
+      }, function () {
         this.changeAndReload(SelectPropertyInput.getRawValue(object));
       });
     }
   }, {
-    key: 'getStyle',
+    key: "getStyle",
     value: function getStyle(meta) {
-      var style = void 0;
+      var style;
+
       if (this.props.inline) {
         //константы подобраны для совпадения с длиной стандартного input
         var k = 11;
@@ -546,10 +577,11 @@ var SelectPropertyInput = function (_BasePropertyInput) {
           maxWidth: '100%'
         };
       }
+
       return style;
     }
   }], [{
-    key: 'getRawValue',
+    key: "getRawValue",
     value: function getRawValue(object) {
       if (Array.isArray(object)) {
         var selectArray = [];
@@ -562,26 +594,53 @@ var SelectPropertyInput = function (_BasePropertyInput) {
       }
     }
   }]);
+
   return SelectPropertyInput;
 }(BasePropertyInput);
-
 SelectPropertyInput.propTypes = {
   selectLoadOptions: PropTypes.func
 };
 
-var NumberPropertyInput = function (_BasePropertyInput) {
-  inherits(NumberPropertyInput, _BasePropertyInput);
+function _typeof$3(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof$3 = function _typeof(obj) { return typeof obj; }; } else { _typeof$3 = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof$3(obj); }
+
+function _extends$1() { _extends$1 = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$1.apply(this, arguments); }
+
+function _classCallCheck$3(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties$3(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass$3(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties$3(Constructor.prototype, protoProps); if (staticProps) _defineProperties$3(Constructor, staticProps); return Constructor; }
+
+function _inherits$3(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf$3(subClass, superClass); }
+
+function _setPrototypeOf$3(o, p) { _setPrototypeOf$3 = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf$3(o, p); }
+
+function _createSuper$3(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$3(); return function _createSuperInternal() { var Super = _getPrototypeOf$3(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf$3(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn$3(this, result); }; }
+
+function _possibleConstructorReturn$3(self, call) { if (call && (_typeof$3(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized$3(self); }
+
+function _assertThisInitialized$3(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct$3() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf$3(o) { _getPrototypeOf$3 = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf$3(o); }
+
+var NumberPropertyInput = /*#__PURE__*/function (_BasePropertyInput) {
+  _inherits$3(NumberPropertyInput, _BasePropertyInput);
+
+  var _super = _createSuper$3(NumberPropertyInput);
 
   function NumberPropertyInput(props) {
-    classCallCheck(this, NumberPropertyInput);
+    var _this;
 
-    var _this = possibleConstructorReturn(this, (NumberPropertyInput.__proto__ || Object.getPrototypeOf(NumberPropertyInput)).call(this, props));
+    _classCallCheck$3(this, NumberPropertyInput);
 
-    _this.numberValidation = _this.numberValidation.bind(_this);
+    _this = _super.call(this, props);
+    _this.numberValidation = _this.numberValidation.bind(_assertThisInitialized$3(_this));
     return _this;
   }
 
-  createClass(NumberPropertyInput, [{
+  _createClass$3(NumberPropertyInput, [{
     key: "render",
     value: function render() {
       var meta = this.getMeta();
@@ -589,8 +648,7 @@ var NumberPropertyInput = function (_BasePropertyInput) {
       var range = this.getNumberValidationRule('range');
       var step = this.getNumberValidationRule('step');
       var type = meta.type;
-
-      return React.createElement("input", _extends({
+      return /*#__PURE__*/React.createElement("input", _extends$1({
         type: "text",
         onInput: this.numberValidation,
         "data-info-type": type,
@@ -607,10 +665,9 @@ var NumberPropertyInput = function (_BasePropertyInput) {
     value: function numberValidation(e) {
       var range = this.getNumberValidationRule('range');
       var step = this.getNumberValidationRule('step');
-
       var local = this.props.localization;
+      var value;
 
-      var value = void 0;
       try {
         value = bigRat(e.target.value);
       } catch (err) {
@@ -634,7 +691,6 @@ var NumberPropertyInput = function (_BasePropertyInput) {
         if (!value.divide(stepRat).denominator.equals(bigInt.one)) {
           var min = value.divide(stepRat).floor().multiply(stepRat);
           var max = min.add(stepRat);
-
           setErrorState(e, setMessagePlaceHolders(local.stepMismatch, [min.toDecimal(), max.toDecimal()]));
           return;
         }
@@ -652,20 +708,46 @@ var NumberPropertyInput = function (_BasePropertyInput) {
         if (name === 'range') {
           switch (meta.type) {
             case 'Short':
-              return { type: 'range', attr: { min: "-32768", max: "32767" } };
+              return {
+                type: 'range',
+                attr: {
+                  min: "-32768",
+                  max: "32767"
+                }
+              };
+
             case 'Integer':
-              return { type: 'range', attr: { min: "-2147483648", max: "2147483647" } };
+              return {
+                type: 'range',
+                attr: {
+                  min: "-2147483648",
+                  max: "2147483647"
+                }
+              };
+
             case 'Long':
-              return { type: 'range', attr: { min: "-9223372036854775808", max: "9223372036854775807" } };
+              return {
+                type: 'range',
+                attr: {
+                  min: "-9223372036854775808",
+                  max: "9223372036854775807"
+                }
+              };
           }
         }
+
         if (name === 'step' && (meta.type === 'Short' || meta.type === 'Integer' || meta.type === 'Long')) {
-          return { type: 'step', attr: '1' };
+          return {
+            type: 'step',
+            attr: '1'
+          };
         }
       }
+
       return rule;
     }
   }]);
+
   return NumberPropertyInput;
 }(BasePropertyInput);
 
@@ -689,25 +771,52 @@ var setMessagePlaceHolders = function setMessagePlaceHolders(source, params) {
   return source;
 };
 
-var DateTimePropertyInput = function (_BasePropertyInput) {
-  inherits(DateTimePropertyInput, _BasePropertyInput);
+function _typeof$4(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof$4 = function _typeof(obj) { return typeof obj; }; } else { _typeof$4 = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof$4(obj); }
+
+function _extends$2() { _extends$2 = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$2.apply(this, arguments); }
+
+function _classCallCheck$4(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties$4(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass$4(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties$4(Constructor.prototype, protoProps); if (staticProps) _defineProperties$4(Constructor, staticProps); return Constructor; }
+
+function _inherits$4(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf$4(subClass, superClass); }
+
+function _setPrototypeOf$4(o, p) { _setPrototypeOf$4 = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf$4(o, p); }
+
+function _createSuper$4(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$4(); return function _createSuperInternal() { var Super = _getPrototypeOf$4(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf$4(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn$4(this, result); }; }
+
+function _possibleConstructorReturn$4(self, call) { if (call && (_typeof$4(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized$4(self); }
+
+function _assertThisInitialized$4(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct$4() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf$4(o) { _getPrototypeOf$4 = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf$4(o); }
+
+var DateTimePropertyInput = /*#__PURE__*/function (_BasePropertyInput) {
+  _inherits$4(DateTimePropertyInput, _BasePropertyInput);
+
+  var _super = _createSuper$4(DateTimePropertyInput);
 
   function DateTimePropertyInput(props) {
-    classCallCheck(this, DateTimePropertyInput);
+    var _this;
 
-    var _this = possibleConstructorReturn(this, (DateTimePropertyInput.__proto__ || Object.getPrototypeOf(DateTimePropertyInput)).call(this, props));
+    _classCallCheck$4(this, DateTimePropertyInput);
 
-    _this.dateValidationMessage = _this.dateValidationMessage.bind(_this);
-    _this.dateToISOFormat = _this.dateToISOFormat.bind(_this);
-    _this.timeValidationMessage = _this.timeValidationMessage.bind(_this);
-    _this.timeToISOFormat = _this.timeToISOFormat.bind(_this);
-    _this.timestampValidationMessage = _this.timestampValidationMessage.bind(_this);
-    _this.timestampToISOFormat = _this.timestampToISOFormat.bind(_this);
+    _this = _super.call(this, props);
+    _this.dateValidationMessage = _this.dateValidationMessage.bind(_assertThisInitialized$4(_this));
+    _this.dateToISOFormat = _this.dateToISOFormat.bind(_assertThisInitialized$4(_this));
+    _this.timeValidationMessage = _this.timeValidationMessage.bind(_assertThisInitialized$4(_this));
+    _this.timeToISOFormat = _this.timeToISOFormat.bind(_assertThisInitialized$4(_this));
+    _this.timestampValidationMessage = _this.timestampValidationMessage.bind(_assertThisInitialized$4(_this));
+    _this.timestampToISOFormat = _this.timestampToISOFormat.bind(_assertThisInitialized$4(_this));
     return _this;
   }
 
-  createClass(DateTimePropertyInput, [{
-    key: 'render',
+  _createClass$4(DateTimePropertyInput, [{
+    key: "render",
     value: function render() {
       var _this2 = this;
 
@@ -717,14 +826,15 @@ var DateTimePropertyInput = function (_BasePropertyInput) {
 
       if (meta.type === 'Date') {
         if (meta.readOnly !== true) {
-          return React.createElement(Datetime, {
-            dateFormat: 'DD.MM.YYYY',
+          return /*#__PURE__*/React.createElement(Datetime, {
+            dateFormat: "DD.MM.YYYY",
             timeFormat: false,
             key: this.getID() + "Datetime",
             value: dateFromISOFormat(value),
             onChange: this.dateToISOFormat,
             onBlur: this.reload //TODO reload only for valid date
-            , closeOnSelect: true,
+            ,
+            closeOnSelect: true,
             closeOnTab: true,
             locale: this.props.localization.locale,
             inputProps: Object.assign({}, this.getBaseProps(), {
@@ -737,12 +847,12 @@ var DateTimePropertyInput = function (_BasePropertyInput) {
               onInvalid: this.dateValidationMessage,
               autoComplete: "off"
             }),
-            className: 'Datetime-outer'
+            className: "Datetime-outer"
           });
         } else {
           var rawInputProps = this.getRawInputProps(value, extraAttrsMap);
           var rawTextValidation = this.getRawTextValidation(meta);
-          return React.createElement('input', _extends({
+          return /*#__PURE__*/React.createElement("input", _extends$2({
             type: 'text'
           }, rawInputProps, rawTextValidation, {
             value: dateFromISOFormat(value)
@@ -752,9 +862,9 @@ var DateTimePropertyInput = function (_BasePropertyInput) {
 
       if (meta.type === 'Time') {
         if (meta.readOnly !== true) {
-          return React.createElement(Datetime, {
-            dateFormat: 'DD.MM.YYYY',
-            timeFormat: 'HH:mm',
+          return /*#__PURE__*/React.createElement(Datetime, {
+            dateFormat: "DD.MM.YYYY",
+            timeFormat: "HH:mm",
             key: this.getID() + "Datetime",
             value: timeFromISOFormat(value),
             onChange: this.timeToISOFormat,
@@ -772,12 +882,14 @@ var DateTimePropertyInput = function (_BasePropertyInput) {
               onInvalid: this.timeValidationMessage,
               autoComplete: "off"
             }),
-            className: 'Datetime-outer'
+            className: "Datetime-outer"
           });
         } else {
           var _rawInputProps = this.getRawInputProps(value, extraAttrsMap);
+
           var _rawTextValidation = this.getRawTextValidation(meta);
-          return React.createElement('input', _extends({
+
+          return /*#__PURE__*/React.createElement("input", _extends$2({
             type: 'text'
           }, _rawInputProps, _rawTextValidation, {
             value: timeFromISOFormat(value)
@@ -787,9 +899,9 @@ var DateTimePropertyInput = function (_BasePropertyInput) {
 
       if (meta.type === 'Timestamp') {
         if (meta.readOnly !== true) {
-          return React.createElement(Datetime, {
-            dateFormat: 'DD.MM.YYYY',
-            timeFormat: 'HH:mm',
+          return /*#__PURE__*/React.createElement(Datetime, {
+            dateFormat: "DD.MM.YYYY",
+            timeFormat: "HH:mm",
             key: this.getID() + "Datetime",
             value: timestampFromISOFormat(value),
             onChange: this.timestampToISOFormat,
@@ -807,12 +919,14 @@ var DateTimePropertyInput = function (_BasePropertyInput) {
               onInvalid: this.timestampValidationMessage,
               autoComplete: "off"
             }),
-            className: 'Datetime-outer'
+            className: "Datetime-outer"
           });
         } else {
           var _rawInputProps2 = this.getRawInputProps(value, extraAttrsMap);
+
           var _rawTextValidation2 = this.getRawTextValidation(meta);
-          return React.createElement('input', _extends({
+
+          return /*#__PURE__*/React.createElement("input", _extends$2({
             type: 'text'
           }, _rawInputProps2, _rawTextValidation2, {
             value: timestampFromISOFormat(value)
@@ -821,7 +935,7 @@ var DateTimePropertyInput = function (_BasePropertyInput) {
       }
     }
   }, {
-    key: 'dateToISOFormat',
+    key: "dateToISOFormat",
     value: function dateToISOFormat(date) {
       this.dateInput.focus();
 
@@ -832,7 +946,7 @@ var DateTimePropertyInput = function (_BasePropertyInput) {
       }
     }
   }, {
-    key: 'timeToISOFormat',
+    key: "timeToISOFormat",
     value: function timeToISOFormat(date) {
       this.timeInput.focus();
 
@@ -843,7 +957,7 @@ var DateTimePropertyInput = function (_BasePropertyInput) {
       }
     }
   }, {
-    key: 'timestampToISOFormat',
+    key: "timestampToISOFormat",
     value: function timestampToISOFormat(date) {
       this.timestampInput.focus();
 
@@ -854,7 +968,7 @@ var DateTimePropertyInput = function (_BasePropertyInput) {
       }
     }
   }, {
-    key: 'dateValidationMessage',
+    key: "dateValidationMessage",
     value: function dateValidationMessage(e) {
       if (e.target.validity.patternMismatch) {
         e.target.setCustomValidity(this.props.localization.datePatternError);
@@ -863,7 +977,7 @@ var DateTimePropertyInput = function (_BasePropertyInput) {
       }
     }
   }, {
-    key: 'timeValidationMessage',
+    key: "timeValidationMessage",
     value: function timeValidationMessage(e) {
       if (e.target.validity.patternMismatch) {
         e.target.setCustomValidity(this.props.localization.timePatternError);
@@ -872,7 +986,7 @@ var DateTimePropertyInput = function (_BasePropertyInput) {
       }
     }
   }, {
-    key: 'timestampValidationMessage',
+    key: "timestampValidationMessage",
     value: function timestampValidationMessage(e) {
       if (e.target.validity.patternMismatch) {
         e.target.setCustomValidity(this.props.localization.timestampPatternError);
@@ -881,11 +995,13 @@ var DateTimePropertyInput = function (_BasePropertyInput) {
       }
     }
   }]);
+
   return DateTimePropertyInput;
 }(BasePropertyInput);
 
 var dateFromISOFormat = function dateFromISOFormat(stringDate) {
   var date = moment(stringDate, 'YYYY-MM-DD', true);
+
   if (date.isValid()) {
     return date.format('DD.MM.YYYY');
   } else {
@@ -895,6 +1011,7 @@ var dateFromISOFormat = function dateFromISOFormat(stringDate) {
 
 var timeFromISOFormat = function timeFromISOFormat(stringDate) {
   var date = moment(stringDate, 'YYYY-MM-DD HH:mm:ss', true);
+
   if (date.isValid()) {
     return date.format('DD.MM.YYYY HH:mm');
   } else {
@@ -903,7 +1020,8 @@ var timeFromISOFormat = function timeFromISOFormat(stringDate) {
 };
 
 var timestampFromISOFormat = function timestampFromISOFormat(stringDate) {
-  var date = void 0;
+  var date;
+
   if (stringDate.length === 23) {
     date = moment(stringDate, 'YYYY-MM-DD HH:mm:ss.SSS', true);
   } else if (stringDate.length === 22) {
@@ -911,6 +1029,7 @@ var timestampFromISOFormat = function timestampFromISOFormat(stringDate) {
   } else {
     date = moment(stringDate, 'YYYY-MM-DD HH:mm:ss.S', true);
   }
+
   if (date.isValid()) {
     return date.format('DD.MM.YYYY HH:mm');
   } else {
@@ -918,41 +1037,66 @@ var timestampFromISOFormat = function timestampFromISOFormat(stringDate) {
   }
 };
 
-var WYSIWYGPropertyInput = function (_BasePropertyInput) {
-  inherits(WYSIWYGPropertyInput, _BasePropertyInput);
+function _typeof$5(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof$5 = function _typeof(obj) { return typeof obj; }; } else { _typeof$5 = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof$5(obj); }
+
+function _classCallCheck$5(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties$5(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass$5(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties$5(Constructor.prototype, protoProps); if (staticProps) _defineProperties$5(Constructor, staticProps); return Constructor; }
+
+function _inherits$5(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf$5(subClass, superClass); }
+
+function _setPrototypeOf$5(o, p) { _setPrototypeOf$5 = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf$5(o, p); }
+
+function _createSuper$5(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$5(); return function _createSuperInternal() { var Super = _getPrototypeOf$5(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf$5(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn$5(this, result); }; }
+
+function _possibleConstructorReturn$5(self, call) { if (call && (_typeof$5(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized$5(self); }
+
+function _assertThisInitialized$5(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct$5() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf$5(o) { _getPrototypeOf$5 = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf$5(o); }
+
+var WYSIWYGPropertyInput = /*#__PURE__*/function (_BasePropertyInput) {
+  _inherits$5(WYSIWYGPropertyInput, _BasePropertyInput);
+
+  var _super = _createSuper$5(WYSIWYGPropertyInput);
 
   function WYSIWYGPropertyInput(props) {
-    classCallCheck(this, WYSIWYGPropertyInput);
+    var _this;
 
-    var _this = possibleConstructorReturn(this, (WYSIWYGPropertyInput.__proto__ || Object.getPrototypeOf(WYSIWYGPropertyInput)).call(this, props));
+    _classCallCheck$5(this, WYSIWYGPropertyInput);
 
-    _this.editorOnChange = _this.editorOnChange.bind(_this);
-    _this.editorReload = _this.editorReload.bind(_this);
-    _this.onInit = _this.onInit.bind(_this);
+    _this = _super.call(this, props);
+    _this.editorOnChange = _this.editorOnChange.bind(_assertThisInitialized$5(_this));
+    _this.editorReload = _this.editorReload.bind(_assertThisInitialized$5(_this));
+    _this.onInit = _this.onInit.bind(_assertThisInitialized$5(_this));
     return _this;
   }
 
-  createClass(WYSIWYGPropertyInput, [{
-    key: 'componentDidUpdate',
+  _createClass$5(WYSIWYGPropertyInput, [{
+    key: "componentDidUpdate",
     value: function componentDidUpdate() {
       this.onInit();
     }
   }, {
-    key: 'editorOnChange',
+    key: "editorOnChange",
     value: function editorOnChange(evt) {
       this.callOnChange(evt.editor.getData());
     }
   }, {
-    key: 'editorReload',
+    key: "editorReload",
     value: function editorReload() {
       this.reload();
     }
   }, {
-    key: 'render',
+    key: "render",
     value: function render() {
       var _this2 = this;
 
-      return React.createElement(CKEditor, {
+      return /*#__PURE__*/React.createElement(CKEditor, {
         onBeforeLoad: function onBeforeLoad(CKEDITOR) {
           return CKEDITOR.disableAutoInline = true;
         },
@@ -969,14 +1113,20 @@ var WYSIWYGPropertyInput = function (_BasePropertyInput) {
       });
     }
   }, {
-    key: 'getConfig',
+    key: "getConfig",
     value: function getConfig() {
       var meta = this.getMeta();
       return {
-        toolbar: [{ name: 'row1',
-          items: ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', 'CopyFormatting', 'RemoveFormat', '-', 'Undo', 'Redo', '-', '-', 'Image', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'Image Resizer', '-', 'Link', 'Unlink', 'Anchor'] }, '/', { name: 'row2',
-          items: ['NumberedList', 'BulletedList', 'Blockquote', '-', 'Styles', 'Format', 'Font', 'FontSize'] }, '/', { name: 'row3',
-          items: ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'TextColor', 'BGColor', '-', 'Source', 'Maximize'] }],
+        toolbar: [{
+          name: 'row1',
+          items: ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', 'CopyFormatting', 'RemoveFormat', '-', 'Undo', 'Redo', '-', '-', 'Image', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'Image Resizer', '-', 'Link', 'Unlink', 'Anchor']
+        }, '/', {
+          name: 'row2',
+          items: ['NumberedList', 'BulletedList', 'Blockquote', '-', 'Styles', 'Format', 'Font', 'FontSize']
+        }, '/', {
+          name: 'row3',
+          items: ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'TextColor', 'BGColor', '-', 'Source', 'Maximize']
+        }],
         extraPlugins: 'colorbutton,copyformatting,font,justify,image2,maximize,smiley',
         removePlugins: 'image',
         removeButtons: '',
@@ -985,12 +1135,12 @@ var WYSIWYGPropertyInput = function (_BasePropertyInput) {
       };
     }
   }, {
-    key: 'getScriptUrl',
+    key: "getScriptUrl",
     value: function getScriptUrl() {
       return undefined;
     }
   }, {
-    key: 'getEvents',
+    key: "getEvents",
     value: function getEvents() {
       return {
         "change": this.editorOnChange,
@@ -999,114 +1149,197 @@ var WYSIWYGPropertyInput = function (_BasePropertyInput) {
       };
     }
   }, {
-    key: 'onInit',
+    key: "onInit",
     value: function onInit() {
       if (this.ckeditor && this.ckeditor.editorInstance) {
         WYSIWYGPropertyInput.updateCKEditor(this.ckeditor, this.getValue(), this.getMeta().readOnly === true);
       }
     }
   }], [{
-    key: 'updateCKEditor',
+    key: "updateCKEditor",
     value: function updateCKEditor(ckeditor, value, readOnly) {
       if (ckeditor.editorInstance.getData() !== value) {
         ckeditor.editorInstance.setData(value);
       }
+
       ckeditor.editorInstance.setReadOnly(readOnly);
     }
   }]);
+
   return WYSIWYGPropertyInput;
 }(BasePropertyInput);
 
-var LabelPropertyInput = function (_BasePropertyInput) {
-  inherits(LabelPropertyInput, _BasePropertyInput);
+function _typeof$6(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof$6 = function _typeof(obj) { return typeof obj; }; } else { _typeof$6 = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof$6(obj); }
+
+function _classCallCheck$6(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties$6(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass$6(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties$6(Constructor.prototype, protoProps); if (staticProps) _defineProperties$6(Constructor, staticProps); return Constructor; }
+
+function _inherits$6(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf$6(subClass, superClass); }
+
+function _setPrototypeOf$6(o, p) { _setPrototypeOf$6 = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf$6(o, p); }
+
+function _createSuper$6(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$6(); return function _createSuperInternal() { var Super = _getPrototypeOf$6(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf$6(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn$6(this, result); }; }
+
+function _possibleConstructorReturn$6(self, call) { if (call && (_typeof$6(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized$6(self); }
+
+function _assertThisInitialized$6(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct$6() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf$6(o) { _getPrototypeOf$6 = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf$6(o); }
+
+var LabelPropertyInput = /*#__PURE__*/function (_BasePropertyInput) {
+  _inherits$6(LabelPropertyInput, _BasePropertyInput);
+
+  var _super = _createSuper$6(LabelPropertyInput);
 
   function LabelPropertyInput(props) {
-    classCallCheck(this, LabelPropertyInput);
-    return possibleConstructorReturn(this, (LabelPropertyInput.__proto__ || Object.getPrototypeOf(LabelPropertyInput)).call(this, props));
+    _classCallCheck$6(this, LabelPropertyInput);
+
+    return _super.call(this, props);
   }
 
-  createClass(LabelPropertyInput, [{
-    key: 'render',
+  _createClass$6(LabelPropertyInput, [{
+    key: "render",
     value: function render() {
       var id = this.getID();
       var meta = this.getMeta();
       var value = this.getValue();
+      var labelPropertyClasses = classNames('property-input', this.props.controlClassName, {
+        'text-danger': meta.status === 'error'
+      }, {
+        'text-success': meta.status === 'success'
+      }, {
+        'text-warning': meta.status === 'warning'
+      }, {
+        'col-form-label-sm': this.props.bsSize === "sm"
+      }, {
+        'col-form-label-lg': this.props.bsSize === "lg"
+      });
 
-      var labelPropertyClasses = classNames('property-input', this.props.controlClassName, { 'text-danger': meta.status === 'error' }, { 'text-success': meta.status === 'success' }, { 'text-warning': meta.status === 'warning' }, { 'col-form-label-sm': this.props.bsSize === "sm" }, { 'col-form-label-lg': this.props.bsSize === "lg" });
       if (meta.rawValue) {
-        return React.createElement('label', {
+        return /*#__PURE__*/React.createElement("label", {
           id: id,
           key: id,
           className: labelPropertyClasses,
-          dangerouslySetInnerHTML: { __html: value }
+          dangerouslySetInnerHTML: {
+            __html: value
+          }
         });
       } else {
-        return React.createElement(
-          'label',
-          {
-            className: labelPropertyClasses,
-            id: id,
-            key: id
-          },
-          value
-        );
+        return /*#__PURE__*/React.createElement("label", {
+          className: labelPropertyClasses,
+          id: id,
+          key: id
+        }, value);
       }
     }
   }]);
+
   return LabelPropertyInput;
 }(BasePropertyInput);
 
-var ButtonPropertyInput = function (_BasePropertyInput) {
-    inherits(ButtonPropertyInput, _BasePropertyInput);
+function _typeof$7(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof$7 = function _typeof(obj) { return typeof obj; }; } else { _typeof$7 = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof$7(obj); }
 
-    function ButtonPropertyInput(props) {
-        classCallCheck(this, ButtonPropertyInput);
-        return possibleConstructorReturn(this, (ButtonPropertyInput.__proto__ || Object.getPrototypeOf(ButtonPropertyInput)).call(this, props));
+function _classCallCheck$7(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties$7(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass$7(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties$7(Constructor.prototype, protoProps); if (staticProps) _defineProperties$7(Constructor, staticProps); return Constructor; }
+
+function _inherits$7(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf$7(subClass, superClass); }
+
+function _setPrototypeOf$7(o, p) { _setPrototypeOf$7 = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf$7(o, p); }
+
+function _createSuper$7(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$7(); return function _createSuperInternal() { var Super = _getPrototypeOf$7(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf$7(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn$7(this, result); }; }
+
+function _possibleConstructorReturn$7(self, call) { if (call && (_typeof$7(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized$7(self); }
+
+function _assertThisInitialized$7(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct$7() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf$7(o) { _getPrototypeOf$7 = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf$7(o); }
+
+var ButtonPropertyInput = /*#__PURE__*/function (_BasePropertyInput) {
+  _inherits$7(ButtonPropertyInput, _BasePropertyInput);
+
+  var _super = _createSuper$7(ButtonPropertyInput);
+
+  function ButtonPropertyInput(props) {
+    _classCallCheck$7(this, ButtonPropertyInput);
+
+    return _super.call(this, props);
+  }
+
+  _createClass$7(ButtonPropertyInput, [{
+    key: "render",
+    value: function render() {
+      var id = this.getID();
+      var meta = this.getMeta();
+      var value = this.getValue();
+      var labelPropertyClasses = classNames('property-input', 'btn btn-primary', this.props.controlClassName);
+      return /*#__PURE__*/React.createElement("button", {
+        type: "button",
+        className: labelPropertyClasses,
+        id: id,
+        key: id,
+        onClick: this.reload
+      }, value || meta.displayName || id);
     }
+  }]);
 
-    createClass(ButtonPropertyInput, [{
-        key: 'render',
-        value: function render() {
-            var id = this.getID();
-            var meta = this.getMeta();
-            var value = this.getValue();
-            var labelPropertyClasses = classNames('property-input', 'btn btn-primary', this.props.controlClassName);
-            return React.createElement(
-                'button',
-                {
-                    type: 'button',
-                    className: labelPropertyClasses,
-                    id: id,
-                    key: id,
-                    onClick: this.reload
-                },
-                value || meta.displayName || id
-            );
-        }
-    }]);
-    return ButtonPropertyInput;
+  return ButtonPropertyInput;
 }(BasePropertyInput);
 
-//var Promise = require('pinkie-promise');
+function _typeof$8(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof$8 = function _typeof(obj) { return typeof obj; }; } else { _typeof$8 = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof$8(obj); }
+
+function _extends$3() { _extends$3 = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$3.apply(this, arguments); }
+
+function _classCallCheck$8(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties$8(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass$8(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties$8(Constructor.prototype, protoProps); if (staticProps) _defineProperties$8(Constructor, staticProps); return Constructor; }
+
+function _inherits$8(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf$8(subClass, superClass); }
+
+function _setPrototypeOf$8(o, p) { _setPrototypeOf$8 = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf$8(o, p); }
+
+function _createSuper$8(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$8(); return function _createSuperInternal() { var Super = _getPrototypeOf$8(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf$8(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn$8(this, result); }; }
+
+function _possibleConstructorReturn$8(self, call) { if (call && (_typeof$8(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized$8(self); }
+
+function _assertThisInitialized$8(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct$8() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf$8(o) { _getPrototypeOf$8 = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf$8(o); }
 //import Promise from 'pinkie-promise';
 
-var Base64FilePropertyInput = function (_BasePropertyInput) {
-  inherits(Base64FilePropertyInput, _BasePropertyInput);
+var Base64FilePropertyInput = /*#__PURE__*/function (_BasePropertyInput) {
+  _inherits$8(Base64FilePropertyInput, _BasePropertyInput);
+
+  var _super = _createSuper$8(Base64FilePropertyInput);
 
   function Base64FilePropertyInput(props) {
-    classCallCheck(this, Base64FilePropertyInput);
+    var _this;
 
-    var _this = possibleConstructorReturn(this, (Base64FilePropertyInput.__proto__ || Object.getPrototypeOf(Base64FilePropertyInput)).call(this, props));
+    _classCallCheck$8(this, Base64FilePropertyInput);
 
-    _this.base64FileHandle = _this.base64FileHandle.bind(_this);
+    _this = _super.call(this, props);
+    _this.base64FileHandle = _this.base64FileHandle.bind(_assertThisInitialized$8(_this));
     return _this;
   }
 
-  createClass(Base64FilePropertyInput, [{
+  _createClass$8(Base64FilePropertyInput, [{
     key: "render",
     value: function render() {
       var meta = this.getMeta();
-      return React.createElement("input", _extends({
+      return /*#__PURE__*/React.createElement("input", _extends$3({
         type: "file",
         multiple: meta.multipleSelectionList,
         onChange: this.base64FileHandle
@@ -1120,7 +1353,11 @@ var Base64FilePropertyInput = function (_BasePropertyInput) {
       if (e.target.files && e.target.files.length === 1) {
         var fileName = e.target.files[0].name;
         Base64FilePropertyInput.getBase64(e.target.files[0]).then(function (data) {
-          _this2.callOnChange(JSON.stringify({ type: "Base64File", name: fileName, data: data }));
+          _this2.callOnChange(JSON.stringify({
+            type: "Base64File",
+            name: fileName,
+            data: data
+          }));
         });
       } else if (e.target.files && e.target.files.length === 0) {
         this.callOnChange("");
@@ -1134,6 +1371,7 @@ var Base64FilePropertyInput = function (_BasePropertyInput) {
         reader.addEventListener("load", function () {
           resolve(reader.result);
         }, false);
+
         reader.onerror = function (error) {
           return reject(error);
         };
@@ -1142,26 +1380,54 @@ var Base64FilePropertyInput = function (_BasePropertyInput) {
       });
     }
   }]);
+
   return Base64FilePropertyInput;
 }(BasePropertyInput);
 
-var FilePropertyInput = function (_BasePropertyInput) {
-  inherits(FilePropertyInput, _BasePropertyInput);
+function _typeof$9(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof$9 = function _typeof(obj) { return typeof obj; }; } else { _typeof$9 = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof$9(obj); }
+
+function _extends$4() { _extends$4 = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$4.apply(this, arguments); }
+
+function _classCallCheck$9(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties$9(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass$9(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties$9(Constructor.prototype, protoProps); if (staticProps) _defineProperties$9(Constructor, staticProps); return Constructor; }
+
+function _inherits$9(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf$9(subClass, superClass); }
+
+function _setPrototypeOf$9(o, p) { _setPrototypeOf$9 = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf$9(o, p); }
+
+function _createSuper$9(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$9(); return function _createSuperInternal() { var Super = _getPrototypeOf$9(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf$9(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn$9(this, result); }; }
+
+function _possibleConstructorReturn$9(self, call) { if (call && (_typeof$9(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized$9(self); }
+
+function _assertThisInitialized$9(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct$9() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf$9(o) { _getPrototypeOf$9 = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf$9(o); }
+
+var FilePropertyInput = /*#__PURE__*/function (_BasePropertyInput) {
+  _inherits$9(FilePropertyInput, _BasePropertyInput);
+
+  var _super = _createSuper$9(FilePropertyInput);
 
   function FilePropertyInput(props) {
-    classCallCheck(this, FilePropertyInput);
+    var _this;
 
-    var _this = possibleConstructorReturn(this, (FilePropertyInput.__proto__ || Object.getPrototypeOf(FilePropertyInput)).call(this, props));
+    _classCallCheck$9(this, FilePropertyInput);
 
-    _this.fileHandle = _this.fileHandle.bind(_this);
+    _this = _super.call(this, props);
+    _this.fileHandle = _this.fileHandle.bind(_assertThisInitialized$9(_this));
     return _this;
   }
 
-  createClass(FilePropertyInput, [{
+  _createClass$9(FilePropertyInput, [{
     key: "render",
     value: function render() {
       var meta = this.getMeta();
-      return React.createElement("input", _extends({
+      return /*#__PURE__*/React.createElement("input", _extends$4({
         type: "file",
         multiple: meta.multipleSelectionList,
         onChange: this.fileHandle
@@ -1173,50 +1439,82 @@ var FilePropertyInput = function (_BasePropertyInput) {
       this.callOnChange(e.target.files);
     }
   }]);
+
   return FilePropertyInput;
 }(BasePropertyInput);
 
 var propertyInputs = {};
-
 var getPropertyInput = function getPropertyInput(name) {
   return propertyInputs[name];
 };
-
 var registerPropertyInput = function registerPropertyInput(name, fn) {
   propertyInputs[name] = fn;
 };
-
 var getAllPropertyInputs = function getAllPropertyInputs() {
   return Object.keys(propertyInputs);
 };
 
-var AsyncSelectPropertyInput = function (_SelectPropertyInput) {
-  inherits(AsyncSelectPropertyInput, _SelectPropertyInput);
+function _typeof$a(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof$a = function _typeof(obj) { return typeof obj; }; } else { _typeof$a = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof$a(obj); }
+
+function _extends$5() { _extends$5 = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$5.apply(this, arguments); }
+
+function _classCallCheck$a(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties$a(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass$a(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties$a(Constructor.prototype, protoProps); if (staticProps) _defineProperties$a(Constructor, staticProps); return Constructor; }
+
+function _inherits$a(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf$a(subClass, superClass); }
+
+function _setPrototypeOf$a(o, p) { _setPrototypeOf$a = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf$a(o, p); }
+
+function _createSuper$a(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$a(); return function _createSuperInternal() { var Super = _getPrototypeOf$a(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf$a(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn$a(this, result); }; }
+
+function _possibleConstructorReturn$a(self, call) { if (call && (_typeof$a(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized$a(self); }
+
+function _assertThisInitialized$a(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct$a() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf$a(o) { _getPrototypeOf$a = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf$a(o); }
+
+var AsyncSelectPropertyInput = /*#__PURE__*/function (_SelectPropertyInput) {
+  _inherits$a(AsyncSelectPropertyInput, _SelectPropertyInput);
+
+  var _super = _createSuper$a(AsyncSelectPropertyInput);
 
   function AsyncSelectPropertyInput(props) {
-    classCallCheck(this, AsyncSelectPropertyInput);
+    var _this;
 
-    var _this = possibleConstructorReturn(this, (AsyncSelectPropertyInput.__proto__ || Object.getPrototypeOf(AsyncSelectPropertyInput)).call(this, props));
+    _classCallCheck$a(this, AsyncSelectPropertyInput);
 
-    _this.state = { value: _this.getCorrectMulValue() };
-    _this.loadOptions = _this.loadOptions.bind(_this);
+    _this = _super.call(this, props);
+    _this.state = {
+      value: _this.getCorrectMulValue()
+    };
+    _this.loadOptions = _this.loadOptions.bind(_assertThisInitialized$a(_this));
     return _this;
   }
 
-  createClass(AsyncSelectPropertyInput, [{
-    key: 'componentWillReceiveProps',
-    value: function componentWillReceiveProps(nextProps) {
+  _createClass$a(AsyncSelectPropertyInput, [{
+    key: "UNSAFE_componentWillReceiveProps",
+    value: function UNSAFE_componentWillReceiveProps(nextProps) {
       var rawValue = SelectPropertyInput.getRawValue(this.state.value);
+
       if (Array.isArray(nextProps.value)) {
-        if (!arraysEqual(rawValue, nextProps.value)) this.setState({ value: nextProps.value });
+        if (!arraysEqual(rawValue, nextProps.value)) this.setState({
+          value: nextProps.value
+        });
       } else {
-        if (rawValue !== nextProps.value) this.setState({ value: nextProps.value });
+        if (rawValue !== nextProps.value) this.setState({
+          value: nextProps.value
+        });
       }
     }
   }, {
-    key: 'getSelect',
+    key: "getSelect",
     value: function getSelect(selectAttr, meta, extraAttrsMap) {
-      return React.createElement(Async, _extends({}, selectAttr, {
+      return /*#__PURE__*/React.createElement(Async, _extends$5({}, selectAttr, {
         value: this.state.value,
         loadOptions: this.loadOptions,
         autoload: extraAttrsMap.autoload === "true",
@@ -1227,44 +1525,73 @@ var AsyncSelectPropertyInput = function (_SelectPropertyInput) {
       }));
     }
   }, {
-    key: 'loadOptions',
+    key: "loadOptions",
     value: function loadOptions(input, callback) {
       var meta = this.getMeta();
       var extraAttrsMap = BasePropertyInput.getExtraAttrsMap(meta);
-      this.props.selectLoadOptions(Object.assign({ input: input }, extraAttrsMap), callback);
+      this.props.selectLoadOptions(Object.assign({
+        input: input
+      }, extraAttrsMap), callback);
     }
   }]);
+
   return AsyncSelectPropertyInput;
 }(SelectPropertyInput);
-
 AsyncSelectPropertyInput.propTypes = {
   selectLoadOptions: PropTypes.func
 };
 
-var PropertyInput = function (_BasePropertyInput) {
-  inherits(PropertyInput, _BasePropertyInput);
+function _typeof$b(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof$b = function _typeof(obj) { return typeof obj; }; } else { _typeof$b = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof$b(obj); }
+
+function _extends$6() { _extends$6 = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$6.apply(this, arguments); }
+
+function _classCallCheck$b(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties$b(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass$b(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties$b(Constructor.prototype, protoProps); if (staticProps) _defineProperties$b(Constructor, staticProps); return Constructor; }
+
+function _inherits$b(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf$b(subClass, superClass); }
+
+function _setPrototypeOf$b(o, p) { _setPrototypeOf$b = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf$b(o, p); }
+
+function _createSuper$b(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$b(); return function _createSuperInternal() { var Super = _getPrototypeOf$b(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf$b(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn$b(this, result); }; }
+
+function _possibleConstructorReturn$b(self, call) { if (call && (_typeof$b(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized$b(self); }
+
+function _assertThisInitialized$b(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct$b() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf$b(o) { _getPrototypeOf$b = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf$b(o); }
+
+var PropertyInput = /*#__PURE__*/function (_BasePropertyInput) {
+  _inherits$b(PropertyInput, _BasePropertyInput);
+
+  var _super = _createSuper$b(PropertyInput);
 
   function PropertyInput(props) {
-    classCallCheck(this, PropertyInput);
+    var _this;
 
-    var _this = possibleConstructorReturn(this, (PropertyInput.__proto__ || Object.getPrototypeOf(PropertyInput)).call(this, props));
+    _classCallCheck$b(this, PropertyInput);
 
-    _this.handleChangeBoolean = _this.handleChangeBoolean.bind(_this);
+    _this = _super.call(this, props);
+    _this.handleChangeBoolean = _this.handleChangeBoolean.bind(_assertThisInitialized$b(_this));
     return _this;
   }
 
-  createClass(PropertyInput, [{
-    key: 'shouldComponentUpdate',
+  _createClass$b(PropertyInput, [{
+    key: "shouldComponentUpdate",
     value: function shouldComponentUpdate(nextProps) {
       return shouldPropertyUpdate(this.props, nextProps) || this.props.value !== nextProps.value;
     }
   }, {
-    key: 'handleChangeBoolean',
+    key: "handleChangeBoolean",
     value: function handleChangeBoolean(event) {
       this.changeAndReload(event.target.checked);
     }
   }, {
-    key: 'render',
+    key: "render",
     value: function render() {
       var meta = this.getMeta();
       var value = this.getValue();
@@ -1272,52 +1599,52 @@ var PropertyInput = function (_BasePropertyInput) {
 
       if (extraAttrsMap.inputType !== undefined && getPropertyInput(extraAttrsMap.inputType) !== undefined) {
         var CustomPropertyInput = getPropertyInput(extraAttrsMap.inputType);
-        return React.createElement(CustomPropertyInput, this.props);
+        return /*#__PURE__*/React.createElement(CustomPropertyInput, this.props);
       }
 
       if (extraAttrsMap.inputType === "AsyncSelect" && this.props.selectLoadOptions !== undefined) {
-        return React.createElement(AsyncSelectPropertyInput, this.props);
+        return /*#__PURE__*/React.createElement(AsyncSelectPropertyInput, this.props);
       }
 
       if (['Button', 'button'].includes(extraAttrsMap.inputType)) {
-        return React.createElement(ButtonPropertyInput, this.props);
+        return /*#__PURE__*/React.createElement(ButtonPropertyInput, this.props);
       }
 
       if (meta.tagList) {
         if (extraAttrsMap.inputType === "radio") {
-          return React.createElement(RadioSelectPropertyInput, this.props);
+          return /*#__PURE__*/React.createElement(RadioSelectPropertyInput, this.props);
         } else {
-          return React.createElement(SelectPropertyInput, this.props);
+          return /*#__PURE__*/React.createElement(SelectPropertyInput, this.props);
         }
       }
 
       if (meta.labelField) {
-        return React.createElement(LabelPropertyInput, this.props);
+        return /*#__PURE__*/React.createElement(LabelPropertyInput, this.props);
       }
 
       if (extraAttrsMap.inputType === 'WYSIWYG') {
-        return React.createElement(WYSIWYGPropertyInput, this.props);
+        return /*#__PURE__*/React.createElement(WYSIWYGPropertyInput, this.props);
       }
 
-      if (meta.type === 'Short' || meta.type === 'Integer' || meta.type === 'Long' || meta.type === 'Double' || this.getValidationRule('range') !== undefined || this.getValidationRule('step') !== undefined) {
-        return React.createElement(NumberPropertyInput, this.props);
+      if (['Short', 'Integer', 'Long', 'Double'].includes(meta.type) || this.getValidationRule('range') !== undefined || this.getValidationRule('step') !== undefined) {
+        return /*#__PURE__*/React.createElement(NumberPropertyInput, this.props);
       }
 
       if (meta.type === 'Base64File') {
-        return React.createElement(Base64FilePropertyInput, this.props);
+        return /*#__PURE__*/React.createElement(Base64FilePropertyInput, this.props);
       }
 
       if (meta.type === 'File') {
-        return React.createElement(FilePropertyInput, this.props);
+        return /*#__PURE__*/React.createElement(FilePropertyInput, this.props);
       }
 
       if (meta.type === 'Date' || meta.type === 'Time' || meta.type === 'Timestamp') {
-        return React.createElement(DateTimePropertyInput, this.props);
+        return /*#__PURE__*/React.createElement(DateTimePropertyInput, this.props);
       }
 
       if (meta.type === 'Boolean') {
-        return React.createElement('input', _extends({
-          type: 'checkbox',
+        return /*#__PURE__*/React.createElement("input", _extends$6({
+          type: "checkbox",
           checked: value === true || value === "true",
           onChange: this.handleChangeBoolean
         }, this.getBaseProps()));
@@ -1325,22 +1652,24 @@ var PropertyInput = function (_BasePropertyInput) {
 
       if (isDPS(meta)) {
         meta.hidden = true;
-        return React.createElement('input', _extends({
+        return /*#__PURE__*/React.createElement("input", _extends$6({
           value: JSON.stringify(value)
         }, this.getBaseProps()));
       }
 
       var rawInputProps = this.getRawInputProps(value, extraAttrsMap);
       var rawTextValidation = this.getRawTextValidation(meta);
+
       if (extraAttrsMap.inputType === 'textArea') {
-        return React.createElement('textarea', _extends({
+        return /*#__PURE__*/React.createElement("textarea", _extends$6({
           rows: extraAttrsMap.rows || 3
         }, rawInputProps, rawTextValidation));
       }
 
       var validationRuleMask = this.getValidationRule('mask');
+
       if (validationRuleMask !== undefined) {
-        return React.createElement(MaskedInput, _extends({
+        return /*#__PURE__*/React.createElement(MaskedInput, _extends$6({
           mask: validationRuleMask.attr,
           value: value,
           onChange: this.handleChange,
@@ -1348,11 +1677,12 @@ var PropertyInput = function (_BasePropertyInput) {
         }, this.getBaseProps()));
       }
 
-      return React.createElement('input', _extends({
+      return /*#__PURE__*/React.createElement("input", _extends$6({
         type: extraAttrsMap.inputType || 'text'
       }, rawInputProps, rawTextValidation));
     }
   }]);
+
   return PropertyInput;
 }(BasePropertyInput);
 
@@ -1372,23 +1702,47 @@ PropertyInput.propTypes = {
   className: PropTypes.string
 };
 
-var Property = function (_React$Component) {
-  inherits(Property, _React$Component);
+function _typeof$c(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof$c = function _typeof(obj) { return typeof obj; }; } else { _typeof$c = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof$c(obj); }
+
+function _classCallCheck$c(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties$c(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass$c(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties$c(Constructor.prototype, protoProps); if (staticProps) _defineProperties$c(Constructor, staticProps); return Constructor; }
+
+function _inherits$c(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf$c(subClass, superClass); }
+
+function _setPrototypeOf$c(o, p) { _setPrototypeOf$c = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf$c(o, p); }
+
+function _createSuper$c(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$c(); return function _createSuperInternal() { var Super = _getPrototypeOf$c(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf$c(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn$c(this, result); }; }
+
+function _possibleConstructorReturn$c(self, call) { if (call && (_typeof$c(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized$c(self); }
+
+function _assertThisInitialized$c(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct$c() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf$c(o) { _getPrototypeOf$c = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf$c(o); }
+
+var Property = /*#__PURE__*/function (_React$Component) {
+  _inherits$c(Property, _React$Component);
+
+  var _super = _createSuper$c(Property);
 
   function Property() {
-    classCallCheck(this, Property);
-    return possibleConstructorReturn(this, (Property.__proto__ || Object.getPrototypeOf(Property)).apply(this, arguments));
+    _classCallCheck$c(this, Property);
+
+    return _super.apply(this, arguments);
   }
 
-  createClass(Property, [{
-    key: 'shouldComponentUpdate',
+  _createClass$c(Property, [{
+    key: "shouldComponentUpdate",
     value: function shouldComponentUpdate(nextProps) {
       return shouldPropertyUpdate(this.props, nextProps) || this.props.value !== nextProps.value;
     }
   }, {
-    key: 'getPath',
+    key: "getPath",
     value: function getPath() {
-
       if (this.props.path) {
         return this.props.path;
       } else {
@@ -1396,167 +1750,151 @@ var Property = function (_React$Component) {
       }
     }
   }, {
-    key: 'render',
+    key: "render",
     value: function render() {
       var path = this.getPath();
       var meta = this.props.bean.meta[path];
       var id = path.substring(path.lastIndexOf("/") + 1) + "PropertyInput";
       var extraAttrsMap = BasePropertyInput.getExtraAttrsMap(meta);
+      var label;
 
-      var label = void 0;
       if (meta.displayName) {
-        label = React.createElement(
-          'label',
-          {
-            htmlFor: id,
-            className: classNames(meta.type === 'Boolean' ? 'form-check-label' : 'form-control-label', { 'mr-sm-2': this.props.inline && meta.type !== 'Boolean' }, { 'col-form-label': this.props.horizontal && meta.type !== 'Boolean' }, inputLabelSizeClasses(this.props, meta.type))
-          },
-          meta.displayName
-        );
+        label = /*#__PURE__*/React.createElement("label", {
+          htmlFor: id,
+          className: classNames(meta.type === 'Boolean' ? 'form-check-label' : 'form-control-label', {
+            'mr-sm-2': this.props.inline && meta.type !== 'Boolean'
+          }, {
+            'col-form-label': this.props.horizontal && meta.type !== 'Boolean'
+          }, inputLabelSizeClasses(this.props, meta.type))
+        }, meta.displayName);
       }
 
-      var messageElement = void 0;
+      var messageElement;
+
       if (meta.message) {
-        var validationClasses = classNames({ 'invalid-feedback': meta.status === 'error' }, { 'valid-feedback': meta.status === 'success' });
+        var validationClasses = classNames({
+          'invalid-feedback': meta.status === 'error'
+        }, {
+          'valid-feedback': meta.status === 'success'
+        });
 
         if (validationClasses) {
-          messageElement = React.createElement('div', { className: validationClasses, dangerouslySetInnerHTML: { __html: meta.message } });
+          messageElement = /*#__PURE__*/React.createElement("div", {
+            className: validationClasses,
+            dangerouslySetInnerHTML: {
+              __html: meta.message
+            }
+          });
         } else {
-          messageElement = React.createElement('small', { className: 'form-text text-muted', dangerouslySetInnerHTML: { __html: meta.message } });
+          messageElement = /*#__PURE__*/React.createElement("small", {
+            className: "form-text text-muted",
+            dangerouslySetInnerHTML: {
+              __html: meta.message
+            }
+          });
         }
       }
 
       var inputTypeButton = ['Button', 'button'].includes(extraAttrsMap.inputType);
-      var formGroupClasses = classNames('property', { 'form-group': meta.type !== 'Boolean' }, { 'form-check': meta.type === 'Boolean' }, { 'required': !inputTypeButton && meta.canBeNull !== true });
+      var formGroupClasses = classNames('property', {
+        'form-group': meta.type !== 'Boolean'
+      }, {
+        'form-check': meta.type === 'Boolean'
+      }, {
+        'required': !inputTypeButton && meta.canBeNull !== true
+      });
 
       if (isDPS(meta)) {
         meta.hidden = true;
       }
 
       if (this.props.inline) {
-        var outerClasses = classNames(formGroupClasses, meta.cssClasses || this.props.className || 'mb-2 mr-sm-2', { 'display-none': meta.hidden });
+        var outerClasses = classNames(formGroupClasses, meta.cssClasses || this.props.className || 'mb-2 mr-sm-2', {
+          'display-none': meta.hidden
+        });
 
         if (meta.type === "Boolean") {
-          return React.createElement(
-            'div',
-            { className: outerClasses },
-            React.createElement(PropertyInput, this.props),
-            label
-          );
+          return /*#__PURE__*/React.createElement("div", {
+            className: outerClasses
+          }, /*#__PURE__*/React.createElement(PropertyInput, this.props), label);
         } else {
-          return React.createElement(
-            'div',
-            { className: outerClasses },
-            label,
-            React.createElement(PropertyInput, this.props)
-          );
+          return /*#__PURE__*/React.createElement("div", {
+            className: outerClasses
+          }, label, /*#__PURE__*/React.createElement(PropertyInput, this.props));
         }
       } else if (this.props.horizontal) {
-        var _outerClasses = classNames('horizontal-input', { 'horizontal-input--sm': this.props.bsSize === "sm" }, { 'horizontal-input--lg': this.props.bsSize === "lg" }, meta.cssClasses || this.props.className,
-        //todo check col-any-?
-        meta.cssClasses && meta.cssClasses.includes('col-lg-') ? '' : 'col-lg-12', { 'display-none': meta.hidden });
+        var _outerClasses = classNames('horizontal-input', {
+          'horizontal-input--sm': this.props.bsSize === "sm"
+        }, {
+          'horizontal-input--lg': this.props.bsSize === "lg"
+        }, meta.cssClasses || this.props.className, //todo check col-any-?
+        meta.cssClasses && meta.cssClasses.includes('col-lg-') ? '' : 'col-lg-12', {
+          'display-none': meta.hidden
+        });
+
         if (meta.type === "Boolean" || inputTypeButton && !(meta.cssClasses && meta.cssClasses.includes('col-lg-'))) {
           var colTag = 'col-lg-' + (12 - this.props.horizontalColSize);
           var offsetTag = 'offset-lg-' + this.props.horizontalColSize;
-          return React.createElement(
-            'div',
-            { className: classNames(_outerClasses) },
-            React.createElement(
-              'div',
-              { className: this.props.rowClass },
-              React.createElement(
-                'div',
-                { className: classNames(colTag, offsetTag) },
-                React.createElement(
-                  'div',
-                  { className: classNames(formGroupClasses) },
-                  React.createElement(PropertyInput, this.props),
-                  !inputTypeButton ? label : "",
-                  messageElement
-                )
-              )
-            )
-          );
+          return /*#__PURE__*/React.createElement("div", {
+            className: classNames(_outerClasses)
+          }, /*#__PURE__*/React.createElement("div", {
+            className: this.props.rowClass
+          }, /*#__PURE__*/React.createElement("div", {
+            className: classNames(colTag, offsetTag)
+          }, /*#__PURE__*/React.createElement("div", {
+            className: classNames(formGroupClasses)
+          }, /*#__PURE__*/React.createElement(PropertyInput, this.props), !inputTypeButton ? label : "", messageElement))));
         } else if (inputTypeButton && meta.cssClasses && meta.cssClasses.includes('col-lg-')) {
-          return React.createElement(
-            'div',
-            { className: classNames(_outerClasses, 'offset-lg-' + this.props.horizontalColSize, "text-nowrap") },
-            React.createElement(
-              'div',
-              { className: classNames(formGroupClasses) },
-              React.createElement(PropertyInput, this.props),
-              !inputTypeButton ? label : "",
-              messageElement
-            )
-          );
+          return /*#__PURE__*/React.createElement("div", {
+            className: classNames(_outerClasses, 'offset-lg-' + this.props.horizontalColSize, "text-nowrap")
+          }, /*#__PURE__*/React.createElement("div", {
+            className: classNames(formGroupClasses)
+          }, /*#__PURE__*/React.createElement(PropertyInput, this.props), !inputTypeButton ? label : "", messageElement));
         } else {
-          return React.createElement(
-            'div',
-            { className: classNames(_outerClasses) },
-            React.createElement(
-              'div',
-              { className: classNames(formGroupClasses, this.props.rowClass) },
-              React.createElement(
-                'div',
-                {
-                  className: classNames('col-lg-' + this.props.horizontalColSize, 'col-form-control-label') },
-                label
-              ),
-              React.createElement(
-                'div',
-                { className: 'col-lg-' + (12 - this.props.horizontalColSize) },
-                React.createElement(PropertyInput, this.props),
-                messageElement
-              )
-            )
-          );
+          return /*#__PURE__*/React.createElement("div", {
+            className: classNames(_outerClasses)
+          }, /*#__PURE__*/React.createElement("div", {
+            className: classNames(formGroupClasses, this.props.rowClass)
+          }, /*#__PURE__*/React.createElement("div", {
+            className: classNames('col-lg-' + this.props.horizontalColSize, 'col-form-control-label')
+          }, label), /*#__PURE__*/React.createElement("div", {
+            className: 'col-lg-' + (12 - this.props.horizontalColSize)
+          }, /*#__PURE__*/React.createElement(PropertyInput, this.props), messageElement)));
         }
       } else {
-        var _outerClasses2 = classNames('vertical-input', { 'vertical-input--sm': this.props.bsSize === "sm" }, { 'vertical-input--lg': this.props.bsSize === "lg" }, meta.cssClasses || this.props.className, meta.cssClasses && meta.cssClasses.includes('col-lg-') ? '' : 'col-lg-12', { 'display-none': meta.hidden });
+        var _outerClasses2 = classNames('vertical-input', {
+          'vertical-input--sm': this.props.bsSize === "sm"
+        }, {
+          'vertical-input--lg': this.props.bsSize === "lg"
+        }, meta.cssClasses || this.props.className, meta.cssClasses && meta.cssClasses.includes('col-lg-') ? '' : 'col-lg-12', {
+          'display-none': meta.hidden
+        });
 
         if (meta.type === "Boolean" || inputTypeButton) {
-          return React.createElement(
-            'div',
-            { className: _outerClasses2 },
-            React.createElement(
-              'div',
-              { className: formGroupClasses },
-              React.createElement(PropertyInput, this.props),
-              !inputTypeButton ? label : "",
-              messageElement
-            )
-          );
+          return /*#__PURE__*/React.createElement("div", {
+            className: _outerClasses2
+          }, /*#__PURE__*/React.createElement("div", {
+            className: formGroupClasses
+          }, /*#__PURE__*/React.createElement(PropertyInput, this.props), !inputTypeButton ? label : "", messageElement));
         } else if (meta.labelField) {
-          return React.createElement(
-            'div',
-            { className: _outerClasses2 },
-            React.createElement(
-              'div',
-              { className: classNames('property-label', formGroupClasses) },
-              React.createElement(PropertyInput, this.props),
-              messageElement
-            )
-          );
+          return /*#__PURE__*/React.createElement("div", {
+            className: _outerClasses2
+          }, /*#__PURE__*/React.createElement("div", {
+            className: classNames('property-label', formGroupClasses)
+          }, /*#__PURE__*/React.createElement(PropertyInput, this.props), messageElement));
         } else {
-          return React.createElement(
-            'div',
-            { className: _outerClasses2 },
-            React.createElement(
-              'div',
-              { className: formGroupClasses },
-              label,
-              React.createElement(
-                'div',
-                { className: 'controls' },
-                React.createElement(PropertyInput, this.props),
-                messageElement
-              )
-            )
-          );
+          return /*#__PURE__*/React.createElement("div", {
+            className: _outerClasses2
+          }, /*#__PURE__*/React.createElement("div", {
+            className: formGroupClasses
+          }, label, /*#__PURE__*/React.createElement("div", {
+            className: "controls"
+          }, /*#__PURE__*/React.createElement(PropertyInput, this.props), messageElement)));
         }
       }
     }
   }]);
+
   return Property;
 }(React.Component);
 
@@ -1575,59 +1913,87 @@ Property.propTypes = {
   localization: PropTypes.object,
   className: PropTypes.string
 };
-
 Property.defaultProps = {
   horizontalColSize: 3,
   rowClass: "form-row"
 };
 
-var Properties = function (_React$Component) {
-  inherits(Properties, _React$Component);
+function _typeof$d(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof$d = function _typeof(obj) { return typeof obj; }; } else { _typeof$d = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof$d(obj); }
+
+function _extends$7() { _extends$7 = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$7.apply(this, arguments); }
+
+function _classCallCheck$d(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties$d(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass$d(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties$d(Constructor.prototype, protoProps); if (staticProps) _defineProperties$d(Constructor, staticProps); return Constructor; }
+
+function _inherits$d(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf$d(subClass, superClass); }
+
+function _setPrototypeOf$d(o, p) { _setPrototypeOf$d = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf$d(o, p); }
+
+function _createSuper$d(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$d(); return function _createSuperInternal() { var Super = _getPrototypeOf$d(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf$d(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn$d(this, result); }; }
+
+function _possibleConstructorReturn$d(self, call) { if (call && (_typeof$d(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized$d(self); }
+
+function _assertThisInitialized$d(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct$d() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf$d(o) { _getPrototypeOf$d = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf$d(o); }
+
+var Properties = /*#__PURE__*/function (_React$Component) {
+  _inherits$d(Properties, _React$Component);
+
+  var _super = _createSuper$d(Properties);
 
   function Properties() {
-    classCallCheck(this, Properties);
-    return possibleConstructorReturn(this, (Properties.__proto__ || Object.getPrototypeOf(Properties)).apply(this, arguments));
+    _classCallCheck$d(this, Properties);
+
+    return _super.apply(this, arguments);
   }
 
-  createClass(Properties, [{
-    key: 'shouldComponentUpdate',
+  _createClass$d(Properties, [{
+    key: "shouldComponentUpdate",
     value: function shouldComponentUpdate(nextProps) {
       return shouldPropertyUpdate(this.props, nextProps) || this.props.values !== nextProps.values;
     }
   }, {
-    key: 'render',
+    key: "render",
     value: function render() {
-      var _this2 = this;
+      var _this = this;
 
       var fields = this.props.bean.order.map(function (path, i) {
-        if (_this2.props.ids === undefined || _this2.props.ids.includes(i)) {
-          return React.createElement(Property, _extends({ path: path, key: path }, _this2.props, { value: _this2.getValue(path) }));
+        if (_this.props.ids === undefined || _this.props.ids.includes(i)) {
+          return /*#__PURE__*/React.createElement(Property, _extends$7({
+            path: path,
+            key: path
+          }, _this.props, {
+            value: _this.getValue(path)
+          }));
         } else {
           return null;
         }
-      });
+      }); //todo remove outer element after migrate to react 16.2
 
-      //todo remove outer element after migrate to react 16.2
-      return React.createElement(
-        'div',
-        { className: this.props.rowClass },
-        fields
-      );
+      return /*#__PURE__*/React.createElement("div", {
+        className: this.props.rowClass
+      }, fields);
     }
   }, {
-    key: 'getValue',
+    key: "getValue",
     value: function getValue(path) {
       var values = this.props.values || this.props.bean.values;
       return JsonPointer.get(values, path);
     }
   }]);
+
   return Properties;
 }(React.Component);
 
 Properties.defaultProps = {
   rowClass: "form-row"
 };
-
 Properties.propTypes = {
   rowClass: PropTypes.string,
   bean: PropTypes.object.isRequired,
@@ -1640,120 +2006,130 @@ Properties.propTypes = {
   localization: PropTypes.object
 };
 
-var PropertySet$1 = function (_React$Component) {
-  inherits(PropertySet, _React$Component);
+function _typeof$e(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof$e = function _typeof(obj) { return typeof obj; }; } else { _typeof$e = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof$e(obj); }
+
+function _extends$8() { _extends$8 = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$8.apply(this, arguments); }
+
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _classCallCheck$e(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties$e(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass$e(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties$e(Constructor.prototype, protoProps); if (staticProps) _defineProperties$e(Constructor, staticProps); return Constructor; }
+
+function _inherits$e(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf$e(subClass, superClass); }
+
+function _setPrototypeOf$e(o, p) { _setPrototypeOf$e = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf$e(o, p); }
+
+function _createSuper$e(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$e(); return function _createSuperInternal() { var Super = _getPrototypeOf$e(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf$e(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn$e(this, result); }; }
+
+function _possibleConstructorReturn$e(self, call) { if (call && (_typeof$e(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized$e(self); }
+
+function _assertThisInitialized$e(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct$e() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf$e(o) { _getPrototypeOf$e = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf$e(o); }
+
+var PropertySet = /*#__PURE__*/function (_React$Component) {
+  _inherits$e(PropertySet, _React$Component);
+
+  var _super = _createSuper$e(PropertySet);
 
   function PropertySet() {
-    classCallCheck(this, PropertySet);
-    return possibleConstructorReturn(this, (PropertySet.__proto__ || Object.getPrototypeOf(PropertySet)).apply(this, arguments));
+    _classCallCheck$e(this, PropertySet);
+
+    return _super.apply(this, arguments);
   }
 
-  createClass(PropertySet, [{
-    key: 'shouldComponentUpdate',
+  _createClass$e(PropertySet, [{
+    key: "shouldComponentUpdate",
     value: function shouldComponentUpdate(nextProps) {
       return shouldPropertyUpdate(this.props, nextProps) || this.props.values !== nextProps.values;
     }
   }, {
-    key: 'hasGroup',
+    key: "hasGroup",
     value: function hasGroup() {
-      var _iteratorNormalCompletion = true;
-      var _didIteratorError = false;
-      var _iteratorError = undefined;
+      var _iterator = _createForOfIteratorHelper(this.props.bean.order),
+          _step;
 
       try {
-        for (var _iterator = this.props.bean.order[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+        for (_iterator.s(); !(_step = _iterator.n()).done;) {
           var path = _step.value;
-
           var meta = this.props.bean.meta[path];
+
           if (meta.groupId) {
             return true;
           }
         }
       } catch (err) {
-        _didIteratorError = true;
-        _iteratorError = err;
+        _iterator.e(err);
       } finally {
-        try {
-          if (!_iteratorNormalCompletion && _iterator.return) {
-            _iterator.return();
-          }
-        } finally {
-          if (_didIteratorError) {
-            throw _iteratorError;
-          }
-        }
+        _iterator.f();
       }
 
       return false;
     }
   }, {
-    key: 'hasNestedDPS',
+    key: "hasNestedDPS",
     value: function hasNestedDPS() {
-      var _iteratorNormalCompletion2 = true;
-      var _didIteratorError2 = false;
-      var _iteratorError2 = undefined;
+      var _iterator2 = _createForOfIteratorHelper(this.props.bean.order),
+          _step2;
 
       try {
-        for (var _iterator2 = this.props.bean.order[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+        for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
           var path = _step2.value;
-
           var meta = this.props.bean.meta[path];
+
           if (isDPS(meta)) {
             return true;
           }
         }
       } catch (err) {
-        _didIteratorError2 = true;
-        _iteratorError2 = err;
+        _iterator2.e(err);
       } finally {
-        try {
-          if (!_iteratorNormalCompletion2 && _iterator2.return) {
-            _iterator2.return();
-          }
-        } finally {
-          if (_didIteratorError2) {
-            throw _iteratorError2;
-          }
-        }
+        _iterator2.f();
       }
 
       return false;
     }
   }, {
-    key: 'getTabs',
+    key: "getTabs",
     value: function getTabs() {
       var tabs = [];
       var tabIds = [];
-      var _iteratorNormalCompletion3 = true;
-      var _didIteratorError3 = false;
-      var _iteratorError3 = undefined;
+
+      var _iterator3 = _createForOfIteratorHelper(this.props.bean.order),
+          _step3;
 
       try {
-        for (var _iterator3 = this.props.bean.order[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+        for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
           var path = _step3.value;
-
           var meta = this.props.bean.meta[path];
+
           if (!meta.tabId && tabIds.indexOf(-1) === -1) {
             tabIds.push(-1);
-            tabs.push({ tabId: "-1", tabName: "main" });
+            tabs.push({
+              tabId: "-1",
+              tabName: "main"
+            });
           } else if (meta.tabId && tabIds.indexOf(+meta.tabId) === -1) {
             tabIds.push(+meta.tabId);
-            tabs.push({ tabId: meta.tabId, tabName: meta.tabName ? meta.tabName : 'tab ' + meta.tabId });
+            tabs.push({
+              tabId: meta.tabId,
+              tabName: meta.tabName ? meta.tabName : "tab ".concat(meta.tabId)
+            });
           }
         }
       } catch (err) {
-        _didIteratorError3 = true;
-        _iteratorError3 = err;
+        _iterator3.e(err);
       } finally {
-        try {
-          if (!_iteratorNormalCompletion3 && _iterator3.return) {
-            _iterator3.return();
-          }
-        } finally {
-          if (_didIteratorError3) {
-            throw _iteratorError3;
-          }
-        }
+        _iterator3.f();
       }
 
       return tabs.sort(function (a, b) {
@@ -1761,80 +2137,72 @@ var PropertySet$1 = function (_React$Component) {
       });
     }
   }, {
-    key: 'getTabsHeader',
+    key: "getTabsHeader",
     value: function getTabsHeader(tabs) {
-      return React.createElement(
-        'ul',
-        { key: 'property_tabs_header', className: 'nav nav-tabs col-12' },
-        tabs.map(function (tabInfo, idx) {
-          return React.createElement(
-            'li',
-            { key: 'tab_li_header_' + tabInfo.tabId, className: 'nav-item' },
-            React.createElement(
-              'a',
-              { key: 'tab_a_header_' + tabInfo.tabId,
-                className: classNames("nav-link", idx === 0 ? " active" : ""),
-                'data-toggle': 'tab',
-                href: "#tab_" + tabInfo.tabId },
-              tabInfo.tabName
-            )
-          );
-        })
-      );
+      return /*#__PURE__*/React.createElement("ul", {
+        key: "property_tabs_header",
+        className: "nav nav-tabs col-12"
+      }, tabs.map(function (tabInfo, idx) {
+        return /*#__PURE__*/React.createElement("li", {
+          key: "tab_li_header_".concat(tabInfo.tabId),
+          className: "nav-item"
+        }, /*#__PURE__*/React.createElement("a", {
+          key: "tab_a_header_".concat(tabInfo.tabId),
+          className: classNames("nav-link", idx === 0 ? " active" : ""),
+          "data-toggle": "tab",
+          href: "#tab_" + tabInfo.tabId
+        }, tabInfo.tabName));
+      }));
     }
   }, {
-    key: 'getTabsContent',
+    key: "getTabsContent",
     value: function getTabsContent(tabs, tabContent) {
-      return React.createElement(
-        'div',
-        { key: 'property_tabs_content', className: classNames("tab-content property-tabs", this.props.horizontal ? "col-9" : "col-12") },
-        tabs.map(function (tabInfo, idx) {
-          return React.createElement(
-            'div',
-            { key: 'tab_content_' + tabInfo.tabId, className: "tab-pane fade" + (idx === 0 ? "show active" : ""),
-              id: "tab_" + tabInfo.tabId },
-            tabContent[tabInfo.tabId]
-          );
-        })
-      );
+      return /*#__PURE__*/React.createElement("div", {
+        key: "property_tabs_content",
+        className: classNames("tab-content property-tabs", this.props.horizontal ? "col-9" : "col-12")
+      }, tabs.map(function (tabInfo, idx) {
+        return /*#__PURE__*/React.createElement("div", {
+          key: "tab_content_".concat(tabInfo.tabId),
+          className: "tab-pane fade" + (idx === 0 ? "show active" : ""),
+          id: "tab_" + tabInfo.tabId
+        }, tabContent[tabInfo.tabId]);
+      }));
     }
   }, {
-    key: 'processingTabs',
+    key: "processingTabs",
     value: function processingTabs(tabs) {
       var orderList = this.props.bean.order;
       var tabsContent = {};
-      var _iteratorNormalCompletion4 = true;
-      var _didIteratorError4 = false;
-      var _iteratorError4 = undefined;
+
+      var _iterator4 = _createForOfIteratorHelper(this.props.bean.order),
+          _step4;
 
       try {
-        for (var _iterator4 = this.props.bean.order[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+        for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
           var path = _step4.value;
-
           var meta = this.props.bean.meta[path];
-          var prop = React.createElement(Property, _extends({ key: path, path: path }, this.props, { value: this.getValue(path) }));
+          var prop = /*#__PURE__*/React.createElement(Property, _extends$8({
+            key: path,
+            path: path
+          }, this.props, {
+            value: this.getValue(path)
+          }));
           var tabId = meta.tabId ? meta.tabId : "-1";
+
           if (!tabsContent[tabId]) {
             tabsContent[tabId] = [prop];
           } else {
             var _content = tabsContent[tabId];
+
             _content.push(prop);
+
             tabsContent[tabId] = _content;
           }
         }
       } catch (err) {
-        _didIteratorError4 = true;
-        _iteratorError4 = err;
+        _iterator4.e(err);
       } finally {
-        try {
-          if (!_iteratorNormalCompletion4 && _iterator4.return) {
-            _iterator4.return();
-          }
-        } finally {
-          if (_didIteratorError4) {
-            throw _iteratorError4;
-          }
-        }
+        _iterator4.f();
       }
 
       var content = [];
@@ -1843,39 +2211,34 @@ var PropertySet$1 = function (_React$Component) {
       return content;
     }
   }, {
-    key: 'createGroupContainer',
+    key: "createGroupContainer",
     value: function createGroupContainer(curContainer, curContainerId, curContainerName, curContainerClasses, groupInitiallyClosed) {
-      return React.createElement(
-        'div',
-        {
-          className: classNames('property-group', curContainerClasses || 'property-group__top-line col-12'),
-          key: 'group_' + curContainerId,
-          ref: curContainerId },
-        React.createElement('div', { className: 'property-group__top-line-row row' }),
-        PropertySet.getName(React.createElement(
-          'a',
-          { 'data-toggle': 'collapse', href: '#property-group__collapse-' + curContainerId, role: 'button',
-            className: 'property-group__title-link',
-            'aria-expanded': !groupInitiallyClosed,
-            'aria-controls': 'property-group__collapse-' + curContainerId },
-          curContainerName
-        ), 'property-group__title'),
-        React.createElement(
-          'div',
-          { className: classNames('collapse', { 'show': !groupInitiallyClosed }),
-            id: 'property-group__collapse-' + curContainerId },
-          React.createElement(
-            'div',
-            { className: classNames('property-group__row', this.props.rowClass) },
-            curContainer
-          )
-        )
-      );
+      return /*#__PURE__*/React.createElement("div", {
+        className: classNames('property-group', curContainerClasses || 'property-group__top-line col-12'),
+        key: "group_".concat(curContainerId),
+        ref: curContainerId
+      }, /*#__PURE__*/React.createElement("div", {
+        className: 'property-group__top-line-row row'
+      }), PropertySet.getName( /*#__PURE__*/React.createElement("a", {
+        "data-toggle": "collapse",
+        href: "#property-group__collapse-".concat(curContainerId),
+        role: "button",
+        className: "property-group__title-link",
+        "aria-expanded": !groupInitiallyClosed,
+        "aria-controls": "property-group__collapse-".concat(curContainerId)
+      }, curContainerName), 'property-group__title'), /*#__PURE__*/React.createElement("div", {
+        className: classNames('collapse', {
+          'show': !groupInitiallyClosed
+        }),
+        id: "property-group__collapse-".concat(curContainerId)
+      }, /*#__PURE__*/React.createElement("div", {
+        className: classNames('property-group__row', this.props.rowClass)
+      }, curContainer)));
     }
   }, {
-    key: 'processingGroups',
+    key: "processingGroups",
     value: function processingGroups() {
-      var _this2 = this;
+      var _this = this;
 
       var curGroup = [];
       var curGroupName = null,
@@ -1887,24 +2250,22 @@ var PropertySet$1 = function (_React$Component) {
       var finishGroup = function finishGroup() {
         if (curGroup.length > 0) {
           if (curGroupId) {
-            fields.push(_this2.createGroupContainer(curGroup, curGroupId, curGroupName, curGroupClasses, groupInitiallyClosed));
+            fields.push(_this.createGroupContainer(curGroup, curGroupId, curGroupName, curGroupClasses, groupInitiallyClosed));
           } else {
             Array.prototype.push.apply(fields, curGroup);
           }
         }
+
         curGroup = [];
       };
 
-      var _iteratorNormalCompletion5 = true;
-      var _didIteratorError5 = false;
-      var _iteratorError5 = undefined;
+      var _iterator5 = _createForOfIteratorHelper(this.props.bean.order),
+          _step5;
 
       try {
-        for (var _iterator5 = this.props.bean.order[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
+        for (_iterator5.s(); !(_step5 = _iterator5.n()).done;) {
           var path = _step5.value;
-
           var meta = this.props.bean.meta[path];
-
           var newGroupId = meta.groupId;
           var newGroupName = meta.groupName;
           var newGroupClasses = meta.groupClasses;
@@ -1918,144 +2279,153 @@ var PropertySet$1 = function (_React$Component) {
             groupInitiallyClosed = newGroupInitiallyClosed;
           }
 
-          var field = React.createElement(Property, _extends({ key: path, path: path }, this.props, { value: this.getValue(path) }));
-
+          var field = /*#__PURE__*/React.createElement(Property, _extends$8({
+            key: path,
+            path: path
+          }, this.props, {
+            value: this.getValue(path)
+          }));
           curGroup.push(field);
         }
       } catch (err) {
-        _didIteratorError5 = true;
-        _iteratorError5 = err;
+        _iterator5.e(err);
       } finally {
-        try {
-          if (!_iteratorNormalCompletion5 && _iterator5.return) {
-            _iterator5.return();
-          }
-        } finally {
-          if (_didIteratorError5) {
-            throw _iteratorError5;
-          }
-        }
+        _iterator5.f();
       }
 
       finishGroup();
       return fields;
     }
   }, {
-    key: 'createNestedPropsContainer',
+    key: "createNestedPropsContainer",
     value: function createNestedPropsContainer(curContainer, curContainerId, curContainerName, curContainerClasses) {
       if (this.props.horizontal) {
-        return React.createElement(
-          'div',
-          {
-            className: classNames('property-nested-dps', curContainerClasses || 'property-nested-dps__border col-12'),
-            key: curContainerId,
-            ref: curContainerId },
-          React.createElement(
-            'div',
-            { className: 'property-nested-dps__border-row row' },
-            React.createElement(
-              'a',
-              { className: 'property-nested-dps__link', 'data-toggle': 'collapse', href: "#" + curContainerId,
-                role: 'button',
-                'aria-expanded': 'false', 'aria-controls': curContainerId },
-              PropertySet.getName(curContainerName, 'property-group__title')
-            ),
-            React.createElement(
-              'div',
-              { id: curContainerId,
-                className: classNames('collapse', 'show', 'property-nested-dps__row', this.props.rowClass) },
-              curContainer
-            )
-          )
-        );
+        return /*#__PURE__*/React.createElement("div", {
+          className: classNames('property-nested-dps', curContainerClasses || 'property-nested-dps__border col-12'),
+          key: curContainerId,
+          ref: curContainerId
+        }, /*#__PURE__*/React.createElement("div", {
+          className: 'property-nested-dps__border-row row'
+        }, /*#__PURE__*/React.createElement("a", {
+          className: 'property-nested-dps__link',
+          "data-toggle": "collapse",
+          href: "#" + curContainerId,
+          role: "button",
+          "aria-expanded": "false",
+          "aria-controls": curContainerId
+        }, PropertySet.getName(curContainerName, 'property-group__title')), /*#__PURE__*/React.createElement("div", {
+          id: curContainerId,
+          className: classNames('collapse', 'show', 'property-nested-dps__row', this.props.rowClass)
+        }, curContainer)));
       } else {
-        return React.createElement(
-          'div',
-          {
-            className: classNames('property-nested-dps', curContainerClasses || 'property-nested-dps__top-line col-12'),
-            key: curContainerId,
-            ref: curContainerId },
-          React.createElement('div', { className: 'property-nested-dps__top-line-row row' }),
-          React.createElement(
-            'a',
-            { className: 'property-nested-dps__link', 'data-toggle': 'collapse', href: "#" + curContainerId, role: 'button',
-              'aria-expanded': 'false', 'aria-controls': curContainerId },
-            PropertySet.getName(curContainerName, 'property-group__title')
-          ),
-          React.createElement(
-            'div',
-            { id: curContainerId,
-              className: classNames('collapse', 'show', 'property-nested-dps__row', this.props.rowClass) },
-            curContainer
-          ),
-          React.createElement('div', { className: 'property-nested-dps__top-line-row row' })
-        );
+        return /*#__PURE__*/React.createElement("div", {
+          className: classNames('property-nested-dps', curContainerClasses || 'property-nested-dps__top-line col-12'),
+          key: curContainerId,
+          ref: curContainerId
+        }, /*#__PURE__*/React.createElement("div", {
+          className: 'property-nested-dps__top-line-row row'
+        }), /*#__PURE__*/React.createElement("a", {
+          className: 'property-nested-dps__link',
+          "data-toggle": "collapse",
+          href: "#" + curContainerId,
+          role: "button",
+          "aria-expanded": "false",
+          "aria-controls": curContainerId
+        }, PropertySet.getName(curContainerName, 'property-group__title')), /*#__PURE__*/React.createElement("div", {
+          id: curContainerId,
+          className: classNames('collapse', 'show', 'property-nested-dps__row', this.props.rowClass)
+        }, curContainer), /*#__PURE__*/React.createElement("div", {
+          className: 'property-nested-dps__top-line-row row'
+        }));
       }
     }
   }, {
-    key: 'createNestedProps',
+    key: "createNestedProps",
     value: function createNestedProps(startIdx, list, parentPath) {
       var parentPropId = parentPath.substring(parentPath.lastIndexOf("/") + 1);
       var nestedPropsContainer = [];
       startIdx++;
+
       if (list.length > startIdx) {
         for (var i = startIdx; i < list.length; i++) {
           var path = list[i];
           var meta = this.props.bean.meta[path];
           startIdx = i;
+
           if (meta.parent == parentPropId) {
             if (nestedPropsContainer.length === 0) {
-              nestedPropsContainer.push([React.createElement(Property, _extends({ key: parentPath, path: parentPath }, this.props, {
-                value: this.getValue(parentPath) }))]);
+              nestedPropsContainer.push([/*#__PURE__*/React.createElement(Property, _extends$8({
+                key: parentPath,
+                path: parentPath
+              }, this.props, {
+                value: this.getValue(parentPath)
+              }))]);
             }
+
             if (isDPS(meta)) {
               var idxAndNestedPropContainer = this.createNestedProps(i, list, path);
               i = idxAndNestedPropContainer[0];
-              nestedPropsContainer.push(idxAndNestedPropContainer[1]);
-              //get last element and checked for rerun if elements position after nested DPS
+              nestedPropsContainer.push(idxAndNestedPropContainer[1]); //get last element and checked for rerun if elements position after nested DPS
+
               if (this.props.bean.meta[list[i]].parent == parentPropId) {
                 i--;
               }
+
               startIdx = i;
             } else {
               startIdx = i;
-              nestedPropsContainer.push(React.createElement(Property, _extends({ key: path, path: path }, this.props, { value: this.getValue(path) })));
+              nestedPropsContainer.push( /*#__PURE__*/React.createElement(Property, _extends$8({
+                key: path,
+                path: path
+              }, this.props, {
+                value: this.getValue(path)
+              })));
             }
           } else {
             break;
           }
         }
       }
+
       var parentMeta = this.props.bean.meta[parentPath];
       return [startIdx, this.createNestedPropsContainer(nestedPropsContainer, parentPropId, parentMeta.displayName, parentMeta.dpsClasses)];
     }
   }, {
-    key: 'processingNestedProperties',
+    key: "processingNestedProperties",
     value: function processingNestedProperties() {
       var fields = [];
       var orderList = this.props.bean.order;
+
       for (var i = 0; i < orderList.length; i++) {
         var path = orderList[i];
         var meta = this.props.bean.meta[path];
+
         if (isDPS(meta)) {
           var idxAndNestedPropContainer = this.createNestedProps(i, orderList, path);
           i = idxAndNestedPropContainer[0];
-          fields.push(idxAndNestedPropContainer[1]);
-          //get last element and checked for rerun if element doesn't have parent
+          fields.push(idxAndNestedPropContainer[1]); //get last element and checked for rerun if element doesn't have parent
+
           if (!this.props.bean.meta[orderList[i]].parent) {
             i--;
           }
         } else {
-          fields.push(React.createElement(Property, _extends({ key: path, path: path }, this.props, { value: this.getValue(path) })));
+          fields.push( /*#__PURE__*/React.createElement(Property, _extends$8({
+            key: path,
+            path: path
+          }, this.props, {
+            value: this.getValue(path)
+          })));
         }
       }
+
       return fields;
     }
   }, {
-    key: 'render',
+    key: "render",
     value: function render() {
       var fields = [];
       var tabs = this.getTabs();
+
       if (tabs.length > 1) {
         fields = this.processingTabs(tabs);
       } else if (this.hasGroup()) {
@@ -2063,66 +2433,56 @@ var PropertySet$1 = function (_React$Component) {
       } else if (this.hasNestedDPS()) {
         fields = this.processingNestedProperties();
       } else {
-        var _iteratorNormalCompletion6 = true;
-        var _didIteratorError6 = false;
-        var _iteratorError6 = undefined;
+        var _iterator6 = _createForOfIteratorHelper(this.props.bean.order),
+            _step6;
 
         try {
-          for (var _iterator6 = this.props.bean.order[Symbol.iterator](), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
+          for (_iterator6.s(); !(_step6 = _iterator6.n()).done;) {
             var path = _step6.value;
-
-            fields.push(React.createElement(Property, _extends({ key: path, path: path }, this.props, { value: this.getValue(path) })));
+            fields.push( /*#__PURE__*/React.createElement(Property, _extends$8({
+              key: path,
+              path: path
+            }, this.props, {
+              value: this.getValue(path)
+            })));
           }
         } catch (err) {
-          _didIteratorError6 = true;
-          _iteratorError6 = err;
+          _iterator6.e(err);
         } finally {
-          try {
-            if (!_iteratorNormalCompletion6 && _iterator6.return) {
-              _iterator6.return();
-            }
-          } finally {
-            if (_didIteratorError6) {
-              throw _iteratorError6;
-            }
-          }
+          _iterator6.f();
         }
       }
 
-      return React.createElement(
-        'div',
-        { className: classNames('property-set', this.props.rowClass) },
-        fields
-      );
+      return /*#__PURE__*/React.createElement("div", {
+        className: classNames('property-set', this.props.rowClass)
+      }, fields);
     }
   }, {
-    key: 'getValue',
+    key: "getValue",
     value: function getValue(path) {
       var values = this.props.values || this.props.bean.values;
       return JsonPointer.get(values, path);
     }
   }], [{
-    key: 'getName',
+    key: "getName",
     value: function getName(name, css) {
       if (name) {
-        return React.createElement(
-          'h5',
-          { className: css },
-          name
-        );
+        return /*#__PURE__*/React.createElement("h5", {
+          className: css
+        }, name);
       } else {
         return null;
       }
     }
   }]);
+
   return PropertySet;
 }(React.Component);
 
-PropertySet$1.defaultProps = {
+PropertySet.defaultProps = {
   rowClass: 'form-row'
 };
-
-PropertySet$1.propTypes = {
+PropertySet.propTypes = {
   bean: PropTypes.object.isRequired,
   values: PropTypes.object,
   onChange: PropTypes.func,
@@ -2133,5 +2493,5 @@ PropertySet$1.propTypes = {
   rowClass: PropTypes.string
 };
 
-export { Property, Properties, PropertyInput, WYSIWYGPropertyInput, BasePropertyInput, DateTimePropertyInput, NumberPropertyInput, Base64FilePropertyInput, FilePropertyInput, LabelPropertyInput, RadioSelectPropertyInput, SelectPropertyInput, AsyncSelectPropertyInput, getAllPropertyInputs, getPropertyInput, registerPropertyInput };
-export default PropertySet$1;
+export default PropertySet;
+export { AsyncSelectPropertyInput, Base64FilePropertyInput, BasePropertyInput, DateTimePropertyInput, FilePropertyInput, LabelPropertyInput, NumberPropertyInput, Properties, Property, PropertyInput, RadioSelectPropertyInput, SelectPropertyInput, WYSIWYGPropertyInput, getAllPropertyInputs, getPropertyInput, registerPropertyInput };
