@@ -67,5 +67,5 @@ $ npm run lib
 ### Deploy
 ```sh
 sh build.sh
-npm up
+npm publish
 ```
