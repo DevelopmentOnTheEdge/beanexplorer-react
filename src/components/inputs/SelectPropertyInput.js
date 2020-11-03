@@ -9,6 +9,7 @@ export default class SelectPropertyInput extends BasePropertyInput {
   constructor(props) {
     super(props);
     this.handleChangeSelect = this.handleChangeSelect.bind(this);
+    this.state = {value: []}
   }
 
   render() {
@@ -52,26 +53,26 @@ export default class SelectPropertyInput extends BasePropertyInput {
     const meta = this.getMeta();
     const localization = this.props.localization;
     const extraAttrsMap = BasePropertyInput.getExtraAttrsMap(meta);
-
+    console.log(this.getCorrectMulValue())
     const selectAttr = {
       id: id,
       ref: id,
       name: id,
-      value: this.getCorrectMulValue(),
+      value: this.state.value,
       options: this.getOptions(),
       onChange: this.handleChangeSelect,
-      clearAllText: localization.clearAllText,
-      clearValueText: localization.clearValueText,
-      noResultsText: localization.noResultsText,
-      searchPromptText: localization.searchPromptText,
+      // clearAllText: localization.clearAllText removed
+      // clearValueText: localization.clearValueText removed
+      noOptionsMessage: localization.noResultsText,
+      // searchPromptText: localization.searchPromptText removed
       loadingPlaceholder: localization.loadingPlaceholder,
       placeholder: extraAttrsMap.placeholder || localization.placeholder,
-      backspaceRemoves: false,
-      disabled: meta.readOnly,
-      multi: meta.multipleSelectionList,
-      matchPos: extraAttrsMap.matchPos || "any",
-      required: !meta.canBeNull,
-      inputProps: {autoComplete: 'off'}
+      backspaceRemovesValue: false,
+      isDisabled: meta.readOnly,
+      isMulti: meta.multipleSelectionList,
+      // matchPos: extraAttrsMap.matchPos || "any", 	removed see createFilter()
+      // required: !meta.canBeNull, removed	may be implemented in a later version
+      // inputProps: {autoComplete: 'off'} inputProps	removed	use the new Components API
     };
     return {meta, extraAttrsMap, selectAttr};
   }
@@ -88,7 +89,7 @@ export default class SelectPropertyInput extends BasePropertyInput {
   }
 
   handleChangeSelect(object) {
-    this.setState({value: object}, function () {
+    this.setState({value: [object]}, function () {
       this.changeAndReload(SelectPropertyInput.getRawValue(object));
     });
   }
