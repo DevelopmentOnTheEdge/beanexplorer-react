@@ -12,6 +12,13 @@ export default class SelectPropertyInput extends BasePropertyInput {
     this.state = {value: []}
   }
 
+  componentDidMount() {
+    const value = this.getValue();
+    if (value !== "") {
+      this.setState({value: this.getOptions().filter(option => option.value === value)});
+    }
+  }
+
   render() {
     const {meta, extraAttrsMap, selectAttr} = this.getAttr();
 
@@ -53,7 +60,7 @@ export default class SelectPropertyInput extends BasePropertyInput {
     const meta = this.getMeta();
     const localization = this.props.localization;
     const extraAttrsMap = BasePropertyInput.getExtraAttrsMap(meta);
-    console.log(this.getCorrectMulValue())
+
     const selectAttr = {
       id: id,
       ref: id,
@@ -89,7 +96,7 @@ export default class SelectPropertyInput extends BasePropertyInput {
   }
 
   handleChangeSelect(object) {
-    this.setState({value: [object]}, function () {
+    this.setState({value: Array.isArray(object) ? object : [object]}, function () {
       this.changeAndReload(SelectPropertyInput.getRawValue(object));
     });
   }
