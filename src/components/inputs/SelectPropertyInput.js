@@ -9,13 +9,13 @@ export default class SelectPropertyInput extends BasePropertyInput {
   constructor(props) {
     super(props);
     this.handleChangeSelect = this.handleChangeSelect.bind(this);
-    this.state = {value: []}
+    this.state = {selectedOptions: []}
   }
 
   componentDidMount() {
     const value = this.getValue();
     if (value !== "") {
-      this.setState({value: this.getOptions().filter(option => option.value === value)});
+      this.setState({selectedOptions: this.getOptions().filter(option => option.value === value)});
     }
   }
 
@@ -65,7 +65,7 @@ export default class SelectPropertyInput extends BasePropertyInput {
       id: id,
       ref: id,
       name: id,
-      value: this.state.value,
+      value: this.state.selectedOptions,
       options: this.getOptions(),
       onChange: this.handleChangeSelect,
       // clearAllText: localization.clearAllText removed
@@ -96,7 +96,7 @@ export default class SelectPropertyInput extends BasePropertyInput {
   }
 
   handleChangeSelect(object) {
-    this.setState({value: Array.isArray(object) ? object : [object]}, function () {
+    this.setState({selectedOptions: Array.isArray(object) ? object : [object]}, function () {
       this.changeAndReload(SelectPropertyInput.getRawValue(object));
     });
   }
