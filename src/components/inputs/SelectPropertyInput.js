@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Select, {Creatable} from 'react-select';
+import Select, {Creatable, createFilter} from 'react-select';
 import VirtualizedSelect from 'react-virtualized-select'
 import BasePropertyInput from "./BasePropertyInput";
 
@@ -70,16 +70,15 @@ export default class SelectPropertyInput extends BasePropertyInput {
       onChange: this.handleChangeSelect,
       // clearAllText: localization.clearAllText removed
       // clearValueText: localization.clearValueText removed
-      noOptionsMessage: localization.noResultsText,
+      noOptionsMessage: () => localization.noResultsText,
       // searchPromptText: localization.searchPromptText removed
       loadingPlaceholder: localization.loadingPlaceholder,
       placeholder: extraAttrsMap.placeholder || localization.placeholder,
       backspaceRemovesValue: false,
       isDisabled: meta.readOnly,
       isMulti: meta.multipleSelectionList,
-      // matchPos: extraAttrsMap.matchPos || "any", 	removed see createFilter()
-      // required: !meta.canBeNull, removed	may be implemented in a later version
-      // inputProps: {autoComplete: 'off'} inputProps	removed	use the new Components API
+      filterOption: createFilter({matchFrom: extraAttrsMap.matchFrom || "any"})
+       //required: !meta.canBeNull, removed	may be implemented in a later version todo
     };
     return {meta, extraAttrsMap, selectAttr};
   }

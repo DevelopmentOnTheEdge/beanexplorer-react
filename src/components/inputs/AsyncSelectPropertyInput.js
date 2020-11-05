@@ -8,7 +8,7 @@ import SelectPropertyInput from "./SelectPropertyInput";
 export default class AsyncSelectPropertyInput extends SelectPropertyInput {
   constructor(props) {
     super(props);
-    this.state = {value: this.getCorrectMulValue()};
+    this.state = {selectedOptions: []};
     this.loadOptions = this.loadOptions.bind(this);
   }
 
