@@ -8,7 +8,7 @@ import SelectPropertyInput from "./SelectPropertyInput";
 export default class AsyncSelectPropertyInput extends SelectPropertyInput {
   constructor(props) {
     super(props);
-    this.state = {selectedOptions: []};
+    this.state = {value: this.getCorrectMulValue()};
     this.loadOptions = this.loadOptions.bind(this);
   }
 
@@ -28,7 +28,7 @@ export default class AsyncSelectPropertyInput extends SelectPropertyInput {
       {...selectAttr}
       value={this.state.value}
       loadOptions={this.loadOptions}
-      // autoload={extraAttrsMap.autoload === "true"}  removed	see the Async component (defaultOptions)
+      defaultOptions={extraAttrsMap.autoload === "true"}
       filterOption={(options, filter, currentValues) => {
         // Do no filtering, just return all options
         return options;
