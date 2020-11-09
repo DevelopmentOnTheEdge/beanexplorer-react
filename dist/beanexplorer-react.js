@@ -303,6 +303,7 @@
       locale: 'en',
       clearAllText: 'Clear all',
       clearValueText: 'Clear value',
+      showAllColumnsText: 'Show all columns',
       noResultsText: 'No results found',
       searchPromptText: 'Type to search',
       placeholder: 'Select ...',
@@ -474,10 +475,26 @@
 
       _this = _super.call(this, props);
       _this.handleChangeSelect = _this.handleChangeSelect.bind(_assertThisInitialized$2(_this));
+      _this.state = {
+        selectedOptions: []
+      };
       return _this;
     }
 
     _createClass$2(SelectPropertyInput, [{
+      key: "componentDidMount",
+      value: function componentDidMount() {
+        var value = this.getValue();
+
+        if (value !== "") {
+          this.setState({
+            selectedOptions: this.getOptions().filter(function (option) {
+              return option.value === value;
+            })
+          });
+        }
+      }
+    }, {
       key: "render",
       value: function render() {
         var _this$getAttr = this.getAttr(),
@@ -521,23 +538,24 @@
           id: id,
           ref: id,
           name: id,
-          value: this.getCorrectMulValue(),
+          value: this.state.selectedOptions,
           options: this.getOptions(),
           onChange: this.handleChangeSelect,
-          clearAllText: localization.clearAllText,
-          clearValueText: localization.clearValueText,
-          noResultsText: localization.noResultsText,
-          searchPromptText: localization.searchPromptText,
+          // clearAllText: localization.clearAllText removed
+          // clearValueText: localization.clearValueText removed
+          noOptionsMessage: function noOptionsMessage() {
+            return localization.noResultsText;
+          },
+          // searchPromptText: localization.searchPromptText removed
           loadingPlaceholder: localization.loadingPlaceholder,
           placeholder: extraAttrsMap.placeholder || localization.placeholder,
-          backspaceRemoves: false,
-          disabled: meta.readOnly,
-          multi: meta.multipleSelectionList,
-          matchPos: extraAttrsMap.matchPos || "any",
-          required: !meta.canBeNull,
-          inputProps: {
-            autoComplete: 'off'
-          }
+          backspaceRemovesValue: false,
+          isDisabled: meta.readOnly,
+          isMulti: meta.multipleSelectionList,
+          filterOption: Select.createFilter({
+            matchFrom: extraAttrsMap.matchFrom || "any"
+          }) //required: !meta.canBeNull, removed	may be implemented in a later version todo
+
         };
         return {
           meta: meta,
@@ -565,7 +583,7 @@
       key: "handleChangeSelect",
       value: function handleChangeSelect(object) {
         this.setState({
-          value: object
+          selectedOptions: Array.isArray(object) ? object : [object]
         }, function () {
           this.changeAndReload(SelectPropertyInput.getRawValue(object));
         });
@@ -1492,16 +1510,29 @@
 
       _this = _super.call(this, props);
       _this.state = {
-        value: _this.getCorrectMulValue()
+        selectedOptions: []
       };
       _this.loadOptions = _this.loadOptions.bind(_assertThisInitialized$a(_this));
       return _this;
     }
 
     _createClass$a(AsyncSelectPropertyInput, [{
+      key: "componentDidMount",
+      value: function componentDidMount() {
+        var value = this.getValue();
+
+        if (value !== "") {
+          this.setState({
+            selectedOptions: this.getOptions().filter(function (option) {
+              return option.value === value;
+            })
+          });
+        }
+      }
+    }, {
       key: "UNSAFE_componentWillReceiveProps",
       value: function UNSAFE_componentWillReceiveProps(nextProps) {
-        var rawValue = SelectPropertyInput.getRawValue(this.state.value);
+        var rawValue = SelectPropertyInput.getRawValue(this.state.selectedOptions);
 
         if (Array.isArray(nextProps.value)) {
           if (!arraysEqual(rawValue, nextProps.value)) this.setState({
@@ -1517,10 +1548,10 @@
       key: "getSelect",
       value: function getSelect(selectAttr, meta, extraAttrsMap) {
         return /*#__PURE__*/React__default['default'].createElement(Select.Async, _extends$5({}, selectAttr, {
-          value: this.state.value,
+          value: this.state.selectedOptions,
           loadOptions: this.loadOptions,
-          autoload: extraAttrsMap.autoload === "true",
-          filterOptions: function filterOptions(options, filter, currentValues) {
+          defaultOptions: this.getOptions(),
+          filterOption: function filterOption(options, filter, currentValues) {
             // Do no filtering, just return all options
             return options;
           }
@@ -1529,6 +1560,7 @@
     }, {
       key: "loadOptions",
       value: function loadOptions(input, callback) {
+        //todo check in big data
         var meta = this.getMeta();
         var extraAttrsMap = BasePropertyInput.getExtraAttrsMap(meta);
         this.props.selectLoadOptions(Object.assign({
