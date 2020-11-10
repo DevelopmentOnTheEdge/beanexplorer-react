@@ -204,7 +204,6 @@ BasePropertyInput.defaultProps = {
     locale: 'en',
     clearAllText: 'Clear all',
     clearValueText: 'Clear value',
-    showAllColumnsText: 'Show all columns',
     noResultsText: 'No results found',
     searchPromptText: 'Type to search',
     placeholder: 'Select ...',
