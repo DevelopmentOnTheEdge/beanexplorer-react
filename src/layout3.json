@@ -1,0 +1,20 @@
+{
+  "values": {
+    "name": "",
+    "subject": ""
+  },
+  "meta": {
+    "/name": {
+      "placeholder": "Name"
+    },
+    "/subject": {
+      "placeholder": "Subject",
+      "canBeNull":true,
+      "tagList": [["vanilla","Vanilla"],["chocolate","Chocolate"]]
+    }
+  },
+  "order": [
+    "/name",
+    "/subject"
+  ]
+}

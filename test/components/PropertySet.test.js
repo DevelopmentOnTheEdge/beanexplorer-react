@@ -7,6 +7,7 @@ import testOuter from '../../src/testOuter.json';
 import validationTest from '../../src/validationTest.json';
 import layout1 from '../../src/layout1.json';
 import layout2 from '../../src/layout2.json';
+import layout3 from '../../src/layout3.json';
 import JsonPointer   from 'json-pointer';
 //https://github.com/YouCanBookMe/react-datetime/issues/384
 jest.mock('react-dom', () => ({
@@ -127,6 +128,17 @@ test('inline layout2', () => {
     <PropertySet bean={layout2} inline rowClass="" />
   );
   expect(component.toJSON()).toMatchSnapshot();
+});
+
+test('inline layout3 canBeNull select', () => {
+    const component = renderer.create(
+        <PropertySet bean={layout3} inline rowClass="" />
+    );
+    expect(component.toJSON()).toMatchSnapshot();
+
+    //renders without crashing
+    mount(<PropertySet bean={layout3} inline rowClass="" bsSize="sm"/>);
+    mount(<PropertySet bean={layout3} inline rowClass="" bsSize="lg"/>);
 });
 
 test('simple property set', () => {

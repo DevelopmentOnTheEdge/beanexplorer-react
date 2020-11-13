@@ -1,9 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Select, {Creatable, createFilter} from 'react-select';
+import Select, {components, Creatable, createFilter} from 'react-select';
 import VirtualizedSelect from 'react-virtualized-select'
 import BasePropertyInput from "./BasePropertyInput";
+
+const Input = props => {
+  return <components.Input {...props} required={true}/>
+}
 
 export default class SelectPropertyInput extends BasePropertyInput {
   constructor(props) {
@@ -77,9 +81,17 @@ export default class SelectPropertyInput extends BasePropertyInput {
       backspaceRemovesValue: false,
       isDisabled: meta.readOnly,
       isMulti: meta.multipleSelectionList,
-      filterOption: createFilter({matchFrom: extraAttrsMap.matchFrom || "any"})
-       //required: !meta.canBeNull, removed	may be implemented in a later version todo
+      filterOption: createFilter({matchFrom: extraAttrsMap.matchFrom || "any"}),
+      //required: !meta.canBeNull, removed	may be implemented in a later version
     };
+
+    //required not working yet because add hacked Input with required attribute
+    if(!meta.canBeNull){
+      const value = this.getValue();
+      if(Array.isArray(value) && value.length === 0 || ['', undefined].includes(value)){
+        selectAttr.components = {Input};
+      }
+    }
     return {meta, extraAttrsMap, selectAttr};
   }
 
