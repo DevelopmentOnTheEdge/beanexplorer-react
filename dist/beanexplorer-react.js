@@ -303,7 +303,6 @@
       locale: 'en',
       clearAllText: 'Clear all',
       clearValueText: 'Clear value',
-      showAllColumnsText: 'Show all columns',
       noResultsText: 'No results found',
       searchPromptText: 'Type to search',
       placeholder: 'Select ...',
@@ -441,8 +440,6 @@
 
   function _typeof$2(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof$2 = function _typeof(obj) { return typeof obj; }; } else { _typeof$2 = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof$2(obj); }
 
-  function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
   function _classCallCheck$2(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
   function _defineProperties$2(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -462,6 +459,14 @@
   function _isNativeReflectConstruct$2() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
   function _getPrototypeOf$2(o) { _getPrototypeOf$2 = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf$2(o); }
+
+  function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+  var Input = function Input(props) {
+    return /*#__PURE__*/React__default['default'].createElement(Select.components.Input, _extends({}, props, {
+      required: true
+    }));
+  };
 
   var SelectPropertyInput = /*#__PURE__*/function (_BasePropertyInput) {
     _inherits$2(SelectPropertyInput, _BasePropertyInput);
@@ -554,9 +559,20 @@
           isMulti: meta.multipleSelectionList,
           filterOption: Select.createFilter({
             matchFrom: extraAttrsMap.matchFrom || "any"
-          }) //required: !meta.canBeNull, removed	may be implemented in a later version todo
+          }) //required: !meta.canBeNull, removed	may be implemented in a later version
 
-        };
+        }; //required not working yet because add hacked Input with required attribute
+
+        if (!meta.canBeNull) {
+          var value = this.getValue();
+
+          if (Array.isArray(value) && value.length === 0 || ['', undefined].includes(value)) {
+            selectAttr.components = {
+              Input: Input
+            };
+          }
+        }
+
         return {
           meta: meta,
           extraAttrsMap: extraAttrsMap,
