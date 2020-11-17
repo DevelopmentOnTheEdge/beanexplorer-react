@@ -2588,9 +2588,60 @@ exports[`snapshot bean 1`] = `
                 className="css-1hwfws3"
               >
                 <div
-                  className="css-151xaom-placeholder"
+                  className="css-es53b3-multiValue"
                 >
-                  Select ...
+                  <div
+                    className="css-12jo7m5"
+                  >
+                    Chocolate
+                  </div>
+                  <div
+                    className="css-1alnv5e"
+                    onClick={[Function]}
+                    onMouseDown={[Function]}
+                    onTouchEnd={[Function]}
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="css-19bqh2r"
+                      focusable="false"
+                      height={14}
+                      viewBox="0 0 20 20"
+                      width={14}
+                    >
+                      <path
+                        d="M14.348 14.849c-0.469 0.469-1.229 0.469-1.697 0l-2.651-3.030-2.651 3.029c-0.469 0.469-1.229 0.469-1.697 0-0.469-0.469-0.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-0.469-0.469-0.469-1.228 0-1.697s1.228-0.469 1.697 0l2.652 3.031 2.651-3.031c0.469-0.469 1.228-0.469 1.697 0s0.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c0.469 0.469 0.469 1.229 0 1.698z"
+                      />
+                    </svg>
+                  </div>
+                </div>
+                <div
+                  className="css-es53b3-multiValue"
+                >
+                  <div
+                    className="css-12jo7m5"
+                  >
+                    Strawberry
+                  </div>
+                  <div
+                    className="css-1alnv5e"
+                    onClick={[Function]}
+                    onMouseDown={[Function]}
+                    onTouchEnd={[Function]}
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="css-19bqh2r"
+                      focusable="false"
+                      height={14}
+                      viewBox="0 0 20 20"
+                      width={14}
+                    >
+                      <path
+                        d="M14.348 14.849c-0.469 0.469-1.229 0.469-1.697 0l-2.651-3.030-2.651 3.029c-0.469 0.469-1.229 0.469-1.697 0-0.469-0.469-0.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-0.469-0.469-0.469-1.228 0-1.697s1.228-0.469 1.697 0l2.652 3.031 2.651-3.031c0.469-0.469 1.228-0.469 1.697 0s0.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c0.469 0.469 0.469 1.229 0 1.698z"
+                      />
+                    </svg>
+                  </div>
                 </div>
                 <div
                   className="css-1g6gooi"
@@ -2653,6 +2704,25 @@ exports[`snapshot bean 1`] = `
               <div
                 className="css-1wy0on6"
               >
+                <div
+                  aria-hidden="true"
+                  className="css-16pqwjk-indicatorContainer"
+                  onMouseDown={[Function]}
+                  onTouchEnd={[Function]}
+                >
+                  <svg
+                    aria-hidden="true"
+                    className="css-19bqh2r"
+                    focusable="false"
+                    height={20}
+                    viewBox="0 0 20 20"
+                    width={20}
+                  >
+                    <path
+                      d="M14.348 14.849c-0.469 0.469-1.229 0.469-1.697 0l-2.651-3.030-2.651 3.029c-0.469 0.469-1.229 0.469-1.697 0-0.469-0.469-0.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-0.469-0.469-0.469-1.228 0-1.697s1.228-0.469 1.697 0l2.652 3.031 2.651-3.031c0.469-0.469 1.228-0.469 1.697 0s0.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c0.469 0.469 0.469 1.229 0 1.698z"
+                    />
+                  </svg>
+                </div>
                 <span
                   className="css-bgvzuu-indicatorSeparator"
                 />
@@ -2681,6 +2751,12 @@ exports[`snapshot bean 1`] = `
               <input
                 name="multiSelectPropertyInput"
                 type="hidden"
+                value="chocolate"
+              />
+              <input
+                name="multiSelectPropertyInput"
+                type="hidden"
+                value="strawberry"
               />
             </div>
           </div>
@@ -5172,9 +5248,60 @@ exports[`snapshot bean horizontal 1`] = `
                 className="css-1hwfws3"
               >
                 <div
-                  className="css-151xaom-placeholder"
+                  className="css-es53b3-multiValue"
                 >
-                  Select ...
+                  <div
+                    className="css-12jo7m5"
+                  >
+                    Chocolate
+                  </div>
+                  <div
+                    className="css-1alnv5e"
+                    onClick={[Function]}
+                    onMouseDown={[Function]}
+                    onTouchEnd={[Function]}
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="css-19bqh2r"
+                      focusable="false"
+                      height={14}
+                      viewBox="0 0 20 20"
+                      width={14}
+                    >
+                      <path
+                        d="M14.348 14.849c-0.469 0.469-1.229 0.469-1.697 0l-2.651-3.030-2.651 3.029c-0.469 0.469-1.229 0.469-1.697 0-0.469-0.469-0.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-0.469-0.469-0.469-1.228 0-1.697s1.228-0.469 1.697 0l2.652 3.031 2.651-3.031c0.469-0.469 1.228-0.469 1.697 0s0.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c0.469 0.469 0.469 1.229 0 1.698z"
+                      />
+                    </svg>
+                  </div>
+                </div>
+                <div
+                  className="css-es53b3-multiValue"
+                >
+                  <div
+                    className="css-12jo7m5"
+                  >
+                    Strawberry
+                  </div>
+                  <div
+                    className="css-1alnv5e"
+                    onClick={[Function]}
+                    onMouseDown={[Function]}
+                    onTouchEnd={[Function]}
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="css-19bqh2r"
+                      focusable="false"
+                      height={14}
+                      viewBox="0 0 20 20"
+                      width={14}
+                    >
+                      <path
+                        d="M14.348 14.849c-0.469 0.469-1.229 0.469-1.697 0l-2.651-3.030-2.651 3.029c-0.469 0.469-1.229 0.469-1.697 0-0.469-0.469-0.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-0.469-0.469-0.469-1.228 0-1.697s1.228-0.469 1.697 0l2.652 3.031 2.651-3.031c0.469-0.469 1.228-0.469 1.697 0s0.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c0.469 0.469 0.469 1.229 0 1.698z"
+                      />
+                    </svg>
+                  </div>
                 </div>
                 <div
                   className="css-1g6gooi"
@@ -5237,6 +5364,25 @@ exports[`snapshot bean horizontal 1`] = `
               <div
                 className="css-1wy0on6"
               >
+                <div
+                  aria-hidden="true"
+                  className="css-16pqwjk-indicatorContainer"
+                  onMouseDown={[Function]}
+                  onTouchEnd={[Function]}
+                >
+                  <svg
+                    aria-hidden="true"
+                    className="css-19bqh2r"
+                    focusable="false"
+                    height={20}
+                    viewBox="0 0 20 20"
+                    width={20}
+                  >
+                    <path
+                      d="M14.348 14.849c-0.469 0.469-1.229 0.469-1.697 0l-2.651-3.030-2.651 3.029c-0.469 0.469-1.229 0.469-1.697 0-0.469-0.469-0.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-0.469-0.469-0.469-1.228 0-1.697s1.228-0.469 1.697 0l2.652 3.031 2.651-3.031c0.469-0.469 1.228-0.469 1.697 0s0.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c0.469 0.469 0.469 1.229 0 1.698z"
+                    />
+                  </svg>
+                </div>
                 <span
                   className="css-bgvzuu-indicatorSeparator"
                 />
@@ -5265,6 +5411,12 @@ exports[`snapshot bean horizontal 1`] = `
               <input
                 name="multiSelectPropertyInput"
                 type="hidden"
+                value="chocolate"
+              />
+              <input
+                name="multiSelectPropertyInput"
+                type="hidden"
+                value="strawberry"
               />
             </div>
           </div>
@@ -6275,9 +6427,60 @@ exports[`snapshot bean with readOnly 1`] = `
                 className="css-1hwfws3"
               >
                 <div
-                  className="css-151xaom-placeholder"
+                  className="css-es53b3-multiValue"
                 >
-                  Select ...
+                  <div
+                    className="css-12jo7m5"
+                  >
+                    Chocolate
+                  </div>
+                  <div
+                    className="css-1alnv5e"
+                    onClick={[Function]}
+                    onMouseDown={[Function]}
+                    onTouchEnd={[Function]}
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="css-19bqh2r"
+                      focusable="false"
+                      height={14}
+                      viewBox="0 0 20 20"
+                      width={14}
+                    >
+                      <path
+                        d="M14.348 14.849c-0.469 0.469-1.229 0.469-1.697 0l-2.651-3.030-2.651 3.029c-0.469 0.469-1.229 0.469-1.697 0-0.469-0.469-0.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-0.469-0.469-0.469-1.228 0-1.697s1.228-0.469 1.697 0l2.652 3.031 2.651-3.031c0.469-0.469 1.228-0.469 1.697 0s0.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c0.469 0.469 0.469 1.229 0 1.698z"
+                      />
+                    </svg>
+                  </div>
+                </div>
+                <div
+                  className="css-es53b3-multiValue"
+                >
+                  <div
+                    className="css-12jo7m5"
+                  >
+                    Strawberry
+                  </div>
+                  <div
+                    className="css-1alnv5e"
+                    onClick={[Function]}
+                    onMouseDown={[Function]}
+                    onTouchEnd={[Function]}
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="css-19bqh2r"
+                      focusable="false"
+                      height={14}
+                      viewBox="0 0 20 20"
+                      width={14}
+                    >
+                      <path
+                        d="M14.348 14.849c-0.469 0.469-1.229 0.469-1.697 0l-2.651-3.030-2.651 3.029c-0.469 0.469-1.229 0.469-1.697 0-0.469-0.469-0.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-0.469-0.469-0.469-1.228 0-1.697s1.228-0.469 1.697 0l2.652 3.031 2.651-3.031c0.469-0.469 1.228-0.469 1.697 0s0.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c0.469 0.469 0.469 1.229 0 1.698z"
+                      />
+                    </svg>
+                  </div>
                 </div>
                 <div
                   className="css-1g6gooi"
