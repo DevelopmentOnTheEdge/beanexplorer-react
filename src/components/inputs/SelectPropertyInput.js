@@ -18,9 +18,10 @@ export default class SelectPropertyInput extends BasePropertyInput {
 
   componentDidMount() {
     const value = this.getValue();
-    if (value !== "") {
+    if (Array.isArray(value) && value.length > 0)
+      this.setState({selectedOptions: this.getOptions().filter(option => value.includes(option.value))});
+    else if (value !== "")
       this.setState({selectedOptions: this.getOptions().filter(option => option.value === value)});
-    }
   }
 
   render() {
