@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import MaskedInput from 'react-maskedinput';
-import Select, { createFilter, components, Async } from 'react-select';
+import Select, { createFilter, components } from 'react-select';
 import Creatable from 'react-select/creatable';
 import VirtualizedSelect from 'react-virtualized-select';
 import bigInt from 'big-integer';
@@ -10,6 +10,7 @@ import bigRat from 'big-rational';
 import Datetime from 'react-datetime';
 import moment from 'moment';
 import CKEditor from 'ckeditor4-react';
+import Async from 'react-select/async';
 import JsonPointer from 'json-pointer';
 
 var inputLabelSizeClasses = function inputLabelSizeClasses(props) {

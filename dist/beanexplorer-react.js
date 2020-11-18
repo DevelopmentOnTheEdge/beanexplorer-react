@@ -1,8 +1,8 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('react'), require('prop-types'), require('classnames'), require('react-maskedinput'), require('react-select'), require('react-select/creatable'), require('react-virtualized-select'), require('big-integer'), require('big-rational'), require('react-datetime'), require('moment'), require('ckeditor4-react'), require('json-pointer')) :
-  typeof define === 'function' && define.amd ? define(['react', 'prop-types', 'classnames', 'react-maskedinput', 'react-select', 'react-select/creatable', 'react-virtualized-select', 'big-integer', 'big-rational', 'react-datetime', 'moment', 'ckeditor4-react', 'json-pointer'], factory) :
-  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.PropertySet = factory(global.React, global.PropTypes, global.classNames, global.MaskedInput, global.Select, global.Creatable, global.VirtualizedSelect, global.bigInt, global.bigRat, global.Datetime, global.moment, global.CKEditor, global.JsonPointer));
-}(this, (function (React, PropTypes, classNames, MaskedInput, Select, Creatable, VirtualizedSelect, bigInt, bigRat, Datetime, moment, CKEditor, JsonPointer) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('react'), require('prop-types'), require('classnames'), require('react-maskedinput'), require('react-select'), require('react-select/creatable'), require('react-virtualized-select'), require('big-integer'), require('big-rational'), require('react-datetime'), require('moment'), require('ckeditor4-react'), require('react-select/async'), require('json-pointer')) :
+  typeof define === 'function' && define.amd ? define(['react', 'prop-types', 'classnames', 'react-maskedinput', 'react-select', 'react-select/creatable', 'react-virtualized-select', 'big-integer', 'big-rational', 'react-datetime', 'moment', 'ckeditor4-react', 'react-select/async', 'json-pointer'], factory) :
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.PropertySet = factory(global.React, global.PropTypes, global.classNames, global.MaskedInput, global.Select, global.Creatable, global.VirtualizedSelect, global.bigInt, global.bigRat, global.Datetime, global.moment, global.CKEditor, global.Async, global.JsonPointer));
+}(this, (function (React, PropTypes, classNames, MaskedInput, Select, Creatable, VirtualizedSelect, bigInt, bigRat, Datetime, moment, CKEditor, Async, JsonPointer) { 'use strict';
 
   function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -18,6 +18,7 @@
   var Datetime__default = /*#__PURE__*/_interopDefaultLegacy(Datetime);
   var moment__default = /*#__PURE__*/_interopDefaultLegacy(moment);
   var CKEditor__default = /*#__PURE__*/_interopDefaultLegacy(CKEditor);
+  var Async__default = /*#__PURE__*/_interopDefaultLegacy(Async);
   var JsonPointer__default = /*#__PURE__*/_interopDefaultLegacy(JsonPointer);
 
   var inputLabelSizeClasses = function inputLabelSizeClasses(props) {
@@ -1574,7 +1575,7 @@
     }, {
       key: "getSelect",
       value: function getSelect(selectAttr, meta, extraAttrsMap) {
-        return /*#__PURE__*/React__default['default'].createElement(Select.Async, _extends$5({}, selectAttr, {
+        return /*#__PURE__*/React__default['default'].createElement(Async__default['default'], _extends$5({}, selectAttr, {
           value: this.state.selectedOptions,
           loadOptions: this.loadOptions,
           defaultOptions: this.getOptions(),

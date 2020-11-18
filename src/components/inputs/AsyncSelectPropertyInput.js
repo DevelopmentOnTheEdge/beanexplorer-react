@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Async} from 'react-select';
+import Async from 'react-select/async';
 import BasePropertyInput from "./BasePropertyInput";
 import {arraysEqual} from "../utils";
 import SelectPropertyInput from "./SelectPropertyInput";

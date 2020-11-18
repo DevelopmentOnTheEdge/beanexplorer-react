@@ -26,6 +26,7 @@ const globals = {
   'react-maskedinput': 'MaskedInput',
   'react-select': 'Select',
   'react-select/creatable': 'Creatable',
+  'react-select/async': 'Async',
   'react-virtualized-select': 'VirtualizedSelect',
   'big-integer': 'bigInt',
   'big-rational': 'bigRat',
