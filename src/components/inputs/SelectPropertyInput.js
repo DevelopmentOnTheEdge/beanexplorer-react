@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Select, {components, createFilter} from 'react-select';
 import Creatable from 'react-select/creatable';
-import VirtualizedSelect from 'react-virtualized-select'
+import VirtualizedSelect from 'react-select-virtualized'
 import BasePropertyInput from "./BasePropertyInput";
 
 const Input = props => {
