@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import MaskedInput from 'react-maskedinput';
-import Select, { Creatable, createFilter, components, Async } from 'react-select';
+import Select, { createFilter, components, Async } from 'react-select';
+import Creatable from 'react-select/creatable';
 import VirtualizedSelect from 'react-virtualized-select';
 import bigInt from 'big-integer';
 import bigRat from 'big-rational';
@@ -482,15 +483,24 @@ var SelectPropertyInput = /*#__PURE__*/function (_BasePropertyInput) {
     key: "componentDidMount",
     value: function componentDidMount() {
       var value = this.getValue();
-      if (Array.isArray(value) && value.length > 0) this.setState({
-        selectedOptions: this.getOptions().filter(function (option) {
-          return value.includes(option.value);
-        })
-      });else if (value !== "") this.setState({
-        selectedOptions: this.getOptions().filter(function (option) {
-          return option.value === value;
-        })
-      });
+
+      if (Array.isArray(value) && value.length > 0) {
+        //tags is array from strings
+        value = value.map(function (el) {
+          return el !== null && el !== undefined ? String(el) : null;
+        });
+        this.setState({
+          selectedOptions: this.getOptions().filter(function (option) {
+            return value.includes(option.value);
+          })
+        });
+      } else if (value !== "") {
+        this.setState({
+          selectedOptions: this.getOptions().filter(function (option) {
+            return option.value == value;
+          })
+        });
+      }
     }
   }, {
     key: "render",

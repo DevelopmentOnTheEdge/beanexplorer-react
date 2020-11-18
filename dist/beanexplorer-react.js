@@ -1,8 +1,8 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('react'), require('prop-types'), require('classnames'), require('react-maskedinput'), require('react-select'), require('react-virtualized-select'), require('big-integer'), require('big-rational'), require('react-datetime'), require('moment'), require('ckeditor4-react'), require('json-pointer')) :
-  typeof define === 'function' && define.amd ? define(['react', 'prop-types', 'classnames', 'react-maskedinput', 'react-select', 'react-virtualized-select', 'big-integer', 'big-rational', 'react-datetime', 'moment', 'ckeditor4-react', 'json-pointer'], factory) :
-  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.PropertySet = factory(global.React, global.PropTypes, global.classNames, global.MaskedInput, global.Select, global.VirtualizedSelect, global.bigInt, global.bigRat, global.Datetime, global.moment, global.CKEditor, global.JsonPointer));
-}(this, (function (React, PropTypes, classNames, MaskedInput, Select, VirtualizedSelect, bigInt, bigRat, Datetime, moment, CKEditor, JsonPointer) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('react'), require('prop-types'), require('classnames'), require('react-maskedinput'), require('react-select'), require('react-select/creatable'), require('react-virtualized-select'), require('big-integer'), require('big-rational'), require('react-datetime'), require('moment'), require('ckeditor4-react'), require('json-pointer')) :
+  typeof define === 'function' && define.amd ? define(['react', 'prop-types', 'classnames', 'react-maskedinput', 'react-select', 'react-select/creatable', 'react-virtualized-select', 'big-integer', 'big-rational', 'react-datetime', 'moment', 'ckeditor4-react', 'json-pointer'], factory) :
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.PropertySet = factory(global.React, global.PropTypes, global.classNames, global.MaskedInput, global.Select, global.Creatable, global.VirtualizedSelect, global.bigInt, global.bigRat, global.Datetime, global.moment, global.CKEditor, global.JsonPointer));
+}(this, (function (React, PropTypes, classNames, MaskedInput, Select, Creatable, VirtualizedSelect, bigInt, bigRat, Datetime, moment, CKEditor, JsonPointer) { 'use strict';
 
   function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -11,6 +11,7 @@
   var classNames__default = /*#__PURE__*/_interopDefaultLegacy(classNames);
   var MaskedInput__default = /*#__PURE__*/_interopDefaultLegacy(MaskedInput);
   var Select__default = /*#__PURE__*/_interopDefaultLegacy(Select);
+  var Creatable__default = /*#__PURE__*/_interopDefaultLegacy(Creatable);
   var VirtualizedSelect__default = /*#__PURE__*/_interopDefaultLegacy(VirtualizedSelect);
   var bigInt__default = /*#__PURE__*/_interopDefaultLegacy(bigInt);
   var bigRat__default = /*#__PURE__*/_interopDefaultLegacy(bigRat);
@@ -490,15 +491,24 @@
       key: "componentDidMount",
       value: function componentDidMount() {
         var value = this.getValue();
-        if (Array.isArray(value) && value.length > 0) this.setState({
-          selectedOptions: this.getOptions().filter(function (option) {
-            return value.includes(option.value);
-          })
-        });else if (value !== "") this.setState({
-          selectedOptions: this.getOptions().filter(function (option) {
-            return option.value === value;
-          })
-        });
+
+        if (Array.isArray(value) && value.length > 0) {
+          //tags is array from strings
+          value = value.map(function (el) {
+            return el !== null && el !== undefined ? String(el) : null;
+          });
+          this.setState({
+            selectedOptions: this.getOptions().filter(function (option) {
+              return value.includes(option.value);
+            })
+          });
+        } else if (value !== "") {
+          this.setState({
+            selectedOptions: this.getOptions().filter(function (option) {
+              return option.value == value;
+            })
+          });
+        }
       }
     }, {
       key: "render",
@@ -521,7 +531,7 @@
       key: "getSelect",
       value: function getSelect(selectAttr, meta, extraAttrsMap) {
         if (extraAttrsMap.inputType === "Creatable") {
-          return /*#__PURE__*/React__default['default'].createElement(Select.Creatable, selectAttr);
+          return /*#__PURE__*/React__default['default'].createElement(Creatable__default['default'], selectAttr);
         } else if (extraAttrsMap.inputType === "VirtualizedSelect" || extraAttrsMap.inputType === undefined && meta.tagList.length >= 100) {
           return /*#__PURE__*/React__default['default'].createElement(VirtualizedSelect__default['default'], _extends({
             clearable: true,
