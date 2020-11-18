@@ -21,7 +21,6 @@ import devJson from './devJson.json';
 
 import 'react-datetime/css/react-datetime.css';
 import 'react-virtualized/styles.css'
-import 'react-virtualized-select/styles.css'
 import "./app.css";
 import "./propertySet.css";
 
