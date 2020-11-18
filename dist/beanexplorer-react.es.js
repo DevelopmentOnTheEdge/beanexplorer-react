@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import MaskedInput from 'react-maskedinput';
 import Select, { createFilter, components } from 'react-select';
 import Creatable from 'react-select/creatable';
-import VirtualizedSelect from 'react-virtualized-select';
+import VirtualizedSelect from 'react-select-virtualized';
 import bigInt from 'big-integer';
 import bigRat from 'big-rational';
 import Datetime from 'react-datetime';
