@@ -25,9 +25,10 @@ const globals = {
   'ckeditor4-react': 'CKEditor',
   'react-maskedinput': 'MaskedInput',
   'react-select': 'Select',
+  'react-select/creatable': 'Creatable',
   'react-virtualized-select': 'VirtualizedSelect',
   'big-integer': 'bigInt',
-  'big-rational': 'bigRat'
+  'big-rational': 'bigRat',
 };
 const external = Object.keys(globals);
 

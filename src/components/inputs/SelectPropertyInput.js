@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Select, {components, Creatable, createFilter} from 'react-select';
+import Select, {components, createFilter} from 'react-select';
+import Creatable from 'react-select/creatable';
 import VirtualizedSelect from 'react-virtualized-select'
 import BasePropertyInput from "./BasePropertyInput";
 
@@ -17,11 +18,14 @@ export default class SelectPropertyInput extends BasePropertyInput {
   }
 
   componentDidMount() {
-    const value = this.getValue();
-    if (Array.isArray(value) && value.length > 0)
+    let value = this.getValue();
+    if (Array.isArray(value) && value.length > 0) {
+      //tags is array from strings
+      value = value.map(el => el !== null && el !== undefined ? String(el) : null);
       this.setState({selectedOptions: this.getOptions().filter(option => value.includes(option.value))});
-    else if (value !== "")
-      this.setState({selectedOptions: this.getOptions().filter(option => option.value === value)});
+    } else if (value !== "") {
+      this.setState({selectedOptions: this.getOptions().filter(option => option.value == value)});
+    }
   }
 
   render() {
