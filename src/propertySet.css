@@ -307,3 +307,88 @@ input:required, textarea:required {
 .Select--lg .Select--multi .Select-value {
   margin-top: 7px;
 }
+
+/*react-select v3 classNamePrefix=be5-select*/
+/****************************************************************************/
+.be5-select__indicator-separator{
+  display: none;
+}
+
+.Select-placeholder,
+.Select--single > .Select-control .Select-value,
+.Select-input > input{
+  line-height: 36px;
+}
+.Select-control,
+.Select-input{
+  height: 36px;
+  min-height: 36px;
+}
+.be5-select__input > input{
+  padding: 0;
+}
+
+.Select--sm .be5-select__placeholder,
+.Select--sm .be5-select__single > .be5-select__control .be5-select__value-container,
+.Select--sm .be5-select__single > .be5-select__control .be5-select__indicators,
+.Select--sm .be5-select__input > input{
+  line-height: 29px;
+}
+.Select--sm .be5-select__value-container,
+.Select--sm .be5-select__indicators,
+.Select--sm .be5-select__control,
+.Select--sm .be5-select__input{
+  border-radius: 0.2rem;
+  height: 29px;
+  min-height: 29px;
+}
+.Select--sm .be5-select__control,
+.Select--sm .be5-select__input,
+.Select--sm .be5-select__clear,
+.Select--sm .be5-select__option {
+  font-size: 0.875rem;
+}
+.Select--sm .be5-select__option {
+  padding: 4px 10px;
+}
+.Select--sm .Select--multi .be5-select__value-container {
+  margin-top: 3px;
+}
+.Select--sm .be5-select__single-value,
+.Select--sm .be5-select__placeholder
+{
+  top: 35%;
+}
+.Select--sm .be5-select__input{
+  position: absolute;
+  top: 0;
+}
+.Select--sm .be5-select__indicator{
+  margin-bottom: 10px;
+}
+
+.be5-select__clear-indicator {
+  padding-right: 0;
+  margin-right: -2px;
+}
+
+.Select--lg .be5-select__placeholder,
+.Select--lg .Select--single > .be5-select__control .be5-select__value-container,
+.Select--lg .be5-select__input > input{
+  line-height: 46px;
+}
+.Select--lg .be5-select__control,
+.Select--lg .be5-select__input{
+  border-radius: 0.3rem;
+  height: 46px;
+  min-height: 46px;
+}
+.Select--lg .be5-select__control,
+.Select--lg .be5-select__input,
+.Select--lg .be5-select__clear,
+.Select--lg .be5-select__option {
+  font-size: 1.25rem;
+}
+.Select--lg .Select--multi .be5-select__value {
+  margin-top: 7px;
+}
