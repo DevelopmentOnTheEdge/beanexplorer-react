@@ -77,15 +77,15 @@ exports[`inline layout1 1`] = `
         onKeyDown={[Function]}
       >
         <div
-          className=" css-yk16xz-control"
+          className="be5-select__control css-yk16xz-control"
           onMouseDown={[Function]}
           onTouchEnd={[Function]}
         >
           <div
-            className=" css-g1d714-ValueContainer"
+            className="be5-select__value-container css-g1d714-ValueContainer"
           >
             <div
-              className=" css-1wa3eu0-placeholder"
+              className="be5-select__placeholder css-1wa3eu0-placeholder"
             >
               Subject
             </div>
@@ -93,7 +93,7 @@ exports[`inline layout1 1`] = `
               className="css-b8ldur-Input"
             >
               <div
-                className=""
+                className="be5-select__input"
                 style={
                   Object {
                     "display": "inline-block",
@@ -149,14 +149,14 @@ exports[`inline layout1 1`] = `
             </div>
           </div>
           <div
-            className=" css-1hb7zxy-IndicatorsContainer"
+            className="be5-select__indicators css-1hb7zxy-IndicatorsContainer"
           >
             <span
-              className=" css-1okebmr-indicatorSeparator"
+              className="be5-select__indicator-separator css-1okebmr-indicatorSeparator"
             />
             <div
               aria-hidden="true"
-              className=" css-tlfecz-indicatorContainer"
+              className="be5-select__indicator be5-select__dropdown-indicator css-tlfecz-indicatorContainer"
               onMouseDown={[Function]}
               onTouchEnd={[Function]}
             >
@@ -297,15 +297,15 @@ exports[`inline layout3 canBeNull select 1`] = `
         onKeyDown={[Function]}
       >
         <div
-          className=" css-yk16xz-control"
+          className="be5-select__control css-yk16xz-control"
           onMouseDown={[Function]}
           onTouchEnd={[Function]}
         >
           <div
-            className=" css-g1d714-ValueContainer"
+            className="be5-select__value-container css-g1d714-ValueContainer"
           >
             <div
-              className=" css-1wa3eu0-placeholder"
+              className="be5-select__placeholder css-1wa3eu0-placeholder"
             >
               Subject
             </div>
@@ -313,7 +313,7 @@ exports[`inline layout3 canBeNull select 1`] = `
               className="css-b8ldur-Input"
             >
               <div
-                className=""
+                className="be5-select__input"
                 style={
                   Object {
                     "display": "inline-block",
@@ -368,14 +368,14 @@ exports[`inline layout3 canBeNull select 1`] = `
             </div>
           </div>
           <div
-            className=" css-1hb7zxy-IndicatorsContainer"
+            className="be5-select__indicators css-1hb7zxy-IndicatorsContainer"
           >
             <span
-              className=" css-1okebmr-indicatorSeparator"
+              className="be5-select__indicator-separator css-1okebmr-indicatorSeparator"
             />
             <div
               aria-hidden="true"
-              className=" css-tlfecz-indicatorContainer"
+              className="be5-select__indicator be5-select__dropdown-indicator css-tlfecz-indicatorContainer"
               onMouseDown={[Function]}
               onTouchEnd={[Function]}
             >
@@ -2192,15 +2192,15 @@ exports[`snapshot bean 1`] = `
             onKeyDown={[Function]}
           >
             <div
-              className=" css-yk16xz-control"
+              className="be5-select__control css-yk16xz-control"
               onMouseDown={[Function]}
               onTouchEnd={[Function]}
             >
               <div
-                className=" css-g1d714-ValueContainer"
+                className="be5-select__value-container be5-select__value-container--has-value css-g1d714-ValueContainer"
               >
                 <div
-                  className=" css-1uccc91-singleValue"
+                  className="be5-select__single-value css-1uccc91-singleValue"
                 >
                   Vanilla
                 </div>
@@ -2208,7 +2208,7 @@ exports[`snapshot bean 1`] = `
                   className="css-b8ldur-Input"
                 >
                   <div
-                    className=""
+                    className="be5-select__input"
                     style={
                       Object {
                         "display": "inline-block",
@@ -2263,14 +2263,33 @@ exports[`snapshot bean 1`] = `
                 </div>
               </div>
               <div
-                className=" css-1hb7zxy-IndicatorsContainer"
+                className="be5-select__indicators css-1hb7zxy-IndicatorsContainer"
               >
+                <div
+                  aria-hidden="true"
+                  className="be5-select__indicator be5-select__clear-indicator css-tlfecz-indicatorContainer"
+                  onMouseDown={[Function]}
+                  onTouchEnd={[Function]}
+                >
+                  <svg
+                    aria-hidden="true"
+                    className="css-6q0nyr-Svg"
+                    focusable="false"
+                    height={20}
+                    viewBox="0 0 20 20"
+                    width={20}
+                  >
+                    <path
+                      d="M14.348 14.849c-0.469 0.469-1.229 0.469-1.697 0l-2.651-3.030-2.651 3.029c-0.469 0.469-1.229 0.469-1.697 0-0.469-0.469-0.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-0.469-0.469-0.469-1.228 0-1.697s1.228-0.469 1.697 0l2.652 3.031 2.651-3.031c0.469-0.469 1.228-0.469 1.697 0s0.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c0.469 0.469 0.469 1.229 0 1.698z"
+                    />
+                  </svg>
+                </div>
                 <span
-                  className=" css-1okebmr-indicatorSeparator"
+                  className="be5-select__indicator-separator css-1okebmr-indicatorSeparator"
                 />
                 <div
                   aria-hidden="true"
-                  className=" css-tlfecz-indicatorContainer"
+                  className="be5-select__indicator be5-select__dropdown-indicator css-tlfecz-indicatorContainer"
                   onMouseDown={[Function]}
                   onTouchEnd={[Function]}
                 >
@@ -2323,15 +2342,15 @@ exports[`snapshot bean 1`] = `
             onKeyDown={[Function]}
           >
             <div
-              className=" css-yk16xz-control"
+              className="be5-select__control css-yk16xz-control"
               onMouseDown={[Function]}
               onTouchEnd={[Function]}
             >
               <div
-                className=" css-g1d714-ValueContainer"
+                className="be5-select__value-container be5-select__value-container--has-value css-g1d714-ValueContainer"
               >
                 <div
-                  className=" css-1uccc91-singleValue"
+                  className="be5-select__single-value css-1uccc91-singleValue"
                 >
                   b
                 </div>
@@ -2339,7 +2358,7 @@ exports[`snapshot bean 1`] = `
                   className="css-b8ldur-Input"
                 >
                   <div
-                    className=""
+                    className="be5-select__input"
                     style={
                       Object {
                         "display": "inline-block",
@@ -2394,14 +2413,33 @@ exports[`snapshot bean 1`] = `
                 </div>
               </div>
               <div
-                className=" css-1hb7zxy-IndicatorsContainer"
+                className="be5-select__indicators css-1hb7zxy-IndicatorsContainer"
               >
+                <div
+                  aria-hidden="true"
+                  className="be5-select__indicator be5-select__clear-indicator css-tlfecz-indicatorContainer"
+                  onMouseDown={[Function]}
+                  onTouchEnd={[Function]}
+                >
+                  <svg
+                    aria-hidden="true"
+                    className="css-6q0nyr-Svg"
+                    focusable="false"
+                    height={20}
+                    viewBox="0 0 20 20"
+                    width={20}
+                  >
+                    <path
+                      d="M14.348 14.849c-0.469 0.469-1.229 0.469-1.697 0l-2.651-3.030-2.651 3.029c-0.469 0.469-1.229 0.469-1.697 0-0.469-0.469-0.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-0.469-0.469-0.469-1.228 0-1.697s1.228-0.469 1.697 0l2.652 3.031 2.651-3.031c0.469-0.469 1.228-0.469 1.697 0s0.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c0.469 0.469 0.469 1.229 0 1.698z"
+                    />
+                  </svg>
+                </div>
                 <span
-                  className=" css-1okebmr-indicatorSeparator"
+                  className="be5-select__indicator-separator css-1okebmr-indicatorSeparator"
                 />
                 <div
                   aria-hidden="true"
-                  className=" css-tlfecz-indicatorContainer"
+                  className="be5-select__indicator be5-select__dropdown-indicator css-tlfecz-indicatorContainer"
                   onMouseDown={[Function]}
                   onTouchEnd={[Function]}
                 >
@@ -2454,15 +2492,15 @@ exports[`snapshot bean 1`] = `
             onKeyDown={[Function]}
           >
             <div
-              className=" css-yk16xz-control"
+              className="be5-select__control css-yk16xz-control"
               onMouseDown={[Function]}
               onTouchEnd={[Function]}
             >
               <div
-                className=" css-g1d714-ValueContainer"
+                className="be5-select__value-container be5-select__value-container--has-value css-g1d714-ValueContainer"
               >
                 <div
-                  className=" css-1uccc91-singleValue"
+                  className="be5-select__single-value css-1uccc91-singleValue"
                 >
                   Vanilla
                 </div>
@@ -2470,7 +2508,7 @@ exports[`snapshot bean 1`] = `
                   className="css-b8ldur-Input"
                 >
                   <div
-                    className=""
+                    className="be5-select__input"
                     style={
                       Object {
                         "display": "inline-block",
@@ -2525,11 +2563,11 @@ exports[`snapshot bean 1`] = `
                 </div>
               </div>
               <div
-                className=" css-1hb7zxy-IndicatorsContainer"
+                className="be5-select__indicators css-1hb7zxy-IndicatorsContainer"
               >
                 <div
                   aria-hidden="true"
-                  className=" css-qnsmx9-indicatorContainer"
+                  className="be5-select__indicator be5-select__clear-indicator css-qnsmx9-indicatorContainer"
                   onMouseDown={[Function]}
                   onTouchEnd={[Function]}
                 >
@@ -2547,11 +2585,11 @@ exports[`snapshot bean 1`] = `
                   </svg>
                 </div>
                 <span
-                  className=" css-1okebmr-indicatorSeparator"
+                  className="be5-select__indicator-separator css-1okebmr-indicatorSeparator"
                 />
                 <div
                   aria-hidden="true"
-                  className=" css-tlfecz-indicatorContainer"
+                  className="be5-select__indicator be5-select__dropdown-indicator css-tlfecz-indicatorContainer"
                   onMouseDown={[Function]}
                   onTouchEnd={[Function]}
                 >
@@ -2604,23 +2642,23 @@ exports[`snapshot bean 1`] = `
             onKeyDown={[Function]}
           >
             <div
-              className=" css-yk16xz-control"
+              className="be5-select__control css-yk16xz-control"
               onMouseDown={[Function]}
               onTouchEnd={[Function]}
             >
               <div
-                className=" css-g1d714-ValueContainer"
+                className="be5-select__value-container be5-select__value-container--is-multi be5-select__value-container--has-value css-g1d714-ValueContainer"
               >
                 <div
-                  className="css-1rhbuit-multiValue"
+                  className="css-1rhbuit-multiValue be5-select__multi-value"
                 >
                   <div
-                    className="css-12jo7m5"
+                    className="css-12jo7m5 be5-select__multi-value__label"
                   >
                     Chocolate
                   </div>
                   <div
-                    className="css-xb97g8"
+                    className="css-xb97g8 be5-select__multi-value__remove"
                     onClick={[Function]}
                     onMouseDown={[Function]}
                     onTouchEnd={[Function]}
@@ -2640,15 +2678,15 @@ exports[`snapshot bean 1`] = `
                   </div>
                 </div>
                 <div
-                  className="css-1rhbuit-multiValue"
+                  className="css-1rhbuit-multiValue be5-select__multi-value"
                 >
                   <div
-                    className="css-12jo7m5"
+                    className="css-12jo7m5 be5-select__multi-value__label"
                   >
                     Strawberry
                   </div>
                   <div
-                    className="css-xb97g8"
+                    className="css-xb97g8 be5-select__multi-value__remove"
                     onClick={[Function]}
                     onMouseDown={[Function]}
                     onTouchEnd={[Function]}
@@ -2671,7 +2709,7 @@ exports[`snapshot bean 1`] = `
                   className="css-b8ldur-Input"
                 >
                   <div
-                    className=""
+                    className="be5-select__input"
                     style={
                       Object {
                         "display": "inline-block",
@@ -2726,11 +2764,11 @@ exports[`snapshot bean 1`] = `
                 </div>
               </div>
               <div
-                className=" css-1hb7zxy-IndicatorsContainer"
+                className="be5-select__indicators css-1hb7zxy-IndicatorsContainer"
               >
                 <div
                   aria-hidden="true"
-                  className=" css-tlfecz-indicatorContainer"
+                  className="be5-select__indicator be5-select__clear-indicator css-tlfecz-indicatorContainer"
                   onMouseDown={[Function]}
                   onTouchEnd={[Function]}
                 >
@@ -2748,11 +2786,11 @@ exports[`snapshot bean 1`] = `
                   </svg>
                 </div>
                 <span
-                  className=" css-1okebmr-indicatorSeparator"
+                  className="be5-select__indicator-separator css-1okebmr-indicatorSeparator"
                 />
                 <div
                   aria-hidden="true"
-                  className=" css-tlfecz-indicatorContainer"
+                  className="be5-select__indicator be5-select__dropdown-indicator css-tlfecz-indicatorContainer"
                   onMouseDown={[Function]}
                   onTouchEnd={[Function]}
                 >
@@ -4864,15 +4902,15 @@ exports[`snapshot bean horizontal 1`] = `
             onKeyDown={[Function]}
           >
             <div
-              className=" css-yk16xz-control"
+              className="be5-select__control css-yk16xz-control"
               onMouseDown={[Function]}
               onTouchEnd={[Function]}
             >
               <div
-                className=" css-g1d714-ValueContainer"
+                className="be5-select__value-container be5-select__value-container--has-value css-g1d714-ValueContainer"
               >
                 <div
-                  className=" css-1uccc91-singleValue"
+                  className="be5-select__single-value css-1uccc91-singleValue"
                 >
                   Vanilla
                 </div>
@@ -4880,7 +4918,7 @@ exports[`snapshot bean horizontal 1`] = `
                   className="css-b8ldur-Input"
                 >
                   <div
-                    className=""
+                    className="be5-select__input"
                     style={
                       Object {
                         "display": "inline-block",
@@ -4935,14 +4973,33 @@ exports[`snapshot bean horizontal 1`] = `
                 </div>
               </div>
               <div
-                className=" css-1hb7zxy-IndicatorsContainer"
+                className="be5-select__indicators css-1hb7zxy-IndicatorsContainer"
               >
+                <div
+                  aria-hidden="true"
+                  className="be5-select__indicator be5-select__clear-indicator css-tlfecz-indicatorContainer"
+                  onMouseDown={[Function]}
+                  onTouchEnd={[Function]}
+                >
+                  <svg
+                    aria-hidden="true"
+                    className="css-6q0nyr-Svg"
+                    focusable="false"
+                    height={20}
+                    viewBox="0 0 20 20"
+                    width={20}
+                  >
+                    <path
+                      d="M14.348 14.849c-0.469 0.469-1.229 0.469-1.697 0l-2.651-3.030-2.651 3.029c-0.469 0.469-1.229 0.469-1.697 0-0.469-0.469-0.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-0.469-0.469-0.469-1.228 0-1.697s1.228-0.469 1.697 0l2.652 3.031 2.651-3.031c0.469-0.469 1.228-0.469 1.697 0s0.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c0.469 0.469 0.469 1.229 0 1.698z"
+                    />
+                  </svg>
+                </div>
                 <span
-                  className=" css-1okebmr-indicatorSeparator"
+                  className="be5-select__indicator-separator css-1okebmr-indicatorSeparator"
                 />
                 <div
                   aria-hidden="true"
-                  className=" css-tlfecz-indicatorContainer"
+                  className="be5-select__indicator be5-select__dropdown-indicator css-tlfecz-indicatorContainer"
                   onMouseDown={[Function]}
                   onTouchEnd={[Function]}
                 >
@@ -4999,15 +5056,15 @@ exports[`snapshot bean horizontal 1`] = `
             onKeyDown={[Function]}
           >
             <div
-              className=" css-yk16xz-control"
+              className="be5-select__control css-yk16xz-control"
               onMouseDown={[Function]}
               onTouchEnd={[Function]}
             >
               <div
-                className=" css-g1d714-ValueContainer"
+                className="be5-select__value-container be5-select__value-container--has-value css-g1d714-ValueContainer"
               >
                 <div
-                  className=" css-1uccc91-singleValue"
+                  className="be5-select__single-value css-1uccc91-singleValue"
                 >
                   b
                 </div>
@@ -5015,7 +5072,7 @@ exports[`snapshot bean horizontal 1`] = `
                   className="css-b8ldur-Input"
                 >
                   <div
-                    className=""
+                    className="be5-select__input"
                     style={
                       Object {
                         "display": "inline-block",
@@ -5070,14 +5127,33 @@ exports[`snapshot bean horizontal 1`] = `
                 </div>
               </div>
               <div
-                className=" css-1hb7zxy-IndicatorsContainer"
+                className="be5-select__indicators css-1hb7zxy-IndicatorsContainer"
               >
+                <div
+                  aria-hidden="true"
+                  className="be5-select__indicator be5-select__clear-indicator css-tlfecz-indicatorContainer"
+                  onMouseDown={[Function]}
+                  onTouchEnd={[Function]}
+                >
+                  <svg
+                    aria-hidden="true"
+                    className="css-6q0nyr-Svg"
+                    focusable="false"
+                    height={20}
+                    viewBox="0 0 20 20"
+                    width={20}
+                  >
+                    <path
+                      d="M14.348 14.849c-0.469 0.469-1.229 0.469-1.697 0l-2.651-3.030-2.651 3.029c-0.469 0.469-1.229 0.469-1.697 0-0.469-0.469-0.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-0.469-0.469-0.469-1.228 0-1.697s1.228-0.469 1.697 0l2.652 3.031 2.651-3.031c0.469-0.469 1.228-0.469 1.697 0s0.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c0.469 0.469 0.469 1.229 0 1.698z"
+                    />
+                  </svg>
+                </div>
                 <span
-                  className=" css-1okebmr-indicatorSeparator"
+                  className="be5-select__indicator-separator css-1okebmr-indicatorSeparator"
                 />
                 <div
                   aria-hidden="true"
-                  className=" css-tlfecz-indicatorContainer"
+                  className="be5-select__indicator be5-select__dropdown-indicator css-tlfecz-indicatorContainer"
                   onMouseDown={[Function]}
                   onTouchEnd={[Function]}
                 >
@@ -5134,15 +5210,15 @@ exports[`snapshot bean horizontal 1`] = `
             onKeyDown={[Function]}
           >
             <div
-              className=" css-yk16xz-control"
+              className="be5-select__control css-yk16xz-control"
               onMouseDown={[Function]}
               onTouchEnd={[Function]}
             >
               <div
-                className=" css-g1d714-ValueContainer"
+                className="be5-select__value-container be5-select__value-container--has-value css-g1d714-ValueContainer"
               >
                 <div
-                  className=" css-1uccc91-singleValue"
+                  className="be5-select__single-value css-1uccc91-singleValue"
                 >
                   Vanilla
                 </div>
@@ -5150,7 +5226,7 @@ exports[`snapshot bean horizontal 1`] = `
                   className="css-b8ldur-Input"
                 >
                   <div
-                    className=""
+                    className="be5-select__input"
                     style={
                       Object {
                         "display": "inline-block",
@@ -5205,11 +5281,11 @@ exports[`snapshot bean horizontal 1`] = `
                 </div>
               </div>
               <div
-                className=" css-1hb7zxy-IndicatorsContainer"
+                className="be5-select__indicators css-1hb7zxy-IndicatorsContainer"
               >
                 <div
                   aria-hidden="true"
-                  className=" css-qnsmx9-indicatorContainer"
+                  className="be5-select__indicator be5-select__clear-indicator css-qnsmx9-indicatorContainer"
                   onMouseDown={[Function]}
                   onTouchEnd={[Function]}
                 >
@@ -5227,11 +5303,11 @@ exports[`snapshot bean horizontal 1`] = `
                   </svg>
                 </div>
                 <span
-                  className=" css-1okebmr-indicatorSeparator"
+                  className="be5-select__indicator-separator css-1okebmr-indicatorSeparator"
                 />
                 <div
                   aria-hidden="true"
-                  className=" css-tlfecz-indicatorContainer"
+                  className="be5-select__indicator be5-select__dropdown-indicator css-tlfecz-indicatorContainer"
                   onMouseDown={[Function]}
                   onTouchEnd={[Function]}
                 >
@@ -5288,23 +5364,23 @@ exports[`snapshot bean horizontal 1`] = `
             onKeyDown={[Function]}
           >
             <div
-              className=" css-yk16xz-control"
+              className="be5-select__control css-yk16xz-control"
               onMouseDown={[Function]}
               onTouchEnd={[Function]}
             >
               <div
-                className=" css-g1d714-ValueContainer"
+                className="be5-select__value-container be5-select__value-container--is-multi be5-select__value-container--has-value css-g1d714-ValueContainer"
               >
                 <div
-                  className="css-1rhbuit-multiValue"
+                  className="css-1rhbuit-multiValue be5-select__multi-value"
                 >
                   <div
-                    className="css-12jo7m5"
+                    className="css-12jo7m5 be5-select__multi-value__label"
                   >
                     Chocolate
                   </div>
                   <div
-                    className="css-xb97g8"
+                    className="css-xb97g8 be5-select__multi-value__remove"
                     onClick={[Function]}
                     onMouseDown={[Function]}
                     onTouchEnd={[Function]}
@@ -5324,15 +5400,15 @@ exports[`snapshot bean horizontal 1`] = `
                   </div>
                 </div>
                 <div
-                  className="css-1rhbuit-multiValue"
+                  className="css-1rhbuit-multiValue be5-select__multi-value"
                 >
                   <div
-                    className="css-12jo7m5"
+                    className="css-12jo7m5 be5-select__multi-value__label"
                   >
                     Strawberry
                   </div>
                   <div
-                    className="css-xb97g8"
+                    className="css-xb97g8 be5-select__multi-value__remove"
                     onClick={[Function]}
                     onMouseDown={[Function]}
                     onTouchEnd={[Function]}
@@ -5355,7 +5431,7 @@ exports[`snapshot bean horizontal 1`] = `
                   className="css-b8ldur-Input"
                 >
                   <div
-                    className=""
+                    className="be5-select__input"
                     style={
                       Object {
                         "display": "inline-block",
@@ -5410,11 +5486,11 @@ exports[`snapshot bean horizontal 1`] = `
                 </div>
               </div>
               <div
-                className=" css-1hb7zxy-IndicatorsContainer"
+                className="be5-select__indicators css-1hb7zxy-IndicatorsContainer"
               >
                 <div
                   aria-hidden="true"
-                  className=" css-tlfecz-indicatorContainer"
+                  className="be5-select__indicator be5-select__clear-indicator css-tlfecz-indicatorContainer"
                   onMouseDown={[Function]}
                   onTouchEnd={[Function]}
                 >
@@ -5432,11 +5508,11 @@ exports[`snapshot bean horizontal 1`] = `
                   </svg>
                 </div>
                 <span
-                  className=" css-1okebmr-indicatorSeparator"
+                  className="be5-select__indicator-separator css-1okebmr-indicatorSeparator"
                 />
                 <div
                   aria-hidden="true"
-                  className=" css-tlfecz-indicatorContainer"
+                  className="be5-select__indicator be5-select__dropdown-indicator css-tlfecz-indicatorContainer"
                   onMouseDown={[Function]}
                   onTouchEnd={[Function]}
                 >
@@ -6084,20 +6160,20 @@ exports[`snapshot bean with readOnly 1`] = `
           className="Select-outer property-input"
         >
           <div
-            className=" css-14jk2my-container"
+            className="be5-select--is-disabled css-14jk2my-container"
             id="selectPropertyInput"
             onKeyDown={[Function]}
           >
             <div
-              className=" css-1fhf3k1-control"
+              className="be5-select__control be5-select__control--is-disabled css-1fhf3k1-control"
               onMouseDown={[Function]}
               onTouchEnd={[Function]}
             >
               <div
-                className=" css-g1d714-ValueContainer"
+                className="be5-select__value-container be5-select__value-container--has-value css-g1d714-ValueContainer"
               >
                 <div
-                  className=" css-107lb6w-singleValue"
+                  className="be5-select__single-value be5-select__single-value--is-disabled css-107lb6w-singleValue"
                 >
                   Vanilla
                 </div>
@@ -6105,7 +6181,7 @@ exports[`snapshot bean with readOnly 1`] = `
                   className="css-b8ldur-Input"
                 >
                   <div
-                    className=""
+                    className="be5-select__input"
                     style={
                       Object {
                         "display": "inline-block",
@@ -6160,14 +6236,14 @@ exports[`snapshot bean with readOnly 1`] = `
                 </div>
               </div>
               <div
-                className=" css-1hb7zxy-IndicatorsContainer"
+                className="be5-select__indicators css-1hb7zxy-IndicatorsContainer"
               >
                 <span
-                  className=" css-109onse-indicatorSeparator"
+                  className="be5-select__indicator-separator css-109onse-indicatorSeparator"
                 />
                 <div
                   aria-hidden="true"
-                  className=" css-tlfecz-indicatorContainer"
+                  className="be5-select__indicator be5-select__dropdown-indicator css-tlfecz-indicatorContainer"
                   onMouseDown={[Function]}
                   onTouchEnd={[Function]}
                 >
@@ -6210,20 +6286,20 @@ exports[`snapshot bean with readOnly 1`] = `
           className="Select-outer property-input"
         >
           <div
-            className=" css-14jk2my-container"
+            className="be5-select--is-disabled css-14jk2my-container"
             id="asyncSelectPropertyInput"
             onKeyDown={[Function]}
           >
             <div
-              className=" css-1fhf3k1-control"
+              className="be5-select__control be5-select__control--is-disabled css-1fhf3k1-control"
               onMouseDown={[Function]}
               onTouchEnd={[Function]}
             >
               <div
-                className=" css-g1d714-ValueContainer"
+                className="be5-select__value-container be5-select__value-container--has-value css-g1d714-ValueContainer"
               >
                 <div
-                  className=" css-107lb6w-singleValue"
+                  className="be5-select__single-value be5-select__single-value--is-disabled css-107lb6w-singleValue"
                 >
                   b
                 </div>
@@ -6231,7 +6307,7 @@ exports[`snapshot bean with readOnly 1`] = `
                   className="css-b8ldur-Input"
                 >
                   <div
-                    className=""
+                    className="be5-select__input"
                     style={
                       Object {
                         "display": "inline-block",
@@ -6286,14 +6362,14 @@ exports[`snapshot bean with readOnly 1`] = `
                 </div>
               </div>
               <div
-                className=" css-1hb7zxy-IndicatorsContainer"
+                className="be5-select__indicators css-1hb7zxy-IndicatorsContainer"
               >
                 <span
-                  className=" css-109onse-indicatorSeparator"
+                  className="be5-select__indicator-separator css-109onse-indicatorSeparator"
                 />
                 <div
                   aria-hidden="true"
-                  className=" css-tlfecz-indicatorContainer"
+                  className="be5-select__indicator be5-select__dropdown-indicator css-tlfecz-indicatorContainer"
                   onMouseDown={[Function]}
                   onTouchEnd={[Function]}
                 >
@@ -6336,20 +6412,20 @@ exports[`snapshot bean with readOnly 1`] = `
           className="Select-outer property-input"
         >
           <div
-            className="react-select-virtualized css-14jk2my-container"
+            className="react-select-virtualized be5-select--is-disabled css-14jk2my-container"
             id="virtualizedSelectPropertyInput"
             onKeyDown={[Function]}
           >
             <div
-              className=" css-1fhf3k1-control"
+              className="be5-select__control be5-select__control--is-disabled css-1fhf3k1-control"
               onMouseDown={[Function]}
               onTouchEnd={[Function]}
             >
               <div
-                className=" css-g1d714-ValueContainer"
+                className="be5-select__value-container be5-select__value-container--has-value css-g1d714-ValueContainer"
               >
                 <div
-                  className=" css-107lb6w-singleValue"
+                  className="be5-select__single-value be5-select__single-value--is-disabled css-107lb6w-singleValue"
                 >
                   Vanilla
                 </div>
@@ -6357,7 +6433,7 @@ exports[`snapshot bean with readOnly 1`] = `
                   className="css-b8ldur-Input"
                 >
                   <div
-                    className=""
+                    className="be5-select__input"
                     style={
                       Object {
                         "display": "inline-block",
@@ -6412,14 +6488,14 @@ exports[`snapshot bean with readOnly 1`] = `
                 </div>
               </div>
               <div
-                className=" css-1hb7zxy-IndicatorsContainer"
+                className="be5-select__indicators css-1hb7zxy-IndicatorsContainer"
               >
                 <span
-                  className=" css-109onse-indicatorSeparator"
+                  className="be5-select__indicator-separator css-109onse-indicatorSeparator"
                 />
                 <div
                   aria-hidden="true"
-                  className=" css-tlfecz-indicatorContainer"
+                  className="be5-select__indicator be5-select__dropdown-indicator css-tlfecz-indicatorContainer"
                   onMouseDown={[Function]}
                   onTouchEnd={[Function]}
                 >
@@ -6462,28 +6538,28 @@ exports[`snapshot bean with readOnly 1`] = `
           className="Select-outer property-input"
         >
           <div
-            className=" css-14jk2my-container"
+            className="be5-select--is-disabled css-14jk2my-container"
             id="multiSelectPropertyInput"
             onKeyDown={[Function]}
           >
             <div
-              className=" css-1fhf3k1-control"
+              className="be5-select__control be5-select__control--is-disabled css-1fhf3k1-control"
               onMouseDown={[Function]}
               onTouchEnd={[Function]}
             >
               <div
-                className=" css-g1d714-ValueContainer"
+                className="be5-select__value-container be5-select__value-container--is-multi be5-select__value-container--has-value css-g1d714-ValueContainer"
               >
                 <div
-                  className="css-1rhbuit-multiValue"
+                  className="css-1rhbuit-multiValue be5-select__multi-value be5-select__multi-value--is-disabled"
                 >
                   <div
-                    className="css-12jo7m5"
+                    className="css-12jo7m5 be5-select__multi-value__label"
                   >
                     Chocolate
                   </div>
                   <div
-                    className="css-xb97g8"
+                    className="css-xb97g8 be5-select__multi-value__remove"
                     onClick={[Function]}
                     onMouseDown={[Function]}
                     onTouchEnd={[Function]}
@@ -6503,15 +6579,15 @@ exports[`snapshot bean with readOnly 1`] = `
                   </div>
                 </div>
                 <div
-                  className="css-1rhbuit-multiValue"
+                  className="css-1rhbuit-multiValue be5-select__multi-value be5-select__multi-value--is-disabled"
                 >
                   <div
-                    className="css-12jo7m5"
+                    className="css-12jo7m5 be5-select__multi-value__label"
                   >
                     Strawberry
                   </div>
                   <div
-                    className="css-xb97g8"
+                    className="css-xb97g8 be5-select__multi-value__remove"
                     onClick={[Function]}
                     onMouseDown={[Function]}
                     onTouchEnd={[Function]}
@@ -6534,7 +6610,7 @@ exports[`snapshot bean with readOnly 1`] = `
                   className="css-b8ldur-Input"
                 >
                   <div
-                    className=""
+                    className="be5-select__input"
                     style={
                       Object {
                         "display": "inline-block",
@@ -6589,14 +6665,14 @@ exports[`snapshot bean with readOnly 1`] = `
                 </div>
               </div>
               <div
-                className=" css-1hb7zxy-IndicatorsContainer"
+                className="be5-select__indicators css-1hb7zxy-IndicatorsContainer"
               >
                 <span
-                  className=" css-109onse-indicatorSeparator"
+                  className="be5-select__indicator-separator css-109onse-indicatorSeparator"
                 />
                 <div
                   aria-hidden="true"
-                  className=" css-tlfecz-indicatorContainer"
+                  className="be5-select__indicator be5-select__dropdown-indicator css-tlfecz-indicatorContainer"
                   onMouseDown={[Function]}
                   onTouchEnd={[Function]}
                 >
@@ -7140,15 +7216,15 @@ exports[`test outer 1`] = `
                   onKeyDown={[Function]}
                 >
                   <div
-                    className=" css-yk16xz-control"
+                    className="be5-select__control css-yk16xz-control"
                     onMouseDown={[Function]}
                     onTouchEnd={[Function]}
                   >
                     <div
-                      className=" css-g1d714-ValueContainer"
+                      className="be5-select__value-container be5-select__value-container--has-value css-g1d714-ValueContainer"
                     >
                       <div
-                        className=" css-1uccc91-singleValue"
+                        className="be5-select__single-value css-1uccc91-singleValue"
                       >
                         Vanilla
                       </div>
@@ -7156,7 +7232,7 @@ exports[`test outer 1`] = `
                         className="css-b8ldur-Input"
                       >
                         <div
-                          className=""
+                          className="be5-select__input"
                           style={
                             Object {
                               "display": "inline-block",
@@ -7211,14 +7287,33 @@ exports[`test outer 1`] = `
                       </div>
                     </div>
                     <div
-                      className=" css-1hb7zxy-IndicatorsContainer"
+                      className="be5-select__indicators css-1hb7zxy-IndicatorsContainer"
                     >
+                      <div
+                        aria-hidden="true"
+                        className="be5-select__indicator be5-select__clear-indicator css-tlfecz-indicatorContainer"
+                        onMouseDown={[Function]}
+                        onTouchEnd={[Function]}
+                      >
+                        <svg
+                          aria-hidden="true"
+                          className="css-6q0nyr-Svg"
+                          focusable="false"
+                          height={20}
+                          viewBox="0 0 20 20"
+                          width={20}
+                        >
+                          <path
+                            d="M14.348 14.849c-0.469 0.469-1.229 0.469-1.697 0l-2.651-3.030-2.651 3.029c-0.469 0.469-1.229 0.469-1.697 0-0.469-0.469-0.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-0.469-0.469-0.469-1.228 0-1.697s1.228-0.469 1.697 0l2.652 3.031 2.651-3.031c0.469-0.469 1.228-0.469 1.697 0s0.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c0.469 0.469 0.469 1.229 0 1.698z"
+                          />
+                        </svg>
+                      </div>
                       <span
-                        className=" css-1okebmr-indicatorSeparator"
+                        className="be5-select__indicator-separator css-1okebmr-indicatorSeparator"
                       />
                       <div
                         aria-hidden="true"
-                        className=" css-tlfecz-indicatorContainer"
+                        className="be5-select__indicator be5-select__dropdown-indicator css-tlfecz-indicatorContainer"
                         onMouseDown={[Function]}
                         onTouchEnd={[Function]}
                       >
@@ -7398,15 +7493,15 @@ exports[`test outer 1`] = `
                   onKeyDown={[Function]}
                 >
                   <div
-                    className=" css-yk16xz-control"
+                    className="be5-select__control css-yk16xz-control"
                     onMouseDown={[Function]}
                     onTouchEnd={[Function]}
                   >
                     <div
-                      className=" css-g1d714-ValueContainer"
+                      className="be5-select__value-container be5-select__value-container--has-value css-g1d714-ValueContainer"
                     >
                       <div
-                        className=" css-1uccc91-singleValue"
+                        className="be5-select__single-value css-1uccc91-singleValue"
                       >
                         Vanilla
                       </div>
@@ -7414,7 +7509,7 @@ exports[`test outer 1`] = `
                         className="css-b8ldur-Input"
                       >
                         <div
-                          className=""
+                          className="be5-select__input"
                           style={
                             Object {
                               "display": "inline-block",
@@ -7469,14 +7564,33 @@ exports[`test outer 1`] = `
                       </div>
                     </div>
                     <div
-                      className=" css-1hb7zxy-IndicatorsContainer"
+                      className="be5-select__indicators css-1hb7zxy-IndicatorsContainer"
                     >
+                      <div
+                        aria-hidden="true"
+                        className="be5-select__indicator be5-select__clear-indicator css-tlfecz-indicatorContainer"
+                        onMouseDown={[Function]}
+                        onTouchEnd={[Function]}
+                      >
+                        <svg
+                          aria-hidden="true"
+                          className="css-6q0nyr-Svg"
+                          focusable="false"
+                          height={20}
+                          viewBox="0 0 20 20"
+                          width={20}
+                        >
+                          <path
+                            d="M14.348 14.849c-0.469 0.469-1.229 0.469-1.697 0l-2.651-3.030-2.651 3.029c-0.469 0.469-1.229 0.469-1.697 0-0.469-0.469-0.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-0.469-0.469-0.469-1.228 0-1.697s1.228-0.469 1.697 0l2.652 3.031 2.651-3.031c0.469-0.469 1.228-0.469 1.697 0s0.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c0.469 0.469 0.469 1.229 0 1.698z"
+                          />
+                        </svg>
+                      </div>
                       <span
-                        className=" css-1okebmr-indicatorSeparator"
+                        className="be5-select__indicator-separator css-1okebmr-indicatorSeparator"
                       />
                       <div
                         aria-hidden="true"
-                        className=" css-tlfecz-indicatorContainer"
+                        className="be5-select__indicator be5-select__dropdown-indicator css-tlfecz-indicatorContainer"
                         onMouseDown={[Function]}
                         onTouchEnd={[Function]}
                       >
