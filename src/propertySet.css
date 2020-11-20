@@ -314,13 +314,13 @@ input:required, textarea:required {
   display: none;
 }
 
-.Select-placeholder,
-.Select--single > .Select-control .Select-value,
-.Select-input > input{
+.be5-select__placeholder,
+.Select--single > .be5-select__control .be5-select__value-container,
+.be5-select__input > input{
   line-height: 36px;
 }
-.Select-control,
-.Select-input{
+.be5-select__control,
+.be5-select__input{
   height: 36px;
   min-height: 36px;
 }
@@ -357,7 +357,7 @@ input:required, textarea:required {
 .Select--sm .be5-select__single-value,
 .Select--sm .be5-select__placeholder
 {
-  top: 35%;
+  top: 36%;
 }
 .Select--sm .be5-select__input{
   position: absolute;
@@ -365,10 +365,10 @@ input:required, textarea:required {
 }
 .Select--sm .be5-select__indicator{
   margin-bottom: 10px;
-}
-
-.be5-select__clear-indicator {
   padding-right: 0;
+  padding-left: 0;
+}
+.Select--sm .be5-select__clear-indicator {
   margin-right: -2px;
 }
 
@@ -389,6 +389,6 @@ input:required, textarea:required {
 .Select--lg .be5-select__option {
   font-size: 1.25rem;
 }
-.Select--lg .Select--multi .be5-select__value {
+.Select--lg .Select--multi .be5-select__value-container {
   margin-top: 7px;
 }
