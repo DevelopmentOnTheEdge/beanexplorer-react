@@ -310,10 +310,20 @@ input:required, textarea:required {
 
 /*react-select v3 classNamePrefix=be5-select*/
 /****************************************************************************/
-.be5-select__indicator-separator{
+.Select-outer .be5-select__indicator-separator{
   display: none;
 }
+.Select-outer .be5-select__control{
+  min-height: calc(1.25em + 0.814rem + 2px);
+}
+.Select-outer .be5-select__indicator,
+.Select-outer .be5-select__value-container
+{
+  padding-top: 0;
+  padding-bottom: 0;
+}
 
+/*
 .be5-select__placeholder,
 .Select--single > .be5-select__control .be5-select__value-container,
 .be5-select__input > input{
@@ -326,7 +336,7 @@ input:required, textarea:required {
 }
 .be5-select__input > input{
   padding: 0;
-}
+}*/
 
 .Select--sm .be5-select__placeholder,
 .Select--sm .be5-select__single > .be5-select__control .be5-select__value-container,
