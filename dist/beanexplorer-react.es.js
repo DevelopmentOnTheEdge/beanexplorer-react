@@ -559,12 +559,14 @@ var SelectPropertyInput = /*#__PURE__*/function (_BasePropertyInput) {
         loadingPlaceholder: localization.loadingPlaceholder,
         placeholder: extraAttrsMap.placeholder || localization.placeholder,
         backspaceRemovesValue: false,
+        isClearable: true,
         isDisabled: meta.readOnly,
         isMulti: meta.multipleSelectionList,
         filterOption: createFilter({
           matchFrom: extraAttrsMap.matchFrom || "any"
-        }) //required: !meta.canBeNull, removed	may be implemented in a later version
-
+        }),
+        //required: !meta.canBeNull, removed	may be implemented in a later version
+        classNamePrefix: 'be5-select'
       }; //required not working yet because add hacked Input with required attribute
 
       if (!meta.canBeNull) {
