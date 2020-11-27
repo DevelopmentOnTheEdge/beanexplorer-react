@@ -17,6 +17,24 @@ export default class SelectPropertyInput extends BasePropertyInput {
     this.state = {selectedOptions: []}
   }
 
+  /**
+   *  todo
+   *  https://ru.reactjs.org/docs/react-component.html#unsafe_componentwillreceiveprops
+   *  Чтобы «сбросить» некоторое состояние при изменении пропсов вместо componentWillReceiveProps
+   *  используйте управляемые компоненты или неуправляемые компоненты с ключом.
+   */
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    console.log(nextProps)
+    let value = nextProps.value;
+    if (Array.isArray(value) && value.length === 0 || Array.isArray(value) && value === '') {
+      this.setState({selectedOptions: []});
+    } else if (Array.isArray(value)) {
+      this.setState({selectedOptions: this.getOptions().filter(option => value.includes(option.value))});
+    } else {
+      this.setState({selectedOptions: this.getOptions().filter(option => option.value == value)});
+    }
+  }
+
   componentDidMount() {
     let value = this.getValue();
     if (Array.isArray(value) && value.length > 0) {
