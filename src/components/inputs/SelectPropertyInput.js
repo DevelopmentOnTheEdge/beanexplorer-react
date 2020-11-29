@@ -24,7 +24,6 @@ export default class SelectPropertyInput extends BasePropertyInput {
    *  используйте управляемые компоненты или неуправляемые компоненты с ключом.
    */
   UNSAFE_componentWillReceiveProps(nextProps) {
-    console.log(nextProps)
     let value = nextProps.value;
     if (Array.isArray(value) && value.length === 0 || Array.isArray(value) && value === '') {
       this.setState({selectedOptions: []});
