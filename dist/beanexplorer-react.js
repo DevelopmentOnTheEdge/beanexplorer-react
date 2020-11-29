@@ -487,8 +487,39 @@
       };
       return _this;
     }
+    /**
+     *  todo
+     *  https://ru.reactjs.org/docs/react-component.html#unsafe_componentwillreceiveprops
+     *  Чтобы «сбросить» некоторое состояние при изменении пропсов вместо componentWillReceiveProps
+     *  используйте управляемые компоненты или неуправляемые компоненты с ключом.
+     */
+
 
     _createClass$2(SelectPropertyInput, [{
+      key: "UNSAFE_componentWillReceiveProps",
+      value: function UNSAFE_componentWillReceiveProps(nextProps) {
+        console.log(nextProps);
+        var value = nextProps.value;
+
+        if (Array.isArray(value) && value.length === 0 || Array.isArray(value) && value === '') {
+          this.setState({
+            selectedOptions: []
+          });
+        } else if (Array.isArray(value)) {
+          this.setState({
+            selectedOptions: this.getOptions().filter(function (option) {
+              return value.includes(option.value);
+            })
+          });
+        } else {
+          this.setState({
+            selectedOptions: this.getOptions().filter(function (option) {
+              return option.value == value;
+            })
+          });
+        }
+      }
+    }, {
       key: "componentDidMount",
       value: function componentDidMount() {
         var value = this.getValue();
