@@ -105,7 +105,7 @@ export default class SelectPropertyInput extends BasePropertyInput {
       isDisabled: meta.readOnly,
       isMulti: meta.multipleSelectionList,
       filterOption: createFilter({matchFrom: extraAttrsMap.matchFrom || "any"}),
-      //required: !meta.canBeNull, removed	may be implemented in a later version
+      //required: !meta.canBeNull,
       classNamePrefix: 'be5-select'
     };
 
@@ -131,7 +131,7 @@ export default class SelectPropertyInput extends BasePropertyInput {
   }
 
   handleChangeSelect(object) {
-    this.setState({selectedOptions: Array.isArray(object) ? object : [object]}, function () {
+    this.setState({selectedOptions: Array.isArray(object) || object === null ? object : [object]}, function () {
       this.changeAndReload(SelectPropertyInput.getRawValue(object));
     });
   }
