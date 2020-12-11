@@ -490,7 +490,6 @@ var SelectPropertyInput = /*#__PURE__*/function (_BasePropertyInput) {
   _createClass$2(SelectPropertyInput, [{
     key: "UNSAFE_componentWillReceiveProps",
     value: function UNSAFE_componentWillReceiveProps(nextProps) {
-      console.log(nextProps);
       var value = nextProps.value;
 
       if (Array.isArray(value) && value.length === 0 || Array.isArray(value) && value === '') {
@@ -596,7 +595,7 @@ var SelectPropertyInput = /*#__PURE__*/function (_BasePropertyInput) {
         filterOption: createFilter({
           matchFrom: extraAttrsMap.matchFrom || "any"
         }),
-        //required: !meta.canBeNull, removed	may be implemented in a later version
+        //required: !meta.canBeNull,
         classNamePrefix: 'be5-select'
       }; //required not working yet because add hacked Input with required attribute
 
@@ -636,7 +635,7 @@ var SelectPropertyInput = /*#__PURE__*/function (_BasePropertyInput) {
     key: "handleChangeSelect",
     value: function handleChangeSelect(object) {
       this.setState({
-        selectedOptions: Array.isArray(object) ? object : [object]
+        selectedOptions: Array.isArray(object) || object === null ? object : [object]
       }, function () {
         this.changeAndReload(SelectPropertyInput.getRawValue(object));
       });
