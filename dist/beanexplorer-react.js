@@ -1,8 +1,8 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('react'), require('prop-types'), require('classnames'), require('react-maskedinput'), require('react-select'), require('react-select/creatable'), require('react-select-virtualized'), require('big-integer'), require('big-rational'), require('react-datetime'), require('moment'), require('ckeditor4-react'), require('react-select/async'), require('json-pointer')) :
-  typeof define === 'function' && define.amd ? define(['react', 'prop-types', 'classnames', 'react-maskedinput', 'react-select', 'react-select/creatable', 'react-select-virtualized', 'big-integer', 'big-rational', 'react-datetime', 'moment', 'ckeditor4-react', 'react-select/async', 'json-pointer'], factory) :
-  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.PropertySet = factory(global.React, global.PropTypes, global.classNames, global.MaskedInput, global.Select, global.Creatable, global.VirtualizedSelect, global.bigInt, global.bigRat, global.Datetime, global.moment, global.CKEditor, global.Async, global.JsonPointer));
-}(this, (function (React, PropTypes, classNames, MaskedInput, Select, Creatable, VirtualizedSelect, bigInt, bigRat, Datetime, moment, CKEditor, Async, JsonPointer) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('react'), require('prop-types'), require('classnames'), require('react-maskedinput'), require('react-select'), require('react-select/creatable'), require('react-windowed-select'), require('big-integer'), require('big-rational'), require('react-datetime'), require('moment'), require('ckeditor4-react'), require('react-select/async'), require('json-pointer')) :
+  typeof define === 'function' && define.amd ? define(['react', 'prop-types', 'classnames', 'react-maskedinput', 'react-select', 'react-select/creatable', 'react-windowed-select', 'big-integer', 'big-rational', 'react-datetime', 'moment', 'ckeditor4-react', 'react-select/async', 'json-pointer'], factory) :
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.PropertySet = factory(global.React, global.PropTypes, global.classNames, global.MaskedInput, global.Select, global.Creatable, global.WindowedSelect, global.bigInt, global.bigRat, global.Datetime, global.moment, global.CKEditor, global.Async, global.JsonPointer));
+}(this, (function (React, PropTypes, classNames, MaskedInput, Select, Creatable, WindowedSelect, bigInt, bigRat, Datetime, moment, CKEditor, Async, JsonPointer) { 'use strict';
 
   function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -12,7 +12,7 @@
   var MaskedInput__default = /*#__PURE__*/_interopDefaultLegacy(MaskedInput);
   var Select__default = /*#__PURE__*/_interopDefaultLegacy(Select);
   var Creatable__default = /*#__PURE__*/_interopDefaultLegacy(Creatable);
-  var VirtualizedSelect__default = /*#__PURE__*/_interopDefaultLegacy(VirtualizedSelect);
+  var WindowedSelect__default = /*#__PURE__*/_interopDefaultLegacy(WindowedSelect);
   var bigInt__default = /*#__PURE__*/_interopDefaultLegacy(bigInt);
   var bigRat__default = /*#__PURE__*/_interopDefaultLegacy(bigRat);
   var Datetime__default = /*#__PURE__*/_interopDefaultLegacy(Datetime);
@@ -442,6 +442,12 @@
 
   function _typeof$2(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof$2 = function _typeof(obj) { return typeof obj; }; } else { _typeof$2 = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof$2(obj); }
 
+  function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+  function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+  function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
   function _classCallCheck$2(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
   function _defineProperties$2(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -564,12 +570,27 @@
         if (extraAttrsMap.inputType === "Creatable") {
           return /*#__PURE__*/React__default['default'].createElement(Creatable__default['default'], selectAttr);
         } else if (extraAttrsMap.inputType === "VirtualizedSelect" || extraAttrsMap.inputType === undefined && meta.tagList.length >= 100) {
-          return /*#__PURE__*/React__default['default'].createElement(VirtualizedSelect__default['default'], _extends({
-            clearable: true,
-            searchable: true,
-            labelKey: "label",
-            valueKey: "value"
-          }, selectAttr));
+          var customStyles = {
+            option: function option(base) {
+              return _objectSpread({}, base);
+            }
+          };
+
+          if (this.props.inline) {
+            //todo not corrected calculate position multiline option with heigh < 35
+            var minHeight = this.props.bsSize === "sm" ? 29 : this.props.bsSize === "lg" ? 46 : 35;
+            customStyles = {
+              option: function option(base) {
+                return _objectSpread(_objectSpread({}, base), {}, {
+                  minHeight: minHeight
+                });
+              }
+            };
+          }
+
+          return /*#__PURE__*/React__default['default'].createElement(WindowedSelect__default['default'], _extends({}, selectAttr, {
+            styles: customStyles
+          }));
         } else {
           return /*#__PURE__*/React__default['default'].createElement(Select__default['default'], selectAttr);
         }
@@ -588,12 +609,9 @@
           value: this.state.selectedOptions,
           options: this.getOptions(),
           onChange: this.handleChangeSelect,
-          // clearAllText: localization.clearAllText removed
-          // clearValueText: localization.clearValueText removed
           noOptionsMessage: function noOptionsMessage() {
             return localization.noResultsText;
           },
-          // searchPromptText: localization.searchPromptText removed
           loadingPlaceholder: localization.loadingPlaceholder,
           placeholder: extraAttrsMap.placeholder || localization.placeholder,
           backspaceRemovesValue: false,
@@ -603,8 +621,8 @@
           filterOption: Select.createFilter({
             matchFrom: extraAttrsMap.matchFrom || "any"
           }),
-          //required: !meta.canBeNull,
-          classNamePrefix: 'be5-select'
+          classNamePrefix: 'be5-select',
+          menuIsOpen: true
         }; //required not working yet because add hacked Input with required attribute
 
         if (!meta.canBeNull) {

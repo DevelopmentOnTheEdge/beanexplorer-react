@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import MaskedInput from 'react-maskedinput';
 import Select, { createFilter, components } from 'react-select';
 import Creatable from 'react-select/creatable';
-import VirtualizedSelect from 'react-select-virtualized';
+import WindowedSelect from 'react-windowed-select';
 import bigInt from 'big-integer';
 import bigRat from 'big-rational';
 import Datetime from 'react-datetime';
@@ -434,6 +434,12 @@ var RadioSelectPropertyInput = /*#__PURE__*/function (_BasePropertyInput) {
 
 function _typeof$2(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof$2 = function _typeof(obj) { return typeof obj; }; } else { _typeof$2 = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof$2(obj); }
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck$2(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties$2(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -556,12 +562,27 @@ var SelectPropertyInput = /*#__PURE__*/function (_BasePropertyInput) {
       if (extraAttrsMap.inputType === "Creatable") {
         return /*#__PURE__*/React.createElement(Creatable, selectAttr);
       } else if (extraAttrsMap.inputType === "VirtualizedSelect" || extraAttrsMap.inputType === undefined && meta.tagList.length >= 100) {
-        return /*#__PURE__*/React.createElement(VirtualizedSelect, _extends({
-          clearable: true,
-          searchable: true,
-          labelKey: "label",
-          valueKey: "value"
-        }, selectAttr));
+        var customStyles = {
+          option: function option(base) {
+            return _objectSpread({}, base);
+          }
+        };
+
+        if (this.props.inline) {
+          //todo not corrected calculate position multiline option with heigh < 35
+          var minHeight = this.props.bsSize === "sm" ? 29 : this.props.bsSize === "lg" ? 46 : 35;
+          customStyles = {
+            option: function option(base) {
+              return _objectSpread(_objectSpread({}, base), {}, {
+                minHeight: minHeight
+              });
+            }
+          };
+        }
+
+        return /*#__PURE__*/React.createElement(WindowedSelect, _extends({}, selectAttr, {
+          styles: customStyles
+        }));
       } else {
         return /*#__PURE__*/React.createElement(Select, selectAttr);
       }
@@ -580,12 +601,9 @@ var SelectPropertyInput = /*#__PURE__*/function (_BasePropertyInput) {
         value: this.state.selectedOptions,
         options: this.getOptions(),
         onChange: this.handleChangeSelect,
-        // clearAllText: localization.clearAllText removed
-        // clearValueText: localization.clearValueText removed
         noOptionsMessage: function noOptionsMessage() {
           return localization.noResultsText;
         },
-        // searchPromptText: localization.searchPromptText removed
         loadingPlaceholder: localization.loadingPlaceholder,
         placeholder: extraAttrsMap.placeholder || localization.placeholder,
         backspaceRemovesValue: false,
@@ -595,8 +613,8 @@ var SelectPropertyInput = /*#__PURE__*/function (_BasePropertyInput) {
         filterOption: createFilter({
           matchFrom: extraAttrsMap.matchFrom || "any"
         }),
-        //required: !meta.canBeNull,
-        classNamePrefix: 'be5-select'
+        classNamePrefix: 'be5-select',
+        menuIsOpen: true
       }; //required not working yet because add hacked Input with required attribute
 
       if (!meta.canBeNull) {
