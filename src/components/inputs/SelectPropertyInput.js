@@ -112,7 +112,7 @@ export default class SelectPropertyInput extends BasePropertyInput {
       isMulti: meta.multipleSelectionList,
       filterOption: createFilter({matchFrom: extraAttrsMap.matchFrom || "any"}),
       classNamePrefix: 'be5-select',
-      menuIsOpen: true
+      // menuIsOpen: true
     };
 
     //required not working yet because add hacked Input with required attribute

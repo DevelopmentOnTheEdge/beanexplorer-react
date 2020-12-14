@@ -621,8 +621,8 @@
           filterOption: Select.createFilter({
             matchFrom: extraAttrsMap.matchFrom || "any"
           }),
-          classNamePrefix: 'be5-select',
-          menuIsOpen: true
+          classNamePrefix: 'be5-select' // menuIsOpen: true
+
         }; //required not working yet because add hacked Input with required attribute
 
         if (!meta.canBeNull) {
