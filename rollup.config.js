@@ -27,7 +27,7 @@ const globals = {
   'react-select': 'Select',
   'react-select/creatable': 'Creatable',
   'react-select/async': 'Async',
-  'react-select-virtualized': 'VirtualizedSelect',
+  'react-windowed-select': 'WindowedSelect',
   'big-integer': 'bigInt',
   'big-rational': 'bigRat',
 };

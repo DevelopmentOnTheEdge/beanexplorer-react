@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Select, {components, createFilter} from 'react-select';
 import Creatable from 'react-select/creatable';
-import VirtualizedSelect from 'react-select-virtualized'
+import WindowedSelect from "react-windowed-select";
 import BasePropertyInput from "./BasePropertyInput";
 
 const Input = props => {
@@ -68,13 +68,22 @@ export default class SelectPropertyInput extends BasePropertyInput {
     }
     else if (extraAttrsMap.inputType === "VirtualizedSelect"
       || (extraAttrsMap.inputType === undefined && meta.tagList.length >= 100)) {
-      return <VirtualizedSelect
-        clearable
-        searchable
-        labelKey="label"
-        valueKey="value"
-        {...selectAttr}
-      />
+      let customStyles = {
+        option: (base) => ({
+          ...base,
+        })
+      };
+      if (this.props.inline) {
+        //todo not corrected calculate position multiline option with heigh < 35
+        let minHeight = this.props.bsSize === "sm" ? 29 : (this.props.bsSize === "lg" ? 46 : 35);
+        customStyles = {
+          option: (base) => ({
+            ...base,
+            minHeight: minHeight
+          })
+        };
+      }
+      return <WindowedSelect {...selectAttr} styles={customStyles}/>
     }
     else {
       return <Select {...selectAttr} />;
@@ -94,10 +103,7 @@ export default class SelectPropertyInput extends BasePropertyInput {
       value: this.state.selectedOptions,
       options: this.getOptions(),
       onChange: this.handleChangeSelect,
-      // clearAllText: localization.clearAllText removed
-      // clearValueText: localization.clearValueText removed
       noOptionsMessage: () => localization.noResultsText,
-      // searchPromptText: localization.searchPromptText removed
       loadingPlaceholder: localization.loadingPlaceholder,
       placeholder: extraAttrsMap.placeholder || localization.placeholder,
       backspaceRemovesValue: false,
@@ -105,8 +111,8 @@ export default class SelectPropertyInput extends BasePropertyInput {
       isDisabled: meta.readOnly,
       isMulti: meta.multipleSelectionList,
       filterOption: createFilter({matchFrom: extraAttrsMap.matchFrom || "any"}),
-      //required: !meta.canBeNull,
-      classNamePrefix: 'be5-select'
+      classNamePrefix: 'be5-select',
+      menuIsOpen: true
     };
 
     //required not working yet because add hacked Input with required attribute
