@@ -21,8 +21,6 @@ $ npm install --save beanexplorer-react
 import PropertySet from 'beanexplorer-react';
 
 import 'react-datetime/css/react-datetime.css';
-import 'react-select/dist/react-select.css';
-import 'react-virtualized/styles.css';
 
 render() {
   const bean = {
