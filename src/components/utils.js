@@ -7,6 +7,10 @@ export const inputLabelSizeClasses = (props) => {
   )
 };
 
+export const isEmptyString = (str) =>{
+  return str === null || str === undefined || String(str) === '';
+}
+
 export const arraysEqual = function (a, b) {
   if (a === b) return true;
   if (a === null || b === null) return false;

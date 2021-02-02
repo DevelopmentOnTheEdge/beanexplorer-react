@@ -2,6 +2,7 @@ import React from 'react';
 import bigInt from "big-integer";
 import bigRat from "big-rational";
 import BasePropertyInput from "./BasePropertyInput";
+import {isEmptyString} from "../utils";
 
 
 export default class NumberPropertyInput extends BasePropertyInput {
@@ -32,12 +33,16 @@ export default class NumberPropertyInput extends BasePropertyInput {
   }
 
   numberValidation(e) {
+    if(isEmptyString(e.target.value)){
+      setErrorState(e, '');
+      return;
+    }
+
     const range = this.getNumberValidationRule('range');
     const step = this.getNumberValidationRule('step');
-
     const local = this.props.localization;
-
     let value;
+
     try {
       value = bigRat(e.target.value);
     } catch (err) {
