@@ -20,6 +20,9 @@ var inputLabelSizeClasses = function inputLabelSizeClasses(props) {
     'col-form-label-lg': props.bsSize === "lg"
   });
 };
+var isEmptyString = function isEmptyString(str) {
+  return str === null || str === undefined || String(str) === '';
+};
 var arraysEqual = function arraysEqual(a, b) {
   if (a === b) return true;
   if (a === null || b === null) return false;
@@ -759,6 +762,11 @@ var NumberPropertyInput = /*#__PURE__*/function (_BasePropertyInput) {
   }, {
     key: "numberValidation",
     value: function numberValidation(e) {
+      if (isEmptyString(e.target.value)) {
+        setErrorState(e, '');
+        return;
+      }
+
       var range = this.getNumberValidationRule('range');
       var step = this.getNumberValidationRule('step');
       var local = this.props.localization;
