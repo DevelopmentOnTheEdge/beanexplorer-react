@@ -3,7 +3,7 @@ React component for [BeanExplorer](https://github.com/DevelopmentOnTheEdge/beane
 serialized in [beans-json](https://github.com/DevelopmentOnTheEdge/beanexplorer/tree/master/json) 
 
 [![NPM Version](https://img.shields.io/npm/v/beanexplorer-react.svg?branch=master)](https://www.npmjs.com/package/beanexplorer-react)
-[![Build Status](https://travis-ci.org/DevelopmentOnTheEdge/beanexplorer-react.svg?branch=master)](https://travis-ci.org/DevelopmentOnTheEdge/beanexplorer-react)
+[![Build Status](https://travis-ci.com/DevelopmentOnTheEdge/beanexplorer-react.svg?branch=master)](https://travis-ci.com/DevelopmentOnTheEdge/beanexplorer-react)
 [![dependencies Status](https://david-dm.org/DevelopmentOnTheEdge/beanexplorer-react/status.svg)](https://david-dm.org/DevelopmentOnTheEdge/beanexplorer-react)
 [![Coverage Status](https://coveralls.io/repos/github/DevelopmentOnTheEdge/beanexplorer-react/badge.svg?branch=master)](https://coveralls.io/github/DevelopmentOnTheEdge/beanexplorer-react?branch=master)
 [![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://github.com/facebook/jest)
