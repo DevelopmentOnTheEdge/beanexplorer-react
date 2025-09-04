@@ -196,6 +196,7 @@ exports[`inline layout2 1`] = `
     <label
       className="form-control-label mr-sm-2"
       htmlFor="name2PropertyInput"
+      id="name2PropertyLabel"
     >
       Name
     </label>
@@ -226,6 +227,7 @@ exports[`inline layout2 1`] = `
     <label
       className="form-check-label"
       htmlFor="subject2PropertyInput"
+      id="subject2PropertyLabel"
     >
       Remember me
     </label>
@@ -448,6 +450,7 @@ exports[`snapshot bean 1`] = `
       <label
         className="form-control-label"
         htmlFor="textInputPropertyInput"
+        id="textInputPropertyLabel"
       >
         Text input
       </label>
@@ -477,6 +480,7 @@ exports[`snapshot bean 1`] = `
       <label
         className="form-control-label"
         htmlFor="datePropertyInput"
+        id="datePropertyLabel"
       >
         Date
       </label>
@@ -981,6 +985,7 @@ exports[`snapshot bean 1`] = `
       <label
         className="form-control-label"
         htmlFor="timePropertyInput"
+        id="timePropertyLabel"
       >
         Time
       </label>
@@ -1496,6 +1501,7 @@ exports[`snapshot bean 1`] = `
       <label
         className="form-control-label"
         htmlFor="timestampPropertyInput"
+        id="timestampPropertyLabel"
       >
         Timestamp
       </label>
@@ -2011,6 +2017,7 @@ exports[`snapshot bean 1`] = `
       <label
         className="form-control-label"
         htmlFor="numberPropertyInput"
+        id="numberPropertyLabel"
       >
         Number
       </label>
@@ -2042,6 +2049,7 @@ exports[`snapshot bean 1`] = `
       <label
         className="form-control-label"
         htmlFor="maskPropertyInput"
+        id="maskPropertyLabel"
       >
         Mask
       </label>
@@ -2075,6 +2083,7 @@ exports[`snapshot bean 1`] = `
       <label
         className="form-control-label"
         htmlFor="textAreaPropertyInput"
+        id="textAreaPropertyLabel"
       >
         TextArea
       </label>
@@ -2112,6 +2121,7 @@ exports[`snapshot bean 1`] = `
       <label
         className="form-check-label"
         htmlFor="checkBoxPropertyInput"
+        id="checkBoxPropertyLabel"
       >
         CheckBox
       </label>
@@ -2126,6 +2136,7 @@ exports[`snapshot bean 1`] = `
       <label
         className="form-control-label"
         htmlFor="filePropertyInput"
+        id="filePropertyLabel"
       >
         File
       </label>
@@ -2152,6 +2163,7 @@ exports[`snapshot bean 1`] = `
       <label
         className="form-control-label"
         htmlFor="base64FilePropertyInput"
+        id="base64FilePropertyLabel"
       >
         Base64File
       </label>
@@ -2177,6 +2189,7 @@ exports[`snapshot bean 1`] = `
       <label
         className="form-control-label"
         htmlFor="selectPropertyInput"
+        id="selectPropertyLabel"
       >
         Select
       </label>
@@ -2327,6 +2340,7 @@ exports[`snapshot bean 1`] = `
       <label
         className="form-control-label"
         htmlFor="asyncSelectPropertyInput"
+        id="asyncSelectPropertyLabel"
       >
         AsyncSelect
       </label>
@@ -2477,6 +2491,7 @@ exports[`snapshot bean 1`] = `
       <label
         className="form-control-label"
         htmlFor="virtualizedSelectPropertyInput"
+        id="virtualizedSelectPropertyLabel"
       >
         VirtualizedSelect
       </label>
@@ -2627,6 +2642,7 @@ exports[`snapshot bean 1`] = `
       <label
         className="form-control-label"
         htmlFor="multiSelectPropertyInput"
+        id="multiSelectPropertyLabel"
       >
         Multi Select
       </label>
@@ -2835,6 +2851,7 @@ exports[`snapshot bean 1`] = `
       <label
         className="form-control-label"
         htmlFor="radioButtonsPropertyInput"
+        id="radioButtonsPropertyLabel"
       >
         Test Radio buttons
       </label>
@@ -2910,6 +2927,7 @@ exports[`snapshot bean 1`] = `
       <label
         className="form-control-label"
         htmlFor="multiSelectViaCheckboxesPropertyInput"
+        id="multiSelectViaCheckboxesPropertyLabel"
       >
         Test Multi Select via CheckBoxes
       </label>
@@ -3084,6 +3102,7 @@ exports[`snapshot bean 1`] = `
       <label
         className="form-control-label"
         htmlFor="WYSIWYGPropertyInput"
+        id="WYSIWYGPropertyLabel"
       >
         WYSIWYG
       </label>
@@ -3113,6 +3132,7 @@ exports[`snapshot bean horizontal 1`] = `
         <label
           className="form-control-label col-form-label"
           htmlFor="textInputPropertyInput"
+          id="textInputPropertyLabel"
         >
           Text input
         </label>
@@ -3146,6 +3166,7 @@ exports[`snapshot bean horizontal 1`] = `
         <label
           className="form-control-label col-form-label"
           htmlFor="datePropertyInput"
+          id="datePropertyLabel"
         >
           Date
         </label>
@@ -3654,6 +3675,7 @@ exports[`snapshot bean horizontal 1`] = `
         <label
           className="form-control-label col-form-label"
           htmlFor="timePropertyInput"
+          id="timePropertyLabel"
         >
           Time
         </label>
@@ -4173,6 +4195,7 @@ exports[`snapshot bean horizontal 1`] = `
         <label
           className="form-control-label col-form-label"
           htmlFor="timestampPropertyInput"
+          id="timestampPropertyLabel"
         >
           Timestamp
         </label>
@@ -4692,6 +4715,7 @@ exports[`snapshot bean horizontal 1`] = `
         <label
           className="form-control-label col-form-label"
           htmlFor="numberPropertyInput"
+          id="numberPropertyLabel"
         >
           Number
         </label>
@@ -4727,6 +4751,7 @@ exports[`snapshot bean horizontal 1`] = `
         <label
           className="form-control-label col-form-label"
           htmlFor="maskPropertyInput"
+          id="maskPropertyLabel"
         >
           Mask
         </label>
@@ -4764,6 +4789,7 @@ exports[`snapshot bean horizontal 1`] = `
         <label
           className="form-control-label col-form-label"
           htmlFor="textAreaPropertyInput"
+          id="textAreaPropertyLabel"
         >
           TextArea
         </label>
@@ -4808,6 +4834,7 @@ exports[`snapshot bean horizontal 1`] = `
           <label
             className="form-check-label"
             htmlFor="checkBoxPropertyInput"
+            id="checkBoxPropertyLabel"
           >
             CheckBox
           </label>
@@ -4827,6 +4854,7 @@ exports[`snapshot bean horizontal 1`] = `
         <label
           className="form-control-label col-form-label"
           htmlFor="filePropertyInput"
+          id="filePropertyLabel"
         >
           File
         </label>
@@ -4857,6 +4885,7 @@ exports[`snapshot bean horizontal 1`] = `
         <label
           className="form-control-label col-form-label"
           htmlFor="base64FilePropertyInput"
+          id="base64FilePropertyLabel"
         >
           Base64File
         </label>
@@ -4886,6 +4915,7 @@ exports[`snapshot bean horizontal 1`] = `
         <label
           className="form-control-label col-form-label"
           htmlFor="selectPropertyInput"
+          id="selectPropertyLabel"
         >
           Select
         </label>
@@ -5040,6 +5070,7 @@ exports[`snapshot bean horizontal 1`] = `
         <label
           className="form-control-label col-form-label"
           htmlFor="asyncSelectPropertyInput"
+          id="asyncSelectPropertyLabel"
         >
           AsyncSelect
         </label>
@@ -5194,6 +5225,7 @@ exports[`snapshot bean horizontal 1`] = `
         <label
           className="form-control-label col-form-label"
           htmlFor="virtualizedSelectPropertyInput"
+          id="virtualizedSelectPropertyLabel"
         >
           VirtualizedSelect
         </label>
@@ -5348,6 +5380,7 @@ exports[`snapshot bean horizontal 1`] = `
         <label
           className="form-control-label col-form-label"
           htmlFor="multiSelectPropertyInput"
+          id="multiSelectPropertyLabel"
         >
           Multi Select
         </label>
@@ -5560,6 +5593,7 @@ exports[`snapshot bean horizontal 1`] = `
         <label
           className="form-control-label col-form-label"
           htmlFor="radioButtonsPropertyInput"
+          id="radioButtonsPropertyLabel"
         >
           Test Radio buttons
         </label>
@@ -5639,6 +5673,7 @@ exports[`snapshot bean horizontal 1`] = `
         <label
           className="form-control-label col-form-label"
           htmlFor="multiSelectViaCheckboxesPropertyInput"
+          id="multiSelectViaCheckboxesPropertyLabel"
         >
           Test Multi Select via CheckBoxes
         </label>
@@ -5831,6 +5866,7 @@ exports[`snapshot bean horizontal 1`] = `
         <label
           className="form-control-label col-form-label"
           htmlFor="WYSIWYGPropertyInput"
+          id="WYSIWYGPropertyLabel"
         >
           WYSIWYG
         </label>
@@ -5858,6 +5894,7 @@ exports[`snapshot bean with readOnly 1`] = `
       <label
         className="form-control-label"
         htmlFor="textInputPropertyInput"
+        id="textInputPropertyLabel"
       >
         Text input
       </label>
@@ -5888,6 +5925,7 @@ exports[`snapshot bean with readOnly 1`] = `
       <label
         className="form-control-label"
         htmlFor="datePropertyInput"
+        id="datePropertyLabel"
       >
         Date
       </label>
@@ -5918,6 +5956,7 @@ exports[`snapshot bean with readOnly 1`] = `
       <label
         className="form-control-label"
         htmlFor="timePropertyInput"
+        id="timePropertyLabel"
       >
         Time
       </label>
@@ -5948,6 +5987,7 @@ exports[`snapshot bean with readOnly 1`] = `
       <label
         className="form-control-label"
         htmlFor="timestampPropertyInput"
+        id="timestampPropertyLabel"
       >
         Timestamp
       </label>
@@ -5978,6 +6018,7 @@ exports[`snapshot bean with readOnly 1`] = `
       <label
         className="form-control-label"
         htmlFor="numberPropertyInput"
+        id="numberPropertyLabel"
       >
         Number
       </label>
@@ -6010,6 +6051,7 @@ exports[`snapshot bean with readOnly 1`] = `
       <label
         className="form-control-label"
         htmlFor="maskPropertyInput"
+        id="maskPropertyLabel"
       >
         Mask
       </label>
@@ -6044,6 +6086,7 @@ exports[`snapshot bean with readOnly 1`] = `
       <label
         className="form-control-label"
         htmlFor="textAreaPropertyInput"
+        id="textAreaPropertyLabel"
       >
         TextArea
       </label>
@@ -6083,6 +6126,7 @@ exports[`snapshot bean with readOnly 1`] = `
       <label
         className="form-check-label"
         htmlFor="checkBoxPropertyInput"
+        id="checkBoxPropertyLabel"
       >
         CheckBox
       </label>
@@ -6097,6 +6141,7 @@ exports[`snapshot bean with readOnly 1`] = `
       <label
         className="form-control-label"
         htmlFor="filePropertyInput"
+        id="filePropertyLabel"
       >
         File
       </label>
@@ -6124,6 +6169,7 @@ exports[`snapshot bean with readOnly 1`] = `
       <label
         className="form-control-label"
         htmlFor="base64FilePropertyInput"
+        id="base64FilePropertyLabel"
       >
         Base64File
       </label>
@@ -6150,6 +6196,7 @@ exports[`snapshot bean with readOnly 1`] = `
       <label
         className="form-control-label"
         htmlFor="selectPropertyInput"
+        id="selectPropertyLabel"
       >
         Select
       </label>
@@ -6276,6 +6323,7 @@ exports[`snapshot bean with readOnly 1`] = `
       <label
         className="form-control-label"
         htmlFor="asyncSelectPropertyInput"
+        id="asyncSelectPropertyLabel"
       >
         AsyncSelect
       </label>
@@ -6402,6 +6450,7 @@ exports[`snapshot bean with readOnly 1`] = `
       <label
         className="form-control-label"
         htmlFor="virtualizedSelectPropertyInput"
+        id="virtualizedSelectPropertyLabel"
       >
         VirtualizedSelect
       </label>
@@ -6528,6 +6577,7 @@ exports[`snapshot bean with readOnly 1`] = `
       <label
         className="form-control-label"
         htmlFor="multiSelectPropertyInput"
+        id="multiSelectPropertyLabel"
       >
         Multi Select
       </label>
@@ -6705,6 +6755,7 @@ exports[`snapshot bean with readOnly 1`] = `
       <label
         className="form-control-label"
         htmlFor="radioButtonsPropertyInput"
+        id="radioButtonsPropertyLabel"
       >
         Test Radio buttons
       </label>
@@ -6782,6 +6833,7 @@ exports[`snapshot bean with readOnly 1`] = `
       <label
         className="form-control-label"
         htmlFor="multiSelectViaCheckboxesPropertyInput"
+        id="multiSelectViaCheckboxesPropertyLabel"
       >
         Test Multi Select via CheckBoxes
       </label>
@@ -6962,6 +7014,7 @@ exports[`snapshot bean with readOnly 1`] = `
       <label
         className="form-control-label"
         htmlFor="WYSIWYGPropertyInput"
+        id="WYSIWYGPropertyLabel"
       >
         WYSIWYG
       </label>
@@ -7015,6 +7068,7 @@ exports[`test outer 1`] = `
             <label
               className="form-control-label"
               htmlFor="textInputPropertyInput"
+              id="textInputPropertyLabel"
             >
               Name
             </label>
@@ -7052,6 +7106,7 @@ exports[`test outer 1`] = `
             <label
               className="form-control-label"
               htmlFor="readonlyPlainTextPropertyInput"
+              id="readonlyPlainTextPropertyLabel"
             >
               Readonly plain text
             </label>
@@ -7090,6 +7145,7 @@ exports[`test outer 1`] = `
             <label
               className="form-check-label"
               htmlFor="checkBoxPropertyInput"
+              id="checkBoxPropertyLabel"
             >
               CheckBox
             </label>
@@ -7164,6 +7220,7 @@ exports[`test outer 1`] = `
             <label
               className="form-control-label"
               htmlFor="textInput2PropertyInput"
+              id="textInput2PropertyLabel"
             >
               Name
             </label>
@@ -7201,6 +7258,7 @@ exports[`test outer 1`] = `
             <label
               className="form-control-label"
               htmlFor="select2PropertyInput"
+              id="select2PropertyLabel"
             >
               Select
             </label>
@@ -7367,6 +7425,7 @@ exports[`test outer 1`] = `
             <label
               className="form-check-label"
               htmlFor="checkBox2PropertyInput"
+              id="checkBox2PropertyLabel"
             >
               CheckBox
             </label>
@@ -7441,6 +7500,7 @@ exports[`test outer 1`] = `
             <label
               className="form-control-label"
               htmlFor="textInput3PropertyInput"
+              id="textInput3PropertyLabel"
             >
               Name
             </label>
@@ -7478,6 +7538,7 @@ exports[`test outer 1`] = `
             <label
               className="form-control-label"
               htmlFor="select3PropertyInput"
+              id="select3PropertyLabel"
             >
               Select
             </label>
@@ -7644,6 +7705,7 @@ exports[`test outer 1`] = `
             <label
               className="form-check-label"
               htmlFor="checkBox3PropertyInput"
+              id="checkBox3PropertyLabel"
             >
               CheckBox
             </label>
@@ -7718,6 +7780,7 @@ exports[`test outer 1`] = `
             <label
               className="form-control-label"
               htmlFor="textInput4PropertyInput"
+              id="textInput4PropertyLabel"
             >
               Name
             </label>
@@ -7777,6 +7840,7 @@ exports[`test outer 1`] = `
             <label
               className="form-control-label"
               htmlFor="customSizeTextAreaPropertyInput"
+              id="customSizeTextAreaPropertyLabel"
             >
               Custom size textArea
             </label>
@@ -7806,6 +7870,7 @@ exports[`test outer 1`] = `
             <label
               className="form-control-label"
               htmlFor="namePropertyInput"
+              id="namePropertyLabel"
             >
               Name
             </label>
@@ -7835,6 +7900,7 @@ exports[`test outer 1`] = `
             <label
               className="form-control-label"
               htmlFor="subjectPropertyInput"
+              id="subjectPropertyLabel"
             >
               Subject
             </label>
@@ -7892,6 +7958,7 @@ exports[`test outer 1`] = `
             <label
               className="form-control-label"
               htmlFor="customSizeTextArea2PropertyInput"
+              id="customSizeTextArea2PropertyLabel"
             >
               TextArea in groupClasses
             </label>
@@ -7949,6 +8016,7 @@ exports[`test outer 1`] = `
             <label
               className="form-control-label"
               htmlFor="name2PropertyInput"
+              id="name2PropertyLabel"
             >
               Name
             </label>
@@ -7978,6 +8046,7 @@ exports[`test outer 1`] = `
             <label
               className="form-control-label"
               htmlFor="subject2PropertyInput"
+              id="subject2PropertyLabel"
             >
               Subject
             </label>
@@ -8044,6 +8113,7 @@ exports[`validationTest 1`] = `
             <label
               className="form-control-label"
               htmlFor="shortPropertyInput"
+              id="shortPropertyLabel"
             >
               Short
             </label>
@@ -8075,6 +8145,7 @@ exports[`validationTest 1`] = `
             <label
               className="form-control-label"
               htmlFor="integerPropertyInput"
+              id="integerPropertyLabel"
             >
               Integer
             </label>
@@ -8106,6 +8177,7 @@ exports[`validationTest 1`] = `
             <label
               className="form-control-label"
               htmlFor="longPropertyInput"
+              id="longPropertyLabel"
             >
               Long
             </label>
@@ -8137,6 +8209,7 @@ exports[`validationTest 1`] = `
             <label
               className="form-control-label"
               htmlFor="doublePropertyInput"
+              id="doublePropertyLabel"
             >
               Double
             </label>
@@ -8166,6 +8239,7 @@ exports[`validationTest 1`] = `
             <label
               className="form-control-label"
               htmlFor="doubleWithRangeAndStepPropertyInput"
+              id="doubleWithRangeAndStepPropertyLabel"
             >
               Number input with range and double step
             </label>
@@ -8196,6 +8270,7 @@ exports[`validationTest 1`] = `
             <label
               className="form-control-label"
               htmlFor="integerWithRangeAndStepPropertyInput"
+              id="integerWithRangeAndStepPropertyLabel"
             >
               Number input with range and integer step
             </label>
@@ -8257,6 +8332,7 @@ exports[`validationTest 1`] = `
             <label
               className="form-control-label"
               htmlFor="textInputPropertyInput"
+              id="textInputPropertyLabel"
             >
               Text input with columnSize
             </label>
@@ -8287,6 +8363,7 @@ exports[`validationTest 1`] = `
             <label
               className="form-control-label"
               htmlFor="textInputWithPatternPropertyInput"
+              id="textInputWithPatternPropertyLabel"
             >
               Text input with pattern
             </label>
@@ -8317,6 +8394,7 @@ exports[`validationTest 1`] = `
             <label
               className="form-control-label"
               htmlFor="textInputWithPatternAndMessagePropertyInput"
+              id="textInputWithPatternAndMessagePropertyLabel"
             >
               Text input with pattern and message
             </label>
@@ -8348,6 +8426,7 @@ exports[`validationTest 1`] = `
             <label
               className="form-control-label"
               htmlFor="passwordPropertyInput"
+              id="passwordPropertyLabel"
             >
               Password
             </label>
@@ -8377,6 +8456,7 @@ exports[`validationTest 1`] = `
             <label
               className="form-control-label"
               htmlFor="passwordInValidationRulesPropertyInput"
+              id="passwordInValidationRulesPropertyLabel"
             >
               Password in extraAttrs
             </label>
@@ -8406,6 +8486,7 @@ exports[`validationTest 1`] = `
             <label
               className="form-control-label"
               htmlFor="emailPropertyInput"
+              id="emailPropertyLabel"
             >
               Email type
             </label>

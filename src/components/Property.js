@@ -24,12 +24,14 @@ class Property extends React.Component {
   render() {
     const path = this.getPath();
     const meta = this.props.bean.meta[path];
-    const id = path.substring(path.lastIndexOf("/") + 1) + "PropertyInput";
+    const propName = path.substring(path.lastIndexOf("/") + 1);  
+    const id = propName + "PropertyInput";
+    const labelId = propName + "PropertyLabel";
     const extraAttrsMap = BasePropertyInput.getExtraAttrsMap(meta);
 
     let label;
     if (meta.displayName) {
-      label = <label
+      label = <label id={labelId}
         htmlFor={id}
         className={classNames(
           meta.type === 'Boolean' ? 'form-check-label' : 'form-control-label',

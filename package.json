@@ -22,6 +22,7 @@
   },
   "author": "Innokentiy Krivonosov",
   "dependencies": {
+    "beanexplorer-react": "^2.1.13",
     "big-integer": "^1.6.48",
     "big-rational": "^0.10.7",
     "ckeditor4-react": "^1.2.1",
