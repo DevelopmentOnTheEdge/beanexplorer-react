@@ -1874,12 +1874,15 @@
       value: function render() {
         var path = this.getPath();
         var meta = this.props.bean.meta[path];
-        var id = path.substring(path.lastIndexOf("/") + 1) + "PropertyInput";
+        var propName = path.substring(path.lastIndexOf("/") + 1);
+        var id = propName + "PropertyInput";
+        var labelId = propName + "PropertyLabel";
         var extraAttrsMap = BasePropertyInput.getExtraAttrsMap(meta);
         var label;
 
         if (meta.displayName) {
           label = /*#__PURE__*/React__default['default'].createElement("label", {
+            id: labelId,
             htmlFor: id,
             className: classNames__default['default'](meta.type === 'Boolean' ? 'form-check-label' : 'form-control-label', {
               'mr-sm-2': this.props.inline && meta.type !== 'Boolean'
