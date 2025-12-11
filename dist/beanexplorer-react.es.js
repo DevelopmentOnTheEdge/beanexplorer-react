@@ -936,7 +936,7 @@ var DateTimePropertyInput = /*#__PURE__*/function (_BasePropertyInput) {
             key: this.getID() + "Datetime",
             value: dateFromISOFormat(value),
             onChange: this.dateToISOFormat,
-            onBlur: this.reload //TODO reload only for valid date
+            onClose: this.reload //TODO reload only for valid date
             ,
             closeOnSelect: true,
             closeOnTab: true,
@@ -972,7 +972,7 @@ var DateTimePropertyInput = /*#__PURE__*/function (_BasePropertyInput) {
             key: this.getID() + "Datetime",
             value: timeFromISOFormat(value),
             onChange: this.timeToISOFormat,
-            onBlur: this.reload,
+            onClose: this.reload,
             closeOnSelect: true,
             closeOnTab: true,
             locale: this.props.localization.locale,
@@ -1009,7 +1009,7 @@ var DateTimePropertyInput = /*#__PURE__*/function (_BasePropertyInput) {
             key: this.getID() + "Datetime",
             value: timestampFromISOFormat(value),
             onChange: this.timestampToISOFormat,
-            onBlur: this.reload,
+            onClose: this.reload,
             closeOnSelect: true,
             closeOnTab: true,
             locale: this.props.localization.locale,
